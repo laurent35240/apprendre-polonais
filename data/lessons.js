@@ -456,8 +456,73 @@ window.POLISH_LESSONS = [
 
   /* ================================ 9 ================================ */
   {
-    id: "lesson-09",
+    id: "lesson-11",
     order: 9,
+    title: "Le calendrier — jours et mois",
+    theme: "calendrier",
+    mascotIntro:
+      "Żubr n'a jamais retenu quel jour on est : « On broute lundi ? Ou en juillet ? » Aide-le à maîtriser le calendrier polonais ! 📅",
+    grammarNotes: [
+      {
+        id: "g-cal-1",
+        title: "Les mois et « w + locatif » (en tel mois)",
+        explanationFr:
+          "Les mois sont tous masculins. Pour dire « en janvier », on utilise « w » + le locatif : styczeń → w styczniu, luty → w lutym, marzec → w marcu. Devant « wrzesień » on écrit « we wrześniu » (we pour faciliter la prononciation).",
+        examples: [
+          { pl: "w styczniu", fr: "en janvier", note: "styczeń → w styczniu" },
+          { pl: "we wrześniu", fr: "en septembre", note: "we + wrzesień → wrześniu" }
+        ]
+      },
+      {
+        id: "g-cal-2",
+        title: "Dire quel jour : « w + accusatif »",
+        explanationFr:
+          "Pour « le lundi / mardi… » on dit « w » + le jour à l'accusatif. Les jours masculins ne changent pas (w poniedziałek), les féminins en -a font -ę : środa → w środę, sobota → w sobotę, niedziela → w niedzielę. La date chiffrée complète (le 3 mai…) viendra plus tard.",
+        examples: [
+          { pl: "w poniedziałek", fr: "lundi (le lundi)", note: "masculin, inchangé" },
+          { pl: "w sobotę", fr: "samedi (le samedi)", note: "sobota → sobotę" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-cal-poniedzialek", pl: "poniedziałek", fr: "lundi", ipa: "poniedjawek", category: "jour" },
+      { id: "v-cal-wtorek", pl: "wtorek", fr: "mardi", category: "jour" },
+      { id: "v-cal-sroda", pl: "środa", fr: "mercredi", category: "jour" },
+      { id: "v-cal-czwartek", pl: "czwartek", fr: "jeudi", category: "jour" },
+      { id: "v-cal-piatek", pl: "piątek", fr: "vendredi", category: "jour" },
+      { id: "v-cal-sobota", pl: "sobota", fr: "samedi", category: "jour" },
+      { id: "v-cal-niedziela", pl: "niedziela", fr: "dimanche", category: "jour" },
+      { id: "v-cal-styczen", pl: "styczeń", fr: "janvier", category: "mois" },
+      { id: "v-cal-luty", pl: "luty", fr: "février", category: "mois" },
+      { id: "v-cal-marzec", pl: "marzec", fr: "mars", category: "mois" },
+      { id: "v-cal-kwiecien", pl: "kwiecień", fr: "avril", category: "mois" },
+      { id: "v-cal-maj", pl: "maj", fr: "mai", category: "mois" },
+      { id: "v-cal-czerwiec", pl: "czerwiec", fr: "juin", category: "mois" },
+      { id: "v-cal-lipiec", pl: "lipiec", fr: "juillet", category: "mois" },
+      { id: "v-cal-sierpien", pl: "sierpień", fr: "août", category: "mois" },
+      { id: "v-cal-wrzesien", pl: "wrzesień", fr: "septembre", category: "mois" },
+      { id: "v-cal-pazdziernik", pl: "październik", fr: "octobre", category: "mois" },
+      { id: "v-cal-listopad", pl: "listopad", fr: "novembre", category: "mois" },
+      { id: "v-cal-grudzien", pl: "grudzień", fr: "décembre", category: "mois" },
+      { id: "v-cal-miesiac", pl: "miesiąc", fr: "le mois", category: "temps" },
+      { id: "v-cal-kalendarz", pl: "kalendarz", fr: "le calendrier", category: "temps" }
+    ],
+    sentences: [
+      { id: "s-cal-1", pl: "Dzisiaj jest środa.", fr: "Aujourd'hui c'est mercredi.", grammarFocus: "g-cal-2",
+        wordBank: ["Dzisiaj", "jest", "środa"] },
+      { id: "s-cal-2", pl: "Moje urodziny są w maju.", fr: "Mon anniversaire est en mai.", grammarFocus: "g-cal-1",
+        wordBank: ["Moje", "urodziny", "są", "w", "maju"] },
+      { id: "s-cal-3", pl: "W sobotę idę do sklepu.", fr: "Samedi je vais au magasin.", grammarFocus: "g-cal-2",
+        wordBank: ["W", "sobotę", "idę", "do", "sklepu"] },
+      { id: "s-cal-4", pl: "Styczeń jest pierwszym miesiącem.", fr: "Janvier est le premier mois.", grammarFocus: "g-cal-1",
+        wordBank: ["Styczeń", "jest", "pierwszym", "miesiącem"] }
+    ]
+  },
+
+  /* ================================ 10 =============================== */
+  {
+    id: "lesson-09",
+    order: 10,
     title: "Les courses et les quantités — le génitif",
     theme: "courses",
     mascotIntro:
@@ -508,10 +573,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 10 =============================== */
+  /* ================================ 11 =============================== */
   {
     id: "lesson-10",
-    order: 10,
+    order: 11,
     title: "Projets et futur — l'aspect verbal",
     theme: "futur",
     mascotIntro:

@@ -57,16 +57,17 @@
     var order = lesson.order;
     var out = [];
 
-    // 1) Nouveau vocabulaire
-    (lesson.vocabulary || []).forEach(function (v, i) {
+    // 1) Nouveau vocabulaire (ordre mélangé pour éviter les séquences prévisibles,
+    //    ex. 1,2,3… dans la leçon des nombres)
+    E.shuffle(lesson.vocabulary || []).forEach(function (v, i) {
       var entry = E.getEntry(v.id);
       if (!entry) return;
       out.push(recognitionEx(entry, order, i));
       if (order >= 4 && i % 2 === 0) out.push(productionEx(entry, order));
     });
 
-    // 2) Phrases : reconstruction + trous (grammaire) + prononciation
-    (lesson.sentences || []).forEach(function (s, i) {
+    // 2) Phrases : reconstruction + trous (grammaire) + prononciation (ordre mélangé)
+    E.shuffle(lesson.sentences || []).forEach(function (s, i) {
       var entry = E.getEntry(s.id);
       if (!entry) return;
       out.push(E.makeBuild(entry));

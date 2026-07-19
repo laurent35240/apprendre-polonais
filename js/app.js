@@ -77,7 +77,7 @@
     var prog = window.Gamification.levelProgress(s.profile.totalXP);
     clear(topbar);
     var brand = el("div", { class: "brand", onclick: renderHome }, [
-      el("span", { class: "brand-emoji", text: window.UI.MASCOT }),
+      window.UI.mascotImg("base", "brand-emoji"),
       el("span", { class: "brand-name", text: "Polski z Żubrem" })
     ]);
     var stats = el("div", { class: "topstats" }, [
@@ -136,7 +136,7 @@
         mins +
         "). En avant !";
     var hero = el("div", { class: "hero card" }, [
-      el("div", { class: "hero-mascot", text: window.UI.MASCOT }),
+      window.UI.mascotImg("base", "hero-mascot"),
       el("div", { class: "hero-text" }, [
         el("h1", { text: "Cześć, Laurent !" }),
         el("p", { text: goalMsg })
@@ -229,7 +229,9 @@
             title: b.desc
           },
           [
-            el("div", { class: "badge-chip-emoji", text: earned ? b.emoji : "🔒" }),
+            earned
+              ? window.UI.badgeImg(b.id, b.emoji, "badge-chip-emoji")
+              : el("div", { class: "badge-chip-emoji locked-lock", text: "🔒" }),
             el("div", { class: "badge-chip-title", text: b.title })
           ]
         )
@@ -254,7 +256,7 @@
 
     var intro = el("div", { class: "card lesson-intro" }, [
       el("div", { class: "intro-head" }, [
-        el("span", { class: "intro-mascot", text: window.UI.MASCOT }),
+        window.UI.mascotImg("base", "intro-mascot"),
         el("div", {}, [
           el("h1", { text: lesson.title }),
           el("p", { class: "mascot-line", text: lesson.mascotIntro })
@@ -667,7 +669,7 @@
     var line = correct ? window.UI.cheer() : window.UI.consoleLine();
     var content = el("div", { class: "feedback-inner" }, [
       el("div", { class: "feedback-head" }, [
-        el("span", { class: "feedback-emoji", text: correct ? "✅" : "❌" }),
+        window.UI.mascotImg(correct ? "happy" : "sad", "feedback-mascot"),
         el("strong", { text: correct ? "Correct !" : "Presque…" })
       ]),
       el("div", { class: "feedback-msg", text: customMsg || line }),
@@ -747,7 +749,7 @@
     updateHeader();
     if (pct >= 60) window.UI.confetti();
 
-    var emoji = pct >= 90 ? "🏆" : pct >= 60 ? "🎉" : "💪";
+    var pose = pct >= 90 ? "celebrate" : pct >= 60 ? "happy" : "sad";
     var headline =
       pct >= 90
         ? "Wspaniale ! (Magnifique !)"
@@ -756,7 +758,7 @@
         : "On continue à s'entraîner !";
 
     var card = el("div", { class: "card summary" }, [
-      el("div", { class: "summary-emoji", text: emoji }),
+      window.UI.mascotImg(pose, "summary-emoji"),
       el("h1", { text: headline }),
       lessonDone
         ? el("p", { class: "summary-unlock", text: "🔓 Leçon terminée, la suivante est débloquée !" })
@@ -776,7 +778,7 @@
       newBadges.forEach(function (b) {
         bwrap.appendChild(
           el("div", { class: "newbadge-row" }, [
-            el("span", { class: "badge-chip-emoji", text: b.emoji }),
+            window.UI.badgeImg(b.id, b.emoji, "badge-chip-emoji"),
             el("div", {}, [
               el("strong", { text: b.title }),
               el("div", { class: "small", text: b.desc })

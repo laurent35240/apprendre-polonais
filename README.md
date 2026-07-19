@@ -69,13 +69,22 @@ fichier à toucher pour la langue, aucun code à modifier.
 
 Les badges sont dans **`data/badges.js`** (emoji, titre, description, condition).
 
+## 🎨 Images (mascotte & badges)
+
+Les illustrations kawaii de Żubr et des badges sont des PNG dans **`assets/img/`**
+(`zubr-base/happy/sad/celebrate.png`, `badge-<id>.png`, `favicon.png`). Elles ont
+été générées via le plugin `google-image-gen` (Gemini). Si une image est absente,
+l'app **retombe automatiquement sur l'emoji** correspondant — rien ne casse. Pour
+changer une illustration, remplace simplement le PNG (fond transparent, carré).
+
 ## 🗂️ Structure du projet
 
 ```
 index.html            page + ordre de chargement des scripts
 css/styles.css         thème fun, responsive, clair/sombre
+assets/img/            illustrations kawaii (mascotte Żubr + badges + favicon)
 data/lessons.js        ← LE CONTENU des leçons (à éditer)
-data/badges.js         définition des badges
+data/badges.js         définition des badges (emoji = repli si image absente)
 js/state.js            progression + sauvegarde (localStorage)
 js/srs.js              répétition espacée (Leitner)
 js/speech.js           synthèse + reconnaissance vocale

@@ -948,3 +948,29 @@ input[type="checkbox"] {
     font-size: 22px;
   }
 }
+
+/* =========================== Images (mascotte & badges) ============== */
+img.mascot-img,
+img.badge-img {
+  display: block;
+  object-fit: contain;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+/* Mascotte selon le contexte */
+img.brand-emoji { width: 36px; height: 36px; }
+img.hero-mascot { width: 120px; height: 120px; flex-shrink: 0; }
+img.intro-mascot { width: 78px; height: 78px; flex-shrink: 0; }
+img.feedback-mascot { width: 48px; height: 48px; }
+img.summary-emoji { width: 124px; height: 124px; margin: 0 auto; }
+/* Badges selon le contexte */
+img.badge-chip-emoji { width: 62px; height: 62px; margin: 0 auto; }
+img.badge-emoji { width: 48px; height: 48px; flex-shrink: 0; }
+.newbadge-row img.badge-chip-emoji { width: 46px; height: 46px; margin: 0; }
+
+/* Repli emoji si une image manque */
+.emoji-fallback { display: inline-block; line-height: 1; font-size: 2.2rem; }
+.emoji-fallback.brand-emoji { font-size: 26px; }
+.emoji-fallback.hero-mascot { font-size: 56px; }
+.emoji-fallback.summary-emoji { font-size: 64px; }
+.emoji-fallback.feedback-mascot { font-size: 24px; }

@@ -62,6 +62,38 @@
     return pick(CONSOLE_LINES);
   }
 
+  /* ---------------------------- images ------------------------------- */
+  // <img> de la mascotte, avec repli sur l'emoji si l'image manque.
+  // pose: base | hello | happy | sad | celebrate ; cls: classe(s) de taille.
+  function mascotImg(pose, cls) {
+    var img = el("img", {
+      class: "mascot-img " + (cls || ""),
+      src: "assets/img/zubr-" + pose + ".png",
+      alt: "Żubr",
+      draggable: "false"
+    });
+    img.addEventListener("error", function () {
+      var span = el("span", { class: "emoji-fallback " + (cls || ""), text: MASCOT });
+      if (img.parentNode) img.parentNode.replaceChild(span, img);
+    });
+    return img;
+  }
+
+  // <img> d'un badge (déduit du id), repli sur son emoji.
+  function badgeImg(badgeId, emoji, cls) {
+    var img = el("img", {
+      class: "badge-img " + (cls || ""),
+      src: "assets/img/badge-" + badgeId + ".png",
+      alt: "",
+      draggable: "false"
+    });
+    img.addEventListener("error", function () {
+      var span = el("span", { class: "emoji-fallback " + (cls || ""), text: emoji || "🏅" });
+      if (img.parentNode) img.parentNode.replaceChild(span, img);
+    });
+    return img;
+  }
+
   /* ------------------------------ toasts ------------------------------ */
   function toast(msg, kind) {
     var host = document.getElementById("toast-host");
@@ -84,7 +116,7 @@
     var host = document.getElementById("toast-host");
     if (!host) return;
     var t = el("div", { class: "toast badge-toast show" }, [
-      el("span", { class: "badge-emoji", text: badge.emoji }),
+      badgeImg(badge.id, badge.emoji, "badge-emoji"),
       el("div", {}, [
         el("strong", { text: "Badge débloqué !" }),
         el("div", { class: "small", text: badge.title })
@@ -199,6 +231,8 @@
     el: el,
     clear: clear,
     MASCOT: MASCOT,
+    mascotImg: mascotImg,
+    badgeImg: badgeImg,
     cheer: cheer,
     consoleLine: console_,
     toast: toast,

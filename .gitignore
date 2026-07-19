@@ -2,9 +2,18 @@
 .idea/
 .vscode/
 
+# Config locale Claude Code (état outillage, non lié à l'app)
+.claude/
+
 # macOS
 .DS_Store
 
 # Artefacts de test
 .playwright-mcp/
 *.log
+
+# Images sources brutes (avant détourage) — non versionnées, lourdes
+assets/gen/
+
+# venv Python éventuelle
+.venv/

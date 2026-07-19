@@ -1,0 +1,10 @@
+# Éditeurs / IDE
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
+
+# Artefacts de test
+.playwright-mcp/
+*.log

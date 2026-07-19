@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Polski z Żubrem — apprendre le polonais</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦬</text></svg>" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- Barre supérieure : marque, stats, objectif, réglages -->
+    <header id="topbar"></header>
+    <div class="xpbar"><div id="xpbar-fill" class="xpbar-fill"></div></div>
+
+    <!-- Conteneur principal des écrans -->
+    <main id="app" class="app"></main>
+
+    <!-- Zones d'effets -->
+    <div id="toast-host" class="toast-host"></div>
+    <div id="fx-host" class="fx-host" aria-hidden="true"></div>
+
+    <!-- Données (globals) -->
+    <script src="data/lessons.js"></script>
+    <script src="data/badges.js"></script>
+
+    <!-- Modules (ordre de dépendances) -->
+    <script src="js/state.js"></script>
+    <script src="js/srs.js"></script>
+    <script src="js/speech.js"></script>
+    <script src="js/gamification.js"></script>
+    <script src="js/exercises.js"></script>
+    <script src="js/session.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

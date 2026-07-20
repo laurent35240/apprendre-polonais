@@ -495,7 +495,11 @@
       }
     });
     input.addEventListener("keydown", function (e) {
-      if (e.key === "Enter") submit.click();
+      if (e.key === "Enter") {
+        e.preventDefault();
+        e.stopPropagation(); // évite que ce même Entrée déclenche « Continuer »
+        submit.click();
+      }
     });
     card.appendChild(el("div", { class: "type-row" }, [input, submit]));
     setTimeout(function () {

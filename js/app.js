@@ -26,6 +26,12 @@
     renderHome();
   }
 
+  // Remonte en haut de la page à chaque changement d'écran (sinon on reste
+  // à la position de défilement précédente).
+  function scrollTop() {
+    window.scrollTo(0, 0);
+  }
+
   /* ============================== THÈME ============================== */
   function applyTheme() {
     var s = window.State.get();
@@ -125,6 +131,7 @@
     updateHeader();
     var s = window.State.get();
     clear(appRoot);
+    scrollTop();
 
     // Bandeau mascotte
     var mins = Math.floor(s.dailyGoal.secondsToday / 60);
@@ -246,6 +253,7 @@
     var lesson = window.Session.lessonById(lessonId);
     if (!lesson) return;
     clear(appRoot);
+    scrollTop();
 
     var back = el("button", {
       class: "link-btn",
@@ -353,6 +361,7 @@
   function renderExercise() {
     var ex = session.exercises[session.index];
     clear(appRoot);
+    scrollTop();
 
     // Barre de progression de la session
     var ratio = session.index / session.exercises.length;
@@ -752,6 +761,7 @@
 
   function renderSummary(pct, correct, total, lessonDone, newBadges) {
     clear(appRoot);
+    scrollTop();
     updateHeader();
     if (pct >= 60) window.UI.confetti();
 
@@ -823,6 +833,7 @@
   function renderSettings() {
     var s = window.State.get();
     clear(appRoot);
+    scrollTop();
     appRoot.appendChild(
       el("button", { class: "link-btn", text: "‹ Retour", onclick: renderHome })
     );

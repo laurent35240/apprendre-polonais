@@ -75,16 +75,16 @@ window.POLISH_BADGES = [
     id: "halfway",
     emoji: "🚀",
     title: "À mi-chemin",
-    desc: "Terminer 5 leçons.",
+    desc: "Terminer 10 leçons.",
     check: (s) =>
-      Object.values(s.lessons).filter((l) => l.status === "completed").length >= 5
+      Object.values(s.lessons).filter((l) => l.status === "completed").length >= 10
   },
   {
     id: "graduate",
     emoji: "🎓",
     title: "Diplômé de Żubr",
-    desc: "Terminer les 10 leçons. Gratulacje !",
+    desc: "Terminer toutes les leçons. Gratulacje !",
     check: (s) =>
-      Object.values(s.lessons).filter((l) => l.status === "completed").length >= 10
+      Object.values(s.lessons).filter((l) => l.status === "completed").length >= 21
   }
 ];

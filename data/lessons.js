@@ -625,5 +625,563 @@ window.POLISH_LESSONS = [
       { id: "s-10-4", pl: "Będę pić mniej kawy.", fr: "Je boirai moins de café.", grammarFocus: "g-10-1",
         wordBank: ["Będę", "pić", "mniej", "kawy"] }
     ]
+  },
+
+  /* ================================ 12 =============================== */
+  {
+    id: "lesson-12",
+    order: 12,
+    title: "Les couleurs et les descriptions — l'adjectif",
+    theme: "adjectifs",
+    mascotIntro:
+      "Żubr est brun, la forêt est verte, son humeur est… variable. Apprenons à décrire le monde : place aux adjectifs et aux couleurs ! 🎨",
+    grammarNotes: [
+      {
+        id: "g-12-1",
+        title: "L'adjectif s'accorde en genre (nominatif)",
+        explanationFr:
+          "L'adjectif prend la terminaison du genre du nom : masculin -y/-i (czerwony), féminin -a (czerwona), neutre -e (czerwone). Il se place normalement AVANT le nom.",
+        examples: [
+          { pl: "czerwony samochód", fr: "une voiture rouge", note: "masculin → -y" },
+          { pl: "zielone jabłko", fr: "une pomme verte", note: "neutre → -e (jabłko)" }
+        ]
+      },
+      {
+        id: "g-12-2",
+        title: "Demander : jaki / jaka / jakie ?",
+        explanationFr:
+          "Pour demander « quel / comment est … ? » on accorde aussi : jaki (masc.), jaka (fém.), jakie (neutre). « Jaki to kolor? » = c'est quelle couleur ?",
+        examples: [
+          { pl: "Jaki to kolor?", fr: "C'est quelle couleur ?" },
+          { pl: "Jaka jest pogoda?", fr: "Quel temps fait-il ?" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-12-kolor", pl: "kolor", fr: "la couleur", category: "description" },
+      { id: "v-12-czerwony", pl: "czerwony", fr: "rouge", category: "couleur" },
+      { id: "v-12-niebieski", pl: "niebieski", fr: "bleu", ipa: "niébieski", category: "couleur" },
+      { id: "v-12-zielony", pl: "zielony", fr: "vert", category: "couleur" },
+      { id: "v-12-zolty", pl: "żółty", fr: "jaune", ipa: "jouwti", category: "couleur" },
+      { id: "v-12-czarny", pl: "czarny", fr: "noir", category: "couleur" },
+      { id: "v-12-bialy", pl: "biały", fr: "blanc", category: "couleur" },
+      { id: "v-12-duzy", pl: "duży", fr: "grand", category: "description" },
+      { id: "v-12-maly", pl: "mały", fr: "petit", category: "description" },
+      { id: "v-12-nowy", pl: "nowy", fr: "nouveau / neuf", category: "description" },
+      { id: "v-12-stary", pl: "stary", fr: "vieux", category: "description" },
+      { id: "v-12-ladny", pl: "ładny", fr: "joli", ipa: "wadni", category: "description" }
+    ],
+    sentences: [
+      { id: "s-12-1", pl: "To jest czerwony samochód.", fr: "C'est une voiture rouge.", grammarFocus: "g-12-1",
+        wordBank: ["To", "jest", "czerwony", "samochód"] },
+      { id: "s-12-2", pl: "Moja sukienka jest niebieska.", fr: "Ma robe est bleue.", grammarFocus: "g-12-1",
+        wordBank: ["Moja", "sukienka", "jest", "niebieska"] },
+      { id: "s-12-3", pl: "Zielone jabłko jest małe.", fr: "La pomme verte est petite.", grammarFocus: "g-12-1",
+        wordBank: ["Zielone", "jabłko", "jest", "małe"] },
+      { id: "s-12-4", pl: "Jaki to kolor?", fr: "C'est quelle couleur ?", grammarFocus: "g-12-2",
+        wordBank: ["Jaki", "to", "kolor"] }
+    ]
+  },
+
+  /* ================================ 13 =============================== */
+  {
+    id: "lesson-13",
+    order: 13,
+    title: "Parler d'hier — le passé",
+    theme: "passé",
+    mascotIntro:
+      "Hier, Żubr a brouté, s'est baigné, puis a dormi. Pour raconter tout ça, il faut le passé — et il change selon qu'on est un bison ou une bisonne ! 🕰️",
+    grammarNotes: [
+      {
+        id: "g-13-1",
+        title: "Le passé se marque au genre",
+        explanationFr:
+          "On part du radical + -ł- + terminaison, et la forme change selon le genre du sujet. Homme : byłem, robiłem. Femme : byłam, robiłam. Il/elle : był / była.",
+        examples: [
+          { pl: "Byłem w pracy.", fr: "J'étais au travail.", note: "homme → -łem" },
+          { pl: "Byłam w domu.", fr: "J'étais à la maison.", note: "femme → -łam" }
+        ]
+      },
+      {
+        id: "g-13-2",
+        title: "Situer dans le passé",
+        explanationFr:
+          "Le passé se combine avec des marqueurs : wczoraj (hier), … temu (il y a …), potem (ensuite). Au pluriel « nous » : byliśmy. « Rok temu byłem w Polsce. »",
+        examples: [
+          { pl: "Rok temu byłem w Polsce.", fr: "Il y a un an j'étais en Pologne." },
+          { pl: "Potem byliśmy w domu.", fr: "Ensuite nous étions à la maison." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-13-bylem", pl: "byłem", fr: "j'étais (homme)", category: "verbe" },
+      { id: "v-13-bylam", pl: "byłam", fr: "j'étais (femme)", category: "verbe" },
+      { id: "v-13-byl", pl: "był", fr: "il était", category: "verbe" },
+      { id: "v-13-byla", pl: "była", fr: "elle était", category: "verbe" },
+      { id: "v-13-mialem", pl: "miałem", fr: "j'avais (homme)", category: "verbe" },
+      { id: "v-13-robilem", pl: "robiłem", fr: "je faisais / j'ai fait (homme)", category: "verbe" },
+      { id: "v-13-zeszlytydzien", pl: "zeszły tydzień", fr: "la semaine dernière", category: "temps" },
+      { id: "v-13-temu", pl: "temu", fr: "il y a (ex. rok temu)", category: "temps" },
+      { id: "v-13-juz", pl: "już", fr: "déjà", category: "temps" },
+      { id: "v-13-potem", pl: "potem", fr: "ensuite", category: "temps" },
+      { id: "v-13-wycieczka", pl: "wycieczka", fr: "l'excursion", category: "voyage" }
+    ],
+    sentences: [
+      { id: "s-13-1", pl: "Wczoraj byłem w Krakowie.", fr: "Hier j'étais à Cracovie.", grammarFocus: "g-13-1",
+        wordBank: ["Wczoraj", "byłem", "w", "Krakowie"] },
+      { id: "s-13-2", pl: "Ona była w pracy.", fr: "Elle était au travail.", grammarFocus: "g-13-1",
+        wordBank: ["Ona", "była", "w", "pracy"] },
+      { id: "s-13-3", pl: "Rok temu byłem w Polsce.", fr: "Il y a un an j'étais en Pologne.", grammarFocus: "g-13-2",
+        wordBank: ["Rok", "temu", "byłem", "w", "Polsce"] },
+      { id: "s-13-4", pl: "Potem byliśmy w domu.", fr: "Ensuite nous étions à la maison.", grammarFocus: "g-13-2",
+        wordBank: ["Potem", "byliśmy", "w", "domu"] }
+    ]
+  },
+
+  /* ================================ 14 =============================== */
+  {
+    id: "lesson-14",
+    order: 14,
+    title: "La routine du matin — les verbes réfléchis (się)",
+    theme: "routine",
+    mascotIntro:
+      "Żubr se réveille, se lave (un peu), s'habille (pas besoin) et se dépêche. Le petit mot magique de la routine : « się ». 🌅",
+    grammarNotes: [
+      {
+        id: "g-14-1",
+        title: "Les verbes avec « się »",
+        explanationFr:
+          "Beaucoup de verbes du quotidien s'accompagnent de « się » (équivalent de « se »). « się » ne change JAMAIS de forme : myję się, ubieram się, uczę się.",
+        examples: [
+          { pl: "Myję się rano.", fr: "Je me lave le matin." },
+          { pl: "Uczę się polskiego.", fr: "J'apprends le polonais.", note: "uczyć się + génitif" }
+        ]
+      },
+      {
+        id: "g-14-2",
+        title: "Où placer « się » ?",
+        explanationFr:
+          "« się » se met en général juste après le verbe, mais on évite de le laisser en tout début ou toute fin de phrase. Il peut glisser avant le verbe : « Jak się nazywasz? ».",
+        examples: [
+          { pl: "Jak się nazywasz?", fr: "Comment t'appelles-tu ?" },
+          { pl: "Muszę się spieszyć.", fr: "Je dois me dépêcher." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-14-budzicsie", pl: "budzić się", fr: "se réveiller", category: "routine" },
+      { id: "v-14-wstawac", pl: "wstawać", fr: "se lever", category: "routine" },
+      { id: "v-14-mycsie", pl: "myć się", fr: "se laver", category: "routine" },
+      { id: "v-14-ubieracsie", pl: "ubierać się", fr: "s'habiller", category: "routine" },
+      { id: "v-14-spieszycsie", pl: "spieszyć się", fr: "se dépêcher", category: "routine" },
+      { id: "v-14-klascsie", pl: "kłaść się", fr: "se coucher", category: "routine" },
+      { id: "v-14-uczycsie", pl: "uczyć się", fr: "apprendre / étudier", category: "routine" },
+      { id: "v-14-odpoczywac", pl: "odpoczywać", fr: "se reposer", category: "routine" },
+      { id: "v-14-golicsie", pl: "golić się", fr: "se raser", category: "routine" },
+      { id: "v-14-czucsie", pl: "czuć się", fr: "se sentir", category: "routine" },
+      { id: "v-14-codziennie", pl: "codziennie", fr: "tous les jours", category: "temps" }
+    ],
+    sentences: [
+      { id: "s-14-1", pl: "Budzę się o siódmej.", fr: "Je me réveille à sept heures.", grammarFocus: "g-14-1",
+        wordBank: ["Budzę", "się", "o", "siódmej"] },
+      { id: "s-14-2", pl: "Uczę się polskiego codziennie.", fr: "J'apprends le polonais tous les jours.", grammarFocus: "g-14-1",
+        wordBank: ["Uczę", "się", "polskiego", "codziennie"] },
+      { id: "s-14-3", pl: "Jak się nazywasz?", fr: "Comment t'appelles-tu ?", grammarFocus: "g-14-2",
+        wordBank: ["Jak", "się", "nazywasz"] },
+      { id: "s-14-4", pl: "Muszę się spieszyć.", fr: "Je dois me dépêcher.", grammarFocus: "g-14-2",
+        wordBank: ["Muszę", "się", "spieszyć"] }
+    ]
+  },
+
+  /* ================================ 15 =============================== */
+  {
+    id: "lesson-15",
+    order: 15,
+    title: "Le corps et la santé — chez le médecin",
+    theme: "santé",
+    mascotIntro:
+      "« Aïe, Żubr a mal à la corne ! » Chez le médecin, il faut savoir dire où on a mal. Apprenons le corps et la santé. 🩺",
+    grammarNotes: [
+      {
+        id: "g-15-1",
+        title: "Dire où on a mal : « boli mnie … »",
+        explanationFr:
+          "La partie du corps est le SUJET (au nominatif) et « mnie » = « me » (accusatif). « Boli mnie głowa » = j'ai mal à la tête. Au pluriel, le verbe devient « bolą » : « Bolą mnie nogi ».",
+        examples: [
+          { pl: "Boli mnie głowa.", fr: "J'ai mal à la tête.", note: "singulier → boli" },
+          { pl: "Bolą mnie nogi.", fr: "J'ai mal aux jambes.", note: "pluriel → bolą" }
+        ]
+      },
+      {
+        id: "g-15-2",
+        title: "Chez quelqu'un : « u » + génitif",
+        explanationFr:
+          "Pour « chez le médecin » on utilise « u » + génitif (lekarz → u lekarza). Pour aller quelque part : « do » + génitif (do lekarza, do apteki).",
+        examples: [
+          { pl: "Idę do lekarza.", fr: "Je vais chez le médecin.", note: "do + génitif" },
+          { pl: "Jestem u lekarza.", fr: "Je suis chez le médecin.", note: "u + génitif" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-15-glowa", pl: "głowa", fr: "la tête", category: "corps" },
+      { id: "v-15-gardlo", pl: "gardło", fr: "la gorge", category: "corps" },
+      { id: "v-15-reka", pl: "ręka", fr: "la main / le bras", category: "corps" },
+      { id: "v-15-noga", pl: "noga", fr: "la jambe / le pied", category: "corps" },
+      { id: "v-15-brzuch", pl: "brzuch", fr: "le ventre", category: "corps" },
+      { id: "v-15-zab", pl: "ząb", fr: "la dent", category: "corps" },
+      { id: "v-15-oko", pl: "oko", fr: "l'œil", category: "corps" },
+      { id: "v-15-lekarz", pl: "lekarz", fr: "le médecin", category: "santé" },
+      { id: "v-15-apteka", pl: "apteka", fr: "la pharmacie", category: "santé" },
+      { id: "v-15-chory", pl: "chory", fr: "malade", category: "santé" },
+      { id: "v-15-zdrowy", pl: "zdrowy", fr: "en bonne santé", category: "santé" },
+      { id: "v-15-lek", pl: "lek", fr: "le médicament", category: "santé" }
+    ],
+    sentences: [
+      { id: "s-15-1", pl: "Boli mnie głowa.", fr: "J'ai mal à la tête.", grammarFocus: "g-15-1",
+        wordBank: ["Boli", "mnie", "głowa"] },
+      { id: "s-15-2", pl: "Bolą mnie nogi.", fr: "J'ai mal aux jambes.", grammarFocus: "g-15-1",
+        wordBank: ["Bolą", "mnie", "nogi"] },
+      { id: "s-15-3", pl: "Idę do lekarza.", fr: "Je vais chez le médecin.", grammarFocus: "g-15-2",
+        wordBank: ["Idę", "do", "lekarza"] },
+      { id: "s-15-4", pl: "Gdzie jest apteka?", fr: "Où est la pharmacie ?", grammarFocus: "g-15-2",
+        wordBank: ["Gdzie", "jest", "apteka"] }
+    ]
+  },
+
+  /* ================================ 16 =============================== */
+  {
+    id: "lesson-16",
+    order: 16,
+    title: "En ville — trouver son chemin",
+    theme: "ville",
+    mascotIntro:
+      "Żubr est perdu en ville : la gare, à droite ? tout droit ? Apprenons à demander et indiquer le chemin. 🗺️",
+    grammarNotes: [
+      {
+        id: "g-16-1",
+        title: "Aller à pied ou en véhicule : iść vs jechać",
+        explanationFr:
+          "« iść » = aller à pied (idę, idziesz…). « jechać » = aller en véhicule (jadę, jedziesz…). On choisit selon le moyen ! Destination : « do » + génitif.",
+        examples: [
+          { pl: "Idę do sklepu.", fr: "Je vais au magasin (à pied).", note: "iść → idę" },
+          { pl: "Jadę do Warszawy.", fr: "Je vais à Varsovie (en véhicule).", note: "jechać → jadę" }
+        ]
+      },
+      {
+        id: "g-16-2",
+        title: "Indiquer la direction",
+        explanationFr:
+          "« prosto » = tout droit, « w prawo » = à droite, « w lewo » = à gauche, « skręcić » = tourner. « blisko » = près, « daleko » = loin.",
+        examples: [
+          { pl: "Skręć w prawo.", fr: "Tourne à droite." },
+          { pl: "Idź prosto.", fr: "Va tout droit." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-16-miasto", pl: "miasto", fr: "la ville", category: "ville" },
+      { id: "v-16-ulica", pl: "ulica", fr: "la rue", category: "ville" },
+      { id: "v-16-dworzec", pl: "dworzec", fr: "la gare", category: "ville" },
+      { id: "v-16-przystanek", pl: "przystanek", fr: "l'arrêt", category: "ville" },
+      { id: "v-16-most", pl: "most", fr: "le pont", category: "ville" },
+      { id: "v-16-skrecic", pl: "skręcić", fr: "tourner", category: "direction" },
+      { id: "v-16-prosto", pl: "prosto", fr: "tout droit", category: "direction" },
+      { id: "v-16-wprawo", pl: "w prawo", fr: "à droite", category: "direction" },
+      { id: "v-16-wlewo", pl: "w lewo", fr: "à gauche", category: "direction" },
+      { id: "v-16-blisko", pl: "blisko", fr: "près", category: "direction" },
+      { id: "v-16-daleko", pl: "daleko", fr: "loin", category: "direction" },
+      { id: "v-16-mapa", pl: "mapa", fr: "la carte", category: "ville" }
+    ],
+    sentences: [
+      { id: "s-16-1", pl: "Idę do dworca.", fr: "Je vais à la gare.", grammarFocus: "g-16-1",
+        wordBank: ["Idę", "do", "dworca"] },
+      { id: "s-16-2", pl: "Jadę do Warszawy.", fr: "Je vais à Varsovie.", grammarFocus: "g-16-1",
+        wordBank: ["Jadę", "do", "Warszawy"] },
+      { id: "s-16-3", pl: "Skręć w prawo.", fr: "Tourne à droite.", grammarFocus: "g-16-2",
+        wordBank: ["Skręć", "w", "prawo"] },
+      { id: "s-16-4", pl: "Przystanek jest blisko.", fr: "L'arrêt est près.", grammarFocus: "g-16-2",
+        wordBank: ["Przystanek", "jest", "blisko"] }
+    ]
+  },
+
+  /* ================================ 17 =============================== */
+  {
+    id: "lesson-17",
+    order: 17,
+    title: "Les transports — l'instrumental",
+    theme: "instrumental",
+    mascotIntro:
+      "Żubr voyage : en bus, en train, avec un copain… Le cas « instrumental » sert au moyen de transport ET à dire son métier. 🚋",
+    grammarNotes: [
+      {
+        id: "g-17-1",
+        title: "Le moyen de transport : instrumental",
+        explanationFr:
+          "« comment ? / par quel moyen ? » → instrumental. Masculin/neutre → -em : autobus → autobusem, pociąg → pociągiem, samochód → samochodem. « Jadę autobusem. »",
+        examples: [
+          { pl: "Jadę autobusem.", fr: "Je vais en bus.", note: "autobus → autobusem" },
+          { pl: "Jadę pociągiem.", fr: "Je vais en train.", note: "pociąg → pociągiem" }
+        ]
+      },
+      {
+        id: "g-17-2",
+        title: "« avec » et le métier : instrumental aussi",
+        explanationFr:
+          "« z » + instrumental = avec (z kolegą). Et le métier après « być » se met à l'instrumental : « Jestem nauczycielem » (masc. -em), « Jestem lekarką » (fém. -ą).",
+        examples: [
+          { pl: "Jestem nauczycielem.", fr: "Je suis enseignant.", note: "métier → instrumental" },
+          { pl: "Idę z kolegą.", fr: "Je vais avec un copain.", note: "kolega → z kolegą" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-17-autobus", pl: "autobus", fr: "le bus", category: "transport" },
+      { id: "v-17-pociag", pl: "pociąg", fr: "le train", category: "transport" },
+      { id: "v-17-samochod", pl: "samochód", fr: "la voiture", category: "transport" },
+      { id: "v-17-rower", pl: "rower", fr: "le vélo", category: "transport" },
+      { id: "v-17-samolot", pl: "samolot", fr: "l'avion", category: "transport" },
+      { id: "v-17-nauczyciel", pl: "nauczyciel", fr: "l'enseignant", category: "métier" },
+      { id: "v-17-inzynier", pl: "inżynier", fr: "l'ingénieur", category: "métier" },
+      { id: "v-17-kierowca", pl: "kierowca", fr: "le chauffeur", category: "métier" },
+      { id: "v-17-kolega", pl: "kolega", fr: "le copain / collègue", category: "personne" },
+      { id: "v-17-bilet", pl: "bilet", fr: "le billet", category: "transport" },
+      { id: "v-17-peron", pl: "peron", fr: "le quai", category: "transport" },
+      { id: "v-17-lotnisko", pl: "lotnisko", fr: "l'aéroport", category: "transport" }
+    ],
+    sentences: [
+      { id: "s-17-1", pl: "Jadę autobusem do pracy.", fr: "Je vais au travail en bus.", grammarFocus: "g-17-1",
+        wordBank: ["Jadę", "autobusem", "do", "pracy"] },
+      { id: "s-17-2", pl: "Jadę do Krakowa pociągiem.", fr: "Je vais à Cracovie en train.", grammarFocus: "g-17-1",
+        wordBank: ["Jadę", "do", "Krakowa", "pociągiem"] },
+      { id: "s-17-3", pl: "Jestem nauczycielem.", fr: "Je suis enseignant.", grammarFocus: "g-17-2",
+        wordBank: ["Jestem", "nauczycielem"] },
+      { id: "s-17-4", pl: "Idę z kolegą.", fr: "Je vais avec un copain.", grammarFocus: "g-17-2",
+        wordBank: ["Idę", "z", "kolegą"] }
+    ]
+  },
+
+  /* ================================ 18 =============================== */
+  {
+    id: "lesson-18",
+    order: 18,
+    title: "Au marché et à table — le datif",
+    theme: "datif",
+    mascotIntro:
+      "Żubr adore le marché : « Ce chou me plaît ! » Pour dire « à qui » et « ça me plaît », voici le datif. 🥕",
+    grammarNotes: [
+      {
+        id: "g-18-1",
+        title: "« ça me plaît » : podoba mi się / smakuje mi",
+        explanationFr:
+          "Le datif répond à « à qui ? ». Pronoms : mi (à moi), ci (à toi), mu (à lui), jej (à elle), nam (à nous). « Podoba mi się » = ça me plaît ; « smakuje mi » = c'est bon (au goût) pour moi.",
+        examples: [
+          { pl: "Podoba mi się Kraków.", fr: "Cracovie me plaît." },
+          { pl: "Smakuje mi ta zupa.", fr: "Cette soupe me plaît (est bonne)." }
+        ]
+      },
+      {
+        id: "g-18-2",
+        title: "Donner / aider à quelqu'un",
+        explanationFr:
+          "Les verbes dawać (donner), pomagać (aider), dziękować (remercier) demandent le datif. Le nom change : mama → mamie, kolega → koledze.",
+        examples: [
+          { pl: "Daję prezent mamie.", fr: "Je donne un cadeau à maman.", note: "mama → mamie" },
+          { pl: "Pomagam koledze.", fr: "J'aide un copain.", note: "kolega → koledze" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-18-targ", pl: "targ", fr: "le marché", category: "courses" },
+      { id: "v-18-warzywa", pl: "warzywa", fr: "les légumes", category: "nourriture" },
+      { id: "v-18-owoce", pl: "owoce", fr: "les fruits", category: "nourriture" },
+      { id: "v-18-pomidor", pl: "pomidor", fr: "la tomate", category: "nourriture" },
+      { id: "v-18-marchewka", pl: "marchewka", fr: "la carotte", category: "nourriture" },
+      { id: "v-18-cebula", pl: "cebula", fr: "l'oignon", category: "nourriture" },
+      { id: "v-18-smaczny", pl: "smaczny", fr: "savoureux / bon", category: "description" },
+      { id: "v-18-swiezy", pl: "świeży", fr: "frais", category: "description" },
+      { id: "v-18-prezent", pl: "prezent", fr: "le cadeau", category: "objet" },
+      { id: "v-18-dawac", pl: "dawać", fr: "donner", category: "verbe" },
+      { id: "v-18-pomagac", pl: "pomagać", fr: "aider", category: "verbe" },
+      { id: "v-18-podobamisie", pl: "podoba mi się", fr: "ça me plaît", category: "expression" }
+    ],
+    sentences: [
+      { id: "s-18-1", pl: "Podoba mi się Kraków.", fr: "Cracovie me plaît.", grammarFocus: "g-18-1",
+        wordBank: ["Podoba", "mi", "się", "Kraków"] },
+      { id: "s-18-2", pl: "Smakuje mi ta zupa.", fr: "Cette soupe me plaît.", grammarFocus: "g-18-1",
+        wordBank: ["Smakuje", "mi", "ta", "zupa"] },
+      { id: "s-18-3", pl: "Daję prezent mamie.", fr: "Je donne un cadeau à maman.", grammarFocus: "g-18-2",
+        wordBank: ["Daję", "prezent", "mamie"] },
+      { id: "s-18-4", pl: "Pomagam koledze.", fr: "J'aide un copain.", grammarFocus: "g-18-2",
+        wordBank: ["Pomagam", "koledze"] }
+    ]
+  },
+
+  /* ================================ 19 =============================== */
+  {
+    id: "lesson-19",
+    order: 19,
+    title: "Comparer — le comparatif et le superlatif",
+    theme: "comparaisons",
+    mascotIntro:
+      "Żubr est le plus grand, le plus fort, le plus modeste aussi… Apprenons à comparer : plus grand, moins cher, le meilleur ! 🏅",
+    grammarNotes: [
+      {
+        id: "g-19-1",
+        title: "Le comparatif : -szy ou bardziej + « niż »",
+        explanationFr:
+          "Adjectifs courts : + -szy (tani → tańszy, duży → większy). Irréguliers : dobry → lepszy, zły → gorszy. On compare avec « niż » : « większy niż … ».",
+        examples: [
+          { pl: "Warszawa jest większa niż Kraków.", fr: "Varsovie est plus grande que Cracovie." },
+          { pl: "Ten hotel jest tańszy.", fr: "Cet hôtel est moins cher.", note: "tani → tańszy" }
+        ]
+      },
+      {
+        id: "g-19-2",
+        title: "Le superlatif : naj- + comparatif",
+        explanationFr:
+          "On ajoute « naj- » devant le comparatif : lepszy → najlepszy, większy → największy, tańszy → najtańszy. « To jest najlepszy hotel. »",
+        examples: [
+          { pl: "To jest najlepszy hotel.", fr: "C'est le meilleur hôtel." },
+          { pl: "To najtańszy bilet.", fr: "C'est le billet le moins cher." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-19-tani", pl: "tani", fr: "bon marché", category: "description" },
+      { id: "v-19-drogi", pl: "drogi", fr: "cher", category: "description" },
+      { id: "v-19-tanszy", pl: "tańszy", fr: "moins cher", category: "comparaison" },
+      { id: "v-19-drozszy", pl: "droższy", fr: "plus cher", category: "comparaison" },
+      { id: "v-19-lepszy", pl: "lepszy", fr: "meilleur", category: "comparaison" },
+      { id: "v-19-gorszy", pl: "gorszy", fr: "pire", category: "comparaison" },
+      { id: "v-19-wiekszy", pl: "większy", fr: "plus grand", category: "comparaison" },
+      { id: "v-19-mniejszy", pl: "mniejszy", fr: "plus petit", category: "comparaison" },
+      { id: "v-19-szybki", pl: "szybki", fr: "rapide", category: "description" },
+      { id: "v-19-wolny", pl: "wolny", fr: "lent / libre", category: "description" },
+      { id: "v-19-niz", pl: "niż", fr: "que (comparaison)", category: "grammaire" },
+      { id: "v-19-najlepszy", pl: "najlepszy", fr: "le meilleur", category: "comparaison" }
+    ],
+    sentences: [
+      { id: "s-19-1", pl: "Ten hotel jest tańszy.", fr: "Cet hôtel est moins cher.", grammarFocus: "g-19-1",
+        wordBank: ["Ten", "hotel", "jest", "tańszy"] },
+      { id: "s-19-2", pl: "Warszawa jest większa niż Kraków.", fr: "Varsovie est plus grande que Cracovie.", grammarFocus: "g-19-1",
+        wordBank: ["Warszawa", "jest", "większa", "niż", "Kraków"] },
+      { id: "s-19-3", pl: "To jest najlepszy hotel.", fr: "C'est le meilleur hôtel.", grammarFocus: "g-19-2",
+        wordBank: ["To", "jest", "najlepszy", "hotel"] },
+      { id: "s-19-4", pl: "Pociąg jest szybszy niż autobus.", fr: "Le train est plus rapide que le bus.", grammarFocus: "g-19-1",
+        wordBank: ["Pociąg", "jest", "szybszy", "niż", "autobus"] }
+    ]
+  },
+
+  /* ================================ 20 =============================== */
+  {
+    id: "lesson-20",
+    order: 20,
+    title: "La météo et les saisons",
+    theme: "météo",
+    mascotIntro:
+      "Pluie, neige, soleil : Żubr broute par tous les temps. Parlons météo et saisons ! ☀️🌧️❄️",
+    grammarNotes: [
+      {
+        id: "g-20-1",
+        title: "Le temps qu'il fait : tournures impersonnelles",
+        explanationFr:
+          "Pas de sujet : « jest » + adverbe (jest zimno = il fait froid, jest ciepło = il fait chaud). Pour la pluie/neige : « pada deszcz » (il pleut), « pada śnieg » (il neige).",
+        examples: [
+          { pl: "Dziś jest zimno.", fr: "Aujourd'hui il fait froid." },
+          { pl: "Pada deszcz.", fr: "Il pleut." }
+        ]
+      },
+      {
+        id: "g-20-2",
+        title: "« en été, en hiver… » : les saisons à l'instrumental",
+        explanationFr:
+          "Pour dire « en telle saison », la saison passe à l'instrumental : wiosna → wiosną, lato → latem, jesień → jesienią, zima → zimą.",
+        examples: [
+          { pl: "Latem jest gorąco.", fr: "En été il fait chaud.", note: "lato → latem" },
+          { pl: "Zimą pada śnieg.", fr: "En hiver il neige.", note: "zima → zimą" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-20-pogoda", pl: "pogoda", fr: "le temps (météo)", category: "météo" },
+      { id: "v-20-slonce", pl: "słońce", fr: "le soleil", category: "météo" },
+      { id: "v-20-deszcz", pl: "deszcz", fr: "la pluie", category: "météo" },
+      { id: "v-20-snieg", pl: "śnieg", fr: "la neige", category: "météo" },
+      { id: "v-20-wiatr", pl: "wiatr", fr: "le vent", category: "météo" },
+      { id: "v-20-chmura", pl: "chmura", fr: "le nuage", category: "météo" },
+      { id: "v-20-wiosna", pl: "wiosna", fr: "le printemps", category: "saison" },
+      { id: "v-20-lato", pl: "lato", fr: "l'été", category: "saison" },
+      { id: "v-20-jesien", pl: "jesień", fr: "l'automne", category: "saison" },
+      { id: "v-20-zima", pl: "zima", fr: "l'hiver", category: "saison" },
+      { id: "v-20-cieplo", pl: "ciepło", fr: "chaud (il fait)", category: "météo" },
+      { id: "v-20-zimno", pl: "zimno", fr: "froid (il fait)", category: "météo" }
+    ],
+    sentences: [
+      { id: "s-20-1", pl: "Dziś jest zimno.", fr: "Aujourd'hui il fait froid.", grammarFocus: "g-20-1",
+        wordBank: ["Dziś", "jest", "zimno"] },
+      { id: "s-20-2", pl: "Pada deszcz.", fr: "Il pleut.", grammarFocus: "g-20-1",
+        wordBank: ["Pada", "deszcz"] },
+      { id: "s-20-3", pl: "Latem jest gorąco.", fr: "En été il fait chaud.", grammarFocus: "g-20-2",
+        wordBank: ["Latem", "jest", "gorąco"] },
+      { id: "s-20-4", pl: "Zimą pada śnieg.", fr: "En hiver il neige.", grammarFocus: "g-20-2",
+        wordBank: ["Zimą", "pada", "śnieg"] }
+    ]
+  },
+
+  /* ================================ 21 =============================== */
+  {
+    id: "lesson-21",
+    order: 21,
+    title: "Au bureau et projets polis — le conditionnel",
+    theme: "conditionnel",
+    mascotIntro:
+      "Żubr voudrait un café, pourrait aider, préférerait une sieste… Le conditionnel, c'est la politesse à la polonaise. Dernière ligne droite ! 🎉",
+    grammarNotes: [
+      {
+        id: "g-21-1",
+        title: "« je voudrais » : chciałbym / chciałabym",
+        explanationFr:
+          "Le conditionnel rend une demande polie. Homme : chciałbym (je voudrais), mógłbym (je pourrais), wolałbym (je préférerais). Femme : chciałabym, mogłabym, wolałabym.",
+        examples: [
+          { pl: "Chciałbym kawę.", fr: "Je voudrais un café.", note: "homme" },
+          { pl: "Chciałabym zarezerwować stolik.", fr: "Je voudrais réserver une table.", note: "femme" }
+        ]
+      },
+      {
+        id: "g-21-2",
+        title: "Demander poliment : « Czy mógłbyś…? »",
+        explanationFr:
+          "Pour « pourrais-tu…? » : « Czy mógłbyś…? » (à un homme) / « Czy mogłabyś…? » (à une femme). La particule -bym/-byś/-by porte le conditionnel.",
+        examples: [
+          { pl: "Czy mógłbyś mi pomóc?", fr: "Pourrais-tu m'aider ?" },
+          { pl: "Wolałbym jechać pociągiem.", fr: "Je préférerais aller en train." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-21-biuro", pl: "biuro", fr: "le bureau", category: "travail" },
+      { id: "v-21-komputer", pl: "komputer", fr: "l'ordinateur", category: "travail" },
+      { id: "v-21-email", pl: "e-mail", fr: "l'e-mail", category: "travail" },
+      { id: "v-21-telefon", pl: "telefon", fr: "le téléphone", category: "travail" },
+      { id: "v-21-projekt", pl: "projekt", fr: "le projet", category: "travail" },
+      { id: "v-21-szef", pl: "szef", fr: "le chef / le patron", category: "travail" },
+      { id: "v-21-zebranie", pl: "zebranie", fr: "la réunion", category: "travail" },
+      { id: "v-21-chcialbym", pl: "chciałbym", fr: "je voudrais (homme)", category: "conditionnel" },
+      { id: "v-21-chcialabym", pl: "chciałabym", fr: "je voudrais (femme)", category: "conditionnel" },
+      { id: "v-21-moglbym", pl: "mógłbym", fr: "je pourrais (homme)", category: "conditionnel" },
+      { id: "v-21-wolalbym", pl: "wolałbym", fr: "je préférerais (homme)", category: "conditionnel" },
+      { id: "v-21-rezerwacja", pl: "rezerwacja", fr: "la réservation", category: "voyage" }
+    ],
+    sentences: [
+      { id: "s-21-1", pl: "Chciałbym zarezerwować stolik.", fr: "Je voudrais réserver une table.", grammarFocus: "g-21-1",
+        wordBank: ["Chciałbym", "zarezerwować", "stolik"] },
+      { id: "s-21-2", pl: "Chciałabym kawę.", fr: "Je voudrais un café.", grammarFocus: "g-21-1",
+        wordBank: ["Chciałabym", "kawę"] },
+      { id: "s-21-3", pl: "Czy mógłbyś mi pomóc?", fr: "Pourrais-tu m'aider ?", grammarFocus: "g-21-2",
+        wordBank: ["Czy", "mógłbyś", "mi", "pomóc"] },
+      { id: "s-21-4", pl: "Wolałbym jechać pociągiem.", fr: "Je préférerais aller en train.", grammarFocus: "g-21-2",
+        wordBank: ["Wolałbym", "jechać", "pociągiem"] }
+    ]
   }
 ];

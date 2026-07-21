@@ -284,13 +284,13 @@ window.POLISH_LESSONS = [
     ],
     sentences: [
       { id: "s-22-1", pl: "Mam osiemnaście lat.", fr: "J'ai dix-huit ans.", grammarFocus: "g-22-2",
-        wordBank: ["Mam", "osiemnaście", "lat", "lata"] },
+        wordBank: ["Mam", "osiemnaście", "lat"] },
       { id: "s-22-2", pl: "Ile masz lat?", fr: "Quel âge as-tu ?", grammarFocus: "g-22-2",
-        wordBank: ["Ile", "masz", "lat", "rok"] },
+        wordBank: ["Ile", "masz", "lat"] },
       { id: "s-22-3", pl: "To kosztuje piętnaście złotych.", fr: "Ça coûte quinze zlotys.", grammarFocus: "g-22-1",
-        wordBank: ["To", "kosztuje", "piętnaście", "szesnaście", "złotych"] },
+        wordBank: ["To", "kosztuje", "piętnaście", "złotych"] },
       { id: "s-22-4", pl: "Jest dwadzieścia stopni.", fr: "Il fait vingt degrés.", grammarFocus: "g-22-1",
-        wordBank: ["Jest", "dwadzieścia", "dwanaście", "stopni"] }
+        wordBank: ["Jest", "dwadzieścia", "stopni"] }
     ]
   },
 
@@ -340,13 +340,13 @@ window.POLISH_LESSONS = [
     ],
     sentences: [
       { id: "s-23-1", pl: "Mam trzydzieści pięć lat.", fr: "J'ai trente-cinq ans.", grammarFocus: "g-23-2",
-        wordBank: ["Mam", "trzydzieści", "pięć", "cztery", "lat", "lata"] },
+        wordBank: ["Mam", "trzydzieści", "pięć", "lat"] },
       { id: "s-23-2", pl: "To kosztuje czterdzieści złotych.", fr: "Ça coûte quarante zlotys.", grammarFocus: "g-23-1",
-        wordBank: ["To", "kosztuje", "czterdzieści", "pięćdziesiąt", "złotych"] },
+        wordBank: ["To", "kosztuje", "czterdzieści", "złotych"] },
       { id: "s-23-3", pl: "Mieszka tu około stu osób.", fr: "Environ cent personnes habitent ici.", grammarFocus: "g-23-1",
-        wordBank: ["Mieszka", "tu", "około", "stu", "dziesięciu", "osób"] },
+        wordBank: ["Mieszka", "tu", "około", "stu", "osób"] },
       { id: "s-23-4", pl: "Mam dwadzieścia dwa lata.", fr: "J'ai vingt-deux ans.", grammarFocus: "g-23-2",
-        wordBank: ["Mam", "dwadzieścia", "dwa", "dwie", "lata", "lat"] }
+        wordBank: ["Mam", "dwadzieścia", "dwa", "lata"] }
     ]
   },
 

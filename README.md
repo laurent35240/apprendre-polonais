@@ -25,7 +25,7 @@ python3 -m http.server 8000
 
 ## 🎯 Comment ça marche
 
-- **Parcours de 21 leçons** qui se débloquent l'une après l'autre. Chaque leçon
+- **Parcours de 23 leçons** qui se débloquent l'une après l'autre. Chaque leçon
   commence par une intro type Assimil (dialogue, notes de grammaire, vocabulaire
   avec audio), puis une session d'exercices.
 - **Types d'exercices** : QCM (mot → sens), écoute, saisie, reconstruction de

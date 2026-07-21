@@ -33,4 +33,8 @@ Pure vanilla JS, no build step, no dependencies. Scripts are loaded in dependenc
 
 All pedagogical content lives in `data/lessons.js`. To add or fix vocabulary/grammar, edit only that file. Item `id` values (e.g. `v-11-...`) must remain stable — they are the SRS keys in localStorage.
 
+**`wordBank` field on sentences:** used by the `build` exercise (reconstruct the sentence from tiles). It should contain the real sentence words **plus optional distractors** (wrong but plausible alternatives). The `cloze` exercise (fill-in-the-blank) always derives its words from `sentence.pl` directly — distractors in `wordBank` are ignored there.
+
+**Speech recognition and numbers:** `js/speech.js` `normalize()` converts Arabic digits to Polish words before scoring (e.g. "18" → "osiemnaście"), because the Web Speech API often returns digits for spoken numbers.
+
 Badges are defined in `data/badges.js` (emoji, title, description, unlock condition).

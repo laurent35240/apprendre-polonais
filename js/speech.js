@@ -114,9 +114,36 @@
 
   /* ----------------- Comparaison prononciation (score) ----------------- */
 
-  // Normalise : minuscule, sans ponctuation, sans accents parasites d'espace.
+  // L'API de reconnaissance vocale polonaise renvoie souvent des chiffres
+  // arabes ("18") au lieu des mots ("osiemnaście"). On les convertit avant
+  // toute comparaison.
+  var DIGITS_PL = {
+    "0": "zero", "1": "jeden", "2": "dwa", "3": "trzy", "4": "cztery",
+    "5": "pięć", "6": "sześć", "7": "siedem", "8": "osiem", "9": "dziewięć",
+    "10": "dziesięć", "11": "jedenaście", "12": "dwanaście",
+    "13": "trzynaście", "14": "czternaście", "15": "piętnaście",
+    "16": "szesnaście", "17": "siedemnaście", "18": "osiemnaście",
+    "19": "dziewiętnaście", "20": "dwadzieścia", "21": "dwadzieścia jeden",
+    "22": "dwadzieścia dwa", "23": "dwadzieścia trzy",
+    "24": "dwadzieścia cztery", "25": "dwadzieścia pięć",
+    "26": "dwadzieścia sześć", "27": "dwadzieścia siedem",
+    "28": "dwadzieścia osiem", "29": "dwadzieścia dziewięć",
+    "30": "trzydzieści", "31": "trzydzieści jeden", "32": "trzydzieści dwa",
+    "35": "trzydzieści pięć", "40": "czterdzieści", "45": "czterdzieści pięć",
+    "50": "pięćdziesiąt", "60": "sześćdziesiąt", "65": "sześćdziesiąt pięć",
+    "70": "siedemdziesiąt", "80": "osiemdziesiąt", "90": "dziewięćdziesiąt",
+    "100": "sto"
+  };
+
+  function replaceDigits(str) {
+    return str.replace(/\b\d+\b/g, function (m) {
+      return DIGITS_PL[m] || m;
+    });
+  }
+
+  // Normalise : chiffres→mots, minuscule, sans ponctuation.
   function normalize(str) {
-    return (str || "")
+    return replaceDigits((str || ""))
       .toLowerCase()
       .replace(/[.,!?;:"'()»«]/g, "")
       .replace(/\s+/g, " ")

@@ -184,7 +184,9 @@
 
   function makeCloze(entry) {
     // Cache un mot "intéressant" de la phrase (le plus long, souvent porteur de grammaire).
-    var words = (entry.wordBank || entry.pl.split(/\s+/)).slice();
+    // On utilise toujours la phrase réelle (entry.pl), jamais le wordBank qui peut
+    // contenir des distracteurs destinés uniquement à l'exercice "build".
+    var words = entry.pl.split(/\s+/);
     var idx = 0;
     var maxLen = -1;
     words.forEach(function (w, i) {

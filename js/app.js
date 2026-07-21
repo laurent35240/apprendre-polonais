@@ -502,6 +502,25 @@
       }
     });
     card.appendChild(el("div", { class: "type-row" }, [input, submit]));
+
+    var POLISH_CHARS = ['ą','ć','ę','ł','ń','ó','ś','ź','ż'];
+    var diacriticBar = el("div", { class: "diacritic-bar" });
+    POLISH_CHARS.forEach(function(ch) {
+      diacriticBar.appendChild(el("button", {
+        class: "diacritic-btn",
+        text: ch,
+        type: "button",
+        onclick: function() {
+          var start = input.selectionStart;
+          var end = input.selectionEnd;
+          input.value = input.value.slice(0, start) + ch + input.value.slice(end);
+          input.setSelectionRange(start + 1, start + 1);
+          input.focus();
+        }
+      }));
+    });
+    card.appendChild(diacriticBar);
+
     setTimeout(function () {
       input.focus();
     }, 50);
@@ -655,6 +674,8 @@
     if (input) {
       input.disabled = true;
       input.classList.add(correct ? "correct" : "wrong");
+      var card = input.closest(".card");
+      if (card) Array.prototype.forEach.call(card.querySelectorAll(".diacritic-btn"), function(b) { b.disabled = true; });
     }
     recordAndFeedback(ex, correct, null, null);
   }

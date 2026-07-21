@@ -616,6 +616,33 @@ h3 {
   border-color: var(--danger);
 }
 
+.diacritic-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 10px;
+}
+.diacritic-btn {
+  padding: 6px 11px;
+  font-size: 1.1rem;
+  font-family: inherit;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--line);
+  background: var(--bg-2);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+.diacritic-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.diacritic-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
 /* Reconstruction */
 .build-answer {
   min-height: 54px;

@@ -238,8 +238,122 @@ window.POLISH_LESSONS = [
 
   /* ================================ 5 ================================ */
   {
-    id: "lesson-05",
+    id: "lesson-22",
     order: 5,
+    title: "Les nombres de 11 à 20 — jedenaście do dwadzieścia",
+    theme: "nombres",
+    mascotIntro:
+      "Żubr a appris à compter jusqu'à dix… mais voilà un troupeau de onze bisons ! Il faut continuer !",
+    grammarNotes: [
+      {
+        id: "g-22-1",
+        title: "Compter de 11 à 19",
+        explanationFr:
+          "En polonais, 11 se dit jedenaście (forme spéciale). De 12 à 19, on ajoute -naście à la racine : dwanaście (12), trzynaście (13), czternaście (14), piętnaście (15), szesnaście (16), siedemnaście (17), osiemnaście (18), dziewiętnaście (19).",
+        examples: [
+          { pl: "Mam piętnaście lat.", fr: "J'ai quinze ans." },
+          { pl: "Jest szesnaście stopni.", fr: "Il fait seize degrés." }
+        ]
+      },
+      {
+        id: "g-22-2",
+        title: "Rok / lata / lat avec 11-20",
+        explanationFr:
+          "Les nombres 11 à 20 utilisent toujours la forme « lat » (génitif pluriel). Mam jedenaście lat, mam dwadzieścia lat. Seules les dizaines + 2/3/4 reprennent « lata » (ex: dwadzieścia dwa lata).",
+        examples: [
+          { pl: "Mam osiemnaście lat.", fr: "J'ai dix-huit ans." },
+          { pl: "Ma dwanaście lat.", fr: "Il/elle a douze ans." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-22-jedenascie", pl: "jedenaście", fr: "onze (11)", ipa: "yèdènaçtché", category: "nombre" },
+      { id: "v-22-dwanascie", pl: "dwanaście", fr: "douze (12)", ipa: "dvanàçtché", category: "nombre" },
+      { id: "v-22-trzynascie", pl: "trzynaście", fr: "treize (13)", ipa: "tchinaçtché", category: "nombre" },
+      { id: "v-22-czternascie", pl: "czternaście", fr: "quatorze (14)", ipa: "tchternaçtché", category: "nombre" },
+      { id: "v-22-pietnascie", pl: "piętnaście", fr: "quinze (15)", ipa: "pyètnaçtché", category: "nombre" },
+      { id: "v-22-szesnascie", pl: "szesnaście", fr: "seize (16)", ipa: "chèsnaçtché", category: "nombre" },
+      { id: "v-22-siedemnascie", pl: "siedemnaście", fr: "dix-sept (17)", ipa: "chèdèmnaçtché", category: "nombre" },
+      { id: "v-22-osiemnascie", pl: "osiemnaście", fr: "dix-huit (18)", ipa: "ochèmnaçtché", category: "nombre" },
+      { id: "v-22-dziewietnascie", pl: "dziewiętnaście", fr: "dix-neuf (19)", ipa: "djèvyètnaçtché", category: "nombre" },
+      { id: "v-22-dwadziescia", pl: "dwadzieścia", fr: "vingt (20)", ipa: "dvàdjèchtcha", category: "nombre" },
+      { id: "v-22-stopni", pl: "stopni", fr: "degrés", category: "mesure",
+        example: { pl: "Jest pięć stopni.", fr: "Il fait cinq degrés." } },
+      { id: "v-22-zlotych", pl: "złotych", fr: "zlotys (devise polonaise)", category: "argent",
+        example: { pl: "To kosztuje dziesięć złotych.", fr: "Ça coûte dix zlotys." } }
+    ],
+    sentences: [
+      { id: "s-22-1", pl: "Mam osiemnaście lat.", fr: "J'ai dix-huit ans.", grammarFocus: "g-22-2",
+        wordBank: ["Mam", "osiemnaście", "lat", "lata"] },
+      { id: "s-22-2", pl: "Ile masz lat?", fr: "Quel âge as-tu ?", grammarFocus: "g-22-2",
+        wordBank: ["Ile", "masz", "lat", "rok"] },
+      { id: "s-22-3", pl: "To kosztuje piętnaście złotych.", fr: "Ça coûte quinze zlotys.", grammarFocus: "g-22-1",
+        wordBank: ["To", "kosztuje", "piętnaście", "szesnaście", "złotych"] },
+      { id: "s-22-4", pl: "Jest dwadzieścia stopni.", fr: "Il fait vingt degrés.", grammarFocus: "g-22-1",
+        wordBank: ["Jest", "dwadzieścia", "dwanaście", "stopni"] }
+    ]
+  },
+
+  /* ================================ 6 ================================ */
+  {
+    id: "lesson-23",
+    order: 6,
+    title: "Les dizaines et grands nombres — od dwudziestu do stu",
+    theme: "nombres",
+    mascotIntro:
+      "Żubr veut savoir combien de personnes vivent à Varsovie. Un, deux… Il faut apprendre à compter plus grand !",
+    grammarNotes: [
+      {
+        id: "g-23-1",
+        title: "Les dizaines de 30 à 100",
+        explanationFr:
+          "trzydzieści (30), czterdzieści (40), pięćdziesiąt (50), sześćdziesiąt (60), siedemdziesiąt (70), osiemdziesiąt (80), dziewięćdziesiąt (90), sto (100). Terminaisons variables : -dzieści pour 30 et 40, -dziesiąt pour 50 à 90.",
+        examples: [
+          { pl: "Mam czterdzieści lat.", fr: "J'ai quarante ans." },
+          { pl: "To kosztuje pięćdziesiąt złotych.", fr: "Ça coûte cinquante zlotys." }
+        ]
+      },
+      {
+        id: "g-23-2",
+        title: "Nombres composés (21, 35, 47…)",
+        explanationFr:
+          "On juxtapose la dizaine et le chiffre : dwadzieścia dwa (22), trzydzieści pięć (35). La règle rok/lata/lat s'applique au dernier chiffre : 21 → dwadzieścia jeden rok, 22 → dwadzieścia dwa lata, 25 → dwadzieścia pięć lat.",
+        examples: [
+          { pl: "Mam trzydzieści dwa lata.", fr: "J'ai trente-deux ans." },
+          { pl: "Mam sześćdziesiąt pięć lat.", fr: "J'ai soixante-cinq ans." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-23-trzydziesci", pl: "trzydzieści", fr: "trente (30)", ipa: "tchidjèchti", category: "nombre" },
+      { id: "v-23-czterdziesci", pl: "czterdzieści", fr: "quarante (40)", ipa: "tchterdjèchti", category: "nombre" },
+      { id: "v-23-piecdziesiat", pl: "pięćdziesiąt", fr: "cinquante (50)", ipa: "pyètchdjèchyont", category: "nombre" },
+      { id: "v-23-szescdziesiat", pl: "sześćdziesiąt", fr: "soixante (60)", ipa: "chèchtchdjèchyont", category: "nombre" },
+      { id: "v-23-siedemdziesiat", pl: "siedemdziesiąt", fr: "soixante-dix (70)", ipa: "chèdèmdjèchyont", category: "nombre" },
+      { id: "v-23-osiemdziesiat", pl: "osiemdziesiąt", fr: "quatre-vingts (80)", ipa: "ochèmdjèchyont", category: "nombre" },
+      { id: "v-23-dziewiecdziesiat", pl: "dziewięćdziesiąt", fr: "quatre-vingt-dix (90)", ipa: "djèvyètchdjèchyont", category: "nombre" },
+      { id: "v-23-sto", pl: "sto", fr: "cent (100)", ipa: "sto", category: "nombre" },
+      { id: "v-23-pol", pl: "pół", fr: "demi / moitié", category: "quantité",
+        example: { pl: "Pół godziny.", fr: "Une demi-heure." } },
+      { id: "v-23-okolo", pl: "około", fr: "environ / à peu près", category: "quantité",
+        example: { pl: "Około trzydziestu minut.", fr: "Environ trente minutes." } }
+    ],
+    sentences: [
+      { id: "s-23-1", pl: "Mam trzydzieści pięć lat.", fr: "J'ai trente-cinq ans.", grammarFocus: "g-23-2",
+        wordBank: ["Mam", "trzydzieści", "pięć", "cztery", "lat", "lata"] },
+      { id: "s-23-2", pl: "To kosztuje czterdzieści złotych.", fr: "Ça coûte quarante zlotys.", grammarFocus: "g-23-1",
+        wordBank: ["To", "kosztuje", "czterdzieści", "pięćdziesiąt", "złotych"] },
+      { id: "s-23-3", pl: "Mieszka tu około stu osób.", fr: "Environ cent personnes habitent ici.", grammarFocus: "g-23-1",
+        wordBank: ["Mieszka", "tu", "około", "stu", "dziesięciu", "osób"] },
+      { id: "s-23-4", pl: "Mam dwadzieścia dwa lata.", fr: "J'ai vingt-deux ans.", grammarFocus: "g-23-2",
+        wordBank: ["Mam", "dwadzieścia", "dwa", "dwie", "lata", "lat"] }
+    ]
+  },
+
+  /* ================================ 7 ================================ */
+  {
+    id: "lesson-05",
+    order: 7,
     title: "Au restaurant — l'accusatif",
     theme: "nourriture",
     mascotIntro:
@@ -290,10 +404,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 6 ================================ */
+  /* ================================ 8 ================================ */
   {
     id: "lesson-06",
-    order: 6,
+    order: 8,
     title: "Les verbes du quotidien",
     theme: "verbes",
     mascotIntro:
@@ -345,10 +459,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 7 ================================ */
+  /* ================================ 9 ================================ */
   {
     id: "lesson-07",
-    order: 7,
+    order: 9,
     title: "La maison et le lieu — le locatif",
     theme: "maison",
     mascotIntro:
@@ -399,10 +513,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 8 ================================ */
+  /* ================================ 10 =============================== */
   {
     id: "lesson-08",
-    order: 8,
+    order: 10,
     title: "Le temps et la routine",
     theme: "temps",
     mascotIntro:
@@ -454,10 +568,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 9 ================================ */
+  /* ================================ 11 =============================== */
   {
     id: "lesson-11",
-    order: 9,
+    order: 11,
     title: "Le calendrier — jours et mois",
     theme: "calendrier",
     mascotIntro:
@@ -519,10 +633,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 10 =============================== */
+  /* ================================ 12 =============================== */
   {
     id: "lesson-09",
-    order: 10,
+    order: 12,
     title: "Les courses et les quantités — le génitif",
     theme: "courses",
     mascotIntro:
@@ -573,10 +687,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 11 =============================== */
+  /* ================================ 13 =============================== */
   {
     id: "lesson-10",
-    order: 11,
+    order: 13,
     title: "Projets et futur — l'aspect verbal",
     theme: "futur",
     mascotIntro:
@@ -627,10 +741,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 12 =============================== */
+  /* ================================ 14 =============================== */
   {
     id: "lesson-12",
-    order: 12,
+    order: 14,
     title: "Les couleurs et les descriptions — l'adjectif",
     theme: "adjectifs",
     mascotIntro:
@@ -683,10 +797,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 13 =============================== */
+  /* ================================ 15 =============================== */
   {
     id: "lesson-13",
-    order: 13,
+    order: 15,
     title: "Parler d'hier — le passé",
     theme: "passé",
     mascotIntro:
@@ -738,10 +852,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 14 =============================== */
+  /* ================================ 16 =============================== */
   {
     id: "lesson-14",
-    order: 14,
+    order: 16,
     title: "La routine du matin — les verbes réfléchis (się)",
     theme: "routine",
     mascotIntro:
@@ -793,10 +907,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 15 =============================== */
+  /* ================================ 17 =============================== */
   {
     id: "lesson-15",
-    order: 15,
+    order: 17,
     title: "Le corps et la santé — chez le médecin",
     theme: "santé",
     mascotIntro:
@@ -849,10 +963,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 16 =============================== */
+  /* ================================ 18 =============================== */
   {
     id: "lesson-16",
-    order: 16,
+    order: 18,
     title: "En ville — trouver son chemin",
     theme: "ville",
     mascotIntro:
@@ -905,10 +1019,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 17 =============================== */
+  /* ================================ 19 =============================== */
   {
     id: "lesson-17",
-    order: 17,
+    order: 19,
     title: "Les transports — l'instrumental",
     theme: "instrumental",
     mascotIntro:
@@ -961,10 +1075,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 18 =============================== */
+  /* ================================ 20 =============================== */
   {
     id: "lesson-18",
-    order: 18,
+    order: 20,
     title: "Au marché et à table — le datif",
     theme: "datif",
     mascotIntro:
@@ -1017,10 +1131,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 19 =============================== */
+  /* ================================ 21 =============================== */
   {
     id: "lesson-19",
-    order: 19,
+    order: 21,
     title: "Comparer — le comparatif et le superlatif",
     theme: "comparaisons",
     mascotIntro:
@@ -1073,10 +1187,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 20 =============================== */
+  /* ================================ 22 =============================== */
   {
     id: "lesson-20",
-    order: 20,
+    order: 22,
     title: "La météo et les saisons",
     theme: "météo",
     mascotIntro:
@@ -1129,10 +1243,10 @@ window.POLISH_LESSONS = [
     ]
   },
 
-  /* ================================ 21 =============================== */
+  /* ================================ 23 =============================== */
   {
     id: "lesson-21",
-    order: 21,
+    order: 23,
     title: "Au bureau et projets polis — le conditionnel",
     theme: "conditionnel",
     mascotIntro:

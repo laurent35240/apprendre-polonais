@@ -685,8 +685,9 @@
     window.SRS.record(ex.itemId, correct);
     if (correct) {
       session.xp += window.Gamification.XP_PER_CORRECT;
-      window.Gamification.addXP(window.Gamification.XP_PER_CORRECT);
+      var leveledUp = window.Gamification.addXP(window.Gamification.XP_PER_CORRECT);
       window.UI.soundCorrect();
+      if (leveledUp) window.UI.levelUpToast(window.State.get().profile.level);
     } else {
       window.UI.soundWrong();
     }
@@ -770,8 +771,9 @@
         if (pct >= 60) {
           if (lst.status !== "completed") lessonJustCompleted = true;
           lst.status = "completed";
-          window.Gamification.addXP(window.Gamification.XP_LESSON_BONUS);
+          var leveledUpBonus = window.Gamification.addXP(window.Gamification.XP_LESSON_BONUS);
           session.xp += window.Gamification.XP_LESSON_BONUS;
+          if (leveledUpBonus) window.UI.levelUpToast(window.State.get().profile.level);
         } else if (lst.status === "available") {
           lst.status = "inProgress";
         }

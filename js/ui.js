@@ -132,6 +132,29 @@
     }, 3600);
   }
 
+  function levelUpToast(newLevel) {
+    var host = document.getElementById("toast-host");
+    if (!host) return;
+    var t = el("div", { class: "toast badge-toast show" }, [
+      mascotImg("levelup", "badge-emoji"),
+      el("div", {}, [
+        el("strong", { text: "Niveau " + newLevel + " atteint !" }),
+        el("div", { class: "small", text: "Continue comme ça, tu es fantastique !" })
+      ])
+    ]);
+    host.appendChild(t);
+    confetti();
+    beep(523, 120, "sine");
+    setTimeout(function () { beep(659, 120, "sine"); }, 130);
+    setTimeout(function () { beep(784, 200, "sine"); }, 260);
+    setTimeout(function () {
+      t.classList.remove("show");
+      setTimeout(function () {
+        if (t.parentNode) t.parentNode.removeChild(t);
+      }, 400);
+    }, 4000);
+  }
+
   /* ---------------------------- confettis ----------------------------- */
   function confetti() {
     var host = document.getElementById("fx-host");
@@ -237,6 +260,7 @@
     consoleLine: console_,
     toast: toast,
     badgeToast: badgeToast,
+    levelUpToast: levelUpToast,
     confetti: confetti,
     soundCorrect: soundCorrect,
     soundWrong: soundWrong,

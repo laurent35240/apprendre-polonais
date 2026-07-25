@@ -857,6 +857,8 @@ h3 {
 .feedback {
   position: sticky;
   bottom: 0;
+  background: var(--bg);
+  z-index: 5;
   transform: translateY(140%);
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.3, 1);
 }

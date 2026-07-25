@@ -349,6 +349,97 @@ h3 {
   color: var(--ink-soft);
 }
 
+/* ------------------------- Sentiers (paquets) --------------------- */
+.resume-btn {
+  display: block;
+  width: 100%;
+  margin-bottom: 14px;
+}
+.trail {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.trail.done {
+  border-color: var(--green);
+}
+.trail-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+  text-align: left;
+}
+.trail-header:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+.trail-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 20px;
+  flex-shrink: 0;
+  color: #fff;
+}
+.trail.done .trail-badge {
+  background: var(--green);
+}
+.trail-info {
+  flex: 1;
+}
+.trail-title {
+  font-weight: 800;
+  font-size: 16px;
+}
+.trail-sub {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.trail-chevron {
+  font-size: 22px;
+  color: var(--ink-soft);
+  transition: transform 0.2s ease;
+}
+.trail.open .trail-chevron {
+  transform: rotate(180deg);
+}
+.trail-body {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 12px 12px;
+}
+.trail.open .trail-body {
+  display: flex;
+}
+.lesson-node--highlight {
+  animation: lessonPulse 1.6s ease;
+}
+@keyframes lessonPulse {
+  0%,
+  100% {
+    border-color: var(--line);
+    background: var(--card);
+  }
+  30%,
+  60% {
+    border-color: var(--primary);
+    background: rgba(255, 94, 91, 0.14);
+  }
+}
+
 /* ----------------------------- Badges ----------------------------- */
 .badge-grid {
   display: grid;

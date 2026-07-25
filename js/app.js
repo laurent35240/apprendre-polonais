@@ -8,6 +8,25 @@
   var appRoot, topbar;
   var session = null; // { exercises, index, results, meta }
 
+  // Regroupement des leçons en « sentiers » de 5 (purement visuel).
+  var TRAILS = [
+    "Le sentier des débuts",
+    "Le sentier du quotidien",
+    "Le sentier des saisons",
+    "Le sentier de la ville",
+    "Le sentier des subtilités"
+  ];
+  var TRAIL_SIZE = 5;
+  // Ouverture forcée par l'utilisateur (en mémoire, non persistée) : index -> bool
+  var trailOpenOverride = {};
+
+  function byOrder(a, b) {
+    return a.order - b.order;
+  }
+  function sortedLessons() {
+    return (window.POLISH_LESSONS || []).slice().sort(byOrder);
+  }
+
   document.addEventListener("DOMContentLoaded", boot);
 
   function boot() {
@@ -173,12 +192,30 @@
       appRoot.appendChild(reviewCard);
     }
 
-    // Carte des leçons
-    var path = el("div", { class: "lesson-path" });
-    (window.POLISH_LESSONS || []).forEach(function (lesson) {
-      path.appendChild(lessonNode(lesson, s));
-    });
+    // Carte des leçons, regroupées par sentiers de 5
     appRoot.appendChild(el("h2", { class: "section-title", text: "Ton parcours" }));
+
+    // Bouton pour reprendre là où on en est
+    var cid = currentLessonId(s);
+    if (cid) {
+      var cur = window.Session.lessonById(cid);
+      appRoot.appendChild(
+        el("button", {
+          class: "btn btn-primary resume-btn",
+          text: "Reprendre : leçon " + cur.order + " →",
+          onclick: function () {
+            jumpToCurrent(cid);
+          }
+        })
+      );
+    }
+
+    var lessons = sortedLessons();
+    var path = el("div", { class: "lesson-path" });
+    for (var i = 0; i < lessons.length; i += TRAIL_SIZE) {
+      var group = lessons.slice(i, i + TRAIL_SIZE);
+      path.appendChild(trailNode(i / TRAIL_SIZE, group, s));
+    }
     appRoot.appendChild(path);
 
     // Badges
@@ -196,6 +233,7 @@
           "lesson-node " +
           (locked ? "locked" : "") +
           (done ? " done" : ""),
+        "data-lesson-id": lesson.id,
         onclick: locked
           ? null
           : function () {
@@ -219,6 +257,89 @@
       ]
     );
     return node;
+  }
+
+  // Un « sentier » = un paquet de 5 leçons, dépliable/repliable.
+  function trailNode(index, lessons, s) {
+    var doneCount = lessons.filter(function (l) {
+      var st = s.lessons[l.id];
+      return st && st.status === "completed";
+    }).length;
+    var done = doneCount === lessons.length;
+    // Par défaut : sentier terminé → replié, sinon déplié. L'utilisateur peut forcer.
+    var open =
+      trailOpenOverride.hasOwnProperty(index) ? trailOpenOverride[index] : !done;
+
+    var body = el("div", { class: "trail-body" });
+    lessons.forEach(function (l) {
+      body.appendChild(lessonNode(l, s));
+    });
+
+    return el(
+      "div",
+      {
+        class: "trail" + (done ? " done" : "") + (open ? " open" : ""),
+        "data-trail-index": index
+      },
+      [
+        el(
+          "button",
+          {
+            class: "trail-header",
+            onclick: function () {
+              trailOpenOverride[index] = !open;
+              renderHome();
+            }
+          },
+          [
+            el("span", {
+              class: "trail-badge",
+              text: done ? "✅" : String(index + 1)
+            }),
+            el("div", { class: "trail-info" }, [
+              el("div", { class: "trail-title", text: TRAILS[index] || "Sentier " + (index + 1) }),
+              el("div", {
+                class: "trail-sub",
+                text: done
+                  ? "Terminé 🎉"
+                  : doneCount + "/" + lessons.length + " leçons terminées"
+              })
+            ]),
+            el("span", { class: "trail-chevron", text: "▾" })
+          ]
+        ),
+        body
+      ]
+    );
+  }
+
+  // Première leçon débloquée et non terminée (= available ou inProgress).
+  function currentLessonId(s) {
+    var lessons = sortedLessons();
+    for (var i = 0; i < lessons.length; i++) {
+      var st = s.lessons[lessons[i].id];
+      if (!st || st.status === "locked") continue;
+      if (st.status !== "completed") return lessons[i].id;
+    }
+    return null;
+  }
+
+  // Déplie le sentier de la leçon en cours, défile jusqu'à sa carte et la surligne.
+  function jumpToCurrent(lessonId) {
+    var lessons = sortedLessons();
+    var pos = lessons.findIndex(function (l) {
+      return l.id === lessonId;
+    });
+    if (pos === -1) return;
+    trailOpenOverride[Math.floor(pos / TRAIL_SIZE)] = true;
+    renderHome();
+    var node = appRoot.querySelector('[data-lesson-id="' + lessonId + '"]');
+    if (!node) return;
+    node.scrollIntoView({ behavior: "smooth", block: "center" });
+    node.classList.add("lesson-node--highlight");
+    setTimeout(function () {
+      node.classList.remove("lesson-node--highlight");
+    }, 1600);
   }
 
   function renderBadges(s) {

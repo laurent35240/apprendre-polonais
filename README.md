@@ -28,6 +28,12 @@ python3 -m http.server 8000
 - **Parcours de 23 leçons** qui se débloquent l'une après l'autre. Chaque leçon
   commence par une intro type Assimil (dialogue, notes de grammaire, vocabulaire
   avec audio), puis une session d'exercices.
+- **Parcours en « sentiers »** : les leçons sont regroupées par paquets de 5
+  (chacun avec son nom et son emoji 🌱🏡🍂🏙️🎓), repliables/dépliables. Seul le
+  sentier de la leçon en cours est ouvert par défaut (les autres sont repliés),
+  et une ligne de sentier relie visuellement les leçons. Un bouton **« Reprendre »**
+  en haut du parcours déplie le bon sentier et t'amène directement à ta leçon
+  en cours.
 - **Types d'exercices** : QCM (mot → sens), écoute, saisie, reconstruction de
   phrase (banque de mots), texte à trous (grammaire), prononciation (micro).
 - **Répétition espacée** (système de Leitner) : les mots reviennent en révision

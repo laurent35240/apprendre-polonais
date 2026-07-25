@@ -383,18 +383,12 @@ h3 {
 .trail-badge {
   width: 44px;
   height: 44px;
-  border-radius: 50%;
-  background: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 900;
-  font-size: 20px;
+  font-size: 28px;
+  line-height: 1;
   flex-shrink: 0;
-  color: #fff;
-}
-.trail.done .trail-badge {
-  background: var(--green);
 }
 .trail-info {
   flex: 1;

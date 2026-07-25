@@ -10,11 +10,11 @@
 
   // Regroupement des leçons en « sentiers » de 5 (purement visuel).
   var TRAILS = [
-    "Le sentier des débuts",
-    "Le sentier du quotidien",
-    "Le sentier des saisons",
-    "Le sentier de la ville",
-    "Le sentier des subtilités"
+    { name: "Le sentier des débuts", icon: "🌱" },
+    { name: "Le sentier du quotidien", icon: "🏡" },
+    { name: "Le sentier des saisons", icon: "🍂" },
+    { name: "Le sentier de la ville", icon: "🏙️" },
+    { name: "Le sentier des subtilités", icon: "🎓" }
   ];
   var TRAIL_SIZE = 5;
   // Ouverture forcée par l'utilisateur (en mémoire, non persistée) : index -> bool
@@ -266,9 +266,13 @@
       return st && st.status === "completed";
     }).length;
     var done = doneCount === lessons.length;
-    // Par défaut : sentier terminé → replié, sinon déplié. L'utilisateur peut forcer.
-    var open =
-      trailOpenOverride.hasOwnProperty(index) ? trailOpenOverride[index] : !done;
+    // Par défaut : seul le sentier contenant la leçon en cours est déplié.
+    // L'utilisateur peut forcer l'ouverture/fermeture manuellement.
+    var open = trailOpenOverride.hasOwnProperty(index)
+      ? trailOpenOverride[index]
+      : index === currentTrailIndex(s);
+
+    var trail = TRAILS[index] || { name: "Sentier " + (index + 1), icon: "🌲" };
 
     var body = el("div", { class: "trail-body" });
     lessons.forEach(function (l) {
@@ -294,10 +298,10 @@
           [
             el("span", {
               class: "trail-badge",
-              text: done ? "✅" : String(index + 1)
+              text: done ? "✅" : trail.icon
             }),
             el("div", { class: "trail-info" }, [
-              el("div", { class: "trail-title", text: TRAILS[index] || "Sentier " + (index + 1) }),
+              el("div", { class: "trail-title", text: trail.name }),
               el("div", {
                 class: "trail-sub",
                 text: done
@@ -322,6 +326,16 @@
       if (st.status !== "completed") return lessons[i].id;
     }
     return null;
+  }
+
+  // Index du sentier contenant la leçon en cours (null si tout est terminé).
+  function currentTrailIndex(s) {
+    var cid = currentLessonId(s);
+    if (!cid) return null;
+    var pos = sortedLessons().findIndex(function (l) {
+      return l.id === cid;
+    });
+    return pos === -1 ? null : Math.floor(pos / TRAIL_SIZE);
   }
 
   // Déplie le sentier de la leçon en cours, défile jusqu'à sa carte et la surligne.

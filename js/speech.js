@@ -9,16 +9,17 @@
   "use strict";
 
   var voices = [];
+  var plVoices = [];
   var plVoice = null;
 
   function loadVoices() {
     if (!("speechSynthesis" in window)) return;
     voices = window.speechSynthesis.getVoices() || [];
-    // Cherche une voix polonaise.
-    plVoice =
-      voices.filter(function (v) {
-        return /pl(-|_)?/i.test(v.lang);
-      })[0] || null;
+    // Cherche toutes les voix polonaises.
+    plVoices = voices.filter(function (v) {
+      return /pl(-|_)?/i.test(v.lang);
+    });
+    plVoice = plVoices[0] || null;
     // Respecte le choix éventuel de l'utilisateur.
     var state = window.State && window.State.get();
     if (state && state.settings.voiceName) {
@@ -43,17 +44,20 @@
   }
 
   // Prononce un texte polonais.
+  // opts.voiceIndex (0|1) : sélectionne une voix dans plVoices[] si dispo.
+  // opts.pitch : surcharge le pitch (défaut 1).
   function speak(text, opts) {
     opts = opts || {};
     if (!ttsAvailable()) return;
     try {
       window.speechSynthesis.cancel();
       var u = new SpeechSynthesisUtterance(text);
-      if (plVoice) u.voice = plVoice;
-      u.lang = plVoice ? plVoice.lang : "pl-PL";
+      var voice = (opts.voiceIndex != null && plVoices[opts.voiceIndex]) ? plVoices[opts.voiceIndex] : plVoice;
+      if (voice) u.voice = voice;
+      u.lang = voice ? voice.lang : "pl-PL";
       var state = window.State && window.State.get();
       u.rate = opts.rate || (state ? state.settings.ttsRate : 0.9) || 0.9;
-      u.pitch = 1;
+      u.pitch = opts.pitch != null ? opts.pitch : 1;
       if (opts.onend) u.onend = opts.onend;
       window.speechSynthesis.speak(u);
     } catch (e) {

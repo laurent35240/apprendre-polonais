@@ -550,13 +550,19 @@
     appRoot.appendChild(el("div", { id: "feedback", class: "feedback" }));
   }
 
-  function audioButton(text, big) {
+  function audioButton(text, big, speaker) {
     return el("button", {
       class: "audio-btn" + (big ? " big" : ""),
       text: "🔊",
       title: "Écouter",
       onclick: function () {
-        window.Speech.speak(text);
+        var ttsOpts = {};
+        if (speaker) {
+          var isB = speaker === "B";
+          ttsOpts.pitch = isB ? 0.82 : 1.1;
+          ttsOpts.voiceIndex = isB ? 1 : 0;
+        }
+        window.Speech.speak(text, ttsOpts);
       }
     });
   }
@@ -747,7 +753,7 @@
       var isTarget = !!line.target;
       var bubble = el("div", { class: "dialogue-line " + side + (isTarget ? " target" : "") });
       var head = el("div", { class: "dialogue-pl" });
-      if (!isTarget) head.appendChild(audioButton(line.pl));
+      if (!isTarget) head.appendChild(audioButton(line.pl, false, line.who));
       head.appendChild(
         el("span", {
           class: "pl",

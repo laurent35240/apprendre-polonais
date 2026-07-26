@@ -816,6 +816,56 @@ h3 {
   border-radius: 2px;
 }
 
+/* Dialogue (production connectée) */
+.dialogue-title {
+  font-weight: 800;
+  color: var(--secondary);
+  margin-bottom: 10px;
+  text-align: center;
+}
+.dialogue {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.dialogue-line {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--line);
+  background: var(--bg-2);
+}
+.dialogue-line.who-a {
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.dialogue-line.who-b {
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+  background: color-mix(in srgb, var(--secondary) 12%, var(--card));
+  border-color: color-mix(in srgb, var(--secondary) 35%, var(--line));
+}
+.dialogue-line.target {
+  border-style: dashed;
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, var(--card));
+}
+.dialogue-pl {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dialogue-pl .pl {
+  font-weight: 700;
+  color: var(--ink);
+}
+.dialogue-fr {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
 /* Prononciation */
 .mic-wrap {
   display: flex;

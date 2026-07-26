@@ -10,6 +10,7 @@
      speak      prononciation : lire le polonais à voix haute (score vocal)
      build      reconstruire une phrase depuis une banque de mots
      cloze      texte à trous ciblant la grammaire
+     dialogue   reconstituer la réplique cible d'un mini-dialogue en contexte
    ===================================================================== */
 (function () {
   "use strict";
@@ -182,6 +183,27 @@
     };
   }
 
+  function makeDialogue(dlg) {
+    // Mini-dialogue : une réplique "cible" à reconstituer depuis une banque de mots,
+    // les autres répliques servent de contexte (affichées, non notées).
+    var target = (dlg.lines || []).filter(function (l) { return l.target; })[0];
+    if (!target) return null;
+    var bank = target.wordBank || target.pl.split(/\s+/);
+    return {
+      type: "dialogue",
+      itemId: dlg.id,
+      context: dlg.lines,
+      title: dlg.title || "",
+      promptText: target.fr,
+      promptLang: "fr",
+      answer: target.pl,
+      answerLang: "pl",
+      audioText: target.pl,
+      bank: shuffle(bank),
+      instruction: "Complète la réplique manquante du dialogue"
+    };
+  }
+
   function makeCloze(entry) {
     // Cache un mot "intéressant" de la phrase (le plus long, souvent porteur de grammaire).
     // On utilise toujours la phrase réelle (entry.pl), jamais le wordBank qui peut
@@ -223,7 +245,7 @@
 
   // Vérifie une réponse (hors 'speak' qui est géré par le score vocal).
   function check(exercise, userAnswer) {
-    if (exercise.type === "build") {
+    if (exercise.type === "build" || exercise.type === "dialogue") {
       // userAnswer est un tableau de mots dans l'ordre choisi
       var got = (userAnswer || []).join(" ");
       return normalize(got) === normalize(exercise.answer);
@@ -240,6 +262,7 @@
     makeSpeak: makeSpeak,
     makeBuild: makeBuild,
     makeCloze: makeCloze,
+    makeDialogue: makeDialogue,
     check: check,
     shuffle: shuffle
   };

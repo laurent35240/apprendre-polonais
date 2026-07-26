@@ -84,7 +84,12 @@ window.POLISH_BADGES = [
     emoji: "🎓",
     title: "Diplômé de Żubr",
     desc: "Terminer toutes les leçons. Gratulacje !",
-    check: (s) =>
-      Object.values(s.lessons).filter((l) => l.status === "completed").length >= 21
+    check: (s) => {
+      const total = (window.POLISH_LESSONS || []).length;
+      return (
+        total > 0 &&
+        Object.values(s.lessons).filter((l) => l.status === "completed").length >= total
+      );
+    }
   }
 ];

@@ -76,6 +76,12 @@
       }
     });
 
+    // 2b) Dialogues : reconstituer une réplique cible en contexte (production connectée)
+    (lesson.dialogues || []).forEach(function (d) {
+      var ex = E.makeDialogue(d);
+      if (ex) out.push(ex);
+    });
+
     // 3) Prononciation (si dispo) : 2 mots + 1 phrase
     if (speakOK()) {
       var vocab = lesson.vocabulary || [];

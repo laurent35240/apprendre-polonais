@@ -85,7 +85,11 @@
 
   // La 1re leçon est disponible, les autres verrouillées tant que non atteintes.
   function ensureLessonStatuses() {
-    var lessons = window.POLISH_LESSONS || [];
+    // Trié par `order` : c'est l'ordre pédagogique qui régit le déverrouillage,
+    // indépendamment de l'ordre physique du tableau POLISH_LESSONS.
+    var lessons = (window.POLISH_LESSONS || []).slice().sort(function (a, b) {
+      return a.order - b.order;
+    });
     lessons.forEach(function (lesson, idx) {
       if (!state.lessons[lesson.id]) {
         state.lessons[lesson.id] = {

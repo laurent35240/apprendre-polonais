@@ -407,7 +407,7 @@ window.POLISH_LESSONS = [
   /* ================================ 8 ================================ */
   {
     id: "lesson-06",
-    order: 8,
+    order: 9,
     title: "Les verbes du quotidien",
     theme: "verbes",
     mascotIntro:
@@ -462,7 +462,7 @@ window.POLISH_LESSONS = [
   /* ================================ 9 ================================ */
   {
     id: "lesson-07",
-    order: 9,
+    order: 12,
     title: "La maison et le lieu — le locatif",
     theme: "maison",
     mascotIntro:
@@ -516,7 +516,7 @@ window.POLISH_LESSONS = [
   /* ================================ 10 =============================== */
   {
     id: "lesson-08",
-    order: 10,
+    order: 13,
     title: "Le temps et la routine",
     theme: "temps",
     mascotIntro:
@@ -571,7 +571,7 @@ window.POLISH_LESSONS = [
   /* ================================ 11 =============================== */
   {
     id: "lesson-11",
-    order: 11,
+    order: 15,
     title: "Le calendrier — jours et mois",
     theme: "calendrier",
     mascotIntro:
@@ -636,7 +636,7 @@ window.POLISH_LESSONS = [
   /* ================================ 12 =============================== */
   {
     id: "lesson-09",
-    order: 12,
+    order: 17,
     title: "Les courses et les quantités — le génitif",
     theme: "courses",
     mascotIntro:
@@ -690,7 +690,7 @@ window.POLISH_LESSONS = [
   /* ================================ 13 =============================== */
   {
     id: "lesson-10",
-    order: 13,
+    order: 19,
     title: "Projets et futur — l'aspect verbal",
     theme: "futur",
     mascotIntro:
@@ -744,7 +744,7 @@ window.POLISH_LESSONS = [
   /* ================================ 14 =============================== */
   {
     id: "lesson-12",
-    order: 14,
+    order: 20,
     title: "Les couleurs et les descriptions — l'adjectif",
     theme: "adjectifs",
     mascotIntro:
@@ -800,7 +800,7 @@ window.POLISH_LESSONS = [
   /* ================================ 15 =============================== */
   {
     id: "lesson-13",
-    order: 15,
+    order: 24,
     title: "Parler d'hier — le passé",
     theme: "passé",
     mascotIntro:
@@ -855,7 +855,7 @@ window.POLISH_LESSONS = [
   /* ================================ 16 =============================== */
   {
     id: "lesson-14",
-    order: 16,
+    order: 25,
     title: "La routine du matin — les verbes réfléchis (się)",
     theme: "routine",
     mascotIntro:
@@ -910,7 +910,7 @@ window.POLISH_LESSONS = [
   /* ================================ 17 =============================== */
   {
     id: "lesson-15",
-    order: 17,
+    order: 26,
     title: "Le corps et la santé — chez le médecin",
     theme: "santé",
     mascotIntro:
@@ -966,7 +966,7 @@ window.POLISH_LESSONS = [
   /* ================================ 18 =============================== */
   {
     id: "lesson-16",
-    order: 18,
+    order: 29,
     title: "En ville — trouver son chemin",
     theme: "ville",
     mascotIntro:
@@ -1022,7 +1022,7 @@ window.POLISH_LESSONS = [
   /* ================================ 19 =============================== */
   {
     id: "lesson-17",
-    order: 19,
+    order: 30,
     title: "Les transports — l'instrumental",
     theme: "instrumental",
     mascotIntro:
@@ -1078,7 +1078,7 @@ window.POLISH_LESSONS = [
   /* ================================ 20 =============================== */
   {
     id: "lesson-18",
-    order: 20,
+    order: 33,
     title: "Au marché et à table — le datif",
     theme: "datif",
     mascotIntro:
@@ -1134,7 +1134,7 @@ window.POLISH_LESSONS = [
   /* ================================ 21 =============================== */
   {
     id: "lesson-19",
-    order: 21,
+    order: 36,
     title: "Comparer — le comparatif et le superlatif",
     theme: "comparaisons",
     mascotIntro:
@@ -1190,7 +1190,7 @@ window.POLISH_LESSONS = [
   /* ================================ 22 =============================== */
   {
     id: "lesson-20",
-    order: 22,
+    order: 37,
     title: "La météo et les saisons",
     theme: "météo",
     mascotIntro:
@@ -1246,7 +1246,7 @@ window.POLISH_LESSONS = [
   /* ================================ 23 =============================== */
   {
     id: "lesson-21",
-    order: 23,
+    order: 39,
     title: "Au bureau et projets polis — le conditionnel",
     theme: "conditionnel",
     mascotIntro:
@@ -1296,6 +1296,1187 @@ window.POLISH_LESSONS = [
         wordBank: ["Czy", "mógłbyś", "mi", "pomóc"] },
       { id: "s-21-4", pl: "Wolałbym jechać pociągiem.", fr: "Je préférerais aller en train.", grammarFocus: "g-21-2",
         wordBank: ["Wolałbym", "jechać", "pociągiem"] }
+    ]
+  },
+
+  /* =====================================================================
+     LEÇONS A2 — intercalées via le champ `order` (l'ordre physique du
+     tableau n'importe pas : state.js trie par `order`).
+     ⚠️ Contenu à faire relire par une personne polonophone.
+     ===================================================================== */
+
+  /* ======================= order 8 — Vêtements ====================== */
+  {
+    id: "lesson-24",
+    order: 8,
+    title: "Vêtements et shopping — ubrania",
+    theme: "vêtements",
+    mascotIntro:
+      "Żubr n'a jamais froid grâce à sa fourrure, mais il veut quand même un joli bonnet. Allons faire du shopping ! 🧣",
+    grammarNotes: [
+      {
+        id: "g-24-1",
+        title: "Acheter / porter + accusatif",
+        explanationFr:
+          "Les verbes kupować (acheter) et nosić (porter) prennent l'accusatif. Féminin -a → -ę (sukienka → sukienkę), et l'adjectif suit (nowa → nową). Le masculin d'objet ne change pas (sweter reste sweter).",
+        examples: [
+          { pl: "Kupuję nową sukienkę.", fr: "J'achète une nouvelle robe.", note: "sukienka → sukienkę" },
+          { pl: "Noszę czarny sweter.", fr: "Je porte un pull noir.", note: "masculin inchangé" }
+        ]
+      },
+      {
+        id: "g-24-2",
+        title: "Essayer et demander la taille",
+        explanationFr:
+          "« Czy mogę przymierzyć…? » = puis-je essayer… ? « Jaki rozmiar? » = quelle taille ? On répond « Noszę rozmiar M/L ».",
+        examples: [
+          { pl: "Czy mogę to przymierzyć?", fr: "Puis-je essayer ça ?" },
+          { pl: "Jaki rozmiar pan nosi?", fr: "Quelle taille portez-vous ?" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-24-ubranie", pl: "ubranie", fr: "le vêtement", category: "vêtements" },
+      { id: "v-24-koszula", pl: "koszula", fr: "la chemise", category: "vêtements" },
+      { id: "v-24-spodnie", pl: "spodnie", fr: "le pantalon", category: "vêtements" },
+      { id: "v-24-sukienka", pl: "sukienka", fr: "la robe", category: "vêtements" },
+      { id: "v-24-buty", pl: "buty", fr: "les chaussures", category: "vêtements" },
+      { id: "v-24-kurtka", pl: "kurtka", fr: "la veste / le blouson", category: "vêtements" },
+      { id: "v-24-sweter", pl: "sweter", fr: "le pull", category: "vêtements" },
+      { id: "v-24-czapka", pl: "czapka", fr: "le bonnet", category: "vêtements" },
+      { id: "v-24-rozmiar", pl: "rozmiar", fr: "la taille", category: "vêtements" },
+      { id: "v-24-przymierzyc", pl: "przymierzyć", fr: "essayer (un vêtement)", category: "verbe" },
+      { id: "v-24-nosic", pl: "nosić", fr: "porter", category: "verbe" },
+      { id: "v-24-kupowac", pl: "kupować", fr: "acheter", category: "verbe" }
+    ],
+    sentences: [
+      { id: "s-24-1", pl: "Kupuję nową sukienkę.", fr: "J'achète une nouvelle robe.", grammarFocus: "g-24-1",
+        wordBank: ["Kupuję", "nową", "sukienkę", "nowa", "sukienka"] },
+      { id: "s-24-2", pl: "Czy mogę przymierzyć te buty?", fr: "Puis-je essayer ces chaussures ?", grammarFocus: "g-24-2",
+        wordBank: ["Czy", "mogę", "przymierzyć", "te", "buty"] },
+      { id: "s-24-3", pl: "Noszę czarną kurtkę.", fr: "Je porte une veste noire.", grammarFocus: "g-24-1",
+        wordBank: ["Noszę", "czarną", "kurtkę", "czarna", "kurtka"] },
+      { id: "s-24-4", pl: "Jaki rozmiar pan nosi?", fr: "Quelle taille portez-vous ?", grammarFocus: "g-24-2",
+        wordBank: ["Jaki", "rozmiar", "pan", "nosi"] }
+    ],
+    dialogues: [
+      {
+        id: "d-24-1",
+        title: "Au magasin de vêtements",
+        lines: [
+          { who: "A", pl: "Dzień dobry! W czym mogę pomóc?", fr: "Bonjour ! Je peux vous aider ?" },
+          { who: "B", pl: "Szukam ciepłej kurtki.", fr: "Je cherche une veste chaude." },
+          { who: "A", pl: "Jaki rozmiar pan nosi?", fr: "Quelle taille portez-vous ?" },
+          { who: "B", pl: "Noszę rozmiar L.", fr: "Je porte du L.",
+            target: true, wordBank: ["Noszę", "rozmiar", "L", "duży", "M"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 10 — Modaux ======================== */
+  {
+    id: "lesson-25",
+    order: 10,
+    title: "Devoir, pouvoir, falloir — les modaux",
+    theme: "modaux",
+    mascotIntro:
+      "« Je dois brouter, je peux dormir, il faut se dépêcher… » Żubr adore les verbes modaux : ils suivent presque toujours un infinitif. 💪",
+    grammarNotes: [
+      {
+        id: "g-25-1",
+        title: "musieć (devoir) et móc (pouvoir) + infinitif",
+        explanationFr:
+          "musieć : muszę, musisz, musi… Le « je peux » de móc : mogę, możesz, może… Ces verbes sont suivis d'un infinitif. « Muszę iść », « Czy mogę pomóc? ».",
+        examples: [
+          { pl: "Muszę iść do pracy.", fr: "Je dois aller au travail." },
+          { pl: "Czy mogę tu usiąść?", fr: "Puis-je m'asseoir ici ?" }
+        ]
+      },
+      {
+        id: "g-25-2",
+        title: "Tournures impersonnelles : trzeba, można, wolno",
+        explanationFr:
+          "Sans sujet : « trzeba » = il faut, « można » = on peut / c'est permis, « (nie) wolno » = c'est (inter)dit. Toujours + infinitif. « powinienem / powinnam » = je devrais (homme / femme).",
+        examples: [
+          { pl: "Trzeba kupić chleb.", fr: "Il faut acheter du pain." },
+          { pl: "Tu nie wolno palić.", fr: "Ici il est interdit de fumer." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-25-musiec", pl: "musieć", fr: "devoir", category: "modaux" },
+      { id: "v-25-moc", pl: "móc", fr: "pouvoir", category: "modaux" },
+      { id: "v-25-trzeba", pl: "trzeba", fr: "il faut", category: "modaux" },
+      { id: "v-25-mozna", pl: "można", fr: "on peut / c'est permis", category: "modaux" },
+      { id: "v-25-wolno", pl: "wolno", fr: "c'est permis", category: "modaux" },
+      { id: "v-25-niewolno", pl: "nie wolno", fr: "c'est interdit", category: "modaux" },
+      { id: "v-25-powinienem", pl: "powinienem", fr: "je devrais (homme)", category: "modaux" },
+      { id: "v-25-powinnam", pl: "powinnam", fr: "je devrais (femme)", category: "modaux" },
+      { id: "v-25-muszę", pl: "muszę", fr: "je dois", category: "modaux" },
+      { id: "v-25-moge", pl: "mogę", fr: "je peux", category: "modaux" },
+      { id: "v-25-pomoc", pl: "pomóc", fr: "aider (perfectif)", category: "verbe" },
+      { id: "v-25-odpoczac", pl: "odpocząć", fr: "se reposer (perfectif)", category: "verbe" }
+    ],
+    sentences: [
+      { id: "s-25-1", pl: "Muszę iść do pracy.", fr: "Je dois aller au travail.", grammarFocus: "g-25-1",
+        wordBank: ["Muszę", "iść", "do", "pracy", "mogę"] },
+      { id: "s-25-2", pl: "Czy mogę tu usiąść?", fr: "Puis-je m'asseoir ici ?", grammarFocus: "g-25-1",
+        wordBank: ["Czy", "mogę", "tu", "usiąść", "muszę"] },
+      { id: "s-25-3", pl: "Tu nie wolno palić.", fr: "Ici il est interdit de fumer.", grammarFocus: "g-25-2",
+        wordBank: ["Tu", "nie", "wolno", "palić", "można"] },
+      { id: "s-25-4", pl: "Trzeba kupić chleb.", fr: "Il faut acheter du pain.", grammarFocus: "g-25-2",
+        wordBank: ["Trzeba", "kupić", "chleb", "trzeba"] }
+    ],
+    dialogues: [
+      {
+        id: "d-25-1",
+        title: "Au bureau",
+        lines: [
+          { who: "A", pl: "Czy mogę otworzyć okno?", fr: "Puis-je ouvrir la fenêtre ?" },
+          { who: "B", pl: "Tak, można.", fr: "Oui, c'est permis." },
+          { who: "A", pl: "Dziękuję. Muszę już iść.", fr: "Merci. Je dois déjà y aller." },
+          { who: "B", pl: "Powinieneś odpocząć.", fr: "Tu devrais te reposer.",
+            target: true, wordBank: ["Powinieneś", "odpocząć", "musisz", "spać"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 11 — Loisirs ======================= */
+  {
+    id: "lesson-26",
+    order: 11,
+    title: "Le temps libre et les loisirs — czas wolny",
+    theme: "loisirs",
+    mascotIntro:
+      "Le week-end, Żubr nage dans la rivière et gratte sa guitare (mal). Et toi, que fais-tu de ton temps libre ? 🎸",
+    grammarNotes: [
+      {
+        id: "g-26-1",
+        title: "grać w (jeux/sports) vs grać na (instruments)",
+        explanationFr:
+          "« grać w » + accusatif pour un jeu ou un sport : grać w piłkę, grać w szachy. « grać na » + locatif pour un instrument : grać na gitarze, grać na pianinie.",
+        examples: [
+          { pl: "Gram w piłkę nożną.", fr: "Je joue au football.", note: "w + accusatif" },
+          { pl: "Ona gra na gitarze.", fr: "Elle joue de la guitare.", note: "na + locatif" }
+        ]
+      },
+      {
+        id: "g-26-2",
+        title: "lubić + infinitif",
+        explanationFr:
+          "Pour dire ce qu'on aime faire : lubić + infinitif. « Lubię pływać », « Lubię czytać ».",
+        examples: [
+          { pl: "Lubię pływać w weekend.", fr: "J'aime nager le week-end." },
+          { pl: "Lubię tańczyć.", fr: "J'aime danser." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-26-hobby", pl: "hobby", fr: "le hobby", category: "loisirs" },
+      { id: "v-26-czaswolny", pl: "czas wolny", fr: "le temps libre", category: "loisirs" },
+      { id: "v-26-grac", pl: "grać", fr: "jouer", category: "verbe" },
+      { id: "v-26-pilkanozna", pl: "piłka nożna", fr: "le football", category: "loisirs" },
+      { id: "v-26-plywac", pl: "pływać", fr: "nager", category: "verbe" },
+      { id: "v-26-biegac", pl: "biegać", fr: "courir", category: "verbe" },
+      { id: "v-26-gitara", pl: "gitara", fr: "la guitare", category: "loisirs" },
+      { id: "v-26-muzyka", pl: "muzyka", fr: "la musique", category: "loisirs" },
+      { id: "v-26-film", pl: "film", fr: "le film", category: "loisirs" },
+      { id: "v-26-tanczyc", pl: "tańczyć", fr: "danser", category: "verbe" },
+      { id: "v-26-koncert", pl: "koncert", fr: "le concert", category: "loisirs" },
+      { id: "v-26-weekend", pl: "weekend", fr: "le week-end", category: "temps" }
+    ],
+    sentences: [
+      { id: "s-26-1", pl: "Gram w piłkę nożną.", fr: "Je joue au football.", grammarFocus: "g-26-1",
+        wordBank: ["Gram", "w", "piłkę", "nożną", "na"] },
+      { id: "s-26-2", pl: "Ona gra na gitarze.", fr: "Elle joue de la guitare.", grammarFocus: "g-26-1",
+        wordBank: ["Ona", "gra", "na", "gitarze", "w"] },
+      { id: "s-26-3", pl: "Lubię pływać w weekend.", fr: "J'aime nager le week-end.", grammarFocus: "g-26-2",
+        wordBank: ["Lubię", "pływać", "w", "weekend", "biegać"] },
+      { id: "s-26-4", pl: "Co robisz w czasie wolnym?", fr: "Que fais-tu pendant ton temps libre ?", grammarFocus: "g-26-2",
+        wordBank: ["Co", "robisz", "w", "czasie", "wolnym"] }
+    ],
+    dialogues: [
+      {
+        id: "d-26-1",
+        title: "Parler de ses loisirs",
+        lines: [
+          { who: "A", pl: "Masz jakieś hobby?", fr: "Tu as un hobby ?" },
+          { who: "B", pl: "Tak, gram na gitarze.", fr: "Oui, je joue de la guitare." },
+          { who: "A", pl: "A uprawiasz jakiś sport?", fr: "Et tu fais un sport ?" },
+          { who: "B", pl: "Biegam w każdą sobotę.", fr: "Je cours tous les samedis.",
+            target: true, wordBank: ["Biegam", "w", "każdą", "sobotę", "niedzielę"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 14 — Heure ========================= */
+  {
+    id: "lesson-27",
+    order: 14,
+    title: "L'heure précise — która godzina",
+    theme: "heure",
+    mascotIntro:
+      "« Il est sept heures et demie ! » Żubr veut être à l'heure pour le petit-déjeuner. Apprenons à dire l'heure exacte. ⏰",
+    grammarNotes: [
+      {
+        id: "g-27-1",
+        title: "L'heure : pełna, wpół do, po, za",
+        explanationFr:
+          "Heure pleine : « Jest piąta » (5h). Et demie : « wpół do szóstej » = 5h30 (littéralement « moitié vers la 6e »). Minutes passées : « pięć po piątej » (5h05). Presque : « za pięć szósta » (5h55).",
+        examples: [
+          { pl: "Jest wpół do ósmej.", fr: "Il est sept heures et demie." },
+          { pl: "Za kwadrans będzie południe.", fr: "Dans un quart d'heure il sera midi." }
+        ]
+      },
+      {
+        id: "g-27-2",
+        title: "À quelle heure ? o + locatif",
+        explanationFr:
+          "« O której godzinie? » = à quelle heure ? On répond avec « o » + l'ordinal au locatif : o piątej (à 5h), o wpół do ósmej (à 7h30).",
+        examples: [
+          { pl: "Spotkajmy się o piątej.", fr: "Retrouvons-nous à cinq heures." },
+          { pl: "Pociąg jest o wpół do dziewiątej.", fr: "Le train est à huit heures et demie." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-27-godzina", pl: "godzina", fr: "l'heure", category: "temps" },
+      { id: "v-27-wpoldo", pl: "wpół do", fr: "et demie (moitié vers)", category: "temps" },
+      { id: "v-27-kwadrans", pl: "kwadrans", fr: "le quart d'heure", category: "temps" },
+      { id: "v-27-za", pl: "za", fr: "dans / moins (heure)", category: "temps" },
+      { id: "v-27-po", pl: "po", fr: "après / passées", category: "temps" },
+      { id: "v-27-minuta", pl: "minuta", fr: "la minute", category: "temps" },
+      { id: "v-27-poludnie", pl: "południe", fr: "midi", category: "temps" },
+      { id: "v-27-polnoc", pl: "północ", fr: "minuit", category: "temps" },
+      { id: "v-27-spoznicsie", pl: "spóźnić się", fr: "être en retard", category: "verbe" },
+      { id: "v-27-wczesnie", pl: "wcześnie", fr: "tôt", category: "temps" },
+      { id: "v-27-pozno", pl: "późno", fr: "tard", category: "temps" },
+      { id: "v-27-punktualnie", pl: "punktualnie", fr: "à l'heure / ponctuellement", category: "temps" }
+    ],
+    sentences: [
+      { id: "s-27-1", pl: "Która jest godzina?", fr: "Quelle heure est-il ?", grammarFocus: "g-27-1",
+        wordBank: ["Która", "jest", "godzina"] },
+      { id: "s-27-2", pl: "Jest wpół do ósmej.", fr: "Il est sept heures et demie.", grammarFocus: "g-27-1",
+        wordBank: ["Jest", "wpół", "do", "ósmej", "piątej"] },
+      { id: "s-27-3", pl: "Spotkajmy się o piątej.", fr: "Retrouvons-nous à cinq heures.", grammarFocus: "g-27-2",
+        wordBank: ["Spotkajmy", "się", "o", "piątej", "piąta"] },
+      { id: "s-27-4", pl: "Za kwadrans będzie południe.", fr: "Dans un quart d'heure il sera midi.", grammarFocus: "g-27-1",
+        wordBank: ["Za", "kwadrans", "będzie", "południe", "północ"] }
+    ],
+    dialogues: [
+      {
+        id: "d-27-1",
+        title: "Attraper le train",
+        lines: [
+          { who: "A", pl: "O której godzinie masz pociąg?", fr: "À quelle heure as-tu ton train ?" },
+          { who: "B", pl: "O wpół do dziewiątej.", fr: "À huit heures et demie." },
+          { who: "A", pl: "To już za dziesięć minut!", fr: "C'est dans dix minutes !" },
+          { who: "B", pl: "Muszę się spieszyć.", fr: "Je dois me dépêcher.",
+            target: true, wordBank: ["Muszę", "się", "spieszyć", "spać"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 16 — Dates ========================= */
+  {
+    id: "lesson-28",
+    order: 16,
+    title: "Nombres ordinaux et dates — daty",
+    theme: "dates",
+    mascotIntro:
+      "« C'est mon premier hiver ! » se souvient Żubr. Premier, deuxième, troisième… et les dates : voici les nombres ordinaux. 📅",
+    grammarNotes: [
+      {
+        id: "g-28-1",
+        title: "Les nombres ordinaux (1er à 10e)",
+        explanationFr:
+          "Ils s'accordent comme des adjectifs : pierwszy, drugi, trzeci, czwarty, piąty, szósty, siódmy, ósmy, dziewiąty, dziesiąty. « pierwszy dzień », « trzecie piętro ».",
+        examples: [
+          { pl: "To mój pierwszy dzień.", fr: "C'est mon premier jour." },
+          { pl: "Ona mieszka na trzecim piętrze.", fr: "Elle habite au troisième étage.", note: "locatif" }
+        ]
+      },
+      {
+        id: "g-28-2",
+        title: "Les dates : le combien ? (génitif)",
+        explanationFr:
+          "Le jour de la date se met au génitif : « piątego lipca » (le 5 juillet). Question : « Którego dzisiaj mamy? » (le combien sommes-nous ?).",
+        examples: [
+          { pl: "Moje urodziny są piątego lipca.", fr: "Mon anniversaire est le 5 juillet." },
+          { pl: "Którego dzisiaj mamy?", fr: "Le combien sommes-nous aujourd'hui ?" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-28-pierwszy", pl: "pierwszy", fr: "premier", category: "ordinal" },
+      { id: "v-28-drugi", pl: "drugi", fr: "deuxième", category: "ordinal" },
+      { id: "v-28-trzeci", pl: "trzeci", fr: "troisième", category: "ordinal" },
+      { id: "v-28-czwarty", pl: "czwarty", fr: "quatrième", category: "ordinal" },
+      { id: "v-28-piaty", pl: "piąty", fr: "cinquième", category: "ordinal" },
+      { id: "v-28-szosty", pl: "szósty", fr: "sixième", category: "ordinal" },
+      { id: "v-28-siodmy", pl: "siódmy", fr: "septième", category: "ordinal" },
+      { id: "v-28-osmy", pl: "ósmy", fr: "huitième", category: "ordinal" },
+      { id: "v-28-dziewiaty", pl: "dziewiąty", fr: "neuvième", category: "ordinal" },
+      { id: "v-28-dziesiaty", pl: "dziesiąty", fr: "dixième", category: "ordinal" },
+      { id: "v-28-data", pl: "data", fr: "la date", category: "temps" },
+      { id: "v-28-pietro", pl: "piętro", fr: "l'étage", category: "maison" }
+    ],
+    sentences: [
+      { id: "s-28-1", pl: "To jest mój pierwszy dzień w pracy.", fr: "C'est mon premier jour au travail.", grammarFocus: "g-28-1",
+        wordBank: ["To", "jest", "mój", "pierwszy", "dzień", "w", "pracy"] },
+      { id: "s-28-2", pl: "Ona mieszka na trzecim piętrze.", fr: "Elle habite au troisième étage.", grammarFocus: "g-28-1",
+        wordBank: ["Ona", "mieszka", "na", "trzecim", "piętrze", "trzeci"] },
+      { id: "s-28-3", pl: "Moje urodziny są piątego lipca.", fr: "Mon anniversaire est le 5 juillet.", grammarFocus: "g-28-2",
+        wordBank: ["Moje", "urodziny", "są", "piątego", "lipca", "piąty"] },
+      { id: "s-28-4", pl: "Którego dzisiaj mamy?", fr: "Le combien sommes-nous aujourd'hui ?", grammarFocus: "g-28-2",
+        wordBank: ["Którego", "dzisiaj", "mamy"] }
+    ],
+    dialogues: [
+      {
+        id: "d-28-1",
+        title: "Quelle est la date ?",
+        lines: [
+          { who: "A", pl: "Którego dzisiaj mamy?", fr: "Le combien sommes-nous ?" },
+          { who: "B", pl: "Dzisiaj jest dziesiąty marca.", fr: "Aujourd'hui c'est le 10 mars." },
+          { who: "A", pl: "A kiedy masz urodziny?", fr: "Et quand est ton anniversaire ?" },
+          { who: "B", pl: "Moje urodziny są drugiego maja.", fr: "Mon anniversaire est le 2 mai.",
+            target: true, wordBank: ["Moje", "urodziny", "są", "drugiego", "maja", "drugi"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 18 — Cuisine ======================= */
+  {
+    id: "lesson-29",
+    order: 18,
+    title: "Cuisiner et manger — w kuchni",
+    theme: "cuisine",
+    mascotIntro:
+      "Żubr ne cuisine pas vraiment (il broute), mais il adore regarder. Mettons la table et préparons un bon repas ! 🍲",
+    grammarNotes: [
+      {
+        id: "g-29-1",
+        title: "Les repas : na + accusatif",
+        explanationFr:
+          "Pour dire « au petit-déjeuner / au déjeuner / au dîner » : « na » + accusatif. « Co jesz na śniadanie? », « na obiad », « na kolację » (kolacja → kolację).",
+        examples: [
+          { pl: "Co jesz na śniadanie?", fr: "Que manges-tu au petit-déjeuner ?" },
+          { pl: "Na obiad jem zupę.", fr: "Au déjeuner je mange de la soupe." }
+        ]
+      },
+      {
+        id: "g-29-2",
+        title: "gotować dla + génitif",
+        explanationFr:
+          "« pour quelqu'un » = « dla » + génitif. « Gotuję dla rodziny » (rodzina → rodziny), « dla dzieci ».",
+        examples: [
+          { pl: "Gotuję obiad dla rodziny.", fr: "Je cuisine le déjeuner pour la famille." },
+          { pl: "To jest prezent dla mamy.", fr: "C'est un cadeau pour maman." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-29-gotowac", pl: "gotować", fr: "cuisiner", category: "cuisine" },
+      { id: "v-29-przepis", pl: "przepis", fr: "la recette", category: "cuisine" },
+      { id: "v-29-skladniki", pl: "składniki", fr: "les ingrédients", category: "cuisine" },
+      { id: "v-29-talerz", pl: "talerz", fr: "l'assiette", category: "cuisine" },
+      { id: "v-29-noz", pl: "nóż", fr: "le couteau", category: "cuisine" },
+      { id: "v-29-widelec", pl: "widelec", fr: "la fourchette", category: "cuisine" },
+      { id: "v-29-lyzka", pl: "łyżka", fr: "la cuillère", category: "cuisine" },
+      { id: "v-29-sniadanie", pl: "śniadanie", fr: "le petit-déjeuner", category: "cuisine" },
+      { id: "v-29-obiad", pl: "obiad", fr: "le déjeuner", category: "cuisine" },
+      { id: "v-29-kolacja", pl: "kolacja", fr: "le dîner", category: "cuisine" },
+      { id: "v-29-piec", pl: "piec", fr: "cuire (au four)", category: "verbe" },
+      { id: "v-29-kroic", pl: "kroić", fr: "couper", category: "verbe" }
+    ],
+    sentences: [
+      { id: "s-29-1", pl: "Co jesz na śniadanie?", fr: "Que manges-tu au petit-déjeuner ?", grammarFocus: "g-29-1",
+        wordBank: ["Co", "jesz", "na", "śniadanie", "obiad"] },
+      { id: "s-29-2", pl: "Gotuję obiad dla rodziny.", fr: "Je cuisine le déjeuner pour la famille.", grammarFocus: "g-29-2",
+        wordBank: ["Gotuję", "obiad", "dla", "rodziny", "rodzina"] },
+      { id: "s-29-3", pl: "Ten przepis jest bardzo prosty.", fr: "Cette recette est très simple.", grammarFocus: "g-29-1",
+        wordBank: ["Ten", "przepis", "jest", "bardzo", "prosty"] },
+      { id: "s-29-4", pl: "Potrzebuję nóż i widelec.", fr: "J'ai besoin d'un couteau et d'une fourchette.", grammarFocus: "g-29-2",
+        wordBank: ["Potrzebuję", "nóż", "i", "widelec", "łyżkę"] }
+    ],
+    dialogues: [
+      {
+        id: "d-29-1",
+        title: "En cuisine",
+        lines: [
+          { who: "A", pl: "Co robisz?", fr: "Qu'est-ce que tu fais ?" },
+          { who: "B", pl: "Gotuję zupę pomidorową.", fr: "Je prépare une soupe de tomates." },
+          { who: "A", pl: "Jakie składniki są potrzebne?", fr: "Quels ingrédients faut-il ?" },
+          { who: "B", pl: "Potrzebuję pomidory i cebulę.", fr: "J'ai besoin de tomates et d'un oignon.",
+            target: true, wordBank: ["Potrzebuję", "pomidory", "i", "cebulę", "cebula"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 21 — Pluriel ======================= */
+  {
+    id: "lesson-30",
+    order: 21,
+    title: "Le pluriel des noms — liczba mnoga",
+    theme: "pluriel",
+    mascotIntro:
+      "Un bison, c'est bien. Un troupeau de bisons, c'est mieux ! Apprenons à mettre les noms au pluriel. 🦬🦬🦬",
+    grammarNotes: [
+      {
+        id: "g-30-1",
+        title: "Le pluriel des choses (non-personnel)",
+        explanationFr:
+          "Féminin -a → -y/-i (książka → książki, kobieta → kobiety). Neutre -o → -a (okno → okna, miasto → miasta). Masculin d'objet → -y/-i/-e (dom → domy, kot → koty).",
+        examples: [
+          { pl: "To są moje książki.", fr: "Ce sont mes livres.", note: "książka → książki" },
+          { pl: "Te miasta są duże.", fr: "Ces villes sont grandes.", note: "miasto → miasta" }
+        ]
+      },
+      {
+        id: "g-30-2",
+        title: "Le pluriel masculin personnel (à part !)",
+        explanationFr:
+          "Quand il s'agit d'hommes, le pluriel est spécial : mężczyzna → mężczyźni, student → studenci, Polak → Polacy. Certains sont irréguliers : człowiek → ludzie, dziecko → dzieci.",
+        examples: [
+          { pl: "Mężczyźni czytają gazety.", fr: "Les hommes lisent les journaux." },
+          { pl: "W parku są ludzie.", fr: "Il y a des gens dans le parc." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-30-koty", pl: "koty", fr: "les chats", category: "pluriel" },
+      { id: "v-30-psy", pl: "psy", fr: "les chiens", category: "pluriel" },
+      { id: "v-30-domy", pl: "domy", fr: "les maisons", category: "pluriel" },
+      { id: "v-30-okna", pl: "okna", fr: "les fenêtres", category: "pluriel" },
+      { id: "v-30-ksiazki", pl: "książki", fr: "les livres", category: "pluriel" },
+      { id: "v-30-kobiety", pl: "kobiety", fr: "les femmes", category: "pluriel" },
+      { id: "v-30-mezczyzni", pl: "mężczyźni", fr: "les hommes", category: "pluriel" },
+      { id: "v-30-dzieci", pl: "dzieci", fr: "les enfants", category: "pluriel" },
+      { id: "v-30-ludzie", pl: "ludzie", fr: "les gens", category: "pluriel" },
+      { id: "v-30-samochody", pl: "samochody", fr: "les voitures", category: "pluriel" },
+      { id: "v-30-miasta", pl: "miasta", fr: "les villes", category: "pluriel" },
+      { id: "v-30-gazety", pl: "gazety", fr: "les journaux", category: "pluriel" }
+    ],
+    sentences: [
+      { id: "s-30-1", pl: "To są moje książki.", fr: "Ce sont mes livres.", grammarFocus: "g-30-1",
+        wordBank: ["To", "są", "moje", "książki", "książka"] },
+      { id: "s-30-2", pl: "W parku są psy i koty.", fr: "Dans le parc il y a des chiens et des chats.", grammarFocus: "g-30-1",
+        wordBank: ["W", "parku", "są", "psy", "i", "koty"] },
+      { id: "s-30-3", pl: "Te miasta są bardzo duże.", fr: "Ces villes sont très grandes.", grammarFocus: "g-30-1",
+        wordBank: ["Te", "miasta", "są", "bardzo", "duże", "miasto"] },
+      { id: "s-30-4", pl: "Mężczyźni czytają gazety.", fr: "Les hommes lisent les journaux.", grammarFocus: "g-30-2",
+        wordBank: ["Mężczyźni", "czytają", "gazety", "mężczyzna"] }
+    ],
+    dialogues: [
+      {
+        id: "d-30-1",
+        title: "Décrire une photo",
+        lines: [
+          { who: "A", pl: "Co widzisz na zdjęciu?", fr: "Que vois-tu sur la photo ?" },
+          { who: "B", pl: "Widzę dwa duże domy.", fr: "Je vois deux grandes maisons." },
+          { who: "A", pl: "A co jeszcze?", fr: "Et quoi d'autre ?" },
+          { who: "B", pl: "Tam są trzy samochody.", fr: "Il y a trois voitures là.",
+            target: true, wordBank: ["Tam", "są", "trzy", "samochody", "samochód"] }
+        ]
+      }
+    ]
+  },
+
+  /* ================== order 22 — Adjectif décliné =================== */
+  {
+    id: "lesson-31",
+    order: 22,
+    title: "L'adjectif décliné et au pluriel",
+    theme: "adjectifs",
+    mascotIntro:
+      "Une grande forêt verte, de longs jours d'été… Żubr veut tout décrire précisément. L'adjectif s'accorde partout ! 🌲",
+    grammarNotes: [
+      {
+        id: "g-31-1",
+        title: "L'adjectif à l'accusatif",
+        explanationFr:
+          "Quand le nom est complément d'objet, l'adjectif suit. Féminin -a → -ą (nowa → nową), s'accordant avec le nom (sukienkę). Masculin d'objet inchangé (nowy sweter).",
+        examples: [
+          { pl: "Mam nową czerwoną sukienkę.", fr: "J'ai une nouvelle robe rouge.", note: "accusatif fém." },
+          { pl: "Czytam ciekawą książkę.", fr: "Je lis un livre intéressant." }
+        ]
+      },
+      {
+        id: "g-31-2",
+        title: "L'adjectif au pluriel",
+        explanationFr:
+          "Pour les choses et les femmes : terminaison -e (małe domy, ciekawe książki, młode kobiety). Pour un groupe d'hommes : -i/-y (mili panowie).",
+        examples: [
+          { pl: "To są ciekawe książki.", fr: "Ce sont des livres intéressants." },
+          { pl: "Lubię trudne pytania.", fr: "J'aime les questions difficiles." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-31-ciekawy", pl: "ciekawy", fr: "intéressant", category: "description" },
+      { id: "v-31-nudny", pl: "nudny", fr: "ennuyeux", category: "description" },
+      { id: "v-31-trudny", pl: "trudny", fr: "difficile", category: "description" },
+      { id: "v-31-latwy", pl: "łatwy", fr: "facile", category: "description" },
+      { id: "v-31-wysoki", pl: "wysoki", fr: "haut / grand", category: "description" },
+      { id: "v-31-niski", pl: "niski", fr: "bas / petit", category: "description" },
+      { id: "v-31-mlody", pl: "młody", fr: "jeune", category: "description" },
+      { id: "v-31-wazny", pl: "ważny", fr: "important", category: "description" },
+      { id: "v-31-dlugi", pl: "długi", fr: "long", category: "description" },
+      { id: "v-31-krotki", pl: "krótki", fr: "court", category: "description" },
+      { id: "v-31-pytanie", pl: "pytanie", fr: "la question", category: "objet" },
+      { id: "v-31-historia", pl: "historia", fr: "l'histoire", category: "objet" }
+    ],
+    sentences: [
+      { id: "s-31-1", pl: "Mam nową czerwoną sukienkę.", fr: "J'ai une nouvelle robe rouge.", grammarFocus: "g-31-1",
+        wordBank: ["Mam", "nową", "czerwoną", "sukienkę", "nowa"] },
+      { id: "s-31-2", pl: "To są ciekawe książki.", fr: "Ce sont des livres intéressants.", grammarFocus: "g-31-2",
+        wordBank: ["To", "są", "ciekawe", "książki", "ciekawa"] },
+      { id: "s-31-3", pl: "Lubię trudne pytania.", fr: "J'aime les questions difficiles.", grammarFocus: "g-31-2",
+        wordBank: ["Lubię", "trudne", "pytania", "trudny"] },
+      { id: "s-31-4", pl: "Czytam bardzo ciekawą książkę.", fr: "Je lis un livre très intéressant.", grammarFocus: "g-31-1",
+        wordBank: ["Czytam", "bardzo", "ciekawą", "książkę", "ciekawa"] }
+    ],
+    dialogues: [
+      {
+        id: "d-31-1",
+        title: "De quoi parle ton livre ?",
+        lines: [
+          { who: "A", pl: "Jaką książkę czytasz?", fr: "Quel livre lis-tu ?" },
+          { who: "B", pl: "Czytam bardzo ciekawą książkę.", fr: "Je lis un livre très intéressant." },
+          { who: "A", pl: "O czym ona jest?", fr: "De quoi parle-t-il ?" },
+          { who: "B", pl: "To jest długa historia.", fr: "C'est une longue histoire.",
+            target: true, wordBank: ["To", "jest", "długa", "historia", "długi"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 23 — Sentiments ==================== */
+  {
+    id: "lesson-32",
+    order: 23,
+    title: "Les sentiments et le caractère — uczucia",
+    theme: "sentiments",
+    mascotIntro:
+      "Heureux, fatigué, un peu inquiet avant l'hiver… Żubr a plein d'émotions. Apprenons à dire comment on se sent. 😊",
+    grammarNotes: [
+      {
+        id: "g-32-1",
+        title: "être + adjectif d'état (accord en genre)",
+        explanationFr:
+          "Avec « być » l'adjectif s'accorde : homme « Jestem szczęśliwy / zmęczony », femme « Jestem szczęśliwa / zmęczona ».",
+        examples: [
+          { pl: "Jestem bardzo szczęśliwy.", fr: "Je suis très heureux.", note: "homme" },
+          { pl: "Ona jest dzisiaj smutna.", fr: "Elle est triste aujourd'hui.", note: "femme" }
+        ]
+      },
+      {
+        id: "g-32-2",
+        title: "Les verbes d'émotion en « się »",
+        explanationFr:
+          "cieszyć się (se réjouir), martwić się (s'inquiéter), denerwować się (s'énerver), bać się + génitif (avoir peur de). « Boję się psów », « Cieszę się ».",
+        examples: [
+          { pl: "Cieszę się, że jesteś.", fr: "Je suis content que tu sois là." },
+          { pl: "Boję się psów.", fr: "J'ai peur des chiens.", note: "bać się + génitif" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-32-szczesliwy", pl: "szczęśliwy", fr: "heureux", category: "sentiment" },
+      { id: "v-32-smutny", pl: "smutny", fr: "triste", category: "sentiment" },
+      { id: "v-32-zmeczony", pl: "zmęczony", fr: "fatigué", category: "sentiment" },
+      { id: "v-32-zly", pl: "zły", fr: "fâché / méchant", category: "sentiment" },
+      { id: "v-32-zadowolony", pl: "zadowolony", fr: "content / satisfait", category: "sentiment" },
+      { id: "v-32-spokojny", pl: "spokojny", fr: "calme", category: "sentiment" },
+      { id: "v-32-mily", pl: "miły", fr: "gentil / agréable", category: "caractère" },
+      { id: "v-32-wesoly", pl: "wesoły", fr: "joyeux", category: "caractère" },
+      { id: "v-32-cieszycsie", pl: "cieszyć się", fr: "se réjouir", category: "verbe" },
+      { id: "v-32-bacsie", pl: "bać się", fr: "avoir peur", category: "verbe" },
+      { id: "v-32-martwicsie", pl: "martwić się", fr: "s'inquiéter", category: "verbe" },
+      { id: "v-32-denerwowacsie", pl: "denerwować się", fr: "s'énerver", category: "verbe" }
+    ],
+    sentences: [
+      { id: "s-32-1", pl: "Jestem bardzo szczęśliwy.", fr: "Je suis très heureux.", grammarFocus: "g-32-1",
+        wordBank: ["Jestem", "bardzo", "szczęśliwy", "szczęśliwa"] },
+      { id: "s-32-2", pl: "Ona jest dzisiaj smutna.", fr: "Elle est triste aujourd'hui.", grammarFocus: "g-32-1",
+        wordBank: ["Ona", "jest", "dzisiaj", "smutna", "smutny"] },
+      { id: "s-32-3", pl: "Cieszę się, że jesteś.", fr: "Je suis content que tu sois là.", grammarFocus: "g-32-2",
+        wordBank: ["Cieszę", "się", "że", "jesteś"] },
+      { id: "s-32-4", pl: "Boję się psów.", fr: "J'ai peur des chiens.", grammarFocus: "g-32-2",
+        wordBank: ["Boję", "się", "psów", "koty"] }
+    ],
+    dialogues: [
+      {
+        id: "d-32-1",
+        title: "Comment ça va ?",
+        lines: [
+          { who: "A", pl: "Jak się dzisiaj czujesz?", fr: "Comment te sens-tu aujourd'hui ?" },
+          { who: "B", pl: "Jestem trochę zmęczony.", fr: "Je suis un peu fatigué." },
+          { who: "A", pl: "Dlaczego?", fr: "Pourquoi ?" },
+          { who: "B", pl: "Martwię się o egzamin.", fr: "Je m'inquiète pour l'examen.",
+            target: true, wordBank: ["Martwię", "się", "o", "egzamin", "cieszę"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 27 — Apparence ===================== */
+  {
+    id: "lesson-33",
+    order: 27,
+    title: "Décrire les gens — l'apparence",
+    theme: "apparence",
+    mascotIntro:
+      "Grand, poilu, avec deux belles cornes : c'est Żubr ! Apprenons à décrire l'apparence des gens. 👀",
+    grammarNotes: [
+      {
+        id: "g-33-1",
+        title: "mieć + partie du corps (accord de l'adjectif)",
+        explanationFr:
+          "Pour décrire, on utilise « mieć » + adjectif + nom au pluriel : « Ma długie włosy » (des cheveux longs), « Ma niebieskie oczy » (des yeux bleus).",
+        examples: [
+          { pl: "Ona ma długie włosy.", fr: "Elle a les cheveux longs." },
+          { pl: "On ma niebieskie oczy.", fr: "Il a les yeux bleus." }
+        ]
+      },
+      {
+        id: "g-33-2",
+        title: "wyglądać — avoir l'air",
+        explanationFr:
+          "« Jak on wygląda? » = à quoi ressemble-t-il ? On décrit avec « jest » + adjectif : wysoki, niski, szczupły, przystojny.",
+        examples: [
+          { pl: "Jak wygląda twoja siostra?", fr: "À quoi ressemble ta sœur ?" },
+          { pl: "Mój brat jest wysoki i szczupły.", fr: "Mon frère est grand et mince." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-33-wygladac", pl: "wyglądać", fr: "avoir l'air / ressembler", category: "apparence" },
+      { id: "v-33-wlosy", pl: "włosy", fr: "les cheveux", category: "apparence" },
+      { id: "v-33-oczy", pl: "oczy", fr: "les yeux", category: "apparence" },
+      { id: "v-33-wysoki", pl: "wysoki", fr: "grand (taille)", category: "apparence" },
+      { id: "v-33-niski", pl: "niski", fr: "petit (taille)", category: "apparence" },
+      { id: "v-33-szczuply", pl: "szczupły", fr: "mince", category: "apparence" },
+      { id: "v-33-przystojny", pl: "przystojny", fr: "beau (homme)", category: "apparence" },
+      { id: "v-33-ladna", pl: "ładna", fr: "jolie", category: "apparence" },
+      { id: "v-33-broda", pl: "broda", fr: "la barbe", category: "apparence" },
+      { id: "v-33-okulary", pl: "okulary", fr: "les lunettes", category: "apparence" },
+      { id: "v-33-blond", pl: "blond", fr: "blond", category: "apparence" },
+      { id: "v-33-siwy", pl: "siwy", fr: "gris (cheveux)", category: "apparence" }
+    ],
+    sentences: [
+      { id: "s-33-1", pl: "Ona ma długie włosy.", fr: "Elle a les cheveux longs.", grammarFocus: "g-33-1",
+        wordBank: ["Ona", "ma", "długie", "włosy", "krótkie"] },
+      { id: "s-33-2", pl: "Mój brat jest wysoki i szczupły.", fr: "Mon frère est grand et mince.", grammarFocus: "g-33-2",
+        wordBank: ["Mój", "brat", "jest", "wysoki", "i", "szczupły"] },
+      { id: "s-33-3", pl: "On nosi okulary.", fr: "Il porte des lunettes.", grammarFocus: "g-33-1",
+        wordBank: ["On", "nosi", "okulary"] },
+      { id: "s-33-4", pl: "Jak on wygląda?", fr: "À quoi ressemble-t-il ?", grammarFocus: "g-33-2",
+        wordBank: ["Jak", "on", "wygląda"] }
+    ],
+    dialogues: [
+      {
+        id: "d-33-1",
+        title: "Reconnaître quelqu'un",
+        lines: [
+          { who: "A", pl: "Jak wygląda twoja siostra?", fr: "À quoi ressemble ta sœur ?" },
+          { who: "B", pl: "Jest wysoka i ma blond włosy.", fr: "Elle est grande et a les cheveux blonds." },
+          { who: "A", pl: "A oczy?", fr: "Et ses yeux ?" },
+          { who: "B", pl: "Ma niebieskie oczy.", fr: "Elle a les yeux bleus.",
+            target: true, wordBank: ["Ma", "niebieskie", "oczy", "zielone"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 28 — Impératif ===================== */
+  {
+    id: "lesson-34",
+    order: 28,
+    title: "Ordres et conseils — l'impératif",
+    theme: "impératif",
+    mascotIntro:
+      "« Viens ! Prends ! Écoute ! » Żubr donne (gentiment) des ordres. Voici l'impératif, très utile au quotidien. ✋",
+    grammarNotes: [
+      {
+        id: "g-34-1",
+        title: "L'impératif (tu)",
+        explanationFr:
+          "On le forme souvent sur le radical du présent : robić → rób!, pisać → pisz!, słuchać → słuchaj!. Perfectif pour une action précise : zrobić → zrób!, wziąć → weź!. Irréguliers utiles : chodź! (viens), bądź! (sois).",
+        examples: [
+          { pl: "Chodź tutaj!", fr: "Viens ici !" },
+          { pl: "Weź parasol, pada deszcz.", fr: "Prends un parapluie, il pleut." }
+        ]
+      },
+      {
+        id: "g-34-2",
+        title: "Interdire et adoucir",
+        explanationFr:
+          "Défense : « nie » + impératif imperfectif : « Nie martw się! » (ne t'inquiète pas). Pour être poli, on ajoute « proszę » : « Zamknij okno, proszę ».",
+        examples: [
+          { pl: "Nie martw się!", fr: "Ne t'inquiète pas !" },
+          { pl: "Zamknij okno, proszę.", fr: "Ferme la fenêtre, s'il te plaît." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-34-chodz", pl: "chodź", fr: "viens", category: "impératif" },
+      { id: "v-34-wez", pl: "weź", fr: "prends", category: "impératif" },
+      { id: "v-34-poczekaj", pl: "poczekaj", fr: "attends", category: "impératif" },
+      { id: "v-34-sluchaj", pl: "słuchaj", fr: "écoute", category: "impératif" },
+      { id: "v-34-powiedz", pl: "powiedz", fr: "dis", category: "impératif" },
+      { id: "v-34-otworz", pl: "otwórz", fr: "ouvre", category: "impératif" },
+      { id: "v-34-zamknij", pl: "zamknij", fr: "ferme", category: "impératif" },
+      { id: "v-34-pomoz", pl: "pomóż", fr: "aide", category: "impératif" },
+      { id: "v-34-pospieszsie", pl: "pospiesz się", fr: "dépêche-toi", category: "impératif" },
+      { id: "v-34-uwazaj", pl: "uważaj", fr: "fais attention", category: "impératif" },
+      { id: "v-34-zrob", pl: "zrób", fr: "fais (une fois)", category: "impératif" },
+      { id: "v-34-parasol", pl: "parasol", fr: "le parapluie", category: "objet" }
+    ],
+    sentences: [
+      { id: "s-34-1", pl: "Chodź tutaj!", fr: "Viens ici !", grammarFocus: "g-34-1",
+        wordBank: ["Chodź", "tutaj"] },
+      { id: "s-34-2", pl: "Zamknij okno, proszę.", fr: "Ferme la fenêtre, s'il te plaît.", grammarFocus: "g-34-2",
+        wordBank: ["Zamknij", "okno", "proszę", "otwórz"] },
+      { id: "s-34-3", pl: "Nie martw się!", fr: "Ne t'inquiète pas !", grammarFocus: "g-34-2",
+        wordBank: ["Nie", "martw", "się"] },
+      { id: "s-34-4", pl: "Weź parasol, pada deszcz.", fr: "Prends un parapluie, il pleut.", grammarFocus: "g-34-1",
+        wordBank: ["Weź", "parasol", "pada", "deszcz", "chodź"] }
+    ],
+    dialogues: [
+      {
+        id: "d-34-1",
+        title: "En retard !",
+        lines: [
+          { who: "A", pl: "Spóźnimy się na pociąg!", fr: "On va rater le train !" },
+          { who: "B", pl: "Pospiesz się!", fr: "Dépêche-toi !" },
+          { who: "A", pl: "Gdzie są bilety?", fr: "Où sont les billets ?" },
+          { who: "B", pl: "Weź bilety ze stołu.", fr: "Prends les billets sur la table.",
+            target: true, wordBank: ["Weź", "bilety", "ze", "stołu", "stół"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 31 — Voyage ======================== */
+  {
+    id: "lesson-35",
+    order: 31,
+    title: "Voyage et hébergement — podróże",
+    theme: "voyage",
+    mascotIntro:
+      "Żubr rêve de voir la mer. Valise bouclée, réservation faite : en route pour l'aventure ! 🧳",
+    grammarNotes: [
+      {
+        id: "g-35-1",
+        title: "Réserver et demander",
+        explanationFr:
+          "« Chcę zarezerwować pokój » = je veux réserver une chambre. « Mamy rezerwację na dwie noce » (na + accusatif pour la durée).",
+        examples: [
+          { pl: "Chcę zarezerwować pokój.", fr: "Je veux réserver une chambre." },
+          { pl: "Mamy rezerwację na dwie noce.", fr: "Nous avons une réservation pour deux nuits." }
+        ]
+      },
+      {
+        id: "g-35-2",
+        title: "zwiedzać — visiter (tourisme)",
+        explanationFr:
+          "« zwiedzać » (visiter un lieu) + accusatif : zwiedzać miasto, zwiedzać muzeum. À ne pas confondre avec « odwiedzać » (rendre visite à une personne).",
+        examples: [
+          { pl: "Lubię zwiedzać stare miasta.", fr: "J'aime visiter les vieilles villes." },
+          { pl: "Jutro zwiedzamy muzeum.", fr: "Demain nous visitons le musée." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-35-hotel", pl: "hotel", fr: "l'hôtel", category: "voyage" },
+      { id: "v-35-rezerwacja", pl: "rezerwacja", fr: "la réservation", category: "voyage" },
+      { id: "v-35-walizka", pl: "walizka", fr: "la valise", category: "voyage" },
+      { id: "v-35-paszport", pl: "paszport", fr: "le passeport", category: "voyage" },
+      { id: "v-35-nocleg", pl: "nocleg", fr: "l'hébergement / la nuitée", category: "voyage" },
+      { id: "v-35-recepcja", pl: "recepcja", fr: "la réception", category: "voyage" },
+      { id: "v-35-klucz", pl: "klucz", fr: "la clé", category: "voyage" },
+      { id: "v-35-bagaz", pl: "bagaż", fr: "le bagage", category: "voyage" },
+      { id: "v-35-zwiedzac", pl: "zwiedzać", fr: "visiter (un lieu)", category: "verbe" },
+      { id: "v-35-pamiatka", pl: "pamiątka", fr: "le souvenir (objet)", category: "voyage" },
+      { id: "v-35-plaza", pl: "plaża", fr: "la plage", category: "voyage" },
+      { id: "v-35-noc", pl: "noc", fr: "la nuit", category: "temps" }
+    ],
+    sentences: [
+      { id: "s-35-1", pl: "Chcę zarezerwować pokój.", fr: "Je veux réserver une chambre.", grammarFocus: "g-35-1",
+        wordBank: ["Chcę", "zarezerwować", "pokój"] },
+      { id: "s-35-2", pl: "Gdzie jest moja walizka?", fr: "Où est ma valise ?", grammarFocus: "g-35-2",
+        wordBank: ["Gdzie", "jest", "moja", "walizka"] },
+      { id: "s-35-3", pl: "Mamy rezerwację na dwie noce.", fr: "Nous avons une réservation pour deux nuits.", grammarFocus: "g-35-1",
+        wordBank: ["Mamy", "rezerwację", "na", "dwie", "noce"] },
+      { id: "s-35-4", pl: "Lubię zwiedzać stare miasta.", fr: "J'aime visiter les vieilles villes.", grammarFocus: "g-35-2",
+        wordBank: ["Lubię", "zwiedzać", "stare", "miasta", "miasto"] }
+    ],
+    dialogues: [
+      {
+        id: "d-35-1",
+        title: "À la réception",
+        lines: [
+          { who: "A", pl: "Dzień dobry, mam rezerwację.", fr: "Bonjour, j'ai une réservation." },
+          { who: "B", pl: "Na jakie nazwisko?", fr: "À quel nom ?" },
+          { who: "A", pl: "Na nazwisko Kowalski.", fr: "Au nom de Kowalski." },
+          { who: "B", pl: "Oto klucz do pokoju.", fr: "Voici la clé de la chambre.",
+            target: true, wordBank: ["Oto", "klucz", "do", "pokoju", "pokój"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 32 — Téléphone ===================== */
+  {
+    id: "lesson-36",
+    order: 32,
+    title: "Au téléphone et en ligne — telefon i internet",
+    theme: "communication",
+    mascotIntro:
+      "Żubr n'a pas de pouce pour taper, mais il adore les appels vidéo. Apprenons à communiquer par téléphone et en ligne ! 📱",
+    grammarNotes: [
+      {
+        id: "g-36-1",
+        title: "dzwonić do + génitif",
+        explanationFr:
+          "« Téléphoner à quelqu'un » = « dzwonić do » + génitif. « Dzwonię do mamy », « Zadzwonię do ciebie » (ty → ciebie).",
+        examples: [
+          { pl: "Zadzwonię do ciebie wieczorem.", fr: "Je t'appellerai ce soir." },
+          { pl: "Dzwonię do lekarza.", fr: "J'appelle le médecin." }
+        ]
+      },
+      {
+        id: "g-36-2",
+        title: "Envoyer, écrire, se connecter",
+        explanationFr:
+          "wysłać wiadomość (envoyer un message), napisać e-mail (écrire un mail). En négation, l'objet passe au génitif : « Nie pamiętam hasła » (hasło → hasła).",
+        examples: [
+          { pl: "Wysłałem ci wiadomość.", fr: "Je t'ai envoyé un message." },
+          { pl: "Nie pamiętam hasła.", fr: "Je ne me souviens pas du mot de passe." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-36-dzwonic", pl: "dzwonić", fr: "téléphoner", category: "communication" },
+      { id: "v-36-zadzwonic", pl: "zadzwonić", fr: "appeler (une fois)", category: "communication" },
+      { id: "v-36-wiadomosc", pl: "wiadomość", fr: "le message", category: "communication" },
+      { id: "v-36-rozmowa", pl: "rozmowa", fr: "la conversation", category: "communication" },
+      { id: "v-36-internet", pl: "internet", fr: "internet", category: "communication" },
+      { id: "v-36-strona", pl: "strona internetowa", fr: "le site web", category: "communication" },
+      { id: "v-36-haslo", pl: "hasło", fr: "le mot de passe", category: "communication" },
+      { id: "v-36-aplikacja", pl: "aplikacja", fr: "l'application", category: "communication" },
+      { id: "v-36-wyslac", pl: "wysłać", fr: "envoyer", category: "verbe" },
+      { id: "v-36-odebrac", pl: "odebrać", fr: "décrocher / répondre", category: "verbe" },
+      { id: "v-36-numer", pl: "numer", fr: "le numéro", category: "communication" },
+      { id: "v-36-polaczenie", pl: "połączenie", fr: "la connexion / l'appel", category: "communication" }
+    ],
+    sentences: [
+      { id: "s-36-1", pl: "Zadzwonię do ciebie wieczorem.", fr: "Je t'appellerai ce soir.", grammarFocus: "g-36-1",
+        wordBank: ["Zadzwonię", "do", "ciebie", "wieczorem", "ciebie"] },
+      { id: "s-36-2", pl: "Wysłałem ci wiadomość.", fr: "Je t'ai envoyé un message.", grammarFocus: "g-36-2",
+        wordBank: ["Wysłałem", "ci", "wiadomość"] },
+      { id: "s-36-3", pl: "Nie pamiętam hasła.", fr: "Je ne me souviens pas du mot de passe.", grammarFocus: "g-36-2",
+        wordBank: ["Nie", "pamiętam", "hasła", "hasło"] },
+      { id: "s-36-4", pl: "Jaki masz numer telefonu?", fr: "Quel est ton numéro de téléphone ?", grammarFocus: "g-36-1",
+        wordBank: ["Jaki", "masz", "numer", "telefonu", "telefon"] }
+    ],
+    dialogues: [
+      {
+        id: "d-36-1",
+        title: "Un appel difficile",
+        lines: [
+          { who: "A", pl: "Halo? Kto mówi?", fr: "Allô ? Qui est-ce ?" },
+          { who: "B", pl: "Cześć, tu Marek.", fr: "Salut, c'est Marek." },
+          { who: "A", pl: "Nie słyszę cię dobrze.", fr: "Je ne t'entends pas bien." },
+          { who: "B", pl: "Zadzwonię do ciebie później.", fr: "Je te rappellerai plus tard.",
+            target: true, wordBank: ["Zadzwonię", "do", "ciebie", "później", "teraz"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 34 — Fêtes ========================= */
+  {
+    id: "lesson-37",
+    order: 34,
+    title: "Fêtes et traditions — święta",
+    theme: "fêtes",
+    mascotIntro:
+      "Gâteau, cadeaux, vœux : Żubr adore faire la fête (surtout le gâteau). Apprenons à souhaiter et à célébrer ! 🎂",
+    grammarNotes: [
+      {
+        id: "g-37-1",
+        title: "Souhaiter : życzyć + datif + génitif",
+        explanationFr:
+          "« Życzę ci… » = je te souhaite… La personne est au datif (ci, wam), la chose souhaitée au génitif : « Życzę ci zdrowia i szczęścia ». Le classique : « Wszystkiego najlepszego! ».",
+        examples: [
+          { pl: "Wszystkiego najlepszego!", fr: "Tous mes vœux ! / Joyeux anniversaire !" },
+          { pl: "Życzę ci zdrowia i szczęścia.", fr: "Je te souhaite santé et bonheur." }
+        ]
+      },
+      {
+        id: "g-37-2",
+        title: "Remercier : dziękować za + accusatif",
+        explanationFr:
+          "« Merci pour… » = « dziękuję za » + accusatif. « Dziękuję za prezent », « Dziękuję za zaproszenie ».",
+        examples: [
+          { pl: "Dziękuję za prezent.", fr: "Merci pour le cadeau." },
+          { pl: "Dziękuję za zaproszenie.", fr: "Merci pour l'invitation." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-37-swieto", pl: "święto", fr: "la fête / le jour férié", category: "fêtes" },
+      { id: "v-37-urodziny", pl: "urodziny", fr: "l'anniversaire", category: "fêtes" },
+      { id: "v-37-bozenarodzenie", pl: "Boże Narodzenie", fr: "Noël", category: "fêtes" },
+      { id: "v-37-wielkanoc", pl: "Wielkanoc", fr: "Pâques", category: "fêtes" },
+      { id: "v-37-zyczenia", pl: "życzenia", fr: "les vœux", category: "fêtes" },
+      { id: "v-37-tort", pl: "tort", fr: "le gâteau (d'anniversaire)", category: "fêtes" },
+      { id: "v-37-swietowac", pl: "świętować", fr: "fêter", category: "verbe" },
+      { id: "v-37-zaprosic", pl: "zaprosić", fr: "inviter", category: "verbe" },
+      { id: "v-37-zaproszenie", pl: "zaproszenie", fr: "l'invitation", category: "fêtes" },
+      { id: "v-37-choinka", pl: "choinka", fr: "le sapin de Noël", category: "fêtes" },
+      { id: "v-37-zdrowie", pl: "zdrowie", fr: "la santé", category: "fêtes" },
+      { id: "v-37-szczescie", pl: "szczęście", fr: "le bonheur / la chance", category: "fêtes" }
+    ],
+    sentences: [
+      { id: "s-37-1", pl: "Wszystkiego najlepszego!", fr: "Tous mes vœux !", grammarFocus: "g-37-1",
+        wordBank: ["Wszystkiego", "najlepszego"] },
+      { id: "s-37-2", pl: "Życzę ci zdrowia i szczęścia.", fr: "Je te souhaite santé et bonheur.", grammarFocus: "g-37-1",
+        wordBank: ["Życzę", "ci", "zdrowia", "i", "szczęścia"] },
+      { id: "s-37-3", pl: "W grudniu świętujemy Boże Narodzenie.", fr: "En décembre nous fêtons Noël.", grammarFocus: "g-37-2",
+        wordBank: ["W", "grudniu", "świętujemy", "Boże", "Narodzenie"] },
+      { id: "s-37-4", pl: "Dziękuję za prezent.", fr: "Merci pour le cadeau.", grammarFocus: "g-37-2",
+        wordBank: ["Dziękuję", "za", "prezent"] }
+    ],
+    dialogues: [
+      {
+        id: "d-37-1",
+        title: "Joyeux anniversaire !",
+        lines: [
+          { who: "A", pl: "Wszystkiego najlepszego z okazji urodzin!", fr: "Joyeux anniversaire !" },
+          { who: "B", pl: "Dziękuję bardzo!", fr: "Merci beaucoup !" },
+          { who: "A", pl: "Mam dla ciebie prezent.", fr: "J'ai un cadeau pour toi." },
+          { who: "B", pl: "Życzę ci dużo szczęścia.", fr: "Je te souhaite beaucoup de bonheur.",
+            target: true, wordBank: ["Życzę", "ci", "dużo", "szczęścia", "tobie"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 35 — Pronoms ======================= */
+  {
+    id: "lesson-38",
+    order: 35,
+    title: "Les pronoms déclinés — mnie, cię, go, ją",
+    theme: "pronoms",
+    mascotIntro:
+      "« Tu me vois ? Je te vois ! » Pour ne pas répéter les noms, on utilise des pronoms — qui changent de forme selon le cas. 🔁",
+    grammarNotes: [
+      {
+        id: "g-38-1",
+        title: "Les pronoms à l'accusatif (COD)",
+        explanationFr:
+          "me/te/le/la… : mnie (me), cię/ciebie (te), go (le), ją (la), nas (nous), was (vous), ich/je (les). « Znam go », « Widzę ją ».",
+        examples: [
+          { pl: "Znam go dobrze.", fr: "Je le connais bien." },
+          { pl: "Czy widzisz ją?", fr: "La vois-tu ?" }
+        ]
+      },
+      {
+        id: "g-38-2",
+        title: "Les pronoms au datif (à qui)",
+        explanationFr:
+          "à moi/toi/lui… : mi (me), ci (te), mu (lui), jej (à elle), nam (nous), wam (vous), im (leur). « Daj mi to », « Pomogę wam ».",
+        examples: [
+          { pl: "Daj mi to.", fr: "Donne-moi ça." },
+          { pl: "Pomogę wam jutro.", fr: "Je vous aiderai demain." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-38-mnie", pl: "mnie", fr: "me / moi (accusatif)", category: "pronom" },
+      { id: "v-38-cie", pl: "cię", fr: "te (accusatif)", category: "pronom" },
+      { id: "v-38-go", pl: "go", fr: "le (accusatif)", category: "pronom" },
+      { id: "v-38-ja", pl: "ją", fr: "la (accusatif)", category: "pronom" },
+      { id: "v-38-nas", pl: "nas", fr: "nous (accusatif)", category: "pronom" },
+      { id: "v-38-was", pl: "was", fr: "vous (accusatif)", category: "pronom" },
+      { id: "v-38-mi", pl: "mi", fr: "me / à moi (datif)", category: "pronom" },
+      { id: "v-38-ci", pl: "ci", fr: "te / à toi (datif)", category: "pronom" },
+      { id: "v-38-mu", pl: "mu", fr: "lui / à lui (datif)", category: "pronom" },
+      { id: "v-38-jej", pl: "jej", fr: "à elle (datif)", category: "pronom" },
+      { id: "v-38-nam", pl: "nam", fr: "nous / à nous (datif)", category: "pronom" },
+      { id: "v-38-im", pl: "im", fr: "leur / à eux (datif)", category: "pronom" }
+    ],
+    sentences: [
+      { id: "s-38-1", pl: "Znam go dobrze.", fr: "Je le connais bien.", grammarFocus: "g-38-1",
+        wordBank: ["Znam", "go", "dobrze", "ją"] },
+      { id: "s-38-2", pl: "Czy widzisz ją?", fr: "La vois-tu ?", grammarFocus: "g-38-1",
+        wordBank: ["Czy", "widzisz", "ją", "go"] },
+      { id: "s-38-3", pl: "Daj mi to.", fr: "Donne-moi ça.", grammarFocus: "g-38-2",
+        wordBank: ["Daj", "mi", "to", "ci"] },
+      { id: "s-38-4", pl: "Pomogę wam jutro.", fr: "Je vous aiderai demain.", grammarFocus: "g-38-2",
+        wordBank: ["Pomogę", "wam", "jutro", "nam"] }
+    ],
+    dialogues: [
+      {
+        id: "d-38-1",
+        title: "Où est Anna ?",
+        lines: [
+          { who: "A", pl: "Gdzie jest Anna? Szukam jej.", fr: "Où est Anna ? Je la cherche." },
+          { who: "B", pl: "Widziałem ją w parku.", fr: "Je l'ai vue dans le parc." },
+          { who: "A", pl: "Możesz do niej zadzwonić?", fr: "Tu peux l'appeler ?" },
+          { who: "B", pl: "Tak, zadzwonię do niej teraz.", fr: "Oui, je l'appelle tout de suite.",
+            target: true, wordBank: ["Tak", "zadzwonię", "do", "niej", "teraz", "nich"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 38 — Nature ======================== */
+  {
+    id: "lesson-39",
+    order: 38,
+    title: "La nature et les animaux — przyroda",
+    theme: "nature",
+    mascotIntro:
+      "La forêt, c'est la maison de Żubr ! Arbres, lacs, oiseaux… et bien sûr, le roi des lieux : le bison. 🌳🦬",
+    grammarNotes: [
+      {
+        id: "g-39-1",
+        title: "Où l'on est : w / nad + locatif",
+        explanationFr:
+          "Lieu : « w lesie » (dans la forêt), « nad jeziorem » (au bord du lac, nad + instrumental), « w górach » (à la montagne, pluriel).",
+        examples: [
+          { pl: "Nad jeziorem rosną wysokie drzewa.", fr: "De grands arbres poussent au bord du lac." },
+          { pl: "W lesie mieszkają dzikie zwierzęta.", fr: "Des animaux sauvages vivent dans la forêt." }
+        ]
+      },
+      {
+        id: "g-39-2",
+        title: "Où l'on va : nad / w + accusatif",
+        explanationFr:
+          "Direction : « nad morze » (à la mer), « w góry » (à la montagne). Le lieu prend l'accusatif quand on s'y rend.",
+        examples: [
+          { pl: "Latem jeżdżę nad morze.", fr: "En été je vais à la mer." },
+          { pl: "Jadę w góry.", fr: "Je vais à la montagne." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-39-przyroda", pl: "przyroda", fr: "la nature", category: "nature" },
+      { id: "v-39-las", pl: "las", fr: "la forêt", category: "nature" },
+      { id: "v-39-jezioro", pl: "jezioro", fr: "le lac", category: "nature" },
+      { id: "v-39-gora", pl: "góra", fr: "la montagne", category: "nature" },
+      { id: "v-39-rzeka", pl: "rzeka", fr: "la rivière", category: "nature" },
+      { id: "v-39-morze", pl: "morze", fr: "la mer", category: "nature" },
+      { id: "v-39-drzewo", pl: "drzewo", fr: "l'arbre", category: "nature" },
+      { id: "v-39-kwiat", pl: "kwiat", fr: "la fleur", category: "nature" },
+      { id: "v-39-ptak", pl: "ptak", fr: "l'oiseau", category: "animaux" },
+      { id: "v-39-ryba", pl: "ryba", fr: "le poisson", category: "animaux" },
+      { id: "v-39-niedzwiedz", pl: "niedźwiedź", fr: "l'ours", category: "animaux" },
+      { id: "v-39-zubr", pl: "żubr", fr: "le bison", category: "animaux" }
+    ],
+    sentences: [
+      { id: "s-39-1", pl: "W lesie mieszkają dzikie zwierzęta.", fr: "Des animaux sauvages vivent dans la forêt.", grammarFocus: "g-39-1",
+        wordBank: ["W", "lesie", "mieszkają", "dzikie", "zwierzęta", "lasie"] },
+      { id: "s-39-2", pl: "Latem jeżdżę nad morze.", fr: "En été je vais à la mer.", grammarFocus: "g-39-2",
+        wordBank: ["Latem", "jeżdżę", "nad", "morze", "morzem"] },
+      { id: "s-39-3", pl: "Żubr to symbol Polski.", fr: "Le bison est un symbole de la Pologne.", grammarFocus: "g-39-1",
+        wordBank: ["Żubr", "to", "symbol", "Polski"] },
+      { id: "s-39-4", pl: "Nad jeziorem rosną wysokie drzewa.", fr: "De grands arbres poussent au bord du lac.", grammarFocus: "g-39-1",
+        wordBank: ["Nad", "jeziorem", "rosną", "wysokie", "drzewa", "jezioro"] }
+    ],
+    dialogues: [
+      {
+        id: "d-39-1",
+        title: "Projets de vacances",
+        lines: [
+          { who: "A", pl: "Dokąd jedziesz na wakacje?", fr: "Où pars-tu en vacances ?" },
+          { who: "B", pl: "Jadę w góry.", fr: "Je vais à la montagne." },
+          { who: "A", pl: "Co tam będziesz robić?", fr: "Qu'est-ce que tu vas y faire ?" },
+          { who: "B", pl: "Będę chodzić po lesie.", fr: "Je vais me promener en forêt.",
+            target: true, wordBank: ["Będę", "chodzić", "po", "lesie", "lasie"] }
+        ]
+      }
+    ]
+  },
+
+  /* ======================= order 40 — Récit ========================= */
+  {
+    id: "lesson-40",
+    order: 40,
+    title: "Raconter une histoire — récit au passé",
+    theme: "récit",
+    mascotIntro:
+      "« D'abord j'ai brouté, ensuite j'ai dormi, et finalement… encore brouté. » Żubr raconte sa journée. À toi de relier les événements ! 📖",
+    grammarNotes: [
+      {
+        id: "g-40-1",
+        title: "Les connecteurs du récit",
+        explanationFr:
+          "Pour enchaîner : najpierw (d'abord), potem (ensuite), później (plus tard), nagle (soudain), w końcu (finalement), dlatego (c'est pourquoi).",
+        examples: [
+          { pl: "Najpierw zjadłem śniadanie.", fr: "D'abord j'ai mangé le petit-déjeuner." },
+          { pl: "W końcu wróciłem do domu.", fr: "Finalement je suis rentré à la maison." }
+        ]
+      },
+      {
+        id: "g-40-2",
+        title: "Enchaîner le passé",
+        explanationFr:
+          "On combine les verbes au passé (accord en genre) avec ces connecteurs pour raconter une suite d'actions. « Potem poszedłem… nagle zaczął padać deszcz… ».",
+        examples: [
+          { pl: "Potem poszedłem do pracy.", fr: "Ensuite je suis allé au travail." },
+          { pl: "Nagle zaczął padać deszcz.", fr: "Soudain il s'est mis à pleuvoir." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-40-najpierw", pl: "najpierw", fr: "d'abord", category: "connecteur" },
+      { id: "v-40-potem", pl: "potem", fr: "ensuite", category: "connecteur" },
+      { id: "v-40-pozniej", pl: "później", fr: "plus tard", category: "connecteur" },
+      { id: "v-40-wkoncu", pl: "w końcu", fr: "finalement", category: "connecteur" },
+      { id: "v-40-nagle", pl: "nagle", fr: "soudain", category: "connecteur" },
+      { id: "v-40-dlatego", pl: "dlatego", fr: "c'est pourquoi", category: "connecteur" },
+      { id: "v-40-wtedy", pl: "wtedy", fr: "alors / à ce moment-là", category: "connecteur" },
+      { id: "v-40-kiedys", pl: "kiedyś", fr: "un jour / autrefois", category: "connecteur" },
+      { id: "v-40-zawsze", pl: "zawsze", fr: "toujours", category: "temps" },
+      { id: "v-40-nigdy", pl: "nigdy", fr: "jamais", category: "temps" },
+      { id: "v-40-opowiadac", pl: "opowiadać", fr: "raconter", category: "verbe" },
+      { id: "v-40-historia", pl: "historia", fr: "l'histoire", category: "récit" }
+    ],
+    sentences: [
+      { id: "s-40-1", pl: "Najpierw zjadłem śniadanie.", fr: "D'abord j'ai mangé le petit-déjeuner.", grammarFocus: "g-40-1",
+        wordBank: ["Najpierw", "zjadłem", "śniadanie", "potem"] },
+      { id: "s-40-2", pl: "Potem poszedłem do pracy.", fr: "Ensuite je suis allé au travail.", grammarFocus: "g-40-2",
+        wordBank: ["Potem", "poszedłem", "do", "pracy", "najpierw"] },
+      { id: "s-40-3", pl: "Nagle zaczął padać deszcz.", fr: "Soudain il s'est mis à pleuvoir.", grammarFocus: "g-40-2",
+        wordBank: ["Nagle", "zaczął", "padać", "deszcz"] },
+      { id: "s-40-4", pl: "W końcu wróciłem do domu.", fr: "Finalement je suis rentré à la maison.", grammarFocus: "g-40-1",
+        wordBank: ["W", "końcu", "wróciłem", "do", "domu", "później"] }
+    ],
+    dialogues: [
+      {
+        id: "d-40-1",
+        title: "Raconte-moi ta journée",
+        lines: [
+          { who: "A", pl: "Jak minął twój dzień?", fr: "Comment s'est passée ta journée ?" },
+          { who: "B", pl: "Najpierw byłem w pracy.", fr: "D'abord j'étais au travail." },
+          { who: "A", pl: "A potem?", fr: "Et ensuite ?" },
+          { who: "B", pl: "Potem spotkałem się z przyjaciółmi.", fr: "Ensuite j'ai retrouvé des amis." },
+          { who: "A", pl: "I co dalej?", fr: "Et après ?" },
+          { who: "B", pl: "W końcu wróciłem do domu.", fr: "Finalement je suis rentré à la maison.",
+            target: true, wordBank: ["W", "końcu", "wróciłem", "do", "domu", "potem"] }
+        ]
+      }
     ]
   }
 ];

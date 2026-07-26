@@ -10,11 +10,14 @@
 
   // Regroupement des leçons en « sentiers » de 5 (purement visuel).
   var TRAILS = [
-    { name: "Le sentier des débuts", icon: "🌱" },
-    { name: "Le sentier du quotidien", icon: "🏡" },
-    { name: "Le sentier des saisons", icon: "🍂" },
-    { name: "Le sentier de la ville", icon: "🏙️" },
-    { name: "Le sentier des subtilités", icon: "🎓" }
+    { name: "Le sentier des débuts", icon: "🌱" },     // 1–5   salutations → nombres
+    { name: "Le sentier du quotidien", icon: "🏡" },   // 6–10  commander, s'habiller, modaux
+    { name: "Le sentier du temps", icon: "⏰" },        // 11–15 lieux, heure, calendrier
+    { name: "Le sentier des envies", icon: "🍽️" },     // 16–20 dates, génitif, cuisine, aspect, adjectif
+    { name: "Le sentier des portraits", icon: "🎨" },  // 21–25 pluriel, adjectif décliné, sentiments, passé, się
+    { name: "Le sentier de la ville", icon: "🏙️" },    // 26–30 corps, apparence, impératif, ville, transports
+    { name: "Le sentier des échanges", icon: "✈️" },   // 31–35 voyage, téléphone, datif, fêtes, pronoms
+    { name: "Le sentier des nuances", icon: "🌍" }     // 36–40 comparatif, météo, nature, conditionnel, récit
   ];
   var TRAIL_SIZE = 5;
   // Ouverture forcée par l'utilisateur (en mémoire, non persistée) : index -> bool
@@ -146,11 +149,22 @@
   }
 
   /* ============================ ÉCRAN ACCUEIL ======================== */
-  function renderHome() {
+  function renderHome(keepScroll) {
     updateHeader();
     var s = window.State.get();
+    // Déplier/replier un sentier ne doit pas renvoyer en haut de page :
+    // on mémorise la position AVANT de vider le DOM, puis on la restaure
+    // après reconstruction (rAF), sinon le scroll serait tronqué pendant
+    // que la page est momentanément courte.
+    var prevScroll = keepScroll === true ? window.scrollY : 0;
     clear(appRoot);
-    scrollTop();
+    if (keepScroll === true) {
+      requestAnimationFrame(function () {
+        window.scrollTo(0, prevScroll);
+      });
+    } else {
+      scrollTop();
+    }
 
     // Bandeau mascotte
     var mins = Math.floor(s.dailyGoal.secondsToday / 60);
@@ -292,7 +306,7 @@
             class: "trail-header",
             onclick: function () {
               trailOpenOverride[index] = !open;
-              renderHome();
+              renderHome(true);
             }
           },
           [
@@ -527,6 +541,7 @@
     else if (ex.type === "listen") renderListen(card, ex);
     else if (ex.type === "type-fr-pl" || ex.type === "cloze") renderType(card, ex);
     else if (ex.type === "build") renderBuild(card, ex);
+    else if (ex.type === "dialogue") renderDialogue(card, ex);
     else if (ex.type === "speak") renderSpeak(card, ex);
 
     appRoot.appendChild(card);
@@ -668,6 +683,91 @@
         el("span", { class: "prompt-text fr", text: ex.promptText })
       ])
     );
+    var answerZone = el("div", { class: "build-answer" });
+    var bankZone = el("div", { class: "build-bank" });
+    var chosen = [];
+
+    function refresh() {
+      clear(answerZone);
+      chosen.forEach(function (item, i) {
+        answerZone.appendChild(
+          el("button", {
+            class: "chip",
+            text: item.word,
+            onclick: function () {
+              item.tileEl.disabled = false;
+              item.tileEl.classList.remove("used");
+              chosen.splice(i, 1);
+              refresh();
+            }
+          })
+        );
+      });
+    }
+
+    ex.bank.forEach(function (word) {
+      bankZone.appendChild(
+        el("button", {
+          class: "chip bank-chip",
+          text: word,
+          onclick: function (e) {
+            chosen.push({ word: word, tileEl: e.currentTarget });
+            e.currentTarget.classList.add("used");
+            e.currentTarget.disabled = true;
+            refresh();
+          }
+        })
+      );
+    });
+
+    card.appendChild(answerZone);
+    card.appendChild(el("div", { class: "divider" }));
+    card.appendChild(bankZone);
+    card.appendChild(
+      el("button", {
+        class: "btn btn-primary",
+        text: "Valider",
+        onclick: function () {
+          handleAnswer(ex, chosen.map(function (c) { return c.word; }), null, null);
+        }
+      })
+    );
+  }
+
+  /* ---- Dialogue ---- */
+  function renderDialogue(card, ex) {
+    if (ex.title)
+      card.appendChild(el("div", { class: "dialogue-title", text: ex.title }));
+
+    // Répliques de contexte (bulles alternées). La réplique cible reste masquée
+    // (placeholder « … ») tant qu'elle n'est pas reconstituée.
+    var convo = el("div", { class: "dialogue" });
+    (ex.context || []).forEach(function (line) {
+      var side = line.who === "B" ? "who-b" : "who-a";
+      var isTarget = !!line.target;
+      var bubble = el("div", { class: "dialogue-line " + side + (isTarget ? " target" : "") });
+      var head = el("div", { class: "dialogue-pl" });
+      if (!isTarget) head.appendChild(audioButton(line.pl));
+      head.appendChild(
+        el("span", {
+          class: "pl",
+          text: isTarget ? "…" : line.pl
+        })
+      );
+      bubble.appendChild(head);
+      if (line.fr && !isTarget)
+        bubble.appendChild(el("div", { class: "dialogue-fr", text: line.fr }));
+      convo.appendChild(bubble);
+    });
+    card.appendChild(convo);
+
+    // Consigne : produire la réplique cible (identique à build)
+    card.appendChild(
+      el("div", { class: "prompt" }, [
+        el("span", { class: "prompt-text fr", text: "→ " + ex.promptText })
+      ])
+    );
+
     var answerZone = el("div", { class: "build-answer" });
     var bankZone = el("div", { class: "build-bank" });
     var chosen = [];

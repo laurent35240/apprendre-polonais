@@ -674,12 +674,14 @@
 
     function refresh() {
       clear(answerZone);
-      chosen.forEach(function (word, i) {
+      chosen.forEach(function (item, i) {
         answerZone.appendChild(
           el("button", {
             class: "chip",
-            text: word,
+            text: item.word,
             onclick: function () {
+              item.tileEl.disabled = false;
+              item.tileEl.classList.remove("used");
               chosen.splice(i, 1);
               refresh();
             }
@@ -694,7 +696,7 @@
           class: "chip bank-chip",
           text: word,
           onclick: function (e) {
-            chosen.push(word);
+            chosen.push({ word: word, tileEl: e.currentTarget });
             e.currentTarget.classList.add("used");
             e.currentTarget.disabled = true;
             refresh();
@@ -711,7 +713,7 @@
         class: "btn btn-primary",
         text: "Valider",
         onclick: function () {
-          handleAnswer(ex, chosen, null, null);
+          handleAnswer(ex, chosen.map(function (c) { return c.word; }), null, null);
         }
       })
     );

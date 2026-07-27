@@ -7,6 +7,8 @@
   var el, clear;
   var appRoot, topbar;
   var session = null; // { exercises, index, results, meta }
+  // Jeton d'annulation des lectures audio enchaînées (voir speakSequence).
+  var autoPlayToken = 0;
 
   // Regroupement des leçons en « sentiers » de 5 (purement visuel).
   var TRAILS = [
@@ -150,6 +152,7 @@
 
   /* ============================ ÉCRAN ACCUEIL ======================== */
   function renderHome(keepScroll) {
+    autoPlayToken++; // sortir d'une session coupe la lecture enchaînée
     updateHeader();
     var s = window.State.get();
     // Déplier/replier un sentier ne doit pas renvoyer en haut de page :
@@ -509,6 +512,7 @@
 
   function renderExercise() {
     var ex = session.exercises[session.index];
+    autoPlayToken++; // invalide toute lecture enchaînée encore en cours
     clear(appRoot);
     scrollTop();
 
@@ -550,21 +554,49 @@
     appRoot.appendChild(el("div", { id: "feedback", class: "feedback" }));
   }
 
+  // Options TTS différenciant les deux voix d'un dialogue (A plus aiguë, B plus grave).
+  function ttsOptsFor(speaker) {
+    if (!speaker) return {};
+    var isB = speaker === "B";
+    return { pitch: isB ? 0.82 : 1.1, voiceIndex: isB ? 1 : 0 };
+  }
+
   function audioButton(text, big, speaker) {
     return el("button", {
       class: "audio-btn" + (big ? " big" : ""),
       text: "🔊",
       title: "Écouter",
       onclick: function () {
-        var ttsOpts = {};
-        if (speaker) {
-          var isB = speaker === "B";
-          ttsOpts.pitch = isB ? 0.82 : 1.1;
-          ttsOpts.voiceIndex = isB ? 1 : 0;
-        }
-        window.Speech.speak(text, ttsOpts);
+        // Une écoute manuelle interrompt définitivement une lecture enchaînée.
+        autoPlayToken++;
+        window.Speech.speak(text, ttsOptsFor(speaker));
       }
     });
+  }
+
+  // Enchaîne la lecture de plusieurs répliques { who, pl }. La séquence s'arrête
+  // dès que autoPlayToken change (exercice quitté, ou écoute manuelle).
+  function speakSequence(lines, gapMs) {
+    if (!lines || !lines.length) return;
+    if (!window.Speech.ttsAvailable()) return;
+    var token = autoPlayToken;
+    var i = 0;
+
+    function next() {
+      if (token !== autoPlayToken || i >= lines.length) return;
+      var line = lines[i++];
+      var opts = ttsOptsFor(line.who);
+      var advanced = false;
+      opts.onend = function () {
+        if (advanced) return;
+        advanced = true;
+        if (token !== autoPlayToken) return;
+        setTimeout(next, gapMs || 400);
+      };
+      window.Speech.speak(line.pl, opts);
+    }
+
+    next();
   }
 
   /* ---- QCM ---- */
@@ -823,6 +855,15 @@
         }
       })
     );
+
+    // Lecture automatique enchaînée des répliques de contexte (la cible est
+    // masquée : la prononcer donnerait la réponse).
+    var toPlay = (ex.context || []).filter(function (l) { return !l.target; });
+    var token = autoPlayToken;
+    setTimeout(function () {
+      if (token !== autoPlayToken) return;
+      speakSequence(toPlay, 400);
+    }, 350);
   }
 
   /* ---- Prononciation ---- */
@@ -905,6 +946,7 @@
 
   /* -------------------- gestion des réponses ------------------------ */
   function handleAnswer(ex, answer, clickedNode, optsContainer, input) {
+    autoPlayToken++; // une réponse validée stoppe la lecture enchaînée en cours
     var correct = window.Exercises.check(ex, answer);
     // Verrouille les options
     if (optsContainer) {

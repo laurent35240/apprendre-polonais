@@ -6,9 +6,37 @@
 
   var el, clear;
   var appRoot, topbar;
-  var session = null; // { exercises, index, results, meta }
+  var session = null; // { exercises, index, results, meta, xp }
   // Jeton d'annulation des lectures audio enchaînées (voir speakSequence).
   var autoPlayToken = 0;
+  // Une réponse a déjà été enregistrée pour l'exercice courant. Sert de jeton de
+  // consommation : empêche le double comptage XP/SRS et le double « Continuer ».
+  var answered = false;
+  // Le feedback est affiché : Entrée passe à la suite.
+  var awaitingContinue = false;
+  // Reconnaissance vocale en cours, à annuler si on quitte l'exercice.
+  var activeRec = null;
+
+  // Sortie de session. Appelé par TOUS les écrans hors session : sans ça, l'état
+  // de session survit à la sortie (Entrée depuis l'accueil relançait la boucle
+  // d'exercices, et pouvait recréditer le bonus de leçon).
+  function endSession() {
+    session = null;
+    answered = false;
+    awaitingContinue = false;
+    autoPlayToken++; // coupe TTS enchaîné + callbacks asynchrones en vol
+    stopRecognition();
+  }
+
+  function stopRecognition() {
+    if (!activeRec) return;
+    try {
+      activeRec.abort();
+    } catch (e) {
+      /* déjà terminée */
+    }
+    activeRec = null;
+  }
 
   // Regroupement des leçons en « sentiers » de 5 (purement visuel).
   var TRAILS = [
@@ -70,7 +98,9 @@
   /* =========================== SUIVI DU TEMPS ======================== */
   var lastActivity = Date.now();
   var pendingSec = 0;
+  var timeTrackerId = null;
   function startTimeTracker() {
+    if (timeTrackerId) return; // idempotent : n'empile pas les listeners
     ["click", "keydown", "mousemove", "touchstart"].forEach(function (ev) {
       document.addEventListener(
         ev,
@@ -80,7 +110,7 @@
         { passive: true }
       );
     });
-    setInterval(function () {
+    timeTrackerId = setInterval(function () {
       var active =
         document.visibilityState === "visible" &&
         Date.now() - lastActivity < 90000;
@@ -88,7 +118,9 @@
       if (pendingSec >= 10) {
         var res = window.Gamification.addTime(pendingSec);
         pendingSec = 0;
-        updateHeader();
+        // En session, le header est déjà rafraîchi à chaque réponse (showFeedback) :
+        // inutile de reconstruire tout le topbar sous les doigts de l'utilisateur.
+        if (!session) updateHeader();
         if (res.goalJustMet) {
           window.UI.confetti();
           window.UI.toast(
@@ -152,7 +184,7 @@
 
   /* ============================ ÉCRAN ACCUEIL ======================== */
   function renderHome(keepScroll) {
-    autoPlayToken++; // sortir d'une session coupe la lecture enchaînée
+    endSession(); // sortir d'une session réinitialise tout son cycle de vie
     updateHeader();
     var s = window.State.get();
     // Déplier/replier un sentier ne doit pas renvoyer en haut de page :
@@ -429,6 +461,7 @@
   function renderLessonIntro(lessonId) {
     var lesson = window.Session.lessonById(lessonId);
     if (!lesson) return;
+    endSession();
     clear(appRoot);
     scrollTop();
 
@@ -538,6 +571,11 @@
   function renderExercise() {
     var ex = session.exercises[session.index];
     autoPlayToken++; // invalide toute lecture enchaînée encore en cours
+    stopRecognition();
+    // Point d'entrée unique de tout affichage d'exercice : c'est ici que
+    // l'invariant « pas encore répondu » se réarme.
+    answered = false;
+    awaitingContinue = false;
     clear(appRoot);
     scrollTop();
 
@@ -556,6 +594,7 @@
       quitBtn,
       el("div", { class: "progress" }, [
         el("div", {
+          id: "progress-fill",
           class: "progress-fill",
           style: "width:" + ratio * 100 + "%"
         })
@@ -657,6 +696,8 @@
       el("button", {
         class: "link-btn",
         text: "↻ Réécouter",
+        // Réécouter reste possible après réponse (cf. lockExerciseCard).
+        "data-keep-enabled": "1",
         onclick: function () {
           window.Speech.speak(ex.audioText);
         }
@@ -675,9 +716,13 @@
       );
     });
     card.appendChild(opts);
-    if (ex.autoPlay) setTimeout(function () {
-      window.Speech.speak(ex.audioText);
-    }, 350);
+    if (ex.autoPlay) {
+      var token = autoPlayToken;
+      setTimeout(function () {
+        if (token !== autoPlayToken) return; // exercice quitté entre-temps
+        window.Speech.speak(ex.audioText);
+      }, 350);
+    }
   }
 
   /* ---- Saisie / trous ---- */
@@ -739,48 +784,50 @@
     }, 50);
   }
 
-  /* ---- Reconstruction de phrase ---- */
-  function renderBuild(card, ex) {
-    card.appendChild(
-      el("div", { class: "prompt" }, [
-        el("span", { class: "prompt-text fr", text: ex.promptText })
-      ])
-    );
+  /* ---- Sélecteur de mots (partagé par « build » et « dialogue ») ---- */
+
+  // Ajoute la zone de réponse, la banque de mots et le bouton Valider. Source de
+  // vérité unique : `chosen` (indices dans ex.bank). L'état visuel des tuiles en
+  // est DÉRIVÉ à chaque refresh, au lieu d'être maintenu en parallèle du DOM.
+  // Indexer par position gère correctement un mot présent deux fois dans la banque.
+  function appendWordBankPicker(card, ex) {
     var answerZone = el("div", { class: "build-answer" });
     var bankZone = el("div", { class: "build-bank" });
     var chosen = [];
+    var bankTiles = [];
 
     function refresh() {
       clear(answerZone);
-      chosen.forEach(function (item, i) {
+      chosen.forEach(function (bankIndex, pos) {
         answerZone.appendChild(
           el("button", {
             class: "chip",
-            text: item.word,
+            text: ex.bank[bankIndex],
             onclick: function () {
-              item.tileEl.disabled = false;
-              item.tileEl.classList.remove("used");
-              chosen.splice(i, 1);
+              chosen.splice(pos, 1);
               refresh();
             }
           })
         );
       });
+      bankTiles.forEach(function (tile, i) {
+        var used = chosen.indexOf(i) !== -1;
+        tile.disabled = used;
+        tile.classList.toggle("used", used);
+      });
     }
 
-    ex.bank.forEach(function (word) {
-      bankZone.appendChild(
-        el("button", {
-          class: "chip bank-chip",
-          text: word,
-          onclick: function (e) {
-            chosen.push({ word: word, tileEl: e.currentTarget });
-            e.currentTarget.classList.add("used");
-            e.currentTarget.disabled = true;
-            refresh();
-          }
-        })
-      );
+    ex.bank.forEach(function (word, i) {
+      var tile = el("button", {
+        class: "chip bank-chip",
+        text: word,
+        onclick: function () {
+          chosen.push(i);
+          refresh();
+        }
+      });
+      bankTiles.push(tile);
+      bankZone.appendChild(tile);
     });
 
     card.appendChild(answerZone);
@@ -791,10 +838,25 @@
         class: "btn btn-primary",
         text: "Valider",
         onclick: function () {
-          handleAnswer(ex, chosen.map(function (c) { return c.word; }), null, null);
+          handleAnswer(
+            ex,
+            chosen.map(function (i) { return ex.bank[i]; }),
+            null,
+            null
+          );
         }
       })
     );
+  }
+
+  /* ---- Reconstruction de phrase ---- */
+  function renderBuild(card, ex) {
+    card.appendChild(
+      el("div", { class: "prompt" }, [
+        el("span", { class: "prompt-text fr", text: ex.promptText })
+      ])
+    );
+    appendWordBankPicker(card, ex);
   }
 
   /* ---- Dialogue ---- */
@@ -831,55 +893,7 @@
       ])
     );
 
-    var answerZone = el("div", { class: "build-answer" });
-    var bankZone = el("div", { class: "build-bank" });
-    var chosen = [];
-
-    function refresh() {
-      clear(answerZone);
-      chosen.forEach(function (item, i) {
-        answerZone.appendChild(
-          el("button", {
-            class: "chip",
-            text: item.word,
-            onclick: function () {
-              item.tileEl.disabled = false;
-              item.tileEl.classList.remove("used");
-              chosen.splice(i, 1);
-              refresh();
-            }
-          })
-        );
-      });
-    }
-
-    ex.bank.forEach(function (word) {
-      bankZone.appendChild(
-        el("button", {
-          class: "chip bank-chip",
-          text: word,
-          onclick: function (e) {
-            chosen.push({ word: word, tileEl: e.currentTarget });
-            e.currentTarget.classList.add("used");
-            e.currentTarget.disabled = true;
-            refresh();
-          }
-        })
-      );
-    });
-
-    card.appendChild(answerZone);
-    card.appendChild(el("div", { class: "divider" }));
-    card.appendChild(bankZone);
-    card.appendChild(
-      el("button", {
-        class: "btn btn-primary",
-        text: "Valider",
-        onclick: function () {
-          handleAnswer(ex, chosen.map(function (c) { return c.word; }), null, null);
-        }
-      })
-    );
+    appendWordBankPicker(card, ex);
 
     // Lecture automatique enchaînée des répliques de contexte (la cible est
     // masquée : la prononcer donnerait la réponse).
@@ -927,10 +941,15 @@
       class: "mic-btn",
       text: "🎤",
       onclick: function () {
+        // Jeton capturé au clic : si l'utilisateur quitte pendant l'écoute, les
+        // callbacks ne doivent ni écrire dans un DOM détaché ni créditer d'XP
+        // pour un exercice abandonné.
+        var token = autoPlayToken;
         micBtn.classList.add("listening");
         status.textContent = "🎙️ J'écoute…";
-        window.Speech.listen({
+        activeRec = window.Speech.listen({
           onResult: function (transcript, conf, alts) {
+            if (token !== autoPlayToken) return;
             var score = window.Speech.pronunciationScore(ex.answer, alts || [transcript]);
             var ok = score >= 60;
             if (score >= 95) window.Gamification.markPerfectPronunciation();
@@ -942,6 +961,7 @@
             );
           },
           onError: function (err) {
+            if (token !== autoPlayToken) return;
             micBtn.classList.remove("listening");
             if (err === "not-allowed" || err === "service-not-allowed") {
               status.textContent = "🚫 Micro refusé. Autorise-le pour cet exercice.";
@@ -952,6 +972,8 @@
             }
           },
           onEnd: function () {
+            activeRec = null;
+            if (token !== autoPlayToken) return;
             micBtn.classList.remove("listening");
           }
         });
@@ -970,14 +992,35 @@
   }
 
   /* -------------------- gestion des réponses ------------------------ */
+
+  // Grise tous les contrôles de l'exercice après une réponse. Les boutons
+  // d'écoute (et ceux marqués data-keep-enabled) restent actifs : réécouter
+  // fait partie de l'apprentissage et n'a aucun effet sur le score.
+  function lockExerciseCard() {
+    var card = appRoot.querySelector(".card.exercise");
+    if (!card) return;
+    Array.prototype.forEach.call(
+      card.querySelectorAll("button, input, select"),
+      function (c) {
+        if (c.classList.contains("audio-btn")) return;
+        if (c.getAttribute("data-keep-enabled")) return;
+        c.disabled = true;
+      }
+    );
+  }
+
   function handleAnswer(ex, answer, clickedNode, optsContainer, input) {
     autoPlayToken++; // une réponse validée stoppe la lecture enchaînée en cours
     var correct = window.Exercises.check(ex, answer);
     // Verrouille les options
     if (optsContainer) {
+      // Même clé de comparaison que Exercises.check (normalize) : une comparaison
+      // stricte pouvait surligner « wrong » une option que check() acceptait.
+      var want = window.Speech.normalize(ex.answer);
       Array.prototype.forEach.call(optsContainer.children, function (btn) {
         btn.disabled = true;
-        if (btn.textContent === ex.answer) btn.classList.add("correct");
+        if (window.Speech.normalize(btn.textContent) === want)
+          btn.classList.add("correct");
       });
       if (clickedNode && !correct) clickedNode.classList.add("wrong");
     }
@@ -991,6 +1034,13 @@
   }
 
   function recordAndFeedback(ex, correct, score, customMsg) {
+    // Verrou unique du comptage. Placé ici (l'entonnoir par lequel passent TOUS
+    // les types d'exercices) plutôt que dans chaque renderer : sans ça, les
+    // boutons « Valider » de build/dialogue/type et le micro de speak restaient
+    // actifs après réponse, et chaque re-clic recréditait XP + SRS.
+    if (!session || answered) return;
+    answered = true;
+    lockExerciseCard();
     // SRS + XP
     window.SRS.record(ex.itemId, correct);
     if (correct) {
@@ -1032,26 +1082,38 @@
       })
     ]);
     fb.appendChild(content);
+    // La barre avance à la réponse, pas au rendu : sinon elle serait pleine
+    // AVANT de répondre au dernier exercice, et n'atteignait jamais 100 %.
+    var pf = document.getElementById("progress-fill");
+    if (pf)
+      pf.style.width =
+        ((session.index + 1) / session.exercises.length) * 100 + "%";
     updateHeader();
     // Rejoue systématiquement le mot/la phrase en polonais (apprentissage par
     // l'oreille), que la réponse soit bonne ou mauvaise. Léger délai pour ne pas
     // couvrir le petit son de validation/erreur.
-    if (ex.audioText) setTimeout(function () {
-      window.Speech.speak(ex.audioText);
-    }, 300);
+    if (ex.audioText) {
+      var token = autoPlayToken;
+      setTimeout(function () {
+        if (token !== autoPlayToken) return; // exercice quitté entre-temps
+        window.Speech.speak(ex.audioText);
+      }, 300);
+    }
     // Entrée pour continuer
     awaitingContinue = true;
   }
 
-  var awaitingContinue = false;
   document.addEventListener("keydown", function (e) {
-    if (awaitingContinue && e.key === "Enter") {
-      awaitingContinue = false;
-      nextExercise();
-    }
+    if (!session || !awaitingContinue || e.key !== "Enter") return;
+    nextExercise();
   });
 
   function nextExercise() {
+    // Gardes : hors session (Entrée depuis l'accueil après avoir quitté), ou
+    // avant toute réponse (double-clic sur « Continuer », qui sautait un
+    // exercice voire déclenchait finishSession prématurément).
+    if (!session || !answered) return;
+    answered = false;
     awaitingContinue = false;
     session.index += 1;
     if (session.index >= session.exercises.length) {
@@ -1168,6 +1230,9 @@
 
   /* ============================ RÉGLAGES ============================= */
   function renderSettings() {
+    // L'engrenage ⚙️ du topbar est cliquable EN PLEINE SESSION : sans ça on
+    // sortait de session sans réinitialiser son cycle de vie, comme le ✕.
+    endSession();
     var s = window.State.get();
     clear(appRoot);
     scrollTop();
@@ -1191,8 +1256,10 @@
       if (s.settings.theme === o[0]) opt.selected = true;
       themeSel.appendChild(opt);
     });
+    // Les mutations relisent l'état : State.reset()/importJSON() REMPLACENT
+    // l'objet, donc `s` capturé au rendu peut être orphelin (écriture perdue).
     themeSel.addEventListener("change", function () {
-      s.settings.theme = themeSel.value;
+      window.State.get().settings.theme = themeSel.value;
       window.State.save();
       applyTheme();
     });
@@ -1202,7 +1269,7 @@
     var soundChk = el("input", { type: "checkbox" });
     soundChk.checked = s.settings.soundOn;
     soundChk.addEventListener("change", function () {
-      s.settings.soundOn = soundChk.checked;
+      window.State.get().settings.soundOn = soundChk.checked;
       window.State.save();
     });
     card.appendChild(row("Effets sonores", soundChk));
@@ -1217,8 +1284,9 @@
     });
     var rateVal = el("span", { class: "small", text: s.settings.ttsRate + "×" });
     rate.addEventListener("input", function () {
-      s.settings.ttsRate = parseFloat(rate.value);
-      rateVal.textContent = s.settings.ttsRate + "×";
+      var st = window.State.get();
+      st.settings.ttsRate = parseFloat(rate.value);
+      rateVal.textContent = st.settings.ttsRate + "×";
       window.State.save();
     });
     card.appendChild(row("Vitesse de la voix", el("div", { class: "rate-row" }, [rate, rateVal])));
@@ -1250,7 +1318,7 @@
       goalSel.appendChild(opt);
     });
     goalSel.addEventListener("change", function () {
-      s.dailyGoal.minutesTarget = parseInt(goalSel.value, 10);
+      window.State.get().dailyGoal.minutesTarget = parseInt(goalSel.value, 10);
       window.State.save();
       updateHeader();
     });

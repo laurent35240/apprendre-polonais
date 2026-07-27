@@ -367,10 +367,17 @@ h3 {
 }
 
 /* ------------------------- Sentiers (paquets) --------------------- */
-.resume-btn {
-  display: block;
-  width: 100%;
+/* Les deux actions rapides partagent la largeur sur une seule ligne. */
+.home-actions {
+  display: flex;
+  gap: 10px;
   margin-bottom: 14px;
+}
+.home-action {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 12px 14px;
+  text-align: center;
 }
 .trail {
   background: linear-gradient(
@@ -1153,6 +1160,11 @@ input[type="checkbox"] {
   }
   .prompt-text {
     font-size: 24px;
+  }
+  /* Deux boutons côte à côte sur petit écran : texte plus compact. */
+  .home-action {
+    font-size: 13px;
+    padding: 12px 8px;
   }
   h1 {
     font-size: 22px;

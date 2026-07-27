@@ -212,13 +212,15 @@
     // Carte des leçons, regroupées par sentiers de 5
     appRoot.appendChild(el("h2", { class: "section-title", text: "Ton parcours" }));
 
-    // Bouton pour reprendre là où on en est
+    // Actions rapides côte à côte : reprendre / rejouer une leçon terminée.
+    var actions = el("div", { class: "home-actions" });
+
     var cid = currentLessonId(s);
     if (cid) {
       var cur = window.Session.lessonById(cid);
-      appRoot.appendChild(
+      actions.appendChild(
         el("button", {
-          class: "btn btn-primary resume-btn",
+          class: "btn btn-primary home-action",
           text: "Reprendre : leçon " + cur.order + " →",
           onclick: function () {
             jumpToCurrent(cid);
@@ -226,6 +228,21 @@
         })
       );
     }
+
+    var doneLessons = completedLessons(s);
+    if (doneLessons.length) {
+      actions.appendChild(
+        el("button", {
+          class: "btn btn-secondary home-action",
+          text: "🎲 Une leçon au hasard",
+          onclick: function () {
+            var pick = doneLessons[Math.floor(Math.random() * doneLessons.length)];
+            renderLessonIntro(pick.id);
+          }
+        })
+      );
+    }
+    if (actions.childNodes.length) appRoot.appendChild(actions);
 
     var lessons = sortedLessons();
     var path = el("div", { class: "lesson-path" });
@@ -343,6 +360,14 @@
       if (st.status !== "completed") return lessons[i].id;
     }
     return null;
+  }
+
+  // Leçons déjà bouclées (rejouables à volonté : buildLessonSession ignore le statut).
+  function completedLessons(s) {
+    return sortedLessons().filter(function (l) {
+      var st = s.lessons[l.id];
+      return st && st.status === "completed";
+    });
   }
 
   // Index du sentier contenant la leçon en cours (null si tout est terminé).

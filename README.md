@@ -7,8 +7,26 @@ gamification (streak, XP, objectif 30 min/jour, badges).
 
 ## ▶️ Lancer l'app
 
-**Le plus simple : double-clique sur `index.html`.** Ça marche direct dans le
-navigateur, sans rien installer.
+En ligne : **https://laurent-clouet.fr/apprendre-polonais/** (déployé
+automatiquement à chaque push sur `main`, si les tests passent).
+
+En local, il faut désormais un build — le double-clic sur `index.html` ne
+fonctionne plus, les scripts sont des modules ES chargés par Vite :
+
+```bash
+npm install
+npm run dev      # → http://localhost:5173/apprendre-polonais/
+```
+
+⚠️ Note l'URL : à cause du `base` configuré pour le déploiement, la racine
+`http://localhost:5173/` renvoie un 404. Vite affiche la bonne adresse au
+démarrage.
+
+```bash
+npm test         # 80 assertions, ~1 s
+npm run build    # → dist/
+npm run preview  # sert dist/ sur http://localhost:4173/apprendre-polonais/
+```
 
 👉 **Utilise Google Chrome** pour profiter de tout :
 - **Écoute** (synthèse vocale polonaise) : marche partout où une voix `pl-PL`
@@ -17,15 +35,20 @@ navigateur, sans rien installer.
   autorisé et une connexion internet. Sur les autres navigateurs, ces exercices
   sont masqués (dégradation propre).
 
-*Option avancée (facultatif)* : servir le dossier via un petit serveur local
-puis ouvrir http://localhost:8000 :
-```bash
-python3 -m http.server 8000
-```
+### 💾 Où vit ta progression
+
+Elle est stockée dans le `localStorage` du navigateur, **par origine**. Or
+`file://`, `http://localhost:5173`, `http://localhost:4173` et
+`https://laurent-clouet.fr` sont **quatre origines distinctes** : une
+progression faite en local n'apparaîtra pas en ligne, et inversement.
+
+Le chemin de migration est l'export/import JSON dans ⚙️ Réglages. C'est aussi
+la seule sauvegarde qui existe aujourd'hui — une synchro multi-appareils
+(Firebase) est prévue plus tard.
 
 ## 🎯 Comment ça marche
 
-- **Parcours de 23 leçons** qui se débloquent l'une après l'autre. Chaque leçon
+- **Parcours de 40 leçons** qui se débloquent l'une après l'autre. Chaque leçon
   commence par une intro type Assimil (dialogue, notes de grammaire, vocabulaire
   avec audio), puis une session d'exercices.
 - **Parcours en « sentiers »** : les leçons sont regroupées par paquets de 5
@@ -44,9 +67,8 @@ python3 -m http.server 8000
   production (saisie, phrases, cas grammaticaux).
 - **Gamification** : streak quotidien 🔥, XP ⚡ et niveaux 🎓, objectif de
   30 min/jour (anneau + bonus XP), et badges 🏆.
-- **Progression sauvegardée** localement (localStorage du navigateur). Pense à
-  toujours ouvrir l'app de la **même façon** (même double-clic, ou toujours via
-  le serveur local) : la sauvegarde est liée à l'adresse d'ouverture.
+- **Progression sauvegardée** localement (localStorage du navigateur), liée à
+  l'origine — voir « Où vit ta progression » plus haut.
 
 ## 💾 Sauvegarde
 

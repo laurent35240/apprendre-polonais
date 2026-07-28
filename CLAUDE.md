@@ -4,20 +4,68 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Running the app
 
-Open `index.html` directly in Chrome (double-click), or serve locally:
-
 ```bash
-python3 -m http.server 8000
-# then open http://localhost:8000
+npm install
+npm run dev        # http://localhost:5173/apprendre-polonais/  (PAS la racine /)
+npm test           # 80 assertions, ~1 s
+npm run build      # dist/
+npm run preview    # http://localhost:4173/apprendre-polonais/
 ```
+
+Le `base` de `vite.config.js` vaut `/apprendre-polonais/` (chemin de
+déploiement) : `http://localhost:5173/` renvoie donc un 404, c'est normal.
+Le double-clic sur `index.html` **ne fonctionne plus** depuis le passage aux
+modules ES.
 
 Chrome is required for speech recognition. TTS works anywhere with a `pl-PL` voice installed.
 
+Déployé sur https://laurent-clouet.fr/apprendre-polonais/ par
+`.github/workflows/deploy.yml` à chaque push sur `main`, si les tests passent.
+Pages est configuré en **Source = GitHub Actions** (et non « deploy from a
+branch » : la racine du repo n'est plus servable directement).
+
 ## Architecture
 
-Pure vanilla JS, no build step, no dependencies. Scripts are loaded in dependency order in `index.html` — each module is an IIFE that exposes a single global (`window.State`, `window.UI`, etc.).
+Vanilla JS en **modules ES**, bundlé par Vite. Zéro dépendance runtime ; 3
+devDependencies (vite, vitest, happy-dom). Chaque module exporte une façade
+nommée (`export const State = {…}`), et `js/app.js` est le point d'entrée unique
+déclaré dans `index.html` — **l'ordre de dépendances est porté par le graphe
+d'imports**, plus par l'ordre des balises `<script>`.
 
-**Data flow**: `data/lessons.js` and `data/badges.js` declare globals → JS modules consume them → `app.js` is the top-level controller.
+Le graphe est un DAG strict : `lessons → badges → state → srs → speech →
+gamification → exercises → session → ui → app`. Il n'y a **pas** de cycle
+State ⇄ Gamification (Gamification → State : 14 références, l'inverse : 0) ; la
+logique de streak est dupliquée entre `state.js rolloverDay()` et
+`gamification.js touchActivity()`, ce qui peut donner l'illusion d'un cycle.
+
+**Assets** : `public/assets/img/` est copié verbatim par Vite (pas de hachage),
+parce que `js/ui.js` construit ses chemins d'images par concaténation — donc
+invisibles à l'analyse statique. Ils sont préfixés par `import.meta.env.BASE_URL`
+pour rester absolus. ⚠️ Chaque `<img>` a un **repli emoji** sur l'événement
+`error` : un chemin cassé n'émet aucune erreur en console, on voit juste 🦬 au
+lieu du bison. C'est `tests/assets-paths.test.js` qui rend cette régression
+détectable. `assets/gen/` (15 Mo de sources brutes) reste volontairement hors de
+`public/`.
+
+## Tests
+
+`npm test` — Vitest, environnement `happy-dom` (nécessaire : `js/speech.js` lit
+`window` au niveau module). `TZ` est figée à `Europe/Paris` dans la config car
+`State.todayStr()` utilise l'heure locale et la CI tourne en UTC.
+
+`tests/data-invariants.test.js` vérifie ce que TypeScript ne peut pas exprimer
+(unicité des 647 ids, « exactement une ligne `target` » par dialogue,
+`wordBank ⊇ mots(pl)`, clés étrangères `grammarFocus`…). Ses **10 `it.skip`**
+documentent des invariants qui échouent aujourd'hui : c'est de la dette
+assumée, avec le chiffre exact et la raison en commentaire. Ne pas les
+« réparer » sans décision produit — notamment `[VOULU] le tableau est trié par
+order`, qui doit rester rouge.
+
+`tests/fixtures/item-ids.json` fige les 647 ids. Ce sont les **clés SRS en
+localStorage** : renommer un id efface la progression de l'utilisateur sur ce
+mot, et ce fichier rend l'accident visible en revue.
+
+**Data flow**: `data/lessons.js` and `data/badges.js` export `POLISH_LESSONS` / `POLISH_BADGES` → les modules JS les importent → `app.js` is the top-level controller.
 
 **Module responsibilities:**
 - `js/state.js` — all user progression, persisted to `localStorage` under key `polski-zubr-v1`

@@ -1,0 +1,71 @@
+/* =====================================================================
+   CHEMINS D'IMAGES — indispensable à cause du repli emoji.
+   ---------------------------------------------------------------------
+   Chaque <img> de ui.js a un handler `error` qui le remplace par un emoji.
+   Un chemin cassé n'émet donc AUCUNE erreur en console : la régression est
+   invisible en production (on voit 🦬 au lieu du bison). Ce fichier la rend
+   détectable en CI, en 5 ms.
+   ===================================================================== */
+import { describe, it, expect } from "vitest";
+import { existsSync } from "node:fs";
+import { resolve } from "node:path";
+import { POLISH_BADGES } from "../data/badges.js";
+import { UI } from "../js/ui.js";
+
+// Les 5 poses réellement passées à mascotImg (4 depuis app.js, `levelup`
+// depuis ui.js lui-même). Le commentaire d'origine mentionnait `hello`, qui
+// n'existe pas : ne pas l'ajouter ici.
+const POSES = ["base", "happy", "sad", "celebrate", "levelup"];
+const IMG_DIR = resolve(import.meta.dirname, "../public/assets/img");
+const BASE = "/apprendre-polonais/assets/img/";
+
+describe("fichiers présents sur disque", () => {
+  it.each(POSES)("zubr-%s.png existe", (pose) => {
+    expect(existsSync(`${IMG_DIR}/zubr-${pose}.png`)).toBe(true);
+  });
+
+  it.each(POLISH_BADGES.map((b) => b.id))("badge-%s.png existe", (id) => {
+    expect(existsSync(`${IMG_DIR}/badge-${id}.png`)).toBe(true);
+  });
+
+  it("favicon.png existe", () => {
+    expect(existsSync(`${IMG_DIR}/favicon.png`)).toBe(true);
+  });
+});
+
+describe("chemins produits par UI", () => {
+  // On lit getAttribute("src") et NON .src : ce dernier serait résolu en URL
+  // absolue par le DOM, ce qui masquerait la chaîne réellement écrite.
+  it("mascotImg préfixe par le base et pointe le bon fichier", () => {
+    for (const pose of POSES)
+      expect(UI.mascotImg(pose).getAttribute("src")).toBe(`${BASE}zubr-${pose}.png`);
+  });
+
+  it("badgeImg préfixe par le base pour les 11 badges", () => {
+    for (const b of POLISH_BADGES)
+      expect(UI.badgeImg(b.id, b.emoji).getAttribute("src")).toBe(
+        `${BASE}badge-${b.id}.png`
+      );
+  });
+
+  it("tout chemin produit est absolu — un relatif casserait sans slash final", () => {
+    const srcs = [
+      ...POSES.map((p) => UI.mascotImg(p).getAttribute("src")),
+      ...POLISH_BADGES.map((b) => UI.badgeImg(b.id, b.emoji).getAttribute("src"))
+    ];
+    for (const s of srcs) expect(s.startsWith("/")).toBe(true);
+  });
+
+  it("chaque chemin produit correspond à un fichier réel", () => {
+    const srcs = [
+      ...POSES.map((p) => UI.mascotImg(p).getAttribute("src")),
+      ...POLISH_BADGES.map((b) => UI.badgeImg(b.id, b.emoji).getAttribute("src")),
+      `${BASE}favicon.png`
+    ];
+    expect(srcs).toHaveLength(17);
+    for (const s of srcs) {
+      const nom = s.slice(BASE.length);
+      expect(existsSync(`${IMG_DIR}/${nom}`), s).toBe(true);
+    }
+  });
+});

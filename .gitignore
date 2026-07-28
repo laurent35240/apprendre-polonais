@@ -13,7 +13,16 @@
 *.log
 
 # Images sources brutes (avant détourage) — non versionnées, lourdes
+# Volontairement HORS de public/ : ce dossier ne doit jamais entrer dans dist/.
 assets/gen/
+
+# Build et dépendances npm
+node_modules/
+dist/
+
+# Caches Vite / Vitest
+.vite/
+coverage/
 
 # venv Python éventuelle
 .venv/

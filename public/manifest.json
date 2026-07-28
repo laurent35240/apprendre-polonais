@@ -1,0 +1,18 @@
+{
+  "name": "Polski z Żubrem — apprendre le polonais",
+  "short_name": "Polski Żubr",
+  "description": "Apprendre le polonais avec Żubr le bison : leçons, révisions espacées et prononciation.",
+  "lang": "fr",
+  "dir": "ltr",
+  "id": "/apprendre-polonais/",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fef6e4",
+  "theme_color": "#ff5e5b",
+  "icons": [
+    { "src": "assets/img/favicon.png", "sizes": "128x128", "type": "image/png" },
+    { "src": "assets/img/zubr-base.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

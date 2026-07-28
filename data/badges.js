@@ -5,7 +5,9 @@
    `check(state)` renvoie true quand le badge est mérité.
    ===================================================================== */
 
-window.POLISH_BADGES = [
+import { POLISH_LESSONS } from "./lessons.js";
+
+export const POLISH_BADGES = [
   {
     id: "first-steps",
     emoji: "🐣",
@@ -85,7 +87,7 @@ window.POLISH_BADGES = [
     title: "Diplômé de Żubr",
     desc: "Terminer toutes les leçons. Gratulacje !",
     check: (s) => {
-      const total = (window.POLISH_LESSONS || []).length;
+      const total = (POLISH_LESSONS || []).length;
       return (
         total > 0 &&
         Object.values(s.lessons).filter((l) => l.status === "completed").length >= total

@@ -24,18 +24,8 @@
     <div id="toast-host" class="toast-host"></div>
     <div id="fx-host" class="fx-host" aria-hidden="true"></div>
 
-    <!-- Données (globals) -->
-    <script src="data/lessons.js"></script>
-    <script src="data/badges.js"></script>
-
-    <!-- Modules (ordre de dépendances) -->
-    <script src="js/state.js"></script>
-    <script src="js/srs.js"></script>
-    <script src="js/speech.js"></script>
-    <script src="js/gamification.js"></script>
-    <script src="js/exercises.js"></script>
-    <script src="js/session.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/app.js"></script>
+    <!-- Point d'entrée unique : l'ordre de dépendances n'est plus documentaire,
+         il est porté et vérifié par le graphe d'imports ES. -->
+    <script type="module" src="/js/app.js"></script>
   </body>
 </html>

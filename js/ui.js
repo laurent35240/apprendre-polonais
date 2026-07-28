@@ -62,12 +62,21 @@ function console_() {
 }
 
 /* ---------------------------- images ------------------------------- */
+// Les images vivent dans public/assets/img/ et leurs chemins sont construits par
+// concaténation, donc invisibles à l'analyse statique de Vite : elles ne sont ni
+// hachées ni réécrites. BASE_URL (remplacé à la compilation, slash de tête ET de
+// queue garantis) rend le chemin ABSOLU, donc indépendant de l'URL du document.
+// Indispensable et non cosmétique : un chemin relatif casserait sur une URL sans
+// slash final, et l'échec serait INVISIBLE — chaque <img> a un repli emoji sur
+// l'événement `error`, donc aucune erreur ne remonterait en console.
+var IMG_BASE = import.meta.env.BASE_URL + "assets/img/";
+
 // <img> de la mascotte, avec repli sur l'emoji si l'image manque.
-// pose: base | hello | happy | sad | celebrate ; cls: classe(s) de taille.
+// pose: base | happy | sad | celebrate | levelup ; cls: classe(s) de taille.
 function mascotImg(pose, cls) {
   var img = el("img", {
     class: "mascot-img " + (cls || ""),
-    src: "assets/img/zubr-" + pose + ".png",
+    src: IMG_BASE + "zubr-" + pose + ".png",
     alt: "Żubr",
     draggable: "false"
   });
@@ -82,7 +91,7 @@ function mascotImg(pose, cls) {
 function badgeImg(badgeId, emoji, cls) {
   var img = el("img", {
     class: "badge-img " + (cls || ""),
-    src: "assets/img/badge-" + badgeId + ".png",
+    src: IMG_BASE + "badge-" + badgeId + ".png",
     alt: "",
     draggable: "false"
   });

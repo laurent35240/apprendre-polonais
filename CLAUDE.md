@@ -8,6 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm install
 npm run dev        # http://localhost:5173/apprendre-polonais/  (PAS la racine /)
 npm test           # 80 assertions, ~1 s
+npm run typecheck  # tsc --noEmit, DOIT valoir 0
 npm run build      # dist/
 npm run preview    # http://localhost:4173/apprendre-polonais/
 ```
@@ -27,7 +28,7 @@ branch » : la racine du repo n'est plus servable directement).
 ## Architecture
 
 Vanilla JS en **modules ES**, bundlé par Vite. Zéro dépendance runtime ; 3
-devDependencies (vite, vitest, happy-dom). Chaque module exporte une façade
+devDependencies (vite, vitest, happy-dom, typescript). Chaque module exporte une façade
 nommée (`export const State = {…}`), et `js/app.js` est le point d'entrée unique
 déclaré dans `index.html` — **l'ordre de dépendances est porté par le graphe
 d'imports**, plus par l'ordre des balises `<script>`.
@@ -64,6 +65,39 @@ order`, qui doit rester rouge.
 `tests/fixtures/item-ids.json` fige les 647 ids. Ce sont les **clés SRS en
 localStorage** : renommer un id efface la progression de l'utilisateur sur ce
 mot, et ce fichier rend l'accident visible en revue.
+
+## Typage
+
+**Aucun fichier `.ts`** : le typage se fait par JSDoc, avec les déclarations
+ambiantes de `types/app.d.ts` (référençables sans `import`) et `tsc --noEmit`
+comme porte de revue. `checkJs` est **faux** dans `tsconfig.json` : le typage est
+en **opt-in** par `// @ts-check` en tête de fichier. Les 10 fichiers de `js/` et
+`data/` l'ont ; les tests non (26 erreurs de la famille `.find()` → `T |
+undefined`, et JSDoc n'a pas d'opérateur `!` — chaque site coûterait un cast
+illisible).
+
+`npm run typecheck` **doit valoir 0** en permanence et tourne en CI.
+`npm run typecheck:preview` force `checkJs` partout : c'est le tableau de bord du
+reste à faire, jamais bloquant.
+
+⚠️ **`tsc` ne doit JAMAIS entrer dans le chemin du build ni du déploiement.**
+`noEmit` est actif, il n'y a aucun hook `prebuild`, et `typecheck` est absent de
+`deploy.yml` : le typage bloque la PR, pas la livraison d'un site statique. Ne
+jamais écrire `"build": "tsc --noEmit && vite build"`.
+
+Deux points de conception à ne pas « simplifier » :
+- `UI.el` est **génériqué sur le nom de balise** (`@template K extends keyof
+  HTMLElementTagNameMap`), donc `el("input", …)` rend un `HTMLInputElement` et
+  `.value` est typé chez l'appelant sans cast. C'est ce qui a supprimé 18 erreurs
+  sans toucher un seul site d'appel.
+- `ListenExercise` **omet volontairement `revealText`**, et `PersistedState` type
+  `items`/`lessons` en `Record<string, T | undefined>` (ça vient d'un JSON
+  utilisateur non validé). Ces deux omissions sont des mécanismes de détection,
+  pas des oublis.
+
+Le dispatch de `renderExercise` est un `switch` avec un `default` en `never` :
+**ajouter un type d'exercice sans écrire son renderer est une erreur de
+compilation**. Ne pas le retransformer en `if/else`, qui ne narrow pas.
 
 **Data flow**: `data/lessons.js` and `data/badges.js` export `POLISH_LESSONS` / `POLISH_BADGES` → les modules JS les importent → `app.js` is the top-level controller.
 

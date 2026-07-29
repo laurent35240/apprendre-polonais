@@ -24,6 +24,7 @@ démarrage.
 
 ```bash
 npm test         # 80 assertions, ~1 s
+npm run typecheck  # vérification de types (JSDoc + tsc), doit valoir 0
 npm run build    # → dist/
 npm run preview  # sert dist/ sur http://localhost:4173/apprendre-polonais/
 ```
@@ -99,7 +100,8 @@ Les badges sont dans **`data/badges.js`** (emoji, titre, description, condition)
 
 ## 🎨 Images (mascotte & badges)
 
-Les illustrations kawaii de Żubr et des badges sont des PNG dans **`assets/img/`**
+Les illustrations kawaii de Żubr et des badges sont des PNG dans
+**`public/assets/img/`**
 (`zubr-base/happy/sad/celebrate.png`, `badge-<id>.png`, `favicon.png`). Elles ont
 été générées via le plugin `google-image-gen` (Gemini). Si une image est absente,
 l'app **retombe automatiquement sur l'emoji** correspondant — rien ne casse. Pour
@@ -108,9 +110,12 @@ changer une illustration, remplace simplement le PNG (fond transparent, carré).
 ## 🗂️ Structure du projet
 
 ```
-index.html            page + ordre de chargement des scripts
+index.html             page + point d'entrée unique (module ES)
 css/styles.css         thème fun, responsive, clair/sombre
-assets/img/            illustrations kawaii (mascotte Żubr + badges + favicon)
+public/assets/img/     illustrations kawaii (mascotte Żubr + badges + favicon)
+public/manifest.json   « ajouter à l'écran d'accueil » sur téléphone
+types/app.d.ts         déclarations de types (JSDoc, aucun fichier .ts)
+tests/                 80 assertions Vitest + instantané des 647 ids
 data/lessons.js        ← LE CONTENU des leçons (à éditer)
 data/badges.js         définition des badges (emoji = repli si image absente)
 js/state.js            progression + sauvegarde (localStorage)
@@ -122,5 +127,9 @@ js/session.js          construction d'une session (nouveaux + révisions)
 js/ui.js               rendu, mascotte, toasts, confettis, sons
 js/app.js              contrôleur : écrans et navigation
 ```
+
+L'ordre de chargement n'est plus porté par `index.html` mais par le **graphe
+d'imports ES** : `lessons → badges → state → srs → speech → gamification →
+exercises → session → ui → app`.
 
 Powodzenia ! (Bonne chance !) 🦬

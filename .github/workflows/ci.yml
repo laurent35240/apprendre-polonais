@@ -16,4 +16,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      # Le typage est une porte de REVUE, pas de livraison : il bloque la PR mais
+      # n'est volontairement pas dans deploy.yml, et jamais une dépendance du
+      # build (`noEmit`, aucun hook prebuild) — Vite efface les types sans les lire.
+      - run: npm run typecheck
       - run: npm run build

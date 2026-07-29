@@ -1,3 +1,4 @@
+// @ts-check
 /* =====================================================================
    APP — contrôleur : navigation, rendu des écrans, boucle d'exercices
    ===================================================================== */
@@ -67,8 +68,14 @@ var TRAILS = [
 ];
 var TRAIL_SIZE = 5;
 // Ouverture forcée par l'utilisateur (en mémoire, non persistée) : index -> bool
+/** @type {Record<number, boolean>} */
 var trailOpenOverride = {};
 
+/**
+ * @param {Lesson} a
+ * @param {Lesson} b
+ * @returns {number}
+ */
 function byOrder(a, b) {
   return a.order - b.order;
 }
@@ -124,6 +131,7 @@ function applyTheme() {
 /* =========================== SUIVI DU TEMPS ======================== */
 var lastActivity = Date.now();
 var pendingSec = 0;
+/** @type {ReturnType<typeof setInterval>|null} */
 var timeTrackerId = null;
 function startTimeTracker() {
   if (timeTrackerId) return; // idempotent : n'empile pas les listeners
@@ -164,7 +172,7 @@ function updateHeader() {
   var s = State.get();
   var prog = Gamification.levelProgress(s.profile.totalXP);
   clear(topbar);
-  var brand = el("div", { class: "brand", onclick: renderHome }, [
+  var brand = el("div", { class: "brand", onclick: function () { renderHome(); } }, [
     UI.mascotImg("base", "brand-emoji"),
     el("span", { class: "brand-name", text: "Polski z Żubrem" })
   ]);
@@ -177,7 +185,11 @@ function updateHeader() {
   var mins = Math.floor(s.dailyGoal.secondsToday / 60);
   var goal = el(
     "div",
-    { class: "topgoal", title: "Objectif quotidien", onclick: renderHome },
+    {
+      class: "topgoal",
+      title: "Objectif quotidien",
+      onclick: function () { renderHome(); }
+    },
     UI.ring(
       goalRatio,
       mins + "′",
@@ -200,6 +212,12 @@ function updateHeader() {
   if (xpbar) xpbar.style.width = (prog.ratio * 100).toFixed(1) + "%";
 }
 
+/**
+ * @param {string} emoji
+ * @param {string|number} value
+ * @param {string} unit
+ * @returns {HTMLElement}
+ */
 function stat(emoji, value, unit) {
   return el("div", { class: "stat" }, [
     el("span", { class: "stat-emoji", text: emoji }),
@@ -209,6 +227,11 @@ function stat(emoji, value, unit) {
 }
 
 /* ============================ ÉCRAN ACCUEIL ======================== */
+/**
+ * @param {boolean} [keepScroll] true pour conserver la position de défilement
+ *   (dépliage d'un sentier). Voir la note sur les handlers dans le corps.
+ * @returns {void}
+ */
 function renderHome(keepScroll) {
   endSession(); // sortir d'une session réinitialise tout son cycle de vie
   updateHeader();
@@ -274,14 +297,18 @@ function renderHome(keepScroll) {
   var actions = el("div", { class: "home-actions" });
 
   var cid = currentLessonId(s);
-  if (cid) {
-    var cur = Session.lessonById(cid);
+  // `cid` vient de l'état persisté : une leçon retirée du code mais restée dans
+  // une sauvegarde utilisateur rendrait `cur` undefined, et l'accueil entier
+  // serait blanc. Le garde n'est donc pas décoratif.
+  var cur = cid ? Session.lessonById(cid) : undefined;
+  if (cid && cur) {
+    var ordreCourant = cur.order;
     actions.appendChild(
       el("button", {
         class: "btn btn-primary home-action",
-        text: "Reprendre : leçon " + cur.order + " →",
+        text: "Reprendre : leçon " + ordreCourant + " →",
         onclick: function () {
-          jumpToCurrent(cid);
+          if (cid) jumpToCurrent(cid);
         }
       })
     );
@@ -314,8 +341,17 @@ function renderHome(keepScroll) {
   appRoot.appendChild(renderBadges(s));
 }
 
+/**
+ * @param {Lesson} lesson
+ * @param {PersistedState} s
+ * @returns {HTMLElement}
+ */
 function lessonNode(lesson, s) {
-  var st = s.lessons[lesson.id] || { status: "locked" };
+  // Repli complet plutôt que partiel : `bestScore` était absent, si bien que
+  // l'affichage du score aurait rendu « undefined% » sur une leçon absente de
+  // la sauvegarde.
+  /** @type {LessonProgress} */
+  var st = s.lessons[lesson.id] || { status: "locked", bestScore: 0 };
   var locked = st.status === "locked";
   var done = st.status === "completed";
   var node = el(
@@ -341,7 +377,7 @@ function lessonNode(lesson, s) {
           text: locked
             ? "🔒 Termine la leçon précédente"
             : done
-            ? "Terminée — score " + st.bestScore + "%"
+            ? "Terminée — score " + (st.bestScore ?? 0) + "%"
             : (lesson.vocabulary || []).length + " mots · grammaire"
         })
       ]),
@@ -352,6 +388,12 @@ function lessonNode(lesson, s) {
 }
 
 // Un « sentier » = un paquet de 5 leçons, dépliable/repliable.
+/**
+ * @param {number} index
+ * @param {Lesson[]} lessons
+ * @param {PersistedState} s
+ * @returns {HTMLElement}
+ */
 function trailNode(index, lessons, s) {
   var doneCount = lessons.filter(function (l) {
     var st = s.lessons[l.id];
@@ -410,6 +452,10 @@ function trailNode(index, lessons, s) {
 }
 
 // Première leçon débloquée et non terminée (= available ou inProgress).
+/**
+ * @param {PersistedState} s
+ * @returns {string|null}
+ */
 function currentLessonId(s) {
   var lessons = sortedLessons();
   for (var i = 0; i < lessons.length; i++) {
@@ -421,6 +467,10 @@ function currentLessonId(s) {
 }
 
 // Leçons déjà bouclées (rejouables à volonté : buildLessonSession ignore le statut).
+/**
+ * @param {PersistedState} s
+ * @returns {Lesson[]}
+ */
 function completedLessons(s) {
   return sortedLessons().filter(function (l) {
     var st = s.lessons[l.id];
@@ -429,6 +479,10 @@ function completedLessons(s) {
 }
 
 // Index du sentier contenant la leçon en cours (null si tout est terminé).
+/**
+ * @param {PersistedState} s
+ * @returns {number|null} null si aucune leçon courante.
+ */
 function currentTrailIndex(s) {
   var cid = currentLessonId(s);
   if (!cid) return null;
@@ -439,6 +493,10 @@ function currentTrailIndex(s) {
 }
 
 // Déplie le sentier de la leçon en cours, défile jusqu'à sa carte et la surligne.
+/**
+ * @param {string} lessonId
+ * @returns {void}
+ */
 function jumpToCurrent(lessonId) {
   var lessons = sortedLessons();
   var pos = lessons.findIndex(function (l) {
@@ -447,7 +505,7 @@ function jumpToCurrent(lessonId) {
   if (pos === -1) return;
   trailOpenOverride[Math.floor(pos / TRAIL_SIZE)] = true;
   renderHome();
-  var node = appRoot.querySelector('[data-lesson-id="' + lessonId + '"]');
+  const node = appRoot.querySelector('[data-lesson-id="' + lessonId + '"]');
   if (!node) return;
   node.scrollIntoView({ behavior: "smooth", block: "center" });
   node.classList.add("lesson-node--highlight");
@@ -456,6 +514,10 @@ function jumpToCurrent(lessonId) {
   }, 1600);
 }
 
+/**
+ * @param {PersistedState} s
+ * @returns {HTMLElement}
+ */
 function renderBadges(s) {
   var wrap = el("div", { class: "badges-section" }, [
     el("h2", { class: "section-title", text: "Tes trophées" })
@@ -484,9 +546,16 @@ function renderBadges(s) {
 }
 
 /* ========================= ÉCRAN INTRO LEÇON ======================= */
+/**
+ * @param {string} lessonId
+ * @returns {void}
+ */
 function renderLessonIntro(lessonId) {
   var lesson = Session.lessonById(lessonId);
   if (!lesson) return;
+  // Capturé ici : le narrowing de `lesson` (un `var`) ne survit pas aux
+  // closures des handlers plus bas.
+  var titre = lesson.title;
   endSession();
   clear(appRoot);
   scrollTop();
@@ -494,7 +563,7 @@ function renderLessonIntro(lessonId) {
   var back = el("button", {
     class: "link-btn",
     text: "‹ Retour",
-    onclick: renderHome
+    onclick: function () { renderHome(); }
   });
   appRoot.appendChild(back);
 
@@ -550,7 +619,7 @@ function renderLessonIntro(lessonId) {
     text: "C'est parti ! 🚀",
     onclick: function () {
       var exs = Session.buildLessonSession(lessonId);
-      startSession(exs, { kind: "lesson", lessonId: lessonId, title: lesson.title });
+      startSession(exs, { kind: "lesson", lessonId: lessonId, title: titre });
     }
   });
   appRoot.appendChild(startBtn);
@@ -566,6 +635,10 @@ function renderLessonIntro(lessonId) {
   }
 }
 
+/**
+ * @param {GrammarExample} ex
+ * @returns {HTMLElement}
+ */
 function exampleRow(ex) {
   return el("div", { class: "example-row" }, [
     el("button", {
@@ -584,6 +657,11 @@ function exampleRow(ex) {
 }
 
 /* ============================ SESSION ============================= */
+/**
+ * @param {Exercise[]} exercises
+ * @param {SessionMeta} meta
+ * @returns {void}
+ */
 function startSession(exercises, meta) {
   if (!exercises || !exercises.length) {
     UI.toast("Rien à faire ici pour l'instant 🤷", "");
@@ -595,6 +673,7 @@ function startSession(exercises, meta) {
 }
 
 function renderExercise() {
+  if (!session) return; // hors session : rien à afficher (cf. endSession)
   var ex = session.exercises[session.index];
   autoPlayToken++; // invalide toute lecture enchaînée encore en cours
   stopRecognition();
@@ -631,12 +710,32 @@ function renderExercise() {
   var card = el("div", { class: "card exercise" });
   card.appendChild(el("div", { class: "instruction", text: ex.instruction || "" }));
 
-  if (ex.type.indexOf("mc-") === 0) renderMC(card, ex);
-  else if (ex.type === "listen") renderListen(card, ex);
-  else if (ex.type === "type-fr-pl" || ex.type === "cloze") renderType(card, ex);
-  else if (ex.type === "build") renderBuild(card, ex);
-  else if (ex.type === "dialogue") renderDialogue(card, ex);
-  else if (ex.type === "speak") renderSpeak(card, ex);
+  // switch et non if/else : lui seul narrow le discriminant, et le `default`
+  // en `never` fait de l'oubli d'un renderer une erreur de compilation.
+  switch (ex.type) {
+    case "mc-pl-fr":
+    case "mc-fr-pl":
+      renderMC(card, ex);
+      break;
+    case "listen":
+      renderListen(card, ex);
+      break;
+    case "type-fr-pl":
+    case "cloze":
+      renderType(card, ex);
+      break;
+    case "build":
+      renderBuild(card, ex);
+      break;
+    case "dialogue":
+      renderDialogue(card, ex);
+      break;
+    case "speak":
+      renderSpeak(card, ex);
+      break;
+    default:
+      /** @type {never} */ (ex);
+  }
 
   appRoot.appendChild(card);
 
@@ -645,12 +744,22 @@ function renderExercise() {
 }
 
 // Options TTS différenciant les deux voix d'un dialogue (A plus aiguë, B plus grave).
+/**
+ * @param {string} [speaker]
+ * @returns {SpeakOpts}
+ */
 function ttsOptsFor(speaker) {
   if (!speaker) return {};
   var isB = speaker === "B";
   return { pitch: isB ? 0.82 : 1.1, voiceIndex: isB ? 1 : 0 };
 }
 
+/**
+ * @param {string} text
+ * @param {boolean} [big]
+ * @param {string} [speaker]
+ * @returns {HTMLElement}
+ */
 function audioButton(text, big, speaker) {
   return el("button", {
     class: "audio-btn" + (big ? " big" : ""),
@@ -666,6 +775,11 @@ function audioButton(text, big, speaker) {
 
 // Enchaîne la lecture de plusieurs répliques { who, pl }. La séquence s'arrête
 // dès que autoPlayToken change (exercice quitté, ou écoute manuelle).
+/**
+ * @param {DialogueLine[]} lines
+ * @param {number} [gapMs]
+ * @returns {void}
+ */
 function speakSequence(lines, gapMs) {
   if (!lines || !lines.length) return;
   if (!Speech.ttsAvailable()) return;
@@ -690,6 +804,11 @@ function speakSequence(lines, gapMs) {
 }
 
 /* ---- QCM ---- */
+/**
+ * @param {HTMLElement} card
+ * @param {McExercise} ex
+ * @returns {void}
+ */
 function renderMC(card, ex) {
   var promptWrap = el("div", { class: "prompt" });
   if (ex.promptLang === "pl") promptWrap.appendChild(audioButton(ex.audioText));
@@ -705,7 +824,12 @@ function renderMC(card, ex) {
         class: "option " + ex.answerLang,
         text: opt,
         onclick: function (e) {
-          handleAnswer(ex, opt, e.currentTarget, opts);
+          handleAnswer(
+            ex,
+            opt,
+            /** @type {HTMLElement} */ (e.currentTarget),
+            opts
+          );
         }
       })
     );
@@ -714,6 +838,11 @@ function renderMC(card, ex) {
 }
 
 /* ---- Écoute ---- */
+/**
+ * @param {HTMLElement} card
+ * @param {ListenExercise} ex
+ * @returns {void}
+ */
 function renderListen(card, ex) {
   card.appendChild(
     el("div", { class: "prompt listen-prompt" }, [audioButton(ex.audioText, true)])
@@ -736,7 +865,12 @@ function renderListen(card, ex) {
         class: "option fr",
         text: opt,
         onclick: function (e) {
-          handleAnswer(ex, opt, e.currentTarget, opts);
+          handleAnswer(
+            ex,
+            opt,
+            /** @type {HTMLElement} */ (e.currentTarget),
+            opts
+          );
         }
       })
     );
@@ -752,6 +886,11 @@ function renderListen(card, ex) {
 }
 
 /* ---- Saisie / trous ---- */
+/**
+ * @param {HTMLElement} card
+ * @param {TypeExercise|ClozeExercise} ex
+ * @returns {void}
+ */
 function renderType(card, ex) {
   var promptWrap = el("div", { class: "prompt" });
   if (ex.promptLang === "pl") promptWrap.appendChild(audioButton(ex.audioText));
@@ -759,8 +898,11 @@ function renderType(card, ex) {
     el("span", { class: "prompt-text " + ex.promptLang, text: ex.promptText })
   );
   card.appendChild(promptWrap);
-  if (ex.subText)
-    card.appendChild(el("div", { class: "subtext", text: ex.subText }));
+  // subText n'existe que sur la variante cloze : `in` narrow proprement, sans
+  // toucher aux objets produits par exercises.js.
+  var subText = "subText" in ex ? ex.subText : null;
+  if (subText)
+    card.appendChild(el("div", { class: "subtext", text: subText }));
 
   var input = el("input", {
     class: "text-input",
@@ -795,8 +937,9 @@ function renderType(card, ex) {
       text: ch,
       type: "button",
       onclick: function() {
-        var start = input.selectionStart;
-        var end = input.selectionEnd;
+        // slice(0, null) === slice(0, 0) : ?? 0 est exactement équivalent.
+        var start = input.selectionStart ?? 0;
+        var end = input.selectionEnd ?? 0;
         input.value = input.value.slice(0, start) + ch + input.value.slice(end);
         input.setSelectionRange(start + 1, start + 1);
         input.focus();
@@ -816,10 +959,17 @@ function renderType(card, ex) {
 // vérité unique : `chosen` (indices dans ex.bank). L'état visuel des tuiles en
 // est DÉRIVÉ à chaque refresh, au lieu d'être maintenu en parallèle du DOM.
 // Indexer par position gère correctement un mot présent deux fois dans la banque.
+/**
+ * @param {HTMLElement} card
+ * @param {WordBankExercise} ex
+ * @returns {void}
+ */
 function appendWordBankPicker(card, ex) {
   var answerZone = el("div", { class: "build-answer" });
   var bankZone = el("div", { class: "build-bank" });
+  /** @type {number[]} */
   var chosen = [];
+  /** @type {HTMLButtonElement[]} */
   var bankTiles = [];
 
   function refresh() {
@@ -876,6 +1026,11 @@ function appendWordBankPicker(card, ex) {
 }
 
 /* ---- Reconstruction de phrase ---- */
+/**
+ * @param {HTMLElement} card
+ * @param {BuildExercise} ex
+ * @returns {void}
+ */
 function renderBuild(card, ex) {
   card.appendChild(
     el("div", { class: "prompt" }, [
@@ -886,6 +1041,11 @@ function renderBuild(card, ex) {
 }
 
 /* ---- Dialogue ---- */
+/**
+ * @param {HTMLElement} card
+ * @param {DialogueExercise} ex
+ * @returns {void}
+ */
 function renderDialogue(card, ex) {
   if (ex.title)
     card.appendChild(el("div", { class: "dialogue-title", text: ex.title }));
@@ -932,6 +1092,11 @@ function renderDialogue(card, ex) {
 }
 
 /* ---- Prononciation ---- */
+/**
+ * @param {HTMLElement} card
+ * @param {SpeakExercise} ex
+ * @returns {void}
+ */
 function renderSpeak(card, ex) {
   card.appendChild(
     el("div", { class: "prompt" }, [
@@ -974,7 +1139,7 @@ function renderSpeak(card, ex) {
       micBtn.classList.add("listening");
       status.textContent = "🎙️ J'écoute…";
       activeRec = Speech.listen({
-        onResult: function (transcript, conf, alts) {
+        onResult: function (transcript, _conf, alts) {
           if (token !== autoPlayToken) return;
           var score = Speech.pronunciationScore(ex.answer, alts || [transcript]);
           var ok = score >= 60;
@@ -1035,6 +1200,14 @@ function lockExerciseCard() {
   );
 }
 
+/**
+ * @param {Exercise} ex
+ * @param {string|string[]} answer
+ * @param {HTMLElement|null} [clickedNode]
+ * @param {HTMLElement|null} [optsContainer]
+ * @param {HTMLInputElement|null} [input]
+ * @returns {void}
+ */
 function handleAnswer(ex, answer, clickedNode, optsContainer, input) {
   autoPlayToken++; // une réponse validée stoppe la lecture enchaînée en cours
   var correct = Exercises.check(ex, answer);
@@ -1059,7 +1232,17 @@ function handleAnswer(ex, answer, clickedNode, optsContainer, input) {
   recordAndFeedback(ex, correct, null, null);
 }
 
-function recordAndFeedback(ex, correct, score, customMsg) {
+// `_score` n'est pas lu : renderSpeak calcule un vrai score de prononciation
+// qui est affiché puis jeté. Régression ou bruit — arbitrage produit, pas une
+// suppression mécanique. Le préfixe _ documente le constat sans décider.
+/**
+ * @param {Exercise} ex
+ * @param {boolean} correct
+ * @param {number|null} _score NON LU (cf. commentaire ci-dessus).
+ * @param {string|null} [customMsg]
+ * @returns {void}
+ */
+function recordAndFeedback(ex, correct, _score, customMsg) {
   // Verrou unique du comptage. Placé ici (l'entonnoir par lequel passent TOUS
   // les types d'exercices) plutôt que dans chaque renderer : sans ça, les
   // boutons « Valider » de build/dialogue/type et le micro de speak restaient
@@ -1082,7 +1265,14 @@ function recordAndFeedback(ex, correct, score, customMsg) {
   showFeedback(ex, correct, customMsg);
 }
 
+/**
+ * @param {Exercise} ex
+ * @param {boolean} correct
+ * @param {string|null} [customMsg]
+ * @returns {void}
+ */
 function showFeedback(ex, correct, customMsg) {
+  if (!session) return;
   var fb = document.getElementById("feedback");
   if (!fb) return;
   clear(fb);
@@ -1151,6 +1341,7 @@ function nextExercise() {
 
 /* ----------------------- fin de session --------------------------- */
 function finishSession() {
+  if (!session) return;
   var total = session.results.length;
   var correct = session.results.filter(function (r) {
     return r.correct;
@@ -1181,15 +1372,27 @@ function finishSession() {
   }
 
   var newBadges = Gamification.checkBadges();
-  renderSummary(pct, correct, total, lessonJustCompleted, newBadges);
+  renderSummary(pct, correct, total, lessonJustCompleted, newBadges, session.xp);
 }
 
-function renderSummary(pct, correct, total, lessonDone, newBadges) {
+/**
+ * Fonction PURE de ses arguments : `xpGagne` est passé plutôt que lu sur
+ * `session`, ce qui rend l'écran testable en isolation.
+ * @param {number} pct
+ * @param {number} correct
+ * @param {number} total
+ * @param {boolean} lessonDone
+ * @param {Badge[]} newBadges
+ * @param {number} xpGagne
+ * @returns {void}
+ */
+function renderSummary(pct, correct, total, lessonDone, newBadges, xpGagne) {
   clear(appRoot);
   scrollTop();
   updateHeader();
   if (pct >= 60) UI.confetti();
 
+  /** @type {"celebrate"|"happy"|"sad"} */
   var pose = pct >= 90 ? "celebrate" : pct >= 60 ? "happy" : "sad";
   var headline =
     pct >= 90
@@ -1207,7 +1410,7 @@ function renderSummary(pct, correct, total, lessonDone, newBadges) {
     el("div", { class: "summary-stats" }, [
       summaryStat(correct + "/" + total, "bonnes réponses"),
       summaryStat(pct + "%", "score"),
-      summaryStat("+" + session.xp, "XP gagnés")
+      summaryStat("+" + xpGagne, "XP gagnés")
     ])
   ]);
   appRoot.appendChild(card);
@@ -1235,19 +1438,28 @@ function renderSummary(pct, correct, total, lessonDone, newBadges) {
       el("button", {
         class: "btn btn-primary btn-big",
         text: "Retour à l'accueil",
-        onclick: renderHome
+        onclick: function () { renderHome(); }
       })
     ])
   );
 }
 
+/**
+ * @param {string|number} value
+ * @param {string} label
+ * @returns {HTMLElement}
+ */
 function summaryStat(value, label) {
   return el("div", { class: "summary-stat" }, [
-    el("div", { class: "summary-stat-val", text: value }),
+    el("div", { class: "summary-stat-val", text: String(value) }),
     el("div", { class: "summary-stat-label", text: label })
   ]);
 }
 
+/**
+ * @param {Badge[]} list
+ * @returns {void}
+ */
 function notifyBadges(list) {
   (list || []).forEach(function (b) {
     UI.badgeToast(b);
@@ -1263,7 +1475,11 @@ function renderSettings() {
   clear(appRoot);
   scrollTop();
   appRoot.appendChild(
-    el("button", { class: "link-btn", text: "‹ Retour", onclick: renderHome })
+    el("button", {
+      class: "link-btn",
+      text: "‹ Retour",
+      onclick: function () { renderHome(); }
+    })
   );
 
   var card = el("div", { class: "card settings" }, [
@@ -1285,7 +1501,11 @@ function renderSettings() {
   // Les mutations relisent l'état : State.reset()/importJSON() REMPLACENT
   // l'objet, donc `s` capturé au rendu peut être orphelin (écriture perdue).
   themeSel.addEventListener("change", function () {
-    State.get().settings.theme = themeSel.value;
+    var v = themeSel.value;
+    // Frontière de désérialisation : on valide au lieu de caster, sinon un
+    // thème invalide pourrait finir dans le localStorage.
+    if (v !== "auto" && v !== "light" && v !== "dark") return;
+    State.get().settings.theme = v;
     State.save();
     applyTheme();
   });
@@ -1385,6 +1605,11 @@ function renderSettings() {
   appRoot.appendChild(card);
 }
 
+/**
+ * @param {string} label
+ * @param {HTMLElement} control
+ * @returns {HTMLElement}
+ */
 function row(label, control) {
   return el("div", { class: "setting-row" }, [
     el("label", { class: "setting-label", text: label }),
@@ -1410,12 +1635,13 @@ function exportSave() {
 function importSave() {
   var input = el("input", { type: "file", accept: "application/json" });
   input.addEventListener("change", function () {
-    var file = input.files[0];
+    var file = input.files && input.files[0];
     if (!file) return;
     var reader = new FileReader();
     reader.onload = function () {
       try {
-        State.importJSON(reader.result);
+        // readAsText garantit une chaîne, mais le type ne le sait pas.
+        State.importJSON(String(reader.result));
         UI.toast("Sauvegarde importée ✅", "success");
         applyTheme();
         renderHome();

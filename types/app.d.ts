@@ -335,3 +335,13 @@ interface Migration {
   to: number;
   up: (s: any) => any;
 }
+
+/** Aperçu d'un fichier d'import, calculé SANS modifier l'état courant. */
+interface ImportPreview {
+  version: number;
+  totalXP: number;
+  level: number;
+  itemCount: number;
+  lessonsCompleted: number;
+  repairs: string[];
+}

@@ -539,19 +539,88 @@ function exportJSON() {
 }
 
 /**
+ * Levée quand un fichier importé ne ressemble pas à une sauvegarde. Distincte de
+ * SyntaxError (JSON illisible) et de FutureVersionError (version trop récente).
+ */
+class InvalidSaveError extends Error {
+  /** @param {string} raison */
+  constructor(raison) {
+    super("Ce fichier ne ressemble pas à une sauvegarde : " + raison);
+    this.name = "InvalidSaveError";
+  }
+}
+
+/**
+ * Un import doit RESSEMBLER à une sauvegarde. Critère volontairement laxiste —
+ * on ne veut pas refuser un fichier légitime, même ancien — mais suffisant pour
+ * attraper `{}`, `[]`, `"abc"`, `0`, `null`, qui passaient tous et détruisaient
+ * la progression en silence.
+ *
+ * Asymétrie ASSUMÉE avec load() : au boot, réparer est le bon réflexe puisqu'on
+ * n'a rien d'autre ; à l'import, l'utilisateur a une donnée existante à protéger
+ * et une action à réessayer, donc refuser est le bon réflexe.
+ * @param {any} loaded
+ * @returns {void}
+ * @throws {InvalidSaveError}
+ */
+function assertPlausibleSave(loaded) {
+  if (!isPlainObject(loaded)) {
+    throw new InvalidSaveError("racine " + describe(loaded));
+  }
+  var connues = ROOT_KEYS.filter(function (k) {
+    return loaded[k] !== undefined;
+  });
+  if (!isPlainObject(loaded.profile) || connues.length < 3) {
+    throw new InvalidSaveError(connues.length + " clé(s) connue(s) sur 9");
+  }
+}
+
+/**
+ * Valide un texte d'import SANS RIEN MODIFIER, pour que l'appelant puisse
+ * chiffrer les deux côtés dans sa confirmation. Impossible aujourd'hui : on ne
+ * pouvait pas savoir ce qu'on allait importer sans l'avoir déjà importé.
  * @param {string} text
- * @returns {PersistedState}
- * @throws {SyntaxError} si le JSON est invalide — volontairement propagé.
+ * @returns {ImportPreview}
+ * @throws {SyntaxError|InvalidSaveError|FutureVersionError}
+ */
+function previewImport(text) {
+  var parsed = JSON.parse(text);
+  assertPlausibleSave(parsed);
+  var from = readVersion(parsed);
+  if (from > CURRENT_VERSION) throw new FutureVersionError(from);
+  var v = validate(runMigrations(parsed, MIGRATIONS, CURRENT_VERSION).state);
+  return {
+    version: from,
+    totalXP: v.state.profile.totalXP,
+    level: v.state.profile.level,
+    itemCount: Object.keys(v.state.items).length,
+    lessonsCompleted: Object.keys(v.state.lessons).filter(function (id) {
+      var l = v.state.lessons[id];
+      return !!l && l.status === "completed";
+    }).length,
+    repairs: v.repairs
+  };
+}
+
+/**
+ * @param {string} text
+ * @returns {{state: PersistedState, repairs: string[]}}
+ * @throws {SyntaxError|InvalidSaveError|FutureVersionError} tous propagés :
+ *   l'appelant doit pouvoir distinguer « illisible » de « trop récent ».
  */
 function importJSON(text) {
   var parsed = JSON.parse(text); // laisse remonter l'erreur si invalide
-  var m = migrate(parsed);
+  assertPlausibleSave(parsed);
+  var m = migrate(parsed); // lève FutureVersionError sur une v2
+  // Un import est un écrasement INTENTIONNEL : il lève le mode lecture seule.
+  readOnly = false;
+  rawFuture = null;
   state = m.state;
-  status = { mode: "normal", loadedVersion: CURRENT_VERSION, repairs: m.repairs };
+  status = { mode: "normal", loadedVersion: m.from, repairs: m.repairs };
   ensureLessonStatuses();
   rolloverDay();
   save();
-  return state;
+  return { state: state, repairs: m.repairs };
 }
 
 export const State = {
@@ -559,6 +628,8 @@ export const State = {
   load: load,
   status: getStatus,
   FutureVersionError: FutureVersionError,
+  InvalidSaveError: InvalidSaveError,
+  previewImport: previewImport,
   // Exposés pour les tests d'invariants ; aucun appelant applicatif.
   _validate: validate,
   _runMigrations: runMigrations,

@@ -316,3 +316,70 @@ describe("checkBadges ne peut plus échouer en silence", () => {
     expect([...State.get().badges].sort()).toEqual(nouveaux.map((b) => b.id).sort());
   });
 });
+
+/* ===================== import durci ===================================== */
+describe("import : refuse au lieu de réparer", () => {
+  /** Fichiers qui passaient et détruisaient tout en silence. */
+  const NON_SAUVEGARDES = ["null", "[]", '"abc"', "0", "true", "{}", '{"a":1}'];
+
+  it.each(NON_SAUVEGARDES)("refuse %s sans toucher à l'état", (texte) => {
+    poser(REALISTIC);
+    State.load();
+    const avant = /** @type {string} */ (localStorage.getItem(KEY));
+    expect(() => State.importJSON(texte)).toThrow();
+    expect(localStorage.getItem(KEY)).toBe(avant);
+    expect(State.get().profile.totalXP).toBe(10750);
+  });
+
+  it("previewImport ne modifie RIEN", () => {
+    poser(REALISTIC);
+    State.load();
+    const avant = /** @type {string} */ (localStorage.getItem(KEY));
+    const xpAvant = State.get().profile.totalXP;
+    const p = State.previewImport(
+      JSON.stringify({ ...REALISTIC, profile: { totalXP: 999, level: 3 } })
+    );
+    expect(p.totalXP).toBe(999);
+    expect(State.get().profile.totalXP).toBe(xpAvant);
+    expect(localStorage.getItem(KEY)).toBe(avant);
+  });
+
+  it("previewImport chiffre les deux côtés de la décision", () => {
+    const p = State.previewImport(JSON.stringify(REALISTIC));
+    expect(p).toMatchObject({
+      version: 1, totalXP: 10750, level: 22, itemCount: 463, lessonsCompleted: 29
+    });
+    expect(p.repairs).toEqual([]);
+  });
+
+  it("accepte une sauvegarde légitime même incomplète", () => {
+    // Critère laxiste : profile + 3 clés connues suffisent.
+    const minimal = {
+      profile: { totalXP: 500, level: 2 },
+      items: {},
+      lessons: {}
+    };
+    expect(() => State.previewImport(JSON.stringify(minimal))).not.toThrow();
+  });
+
+  it("distingue les trois familles d'échec", () => {
+    expect(() => State.previewImport("pas du json")).toThrow(SyntaxError);
+    expect(() => State.previewImport("{}")).toThrow(State.InvalidSaveError);
+    expect(() =>
+      State.previewImport(JSON.stringify({ ...REALISTIC, version: 2 }))
+    ).toThrow(State.FutureVersionError);
+  });
+
+  it("un import valide remplace bien l'état et lève la lecture seule", () => {
+    poser(REALISTIC);
+    State.load();
+    const nouveau = {
+      ...REALISTIC,
+      profile: { createdAt: "2026-01-01T00:00:00.000Z", totalXP: 777, level: 2 }
+    };
+    const res = State.importJSON(JSON.stringify(nouveau));
+    expect(res.repairs).toEqual([]);
+    expect(State.get().profile.totalXP).toBe(777);
+    expect(State.status().mode).toBe("normal");
+  });
+});

@@ -1679,7 +1679,11 @@ function renderSettings() {
       el("button", {
         class: "btn btn-secondary",
         text: "⬇️ Exporter",
-        onclick: exportSave
+        // Lambda et non `onclick: exportSave` : le handler recevrait le
+        // MouseEvent comme objet d'options. Même classe de bug que renderHome.
+        onclick: function () {
+          exportSave();
+        }
       }),
       el("button", {
         class: "btn btn-secondary",
@@ -1719,19 +1723,47 @@ function row(label, control) {
   ]);
 }
 
-function exportSave() {
-  var data = State.exportJSON();
-  var blob = new Blob([data], { type: "application/json" });
-  var url = URL.createObjectURL(blob);
-  var a = el("a", {
-    href: url,
-    download: "polski-zubr-sauvegarde.json"
-  });
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  UI.toast("Sauvegarde exportée 📁", "success");
+/**
+ * Horodatage compact pour les noms de fichiers : "2026-07-30-0042".
+ * @returns {string}
+ */
+function horodatage() {
+  var d = new Date();
+  var p2 = function (/** @type {number} */ n) {
+    return String(n).padStart(2, "0");
+  };
+  return (
+    d.getFullYear() + "-" + p2(d.getMonth() + 1) + "-" + p2(d.getDate()) + "-" +
+    p2(d.getHours()) + p2(d.getMinutes())
+  );
+}
+
+/**
+ * @param {{silencieux?: boolean, suffixe?: string}} [opts]
+ * @returns {boolean} false si le téléchargement n'a pas pu être déclenché.
+ */
+function exportSave(opts) {
+  var o = opts || {};
+  try {
+    var data = State.exportJSON();
+    var blob = new Blob([data], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    // Nom horodaté : le nom fixe produisait des « (1) », « (2) » et rendait
+    // ambigu lequel était le plus récent — précisément un risque à l'import.
+    var nom =
+      "polski-zubr-" + (o.suffixe ? o.suffixe + "-" : "") + horodatage() + ".json";
+    var a = el("a", { href: url, download: nom });
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    if (!o.silencieux) UI.toast("Sauvegarde exportée 📁", "success");
+    return true;
+  } catch (e) {
+    console.warn("Export impossible.", e);
+    if (!o.silencieux) UI.toast("Export impossible 😕", "error");
+    return false;
+  }
 }
 
 function importSave() {
@@ -1741,14 +1773,63 @@ function importSave() {
     if (!file) return;
     var reader = new FileReader();
     reader.onload = function () {
+      // readAsText garantit une chaîne, mais le type ne le sait pas.
+      var texte = String(reader.result);
+
+      // 1) Valider SANS RIEN MODIFIER, pour pouvoir chiffrer la confirmation.
+      /** @type {ImportPreview} */
+      var apercu;
       try {
-        // readAsText garantit une chaîne, mais le type ne le sait pas.
-        State.importJSON(String(reader.result));
-        UI.toast("Sauvegarde importée ✅", "success");
+        apercu = State.previewImport(texte);
+      } catch (e) {
+        if (e instanceof State.FutureVersionError) {
+          UI.toast(
+            "Cette sauvegarde vient d'une version plus récente de l'app 🔒",
+            "error"
+          );
+        } else if (e instanceof State.InvalidSaveError) {
+          UI.toast("Ce fichier n'est pas une sauvegarde 😕", "error");
+        } else {
+          UI.toast("Fichier illisible 😕", "error");
+        }
+        return;
+      }
+
+      // 2) Confirmer, en montrant les DEUX côtés : c'est la seule information
+      // qui permette de décider. L'import est la seule opération irréversible
+      // de l'app — le reset, lui, part d'un état qu'on a choisi d'abandonner.
+      var actuel = State.get();
+      var ok = confirm(
+        "Remplacer ta progression actuelle ?\n\n" +
+          "ACTUELLE  : " + actuel.profile.totalXP + " XP, niveau " +
+          actuel.profile.level + ", " + Object.keys(actuel.items).length + " mots\n" +
+          "IMPORTÉE  : " + apercu.totalXP + " XP, niveau " + apercu.level + ", " +
+          apercu.itemCount + " mots\n\n" +
+          "Une copie de ta progression actuelle sera téléchargée avant le " +
+          "remplacement."
+      );
+      if (!ok) return;
+
+      // 3) Filet de secours. Ce n'est PAS une garantie : un navigateur peut
+      // refuser deux téléchargements rapprochés. D'où « sera téléchargée » et
+      // non « a été sauvegardée » dans la confirmation, et un échec qui ne
+      // bloque pas l'import.
+      exportSave({ silencieux: true, suffixe: "avant-import" });
+
+      try {
+        var res = State.importJSON(texte);
+        UI.toast(
+          res.repairs.length
+            ? "Importée, avec " + res.repairs.length + " champ(s) réparé(s)."
+            : "Sauvegarde importée ✅",
+          "success"
+        );
         applyTheme();
         renderHome();
       } catch (e) {
-        UI.toast("Fichier invalide 😕", "error");
+        // previewImport a déjà validé : arriver ici est anormal.
+        console.warn("Import échoué après validation.", e);
+        UI.toast("Import échoué 😕", "error");
       }
     };
     reader.readAsText(file);

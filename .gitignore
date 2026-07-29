@@ -24,5 +24,12 @@ dist/
 .vite/
 coverage/
 
+# Tests locaux visant une sauvegarde réelle hors du dépôt (données personnelles).
+# La fixture anonymisée de tests/fixtures/ en est le substitut permanent en CI.
+*.local.test.js
+# Exports de sauvegarde, pour qu'un fichier personnel ne soit jamais committé
+# par accident (le dépôt est public).
+polski-zubr-sauvegarde*.json
+
 # venv Python éventuelle
 .venv/

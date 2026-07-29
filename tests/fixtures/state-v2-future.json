@@ -1,0 +1,127 @@
+{
+  "version": 2,
+  "profile": {
+    "createdAt": "2026-02-20T12:00:00.000Z",
+    "totalXP": 12000,
+    "level": 25
+  },
+  "streak": {
+    "current": 9,
+    "longest": 12,
+    "lastActiveDate": "2026-03-02"
+  },
+  "dailyGoal": {
+    "minutesTarget": 30,
+    "todayDate": "2026-03-02",
+    "secondsToday": 900,
+    "goalMetToday": false
+  },
+  "items": {
+    "v-01-czesc": {
+      "strength": 3,
+      "dueDate": "2026-02-23",
+      "lastSeen": "2026-02-20T18:30:00.000Z"
+    },
+    "v-01-dziendobry": {
+      "strength": 4,
+      "dueDate": "2026-03-07",
+      "lastSeen": "2026-02-28T18:30:00.000Z"
+    },
+    "v-01-dobrywieczor": {
+      "strength": 4,
+      "dueDate": "2026-03-05",
+      "lastSeen": "2026-02-26T18:30:00.000Z"
+    },
+    "v-01-dobranoc": {
+      "strength": 3,
+      "dueDate": "2026-02-24",
+      "lastSeen": "2026-02-21T18:30:00.000Z"
+    },
+    "v-01-dowidzenia": {
+      "strength": 3,
+      "dueDate": "2026-02-24",
+      "lastSeen": "2026-02-21T18:30:00.000Z"
+    },
+    "v-01-tak": {
+      "strength": 3,
+      "dueDate": "2026-02-23",
+      "lastSeen": "2026-02-20T18:30:00.000Z"
+    },
+    "v-01-nie": {
+      "strength": 4,
+      "dueDate": "2026-03-06",
+      "lastSeen": "2026-02-27T18:30:00.000Z"
+    },
+    "v-01-dziekuje": {
+      "strength": 4,
+      "dueDate": "2026-03-05",
+      "lastSeen": "2026-02-26T18:30:00.000Z"
+    },
+    "v-01-prosze": {
+      "strength": 3,
+      "dueDate": "2026-02-24",
+      "lastSeen": "2026-02-21T18:30:00.000Z"
+    },
+    "v-01-przepraszam": {
+      "strength": 3,
+      "dueDate": "2026-02-24",
+      "lastSeen": "2026-02-21T18:30:00.000Z"
+    },
+    "s-01-1": {
+      "strength": 4,
+      "dueDate": "2026-03-02",
+      "lastSeen": "2026-02-23T18:30:00.000Z"
+    },
+    "s-01-2": {
+      "strength": 4,
+      "dueDate": "2026-03-03",
+      "lastSeen": "2026-02-24T18:30:00.000Z"
+    }
+  },
+  "lessons": {
+    "lesson-01": {
+      "status": "completed",
+      "bestScore": 100
+    },
+    "lesson-02": {
+      "status": "completed",
+      "bestScore": 100
+    },
+    "lesson-03": {
+      "status": "completed",
+      "bestScore": 100
+    },
+    "lesson-04": {
+      "status": "completed",
+      "bestScore": 100
+    },
+    "lesson-05": {
+      "status": "completed",
+      "bestScore": 96
+    },
+    "lesson-06": {
+      "status": "completed",
+      "bestScore": 86
+    }
+  },
+  "badges": {
+    "first-steps": true,
+    "perfect-pronunciation": true,
+    "words-25": true,
+    "halfway": true,
+    "words-100": true,
+    "streak-3": true,
+    "daily-goal": true
+  },
+  "flags": {
+    "perfectPronunciation": true,
+    "everMetDailyGoal": true
+  },
+  "settings": {
+    "ttsRate": 1.0,
+    "voiceName": null,
+    "soundOn": true,
+    "theme": "dark"
+  },
+  "avatarUrl": "https://example.invalid/avatar.png"
+}

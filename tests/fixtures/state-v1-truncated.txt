@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "profile": {
+    "createdAt": "2026-02-20T12:00:00.000Z",
+    "totalXP": 10750,
+    "level": 22
+  },
+  "streak": {
+    "current": 5,
+    "longest": 5,
+    "lastActiveDate": "2026-03-02"
+  },
+  "dailyGoal": {
+    "minutesTarget": 30,
+    "todayDate": "2026-03-02",
+    "secondsToday": 1480,
+    "goalMetToday": false
+  },
+  "items": {
+    "v-01-czesc": {
+      "box": 3,
+      "dueDate": "2026-02-23",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-20"
+    },
+    "v-01-dziendobry": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "v-01-dobrywieczor": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 5,
+      "correctCount": 4,
+      "lastSeen": "2026-02-26"
+    },
+    "v-01-dobranoc": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "v-01-dowidzenia": 

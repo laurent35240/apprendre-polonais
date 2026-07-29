@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "profile": {
+    "createdAt": "2026-03-01T09:15:00.000Z",
+    "totalXP": 640,
+    "level": 2
+  },
+  "streak": {
+    "current": 2,
+    "longest": 2,
+    "lastActiveDate": "2026-03-02"
+  },
+  "dailyGoal": {
+    "minutesTarget": 30,
+    "todayDate": "2026-03-02",
+    "secondsToday": 420,
+    "goalMetToday": false
+  },
+  "items": {
+    "v-01-czesc": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 4,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-01-dziekuje": {
+      "box": 1,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 0,
+      "lastSeen": "2026-03-02"
+    },
+    "s-01-1": {
+      "box": 5,
+      "dueDate": "2026-03-18",
+      "seenCount": 9,
+      "correctCount": 9,
+      "lastSeen": "2026-03-02"
+    }
+  },
+  "lessons": {
+    "lesson-01": {
+      "status": "completed",
+      "bestScore": 100
+    },
+    "lesson-02": {
+      "status": "completed",
+      "bestScore": 85
+    },
+    "lesson-03": {
+      "status": "completed",
+      "bestScore": 72
+    },
+    "lesson-04": {
+      "status": "completed",
+      "bestScore": 90
+    },
+    "lesson-22": {
+      "status": "completed",
+      "bestScore": 66
+    },
+    "lesson-23": {
+      "status": "completed",
+      "bestScore": 78
+    },
+    "lesson-05": {
+      "status": "completed",
+      "bestScore": 81
+    },
+    "lesson-06": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-24": {
+      "status": "locked",
+      "bestScore": 0
+    }
+  },
+  "badges": [
+    "first-steps"
+  ],
+  "flags": {
+    "perfectPronunciation": false,
+    "everMetDailyGoal": false
+  },
+  "settings": {
+    "ttsRate": 0.9,
+    "voiceName": null,
+    "soundOn": true,
+    "theme": "auto"
+  }
+}

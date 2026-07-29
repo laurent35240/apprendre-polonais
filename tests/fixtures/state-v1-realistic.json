@@ -1,0 +1,3443 @@
+{
+  "version": 1,
+  "profile": {
+    "createdAt": "2026-02-20T12:00:00.000Z",
+    "totalXP": 10750,
+    "level": 22
+  },
+  "streak": {
+    "current": 5,
+    "longest": 5,
+    "lastActiveDate": "2026-03-02"
+  },
+  "dailyGoal": {
+    "minutesTarget": 30,
+    "todayDate": "2026-03-02",
+    "secondsToday": 1480,
+    "goalMetToday": false
+  },
+  "items": {
+    "v-01-czesc": {
+      "box": 3,
+      "dueDate": "2026-02-23",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-20"
+    },
+    "v-01-dziendobry": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "v-01-dobrywieczor": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 5,
+      "correctCount": 4,
+      "lastSeen": "2026-02-26"
+    },
+    "v-01-dobranoc": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "v-01-dowidzenia": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "v-01-tak": {
+      "box": 3,
+      "dueDate": "2026-02-23",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-20"
+    },
+    "v-01-nie": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-01-dziekuje": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "v-01-prosze": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "v-01-przepraszam": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "s-01-1": {
+      "box": 4,
+      "dueDate": "2026-03-02",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-23"
+    },
+    "s-01-2": {
+      "box": 4,
+      "dueDate": "2026-03-03",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-24"
+    },
+    "s-01-3": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "s-01-4": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-02-jestem": {
+      "box": 4,
+      "dueDate": "2026-03-03",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-24"
+    },
+    "v-02-jestes": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "v-02-jest": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "v-02-nazywamsie": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-02-jakmaszimie": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "v-02-milomi": {
+      "box": 3,
+      "dueDate": "2026-02-23",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-20"
+    },
+    "v-02-skadjestes": {
+      "box": 4,
+      "dueDate": "2026-03-03",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-24"
+    },
+    "v-02-francja": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-02-polska": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "v-02-mowie": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "s-02-1": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "s-02-2": {
+      "box": 4,
+      "dueDate": "2026-03-03",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-24"
+    },
+    "s-02-3": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "s-02-4": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-03-rodzina": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-03-mama": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "v-03-tata": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-03-brat": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-03-siostra": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-03-syn": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-03-corka": {
+      "box": 1,
+      "dueDate": "2026-02-28",
+      "seenCount": 3,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-03-dziecko": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 4,
+      "correctCount": 3,
+      "lastSeen": "2026-02-24"
+    },
+    "v-03-zona": {
+      "box": 2,
+      "dueDate": "2026-02-21",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-20"
+    },
+    "v-03-maz": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "v-03-babcia": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-03-dziadek": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "s-03-1": {
+      "box": 4,
+      "dueDate": "2026-03-02",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-23"
+    },
+    "s-03-2": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "s-03-3": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "s-03-4": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-04-jeden": {
+      "box": 5,
+      "dueDate": "2026-03-15",
+      "seenCount": 4,
+      "correctCount": 4,
+      "lastSeen": "2026-02-27"
+    },
+    "v-04-dwa": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-04-trzy": {
+      "box": 3,
+      "dueDate": "2026-02-23",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-20"
+    },
+    "v-04-cztery": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "v-04-piec": {
+      "box": 4,
+      "dueDate": "2026-03-02",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-23"
+    },
+    "v-04-szesc": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "v-04-siedem": {
+      "box": 4,
+      "dueDate": "2026-02-27",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-20"
+    },
+    "v-04-osiem": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-04-dziewiec": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-04-dziesiec": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-04-ile": {
+      "box": 3,
+      "dueDate": "2026-02-23",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-20"
+    },
+    "v-04-rok": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "s-04-1": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "s-04-2": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "s-04-3": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "s-04-4": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "v-05-poprosze": {
+      "box": 5,
+      "dueDate": "2026-03-15",
+      "seenCount": 4,
+      "correctCount": 4,
+      "lastSeen": "2026-02-27"
+    },
+    "v-05-woda": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "v-05-kawa": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "v-05-herbata": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "v-05-piwo": {
+      "box": 3,
+      "dueDate": "2026-02-23",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-20"
+    },
+    "v-05-chleb": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-05-zupa": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "v-05-pierogi": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-05-rachunek": {
+      "box": 3,
+      "dueDate": "2026-02-23",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-20"
+    },
+    "v-05-smacznego": {
+      "box": 4,
+      "dueDate": "2026-03-08",
+      "seenCount": 4,
+      "correctCount": 3,
+      "lastSeen": "2026-03-01"
+    },
+    "s-05-1": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "s-05-2": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "s-05-3": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "s-05-4": {
+      "box": 3,
+      "dueDate": "2026-02-23",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-20"
+    },
+    "v-06-robic": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 5,
+      "correctCount": 4,
+      "lastSeen": "2026-02-26"
+    },
+    "v-06-miec": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-06-chciec": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "v-06-jesc": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-06-pic": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "v-06-isc": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "v-06-czytac": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "v-06-pracowac": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-06-lubic": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "v-06-wiedziec": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 5,
+      "correctCount": 3,
+      "lastSeen": "2026-02-24"
+    },
+    "s-06-1": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "s-06-2": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "s-06-3": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "s-06-4": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 4,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "v-07-tutaj": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "v-07-pokoj": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-07-mieszkanie": {
+      "box": 2,
+      "dueDate": "2026-02-23",
+      "seenCount": 3,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-07-dom": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "v-07-drzwi": {
+      "box": 3,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-21"
+    },
+    "v-07-gdzie": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-07-stol": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 4,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "v-07-okno": {
+      "box": 1,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-24"
+    },
+    "v-07-kuchnia": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "v-07-lazienka": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "s-07-4": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "s-07-1": {
+      "box": 5,
+      "dueDate": "2026-03-16",
+      "seenCount": 4,
+      "correctCount": 4,
+      "lastSeen": "2026-02-28"
+    },
+    "s-07-3": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "s-07-2": {
+      "box": 4,
+      "dueDate": "2026-03-03",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-24"
+    },
+    "v-08-tydzien": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 4,
+      "correctCount": 3,
+      "lastSeen": "2026-02-24"
+    },
+    "v-08-poniedzialek": {
+      "box": 2,
+      "dueDate": "2026-02-23",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-22"
+    },
+    "v-08-rano": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-08-wczoraj": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-08-dzisiaj": {
+      "box": 5,
+      "dueDate": "2026-03-18",
+      "seenCount": 4,
+      "correctCount": 4,
+      "lastSeen": "2026-03-02"
+    },
+    "v-08-wieczorem": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-08-sobota": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-08-niedziela": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-08-jutro": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "v-08-teraz": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-08-godzina": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "s-08-2": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "s-08-1": {
+      "box": 5,
+      "dueDate": "2026-03-17",
+      "seenCount": 4,
+      "correctCount": 4,
+      "lastSeen": "2026-03-01"
+    },
+    "s-08-3": {
+      "box": 2,
+      "dueDate": "2026-02-23",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-22"
+    },
+    "s-08-4": {
+      "box": 1,
+      "dueDate": "2026-02-22",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-22"
+    },
+    "v-cal-miesiac": {
+      "box": 2,
+      "dueDate": "2026-02-25",
+      "seenCount": 3,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-cal-niedziela": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-cal-pazdziernik": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 3,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-cal-kwiecien": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-cal-marzec": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-cal-grudzien": {
+      "box": 2,
+      "dueDate": "2026-02-23",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-22"
+    },
+    "v-cal-czerwiec": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-cal-sroda": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-cal-styczen": {
+      "box": 1,
+      "dueDate": "2026-02-22",
+      "seenCount": 3,
+      "correctCount": 1,
+      "lastSeen": "2026-02-22"
+    },
+    "v-cal-kalendarz": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-cal-wtorek": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-cal-maj": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-cal-wrzesien": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-cal-luty": {
+      "box": 2,
+      "dueDate": "2026-02-23",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-22"
+    },
+    "v-cal-piatek": {
+      "box": 1,
+      "dueDate": "2026-02-22",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-22"
+    },
+    "v-cal-listopad": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-cal-poniedzialek": {
+      "box": 4,
+      "dueDate": "2026-03-01",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-22"
+    },
+    "v-cal-czwartek": {
+      "box": 2,
+      "dueDate": "2026-02-23",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-22"
+    },
+    "v-cal-sierpien": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 3,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-cal-lipiec": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-cal-sobota": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "s-cal-3": {
+      "box": 2,
+      "dueDate": "2026-02-23",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-22"
+    },
+    "s-cal-4": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "s-cal-1": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "s-cal-2": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-09-mleko": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-09-ile-kosztuje": {
+      "box": 2,
+      "dueDate": "2026-02-23",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-22"
+    },
+    "v-09-sklep": {
+      "box": 5,
+      "dueDate": "2026-03-17",
+      "seenCount": 4,
+      "correctCount": 4,
+      "lastSeen": "2026-03-01"
+    },
+    "v-09-malo": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-09-pieniadze": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-09-ser": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-09-jajko": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-09-duzo": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-09-cukier": {
+      "box": 4,
+      "dueDate": "2026-03-01",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-22"
+    },
+    "v-09-jablko": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "s-09-2": {
+      "box": 2,
+      "dueDate": "2026-02-23",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-22"
+    },
+    "s-09-1": {
+      "box": 4,
+      "dueDate": "2026-03-01",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-22"
+    },
+    "s-09-3": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "s-09-4": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-22-szesnascie": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "v-22-trzynascie": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-22-siedemnascie": {
+      "box": 1,
+      "dueDate": "2026-02-22",
+      "seenCount": 3,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-22-dwanascie": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-22-jedenascie": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 4,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-22-stopni": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-22-zlotych": {
+      "box": 4,
+      "dueDate": "2026-03-05",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-26"
+    },
+    "v-22-pietnascie": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-22-dwadziescia": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-22-osiemnascie": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-22-dziewietnascie": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-22-czternascie": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "s-22-3": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "s-22-4": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 4,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "s-22-1": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 3,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "s-22-2": {
+      "box": 3,
+      "dueDate": "2026-02-25",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-22"
+    },
+    "v-23-sto": {
+      "box": 3,
+      "dueDate": "2026-02-26",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-23"
+    },
+    "v-23-piecdziesiat": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-23-dziewiecdziesiat": {
+      "box": 1,
+      "dueDate": "2026-02-26",
+      "seenCount": 3,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-23-czterdziesci": {
+      "box": 2,
+      "dueDate": "2026-02-24",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-23"
+    },
+    "v-23-szescdziesiat": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 3,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-23-okolo": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-23-pol": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-23-osiemdziesiat": {
+      "box": 3,
+      "dueDate": "2026-02-26",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-23"
+    },
+    "v-23-siedemdziesiat": {
+      "box": 1,
+      "dueDate": "2026-02-27",
+      "seenCount": 3,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-23-trzydziesci": {
+      "box": 3,
+      "dueDate": "2026-02-26",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-23"
+    },
+    "s-23-3": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "s-23-2": {
+      "box": 3,
+      "dueDate": "2026-02-26",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-23"
+    },
+    "s-23-1": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "s-23-4": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 4,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "v-10-podroz": {
+      "box": 2,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-23"
+    },
+    "v-10-razem": {
+      "box": 2,
+      "dueDate": "2026-02-24",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-23"
+    },
+    "v-10-jutro2": {
+      "box": 3,
+      "dueDate": "2026-02-26",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-23"
+    },
+    "v-10-zrobic": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-10-kupic": {
+      "box": 3,
+      "dueDate": "2026-02-26",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-23"
+    },
+    "v-10-wakacje": {
+      "box": 2,
+      "dueDate": "2026-02-24",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-23"
+    },
+    "v-10-spotkanie": {
+      "box": 1,
+      "dueDate": "2026-02-23",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-23"
+    },
+    "v-10-moze": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-10-napewno": {
+      "box": 3,
+      "dueDate": "2026-02-26",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-23"
+    },
+    "v-10-bede": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "s-10-4": {
+      "box": 2,
+      "dueDate": "2026-02-24",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-23"
+    },
+    "s-10-1": {
+      "box": 4,
+      "dueDate": "2026-03-03",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-24"
+    },
+    "s-10-3": {
+      "box": 2,
+      "dueDate": "2026-02-24",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-23"
+    },
+    "s-10-2": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-12-czarny": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-12-zielony": {
+      "box": 2,
+      "dueDate": "2026-02-25",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-24"
+    },
+    "v-12-zolty": {
+      "box": 1,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-24"
+    },
+    "v-12-nowy": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-12-kolor": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 4,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-12-ladny": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-12-stary": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-12-niebieski": {
+      "box": 2,
+      "dueDate": "2026-02-25",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-24"
+    },
+    "v-12-bialy": {
+      "box": 4,
+      "dueDate": "2026-03-03",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-24"
+    },
+    "v-12-duzy": {
+      "box": 2,
+      "dueDate": "2026-02-25",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-24"
+    },
+    "v-12-maly": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "v-12-czerwony": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "s-12-3": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "s-12-2": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "s-12-1": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "s-12-4": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-13-mialem": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-13-byl": {
+      "box": 2,
+      "dueDate": "2026-02-25",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-24"
+    },
+    "v-13-byla": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-13-juz": {
+      "box": 2,
+      "dueDate": "2026-02-25",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-24"
+    },
+    "v-13-bylem": {
+      "box": 4,
+      "dueDate": "2026-03-03",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-24"
+    },
+    "v-13-robilem": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-13-temu": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-13-bylam": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-13-zeszlytydzien": {
+      "box": 1,
+      "dueDate": "2026-02-24",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-24"
+    },
+    "v-13-wycieczka": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-13-potem": {
+      "box": 1,
+      "dueDate": "2026-03-02",
+      "seenCount": 3,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "s-13-3": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "s-13-1": {
+      "box": 4,
+      "dueDate": "2026-03-03",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-24"
+    },
+    "s-13-2": {
+      "box": 2,
+      "dueDate": "2026-02-25",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-24"
+    },
+    "s-13-4": {
+      "box": 3,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-24"
+    },
+    "v-14-wstawac": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-14-golicsie": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-14-ubieracsie": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-14-czucsie": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-14-mycsie": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 4,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-14-odpoczywac": {
+      "box": 1,
+      "dueDate": "2026-02-26",
+      "seenCount": 1,
+      "correctCount": 0,
+      "lastSeen": "2026-02-26"
+    },
+    "v-14-spieszycsie": {
+      "box": 1,
+      "dueDate": "2026-02-26",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-14-budzicsie": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-14-uczycsie": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-14-klascsie": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-14-codziennie": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "s-14-4": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "s-14-2": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "s-14-1": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "s-14-3": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-15-lekarz": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-15-zab": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-15-apteka": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-15-noga": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-15-gardlo": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-15-lek": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-15-zdrowy": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-15-brzuch": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-15-chory": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-15-glowa": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-15-reka": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-15-oko": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "s-15-3": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "s-15-2": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "s-15-1": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "s-15-4": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-16-most": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-16-wlewo": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-16-ulica": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-16-dworzec": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-16-mapa": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-16-miasto": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-16-daleko": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-16-przystanek": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-16-wprawo": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-16-skrecic": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-16-blisko": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "v-16-prosto": {
+      "box": 3,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-26"
+    },
+    "s-16-3": {
+      "box": 2,
+      "dueDate": "2026-02-27",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "s-16-1": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 4,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "s-16-4": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "s-16-2": {
+      "box": 1,
+      "dueDate": "2026-02-26",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-26"
+    },
+    "v-17-nauczyciel": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-17-bilet": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-17-rower": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-17-kolega": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-17-autobus": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-17-lotnisko": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-17-pociag": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-17-samolot": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-17-samochod": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-17-inzynier": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-17-kierowca": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-17-peron": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "s-17-3": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "s-17-1": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 3,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "s-17-2": {
+      "box": 1,
+      "dueDate": "2026-02-27",
+      "seenCount": 1,
+      "correctCount": 0,
+      "lastSeen": "2026-02-27"
+    },
+    "s-17-4": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-18-owoce": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-18-targ": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-18-warzywa": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-18-dawac": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-18-marchewka": {
+      "box": 1,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-18-pomidor": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-18-swiezy": {
+      "box": 1,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-18-cebula": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-18-pomagac": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-18-prezent": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-18-podobamisie": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-18-smaczny": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "s-18-1": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "s-18-3": {
+      "box": 1,
+      "dueDate": "2026-03-02",
+      "seenCount": 3,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "s-18-4": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "s-18-2": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-24-kurtka": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-24-rozmiar": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-24-kupowac": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-24-sweter": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-24-spodnie": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-24-czapka": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-24-nosic": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-24-koszula": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-24-sukienka": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-24-ubranie": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-24-buty": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-24-przymierzyc": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "s-24-2": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "s-24-4": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "s-24-3": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "s-24-1": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "d-24-1": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-25-powinnam": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-25-trzeba": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-25-moge": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-25-odpoczac": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-25-pomoc": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 3,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-25-niewolno": {
+      "box": 3,
+      "dueDate": "2026-03-04",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-01"
+    },
+    "v-25-wolno": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-25-musiec": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-25-muszę": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-25-mozna": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-25-powinienem": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-25-moc": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "s-25-2": {
+      "box": 1,
+      "dueDate": "2026-02-28",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "s-25-4": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "s-25-3": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "s-25-1": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "d-25-1": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-26-grac": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-26-tanczyc": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-26-pilkanozna": {
+      "box": 1,
+      "dueDate": "2026-02-27",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-26-czaswolny": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-26-gitara": {
+      "box": 4,
+      "dueDate": "2026-03-06",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-27"
+    },
+    "v-26-hobby": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-26-plywac": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-26-weekend": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-26-biegac": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-26-muzyka": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "v-26-koncert": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "v-26-film": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "s-26-2": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "s-26-3": {
+      "box": 3,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-27"
+    },
+    "s-26-1": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "s-26-4": {
+      "box": 2,
+      "dueDate": "2026-02-28",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-27"
+    },
+    "d-26-1": {
+      "box": 1,
+      "dueDate": "2026-02-27",
+      "seenCount": 1,
+      "correctCount": 0,
+      "lastSeen": "2026-02-27"
+    },
+    "v-27-kwadrans": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-27-wpoldo": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-27-minuta": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-27-wczesnie": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-27-punktualnie": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-27-po": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-27-spoznicsie": {
+      "box": 1,
+      "dueDate": "2026-02-28",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-27-pozno": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-27-godzina": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "v-27-polnoc": {
+      "box": 3,
+      "dueDate": "2026-03-04",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-01"
+    },
+    "v-27-poludnie": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "v-27-za": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "s-27-4": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "s-27-3": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "s-27-1": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "s-27-2": {
+      "box": 1,
+      "dueDate": "2026-02-28",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "d-27-1": {
+      "box": 1,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 0,
+      "lastSeen": "2026-02-28"
+    },
+    "v-28-dziesiaty": {
+      "box": 5,
+      "dueDate": "2026-03-16",
+      "seenCount": 4,
+      "correctCount": 4,
+      "lastSeen": "2026-02-28"
+    },
+    "v-28-siodmy": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-28-pietro": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-28-dziewiaty": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-28-trzeci": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 3,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-28-szosty": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-28-pierwszy": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 3,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-28-data": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-28-osmy": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-28-drugi": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-28-piaty": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-28-czwarty": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "s-28-2": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "s-28-1": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 3,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "s-28-4": {
+      "box": 1,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "s-28-3": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "d-28-1": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-29-noz": {
+      "box": 1,
+      "dueDate": "2026-02-28",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-29-widelec": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-29-kolacja": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-29-piec": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-29-przepis": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-29-obiad": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-29-skladniki": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "v-29-sniadanie": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-29-gotowac": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "v-29-kroic": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-29-lyzka": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 4,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-29-talerz": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "s-29-3": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "s-29-4": {
+      "box": 3,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-02-28"
+    },
+    "s-29-2": {
+      "box": 1,
+      "dueDate": "2026-02-28",
+      "seenCount": 1,
+      "correctCount": 0,
+      "lastSeen": "2026-02-28"
+    },
+    "s-29-1": {
+      "box": 4,
+      "dueDate": "2026-03-07",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-02-28"
+    },
+    "d-29-1": {
+      "box": 2,
+      "dueDate": "2026-03-01",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-02-28"
+    },
+    "v-30-samochody": {
+      "box": 3,
+      "dueDate": "2026-03-04",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-01"
+    },
+    "v-30-koty": {
+      "box": 3,
+      "dueDate": "2026-03-04",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-01"
+    },
+    "v-30-okna": {
+      "box": 3,
+      "dueDate": "2026-03-04",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-01"
+    },
+    "v-30-ksiazki": {
+      "box": 2,
+      "dueDate": "2026-03-02",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-01"
+    },
+    "v-30-dzieci": {
+      "box": 3,
+      "dueDate": "2026-03-04",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-01"
+    },
+    "v-30-miasta": {
+      "box": 2,
+      "dueDate": "2026-03-02",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-01"
+    },
+    "v-30-ludzie": {
+      "box": 3,
+      "dueDate": "2026-03-04",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-01"
+    },
+    "v-30-mezczyzni": {
+      "box": 1,
+      "dueDate": "2026-03-01",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-03-01"
+    },
+    "v-30-kobiety": {
+      "box": 3,
+      "dueDate": "2026-03-04",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-01"
+    },
+    "v-30-psy": {
+      "box": 2,
+      "dueDate": "2026-03-02",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-01"
+    },
+    "v-30-gazety": {
+      "box": 3,
+      "dueDate": "2026-03-04",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-01"
+    },
+    "v-30-domy": {
+      "box": 2,
+      "dueDate": "2026-03-02",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-01"
+    },
+    "s-30-1": {
+      "box": 3,
+      "dueDate": "2026-03-04",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-01"
+    },
+    "s-30-3": {
+      "box": 3,
+      "dueDate": "2026-03-04",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-01"
+    },
+    "s-30-4": {
+      "box": 2,
+      "dueDate": "2026-03-02",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-01"
+    },
+    "s-30-2": {
+      "box": 3,
+      "dueDate": "2026-03-04",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-01"
+    },
+    "d-30-1": {
+      "box": 2,
+      "dueDate": "2026-03-02",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-01"
+    },
+    "v-31-nudny": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-31-trudny": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "v-31-krotki": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-31-latwy": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "v-31-dlugi": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-31-wazny": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "v-31-mlody": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-31-ciekawy": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-31-niski": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-31-historia": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "v-31-pytanie": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-31-wysoki": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "s-31-4": {
+      "box": 1,
+      "dueDate": "2026-03-02",
+      "seenCount": 1,
+      "correctCount": 0,
+      "lastSeen": "2026-03-02"
+    },
+    "s-31-2": {
+      "box": 1,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "s-31-3": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "s-31-1": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "d-31-1": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "v-32-smutny": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-32-zmeczony": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "v-32-zadowolony": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-32-zly": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "v-32-wesoly": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-32-cieszycsie": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "v-32-denerwowacsie": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-32-szczesliwy": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-32-bacsie": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "v-32-spokojny": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "v-32-mily": {
+      "box": 4,
+      "dueDate": "2026-03-09",
+      "seenCount": 3,
+      "correctCount": 3,
+      "lastSeen": "2026-03-02"
+    },
+    "v-32-martwicsie": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "s-32-1": {
+      "box": 3,
+      "dueDate": "2026-03-05",
+      "seenCount": 2,
+      "correctCount": 2,
+      "lastSeen": "2026-03-02"
+    },
+    "s-32-2": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "s-32-4": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "s-32-3": {
+      "box": 1,
+      "dueDate": "2026-03-02",
+      "seenCount": 2,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    },
+    "d-32-1": {
+      "box": 2,
+      "dueDate": "2026-03-03",
+      "seenCount": 1,
+      "correctCount": 1,
+      "lastSeen": "2026-03-02"
+    }
+  },
+  "lessons": {
+    "lesson-01": {
+      "status": "completed",
+      "bestScore": 100
+    },
+    "lesson-02": {
+      "status": "completed",
+      "bestScore": 100
+    },
+    "lesson-03": {
+      "status": "completed",
+      "bestScore": 100
+    },
+    "lesson-04": {
+      "status": "completed",
+      "bestScore": 100
+    },
+    "lesson-05": {
+      "status": "completed",
+      "bestScore": 96
+    },
+    "lesson-06": {
+      "status": "completed",
+      "bestScore": 86
+    },
+    "lesson-07": {
+      "status": "completed",
+      "bestScore": 93
+    },
+    "lesson-08": {
+      "status": "completed",
+      "bestScore": 94
+    },
+    "lesson-09": {
+      "status": "completed",
+      "bestScore": 100
+    },
+    "lesson-10": {
+      "status": "completed",
+      "bestScore": 90
+    },
+    "lesson-11": {
+      "status": "completed",
+      "bestScore": 85
+    },
+    "lesson-12": {
+      "status": "completed",
+      "bestScore": 94
+    },
+    "lesson-13": {
+      "status": "completed",
+      "bestScore": 94
+    },
+    "lesson-14": {
+      "status": "completed",
+      "bestScore": 87
+    },
+    "lesson-15": {
+      "status": "completed",
+      "bestScore": 97
+    },
+    "lesson-16": {
+      "status": "completed",
+      "bestScore": 94
+    },
+    "lesson-17": {
+      "status": "completed",
+      "bestScore": 94
+    },
+    "lesson-18": {
+      "status": "completed",
+      "bestScore": 88
+    },
+    "lesson-19": {
+      "status": "available",
+      "bestScore": 0
+    },
+    "lesson-20": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-21": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-22": {
+      "status": "completed",
+      "bestScore": 88
+    },
+    "lesson-23": {
+      "status": "completed",
+      "bestScore": 90
+    },
+    "lesson-24": {
+      "status": "completed",
+      "bestScore": 97
+    },
+    "lesson-25": {
+      "status": "completed",
+      "bestScore": 88
+    },
+    "lesson-26": {
+      "status": "completed",
+      "bestScore": 88
+    },
+    "lesson-27": {
+      "status": "completed",
+      "bestScore": 91
+    },
+    "lesson-28": {
+      "status": "completed",
+      "bestScore": 89
+    },
+    "lesson-29": {
+      "status": "completed",
+      "bestScore": 88
+    },
+    "lesson-30": {
+      "status": "completed",
+      "bestScore": 97
+    },
+    "lesson-31": {
+      "status": "completed",
+      "bestScore": 94
+    },
+    "lesson-32": {
+      "status": "completed",
+      "bestScore": 94
+    },
+    "lesson-33": {
+      "status": "available",
+      "bestScore": 0
+    },
+    "lesson-34": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-35": {
+      "status": "available",
+      "bestScore": 0
+    },
+    "lesson-36": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-37": {
+      "status": "available",
+      "bestScore": 0
+    },
+    "lesson-38": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-39": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-40": {
+      "status": "locked",
+      "bestScore": 0
+    }
+  },
+  "badges": [
+    "first-steps",
+    "perfect-pronunciation",
+    "words-25",
+    "halfway",
+    "words-100",
+    "streak-3",
+    "daily-goal"
+  ],
+  "flags": {
+    "perfectPronunciation": true,
+    "everMetDailyGoal": true
+  },
+  "settings": {
+    "ttsRate": 0.9,
+    "voiceName": null,
+    "soundOn": true,
+    "theme": "auto"
+  }
+}

@@ -5,10 +5,10 @@
 import { POLISH_LESSONS } from "../data/lessons.js";
 import { POLISH_BADGES } from "../data/badges.js";
 import { State } from "./state.js";
-import { SRS } from "./srs.js";
 import { Speech } from "./speech.js";
 import { Gamification } from "./gamification.js";
 import { Exercises } from "./exercises.js";
+import { Progress } from "./progress.js";
 import { Session } from "./session.js";
 import { UI } from "./ui.js";
 
@@ -190,7 +190,7 @@ function renderReadOnlyNotice(st) {
             )
           )
             return;
-          State.reset();
+          Progress.progressReset();
           applyTheme();
           startTimeTracker();
           updateHeader();
@@ -225,7 +225,7 @@ function flushPendingTime() {
   var sec = pendingSec;
   // Remis à zéro AVANT l'appel : si addTime lève, on ne comptera pas deux fois.
   pendingSec = 0;
-  Gamification.addTime(sec);
+  Progress.timeSpent(sec);
 }
 
 /**
@@ -289,7 +289,7 @@ function startTimeTracker() {
     // jusqu'à 30 s plus tard — immatériel pour un objectif de 30 minutes. Le
     // flush de sortie garantit qu'on ne perd rien à la fermeture.
     if (pendingSec >= 30) {
-      var res = Gamification.addTime(pendingSec);
+      var res = Progress.timeSpent(pendingSec);
       pendingSec = 0;
       // En session, le header est déjà rafraîchi à chaque réponse (showFeedback) :
       // inutile de reconstruire tout le topbar sous les doigts de l'utilisateur.
@@ -300,7 +300,7 @@ function startTimeTracker() {
           "🎉 Objectif du jour atteint ! +100 XP. Żubr danse la polka.",
           "success"
         );
-        notifyBadges(Gamification.checkBadges());
+        notifyBadges(res.newBadges);
       }
     }
   }, 1000);
@@ -1293,7 +1293,7 @@ function renderSpeak(card, ex) {
           if (token !== autoPlayToken) return;
           var score = Speech.pronunciationScore(ex.answer, alts || [transcript]);
           var ok = score >= 60;
-          if (score >= 95) Gamification.markPerfectPronunciation();
+          if (score >= 95) Progress.pronunciationPerfect();
           recordAndFeedback(
             ex,
             ok,
@@ -1400,21 +1400,18 @@ function recordAndFeedback(ex, correct, _score, customMsg) {
   if (!session || answered) return;
   answered = true;
   lockExerciseCard();
-  // SRS + XP
-  SRS.record(ex.itemId, correct);
+  // Une transaction unique. `session.xp` reste ici : c'est un compteur en
+  // mémoire, non persisté — le sortir dans progress.js mélangerait les
+  // responsabilités.
+  var res = Progress.answerRecorded(ex.itemId, correct);
   if (correct) {
-    session.xp += Gamification.XP_PER_CORRECT;
-    var leveledUp = Gamification.addXP(Gamification.XP_PER_CORRECT);
+    session.xp += res.xpGained;
     UI.soundCorrect();
-    if (leveledUp) UI.levelUpToast(State.get().profile.level);
+    if (res.leveledUp) UI.levelUpToast(res.level);
   } else {
     UI.soundWrong();
   }
   session.results.push({ itemId: ex.itemId, correct: correct, type: ex.type });
-  // scheduleSave et non save : addXP a déjà programmé une écriture, les deux se
-  // coalescent. C'est ce qui fait tomber les 2 setItem par bonne réponse à 1.
-  State.touch("items." + ex.itemId);
-  State.scheduleSave();
   showFeedback(ex, correct, customMsg);
 }
 
@@ -1501,33 +1498,15 @@ function finishSession() {
   }).length;
   var pct = total ? Math.round((correct / total) * 100) : 0;
 
-  Gamification.touchActivity();
-
-  // Complétion de leçon
-  var lessonJustCompleted = false;
-  if (session.meta.kind === "lesson") {
-    var s = State.get();
-    var lst = s.lessons[session.meta.lessonId];
-    if (lst) {
-      lst.bestScore = Math.max(lst.bestScore || 0, pct);
-      if (pct >= 60) {
-        if (lst.status !== "completed") lessonJustCompleted = true;
-        lst.status = "completed";
-        var leveledUpBonus = Gamification.addXP(Gamification.XP_LESSON_BONUS);
-        session.xp += Gamification.XP_LESSON_BONUS;
-        if (leveledUpBonus) UI.levelUpToast(State.get().profile.level);
-      } else if (lst.status === "available") {
-        lst.status = "inProgress";
-      }
-      State.ensureLessonStatuses();
-      State.touch("lessons");
-      // flush : la fin d'une leçon est un jalon, on ne le laisse pas en attente.
-      State.flush();
-    }
-  }
-
-  var newBadges = Gamification.checkBadges();
-  renderSummary(pct, correct, total, lessonJustCompleted, newBadges, session.xp);
+  var res = Progress.sessionFinished(
+    session.meta.kind === "lesson" ? session.meta.lessonId : null,
+    pct
+  );
+  session.xp += res.xpGained;
+  if (res.leveledUp) UI.levelUpToast(res.level);
+  renderSummary(
+    pct, correct, total, res.lessonJustCompleted, res.newBadges, session.xp
+  );
 }
 
 /**
@@ -1656,13 +1635,9 @@ function renderSettings() {
   // Les mutations relisent l'état : State.reset()/importJSON() REMPLACENT
   // l'objet, donc `s` capturé au rendu peut être orphelin (écriture perdue).
   themeSel.addEventListener("change", function () {
-    var v = themeSel.value;
-    // Frontière de désérialisation : on valide au lieu de caster, sinon un
-    // thème invalide pourrait finir dans le localStorage.
-    if (v !== "auto" && v !== "light" && v !== "dark") return;
-    State.get().settings.theme = v;
-    State.touch("settings");
-    State.scheduleSave();
+    // La validation vit dans Progress.settingChanged : le handler transmet, et
+    // le piège d'alias devient structurellement impossible.
+    if (!Progress.settingChanged("theme", themeSel.value).applied) return;
     applyTheme();
   });
   card.appendChild(row("Thème", themeSel));
@@ -1671,9 +1646,7 @@ function renderSettings() {
   var soundChk = el("input", { type: "checkbox" });
   soundChk.checked = s.settings.soundOn;
   soundChk.addEventListener("change", function () {
-    State.get().settings.soundOn = soundChk.checked;
-    State.touch("settings");
-    State.scheduleSave();
+    Progress.settingChanged("soundOn", soundChk.checked);
   });
   card.appendChild(row("Effets sonores", soundChk));
 
@@ -1687,12 +1660,8 @@ function renderSettings() {
   });
   var rateVal = el("span", { class: "small", text: s.settings.ttsRate + "×" });
   rate.addEventListener("input", function () {
-    var st = State.get();
-    st.settings.ttsRate = parseFloat(rate.value);
-    rateVal.textContent = st.settings.ttsRate + "×";
-    // Événement `input` : un setItem par pixel de glissement avant le debounce.
-    State.touch("settings");
-    State.scheduleSave();
+    if (!Progress.settingChanged("ttsRate", parseFloat(rate.value)).applied) return;
+    rateVal.textContent = State.get().settings.ttsRate + "×";
   });
   card.appendChild(row("Vitesse de la voix", el("div", { class: "rate-row" }, [rate, rateVal])));
   card.appendChild(
@@ -1723,9 +1692,8 @@ function renderSettings() {
     goalSel.appendChild(opt);
   });
   goalSel.addEventListener("change", function () {
-    State.get().dailyGoal.minutesTarget = parseInt(goalSel.value, 10);
-    State.touch("dailyGoal");
-    State.scheduleSave();
+    if (!Progress.settingChanged("minutesTarget", parseInt(goalSel.value, 10)).applied)
+      return;
     updateHeader();
   });
   card.appendChild(row("Minutes par jour", goalSel));
@@ -1757,7 +1725,7 @@ function renderSettings() {
               "Tout effacer et repartir de zéro ? (Pense à exporter d'abord !)"
             )
           ) {
-            State.reset();
+            Progress.progressReset();
             UI.toast("Remis à zéro. Nowy początek !", "");
             renderHome();
           }
@@ -1878,7 +1846,7 @@ function importSave() {
       exportSave({ silencieux: true, suffixe: "avant-import" });
 
       try {
-        var res = State.importJSON(texte);
+        var res = Progress.progressImported(texte);
         UI.toast(
           res.repairs.length
             ? "Importée, avec " + res.repairs.length + " champ(s) réparé(s)."

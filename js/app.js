@@ -202,6 +202,49 @@ function renderReadOnlyNotice(st) {
   appRoot.appendChild(card);
 }
 
+/* ============== SORTIE DE PAGE : verser puis écrire ==================
+   `pendingSec` accumule le temps HORS de l'état, et n'est versé que par paliers
+   de 10 s : fermer l'onglet perdait jusqu'à 9 secondes. Le problème existait
+   AVANT l'écriture différée, et débouncer sans drainer l'aurait aggravé.
+
+   Événements : visibilitychange/hidden est le seul fiable sur iOS (fermeture
+   d'onglet, bascule d'app, verrouillage d'écran, et le swipe vers l'accueil
+   d'une PWA installée) ; pagehide couvre la navigation sortante et le bfcache ;
+   freeze est un filet Chrome Android. PAS `beforeunload` : non fiable sur
+   mobile, et il DÉSACTIVE le bfcache.
+
+   localStorage.setItem étant synchrone, ces handlers écrivent correctement.
+   ===================================================================== */
+
+/**
+ * Verse le temps accumulé en mémoire dans l'état.
+ * @returns {void}
+ */
+function flushPendingTime() {
+  if (pendingSec <= 0) return;
+  var sec = pendingSec;
+  // Remis à zéro AVANT l'appel : si addTime lève, on ne comptera pas deux fois.
+  pendingSec = 0;
+  Gamification.addTime(sec);
+}
+
+/**
+ * Ordre imposé : verser le temps, PUIS écrire. Idempotent — appelé jusqu'à trois
+ * fois pour un même départ, sans effet (pendingSec est à zéro et flush() est un
+ * no-op si rien n'est sale).
+ * @returns {void}
+ */
+function onHide() {
+  flushPendingTime();
+  State.flush();
+}
+
+document.addEventListener("visibilitychange", function () {
+  if (document.visibilityState === "hidden") onHide();
+});
+window.addEventListener("pagehide", onHide);
+window.addEventListener("freeze", onHide);
+
 // Remonte en haut de la page à chaque changement d'écran (sinon on reste
 // à la position de défilement précédente).
 function scrollTop() {
@@ -240,7 +283,12 @@ function startTimeTracker() {
       document.visibilityState === "visible" &&
       Date.now() - lastActivity < 90000;
     if (active) pendingSec += 1;
-    if (pendingSec >= 10) {
+    // 30 s et non 10 : verser le temps écrit l'état entier, et le faire 6 fois
+    // par minute pour incrémenter un compteur était le premier poste
+    // d'écritures. La détection de l'objectif quotidien peut donc arriver
+    // jusqu'à 30 s plus tard — immatériel pour un objectif de 30 minutes. Le
+    // flush de sortie garantit qu'on ne perd rien à la fermeture.
+    if (pendingSec >= 30) {
       var res = Gamification.addTime(pendingSec);
       pendingSec = 0;
       // En session, le header est déjà rafraîchi à chaque réponse (showFeedback) :
@@ -1363,7 +1411,10 @@ function recordAndFeedback(ex, correct, _score, customMsg) {
     UI.soundWrong();
   }
   session.results.push({ itemId: ex.itemId, correct: correct, type: ex.type });
-  State.save();
+  // scheduleSave et non save : addXP a déjà programmé une écriture, les deux se
+  // coalescent. C'est ce qui fait tomber les 2 setItem par bonne réponse à 1.
+  State.touch("items." + ex.itemId);
+  State.scheduleSave();
   showFeedback(ex, correct, customMsg);
 }
 
@@ -1469,7 +1520,9 @@ function finishSession() {
         lst.status = "inProgress";
       }
       State.ensureLessonStatuses();
-      State.save();
+      State.touch("lessons");
+      // flush : la fin d'une leçon est un jalon, on ne le laisse pas en attente.
+      State.flush();
     }
   }
 
@@ -1608,7 +1661,8 @@ function renderSettings() {
     // thème invalide pourrait finir dans le localStorage.
     if (v !== "auto" && v !== "light" && v !== "dark") return;
     State.get().settings.theme = v;
-    State.save();
+    State.touch("settings");
+    State.scheduleSave();
     applyTheme();
   });
   card.appendChild(row("Thème", themeSel));
@@ -1618,7 +1672,8 @@ function renderSettings() {
   soundChk.checked = s.settings.soundOn;
   soundChk.addEventListener("change", function () {
     State.get().settings.soundOn = soundChk.checked;
-    State.save();
+    State.touch("settings");
+    State.scheduleSave();
   });
   card.appendChild(row("Effets sonores", soundChk));
 
@@ -1635,7 +1690,9 @@ function renderSettings() {
     var st = State.get();
     st.settings.ttsRate = parseFloat(rate.value);
     rateVal.textContent = st.settings.ttsRate + "×";
-    State.save();
+    // Événement `input` : un setItem par pixel de glissement avant le debounce.
+    State.touch("settings");
+    State.scheduleSave();
   });
   card.appendChild(row("Vitesse de la voix", el("div", { class: "rate-row" }, [rate, rateVal])));
   card.appendChild(
@@ -1667,7 +1724,8 @@ function renderSettings() {
   });
   goalSel.addEventListener("change", function () {
     State.get().dailyGoal.minutesTarget = parseInt(goalSel.value, 10);
-    State.save();
+    State.touch("dailyGoal");
+    State.scheduleSave();
     updateHeader();
   });
   card.appendChild(row("Minutes par jour", goalSel));
@@ -1745,6 +1803,9 @@ function horodatage() {
 function exportSave(opts) {
   var o = opts || {};
   try {
+    // Écrit d'abord : sinon le fichier exporté serait PLUS RÉCENT que le
+    // localStorage, et une fermeture brutale juste après créerait un écart.
+    State.flush();
     var data = State.exportJSON();
     var blob = new Blob([data], { type: "application/json" });
     var url = URL.createObjectURL(blob);

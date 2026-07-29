@@ -37,7 +37,8 @@ function addXP(amount) {
   var before = s.profile.level;
   s.profile.totalXP += amount;
   s.profile.level = levelForXP(s.profile.totalXP);
-  State.save();
+  State.touch("profile");
+  State.scheduleSave();
   return s.profile.level > before;
 }
 
@@ -59,8 +60,11 @@ function touchActivity() {
     if (s.streak.current > s.streak.longest) {
       s.streak.longest = s.streak.current;
     }
+    // touch DANS le bloc : hors de lui, rien n'a muté et flush() sera un no-op —
+    // ce qui supprime le setItem gratuit à chaque début et fin de session.
+    State.touch("streak");
   }
-  State.save();
+  State.scheduleSave();
 }
 
 // Ajoute du temps passé (en secondes) et gère le bonus d'objectif quotidien.
@@ -80,8 +84,10 @@ function addTime(seconds) {
     s.flags.everMetDailyGoal = true;
     addXP(XP_DAILY_GOAL_BONUS);
     goalJustMet = true;
+    State.touch("flags");
   }
-  State.save();
+  State.touch("dailyGoal");
+  State.scheduleSave();
   return { goalJustMet: goalJustMet };
 }
 
@@ -95,7 +101,8 @@ function dailyGoalRatio() {
 function markPerfectPronunciation() {
   var s = State.get();
   s.flags.perfectPronunciation = true;
-  State.save();
+  State.touch("flags");
+  State.scheduleSave();
 }
 
 // Vérifie tous les badges ; renvoie la liste des badges NOUVELLEMENT gagnés.
@@ -135,7 +142,8 @@ function checkBadges() {
     newly.forEach(function (b) {
       s.badges.push(b.id);
     });
-    State.save();
+    State.touch("badges");
+    State.scheduleSave();
   }
   return newly;
 }

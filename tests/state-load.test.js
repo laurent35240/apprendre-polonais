@@ -320,25 +320,36 @@ describe("aller-retour export/import", () => {
 });
 
 /* ===================== budget d'écritures : la mesure ==================== */
-describe("budget d'écritures (mesure de référence)", () => {
-  // Chiffre de départ du palier. Le commit « save débouncé » le fera baisser ;
-  // ce test documente d'où l'on part et sert de point de comparaison.
-  it("une réponse correcte écrit deux fois dans localStorage", () => {
+describe("budget d'écritures", () => {
+  // Ces deux tests mesuraient le point de départ du palier (2 écritures par
+  // bonne réponse, 6 par minute de chronomètre) et ont été mis à jour au commit
+  // « écriture différée », qui est précisément ce qui les fait baisser. Les
+  // chiffres historiques restent dans les commentaires — c'est la seule raison
+  // pour laquelle ces tests ont changé.
+  it("une réponse correcte n'écrit plus qu'une fois (contre deux)", () => {
     chargerAvec(REALISTIC);
+    State.flush();
     const id = Object.keys(REALISTIC.items)[0];
     const espion = espionnerEcritures();
     SRS.record(id, true);
-    State.save();                                  // recordAndFeedback
-    Gamification.addXP(Gamification.XP_PER_CORRECT); // sauvegarde aussi
-    expect(espion).toHaveBeenCalledTimes(2);
+    State.touch("items." + id);
+    Gamification.addXP(Gamification.XP_PER_CORRECT);
+    State.scheduleSave();
+    State.flush();
+    expect(espion).toHaveBeenCalledTimes(1);
     espion.mockRestore();
   });
 
-  it("le chronomètre écrit à chaque versement de 10 s", () => {
+  it("une minute de chronomètre n'écrit plus qu'une fois (contre six)", () => {
     chargerAvec(REALISTIC);
+    State.flush();
     const espion = espionnerEcritures();
-    for (let i = 0; i < 6; i++) Gamification.addTime(10); // 1 minute
-    expect(espion).toHaveBeenCalledTimes(6);
+    // Le versement passe de 10 s à 30 s, donc 2 appels par minute, et la
+    // fenêtre d'absorption les regroupe.
+    Gamification.addTime(30);
+    Gamification.addTime(30);
+    State.flush();
+    expect(espion).toHaveBeenCalledTimes(1);
     espion.mockRestore();
   });
 });

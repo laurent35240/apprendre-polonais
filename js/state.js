@@ -274,13 +274,91 @@ var readOnly = false;
  */
 var rawFuture = null;
 
+/* ================== écriture différée =================================
+   ~70 setItem par session, chacun sérialisant l'état ENTIER, dont la moitié
+   redondants : une bonne réponse écrivait DEUX fois, et le chronomètre 6 fois
+   par minute pour incrémenter un compteur de secondes.
+
+   Le plafond d'âge est le mécanisme qui compte : un debounce pur ne réduirait
+   RIEN sur le chronomètre, dont les ticks arrivent toutes les 10 s, largement
+   au-delà de la fenêtre. Rien ne change en mémoire — addTime est toujours
+   appelé toutes les 10 s, donc la confetti d'objectif reste instantanée — seule
+   la persistance retarde, et flush() la borne.
+   ===================================================================== */
+
+// Fenêtre d'absorption : au plus une écriture par tranche de 3 s. Assez court
+// pour qu'un crash ne coûte presque rien (la fermeture d'onglet, elle, est
+// couverte par le flush de sortie), assez long pour absorber une rafale de
+// réponses et les ticks du chronomètre.
+var SAVE_WINDOW_MS = 3000;
+/** @type {ReturnType<typeof setTimeout>|null} */
+var saveTimer = null;
+
+/**
+ * Chemins mutés depuis la dernière écriture. Granularité : clé racine, sauf
+ * `items.<id>` et `lessons.<id>`. Le seul consommateur immédiat est les tests ;
+ * au palier Firebase, ce sera l'entrée des écritures par champ.
+ * @type {Set<string>}
+ */
+var dirty = new Set();
+
+/** @param {string} path @returns {void} */
+function touch(path) {
+  dirty.add(path);
+}
+
+/** @returns {string[]} */
+function dirtyPaths() {
+  return Array.from(dirty).sort();
+}
+
+/** @returns {boolean} */
+function isDirty() {
+  return dirty.size > 0;
+}
+
+function cancelScheduledSave() {
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = null;
+}
+
+/**
+ * Programme une écriture. Coalesce les rafales, mais garantit qu'aucune
+ * modification n'attend plus de SAVE_MAX_AGE_MS.
+ * @returns {void}
+ */
+function scheduleSave() {
+  if (readOnly) return;
+  // THROTTLE et non debounce : on ne RÉARME jamais un timer déjà en vol. Un
+  // debounce classique (réarmer à chaque mutation) coalescerait les rafales mais
+  // écrirait quand même à chaque tick du chronomètre, espacé de bien plus que la
+  // fenêtre — c'est-à-dire qu'il ne réduirait rien là où le volume se trouve.
+  // Ici, toute mutation survenant pendant que le timer court est absorbée.
+  if (saveTimer) return;
+  saveTimer = setTimeout(flush, SAVE_WINDOW_MS);
+}
+
+/**
+ * Écrit MAINTENANT si quelque chose attend. Idempotent et SYNCHRONE : c'est
+ * indispensable pour être appelable depuis un handler `pagehide`.
+ * @returns {boolean}
+ */
+function flush() {
+  cancelScheduledSave();
+  if (!isDirty()) return false; // pas d'écriture gratuite
+  return save();
+}
+
 /** @returns {LoadStatus} */
 function getStatus() {
   return status;
 }
 
 function load() {
-  // L'état du module ne doit pas fuir d'un chargement au suivant.
+  // L'état du module ne doit pas fuir d'un chargement au suivant — y compris un
+  // save programmé, qui écrirait l'état du chargement PRÉCÉDENT.
+  cancelScheduledSave();
+  dirty.clear();
   readOnly = false;
   rawFuture = null;
   var raw = null;
@@ -484,7 +562,12 @@ function rolloverDay() {
         state.streak.current = 0;
       }
     }
-    save();
+    // flush() et non scheduleSave() : franchir minuit en cours de session doit
+    // être persisté tout de suite, sinon un crash à 00 h 00 min 05 s ressuscite
+    // les secondes de la veille et fait perdre un jour de streak.
+    touch("dailyGoal");
+    touch("streak");
+    flush();
   }
 }
 
@@ -501,6 +584,7 @@ function save() {
   }
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    dirty.clear();
     return true;
   } catch (e) {
     console.warn("Impossible de sauvegarder.", e);
@@ -627,6 +711,11 @@ export const State = {
   STORAGE_KEY: STORAGE_KEY,
   load: load,
   status: getStatus,
+  scheduleSave: scheduleSave,
+  flush: flush,
+  touch: touch,
+  dirtyPaths: dirtyPaths,
+  isDirty: isDirty,
   FutureVersionError: FutureVersionError,
   InvalidSaveError: InvalidSaveError,
   previewImport: previewImport,

@@ -1196,3 +1196,19 @@ img.badge-emoji { width: 48px; height: 48px; flex-shrink: 0; }
 .emoji-fallback.hero-mascot { font-size: 56px; }
 .emoji-fallback.summary-emoji { font-size: 64px; }
 .emoji-fallback.feedback-mascot { font-size: 24px; }
+
+/* ---- Bandeau de lecture seule ---- */
+/* Affiché dans la topbar quand la sauvegarde vient d'une version future :
+   rien n'est enregistré, et ça doit se voir en permanence. */
+.readonly-banner {
+  width: 100%;
+  margin-top: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--warn);
+  color: #3d2b00;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.02em;
+}

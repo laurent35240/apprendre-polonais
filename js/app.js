@@ -104,11 +104,102 @@ function boot() {
   State.load();
   Exercises.buildIndex();
   applyTheme();
+
+  var st = State.status();
+  if (st.mode === "readonly") {
+    // Sauvegarde écrite par une version plus récente : rien ne doit muter.
+    // Pas de startTimeTracker(), pas de checkBadges() — juste de quoi lire sa
+    // progression et l'exporter intacte.
+    updateHeader();
+    renderReadOnlyNotice(st);
+    return;
+  }
+
   startTimeTracker();
   updateHeader();
   // Vérifie les badges d'entrée (ex: streak au chargement)
   Gamification.checkBadges();
+  if (st.repairs.length) {
+    UI.toast(
+      "Sauvegarde réparée (" + st.repairs.length +
+        " champ(s)). Ta progression est intacte.",
+      ""
+    );
+  }
   renderHome();
+}
+
+/* ==================== ÉCRAN DE LECTURE SEULE ========================= */
+/**
+ * Affiché quand la sauvegarde vient d'une version future. Trois obligations :
+ * montrer la progression réellement lue (pour ne pas alarmer), permettre de
+ * l'EXPORTER intacte, et ne pas enfermer l'utilisateur dehors.
+ * @param {LoadStatus} st
+ * @returns {void}
+ */
+function renderReadOnlyNotice(st) {
+  clear(appRoot);
+  scrollTop();
+  var s = State.get();
+
+  var card = el("div", { class: "card settings" }, [
+    el("h1", { text: "🔒 Progression en lecture seule" }),
+    el("p", {
+      text:
+        "Cette sauvegarde a été écrite par une version plus récente de " +
+        "l'application (version " + st.loadedVersion + " ; cette version lit la " +
+        "version " + State._currentVersion + "). Pour ne pas l'abîmer, rien " +
+        "n'est enregistré tant que tu es sur cette version."
+    }),
+    el("div", { class: "summary-stats" }, [
+      summaryStat(s.profile.totalXP, "XP lus"),
+      summaryStat("Niv. " + s.profile.level, "niveau"),
+      summaryStat(Object.keys(s.items).length, "mots suivis")
+    ]),
+    el("p", {
+      class: "notice",
+      text:
+        "Le plus souvent, un onglet ou un cache contient une version périmée : " +
+        "recharger suffit. Sinon, exporte ta sauvegarde avant toute chose."
+    }),
+    el("div", { class: "settings-buttons" }, [
+      el("button", {
+        class: "btn btn-primary",
+        text: "⬇️ Exporter la sauvegarde",
+        // Rend le texte brut ORIGINAL : c'est la sortie de secours.
+        onclick: function () {
+          exportSave();
+        }
+      }),
+      el("button", {
+        class: "btn btn-secondary",
+        text: "🔄 Réessayer",
+        onclick: function () {
+          location.reload();
+        }
+      }),
+      el("button", {
+        class: "btn btn-warn",
+        text: "🗑️ Repartir de zéro",
+        onclick: function () {
+          if (
+            !confirm(
+              "Effacer cette sauvegarde et repartir de zéro ?\n\n" +
+                "Ta progression actuelle (" + s.profile.totalXP + " XP) sera " +
+                "PERDUE. Exporte-la d'abord si tu veux la garder."
+            )
+          )
+            return;
+          State.reset();
+          applyTheme();
+          startTimeTracker();
+          updateHeader();
+          renderHome();
+        }
+      })
+    ])
+  ]);
+  appRoot.appendChild(card);
 }
 
 // Remonte en haut de la page à chaque changement d'écran (sinon on reste
@@ -206,6 +297,17 @@ function updateHeader() {
   topbar.appendChild(stats);
   topbar.appendChild(goal);
   topbar.appendChild(settingsBtn);
+
+  // En lecture seule, rien de ce que fait l'app ne doit avoir l'air enregistré.
+  if (State.status().mode === "readonly") {
+    topbar.appendChild(
+      el("div", {
+        class: "readonly-banner",
+        title: "Sauvegarde d'une version plus récente : rien n'est enregistré.",
+        text: "🔒 lecture seule"
+      })
+    );
+  }
 
   // Barre de niveau
   var xpbar = document.getElementById("xpbar-fill");

@@ -1,3 +1,4 @@
+// @ts-check
 /* =====================================================================
    SESSION — construit la liste d'exercices d'une session
    ---------------------------------------------------------------------
@@ -10,6 +11,10 @@ import { State } from "./state.js";
 import { SRS } from "./srs.js";
 import { Speech } from "./speech.js";
 
+/**
+ * @param {string} id
+ * @returns {Lesson|undefined}
+ */
 function lessonById(id) {
   return (POLISH_LESSONS || []).filter(function (l) {
     return l.id === id;
@@ -21,6 +26,12 @@ function speakOK() {
 }
 
 // Choisit un exercice de "reconnaissance" (comprendre) pour un mot.
+/**
+ * @param {VocabEntry} entry
+ * @param {number} order
+ * @param {number} i
+ * @returns {Exercise}
+ */
 function recognitionEx(entry, order, i) {
   if (order <= 2) return E.makeMultipleChoice(entry, "pl-fr");
   var pick = i % 3;
@@ -30,14 +41,24 @@ function recognitionEx(entry, order, i) {
 }
 
 // Choisit un exercice de "production" (restituer) pour un mot.
+/**
+ * @param {VocabEntry} entry
+ * @param {number} order
+ * @returns {Exercise}
+ */
 function productionEx(entry, order) {
   if (order >= 6) return E.makeType(entry);
   return E.makeMultipleChoice(entry, "fr-pl");
 }
 
 // Ids de tous les items rencontrés appartenant à des leçons d'ordre < currentOrder.
+/**
+ * @param {number} currentOrder
+ * @returns {string[]}
+ */
 function earlierSeenIds(currentOrder) {
   var state = State.get();
+  /** @type {string[]} */
   var ids = [];
   (POLISH_LESSONS || []).forEach(function (l) {
     if (l.order >= currentOrder) return;
@@ -52,17 +73,24 @@ function earlierSeenIds(currentOrder) {
 }
 
 // Construit une session pour une leçon.
+/**
+ * @param {string} lessonId
+ * @returns {Exercise[]} vide si la leçon est inconnue.
+ */
 function buildLessonSession(lessonId) {
   var lesson = lessonById(lessonId);
   if (!lesson) return [];
   var order = lesson.order;
+  /** @type {Exercise[]} */
   var out = [];
 
   // 1) Nouveau vocabulaire (ordre mélangé pour éviter les séquences prévisibles,
   //    ex. 1,2,3… dans la leçon des nombres)
   E.shuffle(lesson.vocabulary || []).forEach(function (v, i) {
     var entry = E.getEntry(v.id);
-    if (!entry) return;
+    // Narrowing par `kind` : l'index mélange vocab et phrases dans le même
+    // espace de clés, seule l'unicité des ids garantit qu'on récupère le bon.
+    if (!entry || entry.kind !== "vocab") return;
     out.push(recognitionEx(entry, order, i));
     if (order >= 4 && i % 2 === 0) out.push(productionEx(entry, order));
   });
@@ -70,7 +98,7 @@ function buildLessonSession(lessonId) {
   // 2) Phrases : reconstruction + trous (grammaire) + prononciation (ordre mélangé)
   E.shuffle(lesson.sentences || []).forEach(function (s, i) {
     var entry = E.getEntry(s.id);
-    if (!entry) return;
+    if (!entry || entry.kind !== "sentence") return;
     out.push(E.makeBuild(entry));
     if (order >= 5 && entry.grammarFocus && i % 2 === 1) {
       out.push(E.makeCloze(entry));
@@ -87,10 +115,18 @@ function buildLessonSession(lessonId) {
   if (speakOK()) {
     var vocab = lesson.vocabulary || [];
     [0, Math.floor(vocab.length / 2)].forEach(function (idx) {
-      if (vocab[idx]) out.push(E.makeSpeak(E.getEntry(vocab[idx].id)));
+      var v = vocab[idx];
+      if (!v) return;
+      // getEntry peut rendre null : on s'aligne sur les 4 autres appels du
+      // fichier, qui testent tous. L'invariant tient (l'index est construit
+      // depuis POLISH_LESSONS) mais il n'était garanti nulle part ici.
+      var entry = E.getEntry(v.id);
+      if (entry) out.push(E.makeSpeak(entry));
     });
-    if ((lesson.sentences || [])[0]) {
-      out.push(E.makeSpeak(E.getEntry(lesson.sentences[0].id)));
+    var premiere = (lesson.sentences || [])[0];
+    if (premiere) {
+      var entryPhrase = E.getEntry(premiere.id);
+      if (entryPhrase) out.push(E.makeSpeak(entryPhrase));
     }
   }
 
@@ -109,11 +145,13 @@ function buildLessonSession(lessonId) {
 }
 
 // Construit une session de révision pure (mots dus, toutes leçons débloquées).
+/** @returns {Exercise[]} vide si rien n'est dû. */
 function buildReviewSession() {
   var state = State.get();
   var allSeen = Object.keys(state.items);
   var due = SRS.dueItems(allSeen);
   if (!due.length) return [];
+  /** @type {Exercise[]} */
   var out = [];
   E.shuffle(due)
     .slice(0, 15)
@@ -134,6 +172,10 @@ function buildReviewSession() {
 }
 
 // Répartit les exercices "difficiles/oraux" pour éviter les grappes.
+/**
+ * @param {Exercise[]} list
+ * @returns {Exercise[]}
+ */
 function interleave(list) {
   // Simple : on garde l'ordre mais on remonte un exercice d'écoute tôt.
   return list;

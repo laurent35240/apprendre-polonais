@@ -1,3 +1,4 @@
+// @ts-check
 /* =====================================================================
    UI — utilitaires de rendu : DOM, mascotte, toasts, confettis, sons
    ===================================================================== */
@@ -85,6 +86,11 @@ var CONSOLE_LINES = [
   "Żubr te fait un câlin de consolation. 🤗"
 ];
 
+/**
+ * @template T
+ * @param {T[]} arr
+ * @returns {T}
+ */
 function pick(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -107,6 +113,11 @@ var IMG_BASE = import.meta.env.BASE_URL + "assets/img/";
 
 // <img> de la mascotte, avec repli sur l'emoji si l'image manque.
 // pose: base | happy | sad | celebrate | levelup ; cls: classe(s) de taille.
+/**
+ * @param {"base"|"happy"|"sad"|"celebrate"|"levelup"} pose
+ * @param {string} [cls]
+ * @returns {HTMLImageElement}
+ */
 function mascotImg(pose, cls) {
   var img = el("img", {
     class: "mascot-img " + (cls || ""),
@@ -122,6 +133,12 @@ function mascotImg(pose, cls) {
 }
 
 // <img> d'un badge (déduit du id), repli sur son emoji.
+/**
+ * @param {string} badgeId
+ * @param {string} [emoji]
+ * @param {string} [cls]
+ * @returns {HTMLImageElement}
+ */
 function badgeImg(badgeId, emoji, cls) {
   var img = el("img", {
     class: "badge-img " + (cls || ""),
@@ -137,6 +154,11 @@ function badgeImg(badgeId, emoji, cls) {
 }
 
 /* ------------------------------ toasts ------------------------------ */
+/**
+ * @param {string|HTMLElement} msg
+ * @param {string} [kind]
+ * @returns {void} no-op si #toast-host est absent.
+ */
 function toast(msg, kind) {
   var host = document.getElementById("toast-host");
   if (!host) return;
@@ -154,6 +176,10 @@ function toast(msg, kind) {
   }, 2600);
 }
 
+/**
+ * @param {Badge} badge
+ * @returns {void}
+ */
 function badgeToast(badge) {
   var host = document.getElementById("toast-host");
   if (!host) return;
@@ -174,6 +200,10 @@ function badgeToast(badge) {
   }, 3600);
 }
 
+/**
+ * @param {number|string} newLevel
+ * @returns {void}
+ */
 function levelUpToast(newLevel) {
   var host = document.getElementById("toast-host");
   if (!host) return;
@@ -218,7 +248,14 @@ function confetti() {
 }
 
 /* ------------------------------- sons ------------------------------- */
+/** @type {AudioContext|null} */
 var audioCtx = null;
+/**
+ * @param {number} freq
+ * @param {number} durMs
+ * @param {OscillatorType} [type]
+ * @returns {void}
+ */
 function beep(freq, durMs, type) {
   var s = State.get();
   if (!s.settings.soundOn) return;
@@ -254,6 +291,12 @@ function soundWrong() {
 
 /* --------------------------- anneau de temps ------------------------ */
 // Renvoie un SVG d'anneau de progression (0..1).
+/**
+ * @param {number} ratio 0 à 1 (clampé).
+ * @param {string} label
+ * @param {string} [sub]
+ * @returns {HTMLElement}
+ */
 function ring(ratio, label, sub) {
   var r = "52";  // chaîne : setAttribute n'accepte pas de nombre
   var c = 2 * Math.PI * Number(r);
@@ -286,6 +329,10 @@ function ring(ratio, label, sub) {
   return wrap;
 }
 
+/**
+ * @param {number} totalSec
+ * @returns {string}
+ */
 function formatMinSec(totalSec) {
   var m = Math.floor(totalSec / 60);
   var s = Math.floor(totalSec % 60);

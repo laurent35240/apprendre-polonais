@@ -1,3 +1,4 @@
+// @ts-check
 /* =====================================================================
    SPEECH — synthèse vocale (TTS) + reconnaissance vocale (pl-PL)
    ---------------------------------------------------------------------
@@ -7,8 +8,11 @@
    ===================================================================== */
 import { State } from "./state.js";
 
+/** @type {SpeechSynthesisVoice[]} */
 var voices = [];
+/** @type {SpeechSynthesisVoice[]} */
 var plVoices = [];
+/** @type {SpeechSynthesisVoice|null} */
 var plVoice = null;
 
 function loadVoices() {
@@ -45,6 +49,11 @@ function hasPolishVoice() {
 // Prononce un texte polonais.
 // opts.voiceIndex (0|1) : sélectionne une voix dans plVoices[] si dispo.
 // opts.pitch : surcharge le pitch (défaut 1).
+/**
+ * @param {string} text
+ * @param {SpeakOpts} [opts]
+ * @returns {void}
+ */
 function speak(text, opts) {
   opts = opts || {};
   if (!ttsAvailable()) return;
@@ -78,6 +87,10 @@ function recognitionAvailable() {
 
 // Écoute une phrase et renvoie la transcription via callbacks.
 // onResult(transcript, confidence), onError(err), onEnd()
+/**
+ * @param {ListenCallbacks} [callbacks]
+ * @returns {SpeechRecognition|null} null si l'API n'est pas disponible.
+ */
 function listen(callbacks) {
   callbacks = callbacks || {};
   if (!recognitionAvailable()) {
@@ -120,6 +133,7 @@ function listen(callbacks) {
 // L'API de reconnaissance vocale polonaise renvoie souvent des chiffres
 // arabes ("18") au lieu des mots ("osiemnaście"). On les convertit avant
 // toute comparaison.
+/** @type {Record<string, string>} */
 var DIGITS_PL = {
   "0": "zero", "1": "jeden", "2": "dwa", "3": "trzy", "4": "cztery",
   "5": "pięć", "6": "sześć", "7": "siedem", "8": "osiem", "9": "dziewięć",
@@ -138,6 +152,10 @@ var DIGITS_PL = {
   "100": "sto"
 };
 
+/**
+ * @param {string} str
+ * @returns {string}
+ */
 function replaceDigits(str) {
   return str.replace(/\b\d+\b/g, function (m) {
     return DIGITS_PL[m] || m;
@@ -145,6 +163,12 @@ function replaceDigits(str) {
 }
 
 // Normalise : chiffres→mots, minuscule, sans ponctuation.
+/**
+ * Chiffres → mots polonais, minuscule, ponctuation retirée. Les DIACRITIQUES
+ * sont CONSERVÉS : c'est la clé de comparaison de toute la correction.
+ * @param {string|null} [str]
+ * @returns {string}
+ */
 function normalize(str) {
   return replaceDigits((str || ""))
     .toLowerCase()
@@ -154,6 +178,11 @@ function normalize(str) {
 }
 
 // Distance de Levenshtein.
+/**
+ * @param {string} a
+ * @param {string} b
+ * @returns {number}
+ */
 function levenshtein(a, b) {
   a = a || "";
   b = b || "";
@@ -176,6 +205,11 @@ function levenshtein(a, b) {
 
 // Score 0-100 de similarité entre la cible et la transcription.
 // Teste plusieurs alternatives et garde la meilleure.
+/**
+ * @param {string} target
+ * @param {string[]} [alternatives]
+ * @returns {number} 0 à 100.
+ */
 function pronunciationScore(target, alternatives) {
   var t = normalize(target);
   if (!t) return 0;

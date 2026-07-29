@@ -1,3 +1,4 @@
+// @ts-check
 /* =====================================================================
    EXERCISES — génération et correction des exercices
    ---------------------------------------------------------------------
@@ -15,15 +16,23 @@
 import { POLISH_LESSONS } from "../data/lessons.js";
 import { Speech } from "./speech.js";
 
+/** @type {Record<string, IndexEntry|undefined>|null} */
 var _index = null; // itemId -> { id, pl, fr, kind, lessonId, category, wordBank }
+/** @type {VocabEntry[]|null} */
 var _vocabPool = null; // array de toutes les entrées vocab (pour distracteurs)
 
+/** @returns {Record<string, IndexEntry|undefined>} */
 function buildIndex() {
   if (_index) return _index;
-  _index = {};
-  _vocabPool = [];
+  // On construit dans des locales avant de publier dans les variables de
+  // module : le narrowing de `_index` ne survivrait pas aux closures ci-dessous.
+  /** @type {Record<string, IndexEntry|undefined>} */
+  var idx = {};
+  /** @type {VocabEntry[]} */
+  var pool = [];
   (POLISH_LESSONS || []).forEach(function (lesson) {
     (lesson.vocabulary || []).forEach(function (v) {
+      /** @type {VocabEntry} */
       var entry = {
         id: v.id,
         pl: v.pl,
@@ -33,11 +42,12 @@ function buildIndex() {
         category: v.category || "divers",
         example: v.example || null
       };
-      _index[v.id] = entry;
-      _vocabPool.push(entry);
+      idx[v.id] = entry;
+      pool.push(entry);
     });
     (lesson.sentences || []).forEach(function (s) {
-      _index[s.id] = {
+      /** @type {SentenceEntry} */
+      var entry = {
         id: s.id,
         pl: s.pl,
         fr: s.fr,
@@ -46,19 +56,30 @@ function buildIndex() {
         wordBank: s.wordBank || s.pl.split(/\s+/),
         grammarFocus: s.grammarFocus || null
       };
+      idx[s.id] = entry;
     });
   });
+  _index = idx;
+  _vocabPool = pool;
   return _index;
 }
 
+/**
+ * @param {string} itemId
+ * @returns {IndexEntry|null}
+ */
 function getEntry(itemId) {
-  buildIndex();
-  return _index[itemId] || null;
+  return buildIndex()[itemId] || null;
 }
 
 /* --------------------------- utilitaires ---------------------------- */
 
 // Mélange (Fisher-Yates) — déterministe pas requis ici.
+/**
+ * @template T
+ * @param {T[]} arr
+ * @returns {T[]}
+ */
 function shuffle(arr) {
   var a = arr.slice();
   for (var i = a.length - 1; i > 0; i--) {
@@ -71,21 +92,30 @@ function shuffle(arr) {
 }
 
 // Distracteurs : n autres valeurs (champ 'fr' ou 'pl'), même catégorie de préf.
+/**
+ * @param {"pl"|"fr"} field
+ * @param {VocabEntry} correctEntry
+ * @param {number} n
+ * @returns {string[]}
+ */
 function distractors(field, correctEntry, n) {
   buildIndex();
+  var vocabPool = _vocabPool || [];
   var correctVal = correctEntry[field];
-  var sameCat = _vocabPool.filter(function (e) {
+  var sameCat = vocabPool.filter(function (e) {
     return (
       e.id !== correctEntry.id &&
       e.category === correctEntry.category &&
       e[field] !== correctVal
     );
   });
-  var others = _vocabPool.filter(function (e) {
+  var others = vocabPool.filter(function (e) {
     return e.id !== correctEntry.id && e[field] !== correctVal;
   });
   var pool = shuffle(sameCat).concat(shuffle(others));
+  /** @type {Record<string, boolean>} */
   var seen = {};
+  /** @type {string[]} */
   var out = [];
   for (var i = 0; i < pool.length && out.length < n; i++) {
     var val = pool[i][field];
@@ -99,14 +129,21 @@ function distractors(field, correctEntry, n) {
 
 /* ------------------------ générateurs d'exos ------------------------ */
 
+/**
+ * @param {VocabEntry} entry
+ * @param {"pl-fr"|"fr-pl"} direction
+ * @returns {McExercise}
+ */
 function makeMultipleChoice(entry, direction) {
   // direction: 'pl-fr' (montre pl, choisir fr) ou 'fr-pl'
+  /** @type {"pl"|"fr"} */
   var showField = direction === "pl-fr" ? "pl" : "fr";
+  /** @type {"pl"|"fr"} */
   var answerField = direction === "pl-fr" ? "fr" : "pl";
   var answer = entry[answerField];
   var opts = shuffle(distractors(answerField, entry, 3).concat([answer]));
   return {
-    type: "mc-" + direction,
+    type: direction === "pl-fr" ? "mc-pl-fr" : "mc-fr-pl",
     itemId: entry.id,
     promptText: entry[showField],
     promptLang: direction === "pl-fr" ? "pl" : "fr",
@@ -121,6 +158,10 @@ function makeMultipleChoice(entry, direction) {
   };
 }
 
+/**
+ * @param {VocabEntry} entry
+ * @returns {TypeExercise}
+ */
 function makeType(entry) {
   return {
     type: "type-fr-pl",
@@ -134,6 +175,10 @@ function makeType(entry) {
   };
 }
 
+/**
+ * @param {VocabEntry} entry
+ * @returns {ListenExercise}
+ */
 function makeListen(entry) {
   // On joue le polonais ; choisir la bonne traduction française.
   var answer = entry.fr;
@@ -146,13 +191,16 @@ function makeListen(entry) {
     answer: answer,
     answerLang: "fr",
     audioText: entry.pl,
-    revealText: entry.pl,
     options: opts,
     autoPlay: true,
     instruction: "Qu'as-tu entendu ?"
   };
 }
 
+/**
+ * @param {IndexEntry} entry
+ * @returns {SpeakExercise}
+ */
 function makeSpeak(entry) {
   return {
     type: "speak",
@@ -167,6 +215,10 @@ function makeSpeak(entry) {
   };
 }
 
+/**
+ * @param {SentenceEntry} entry
+ * @returns {BuildExercise}
+ */
 function makeBuild(entry) {
   // entry est une "sentence"
   var bank = entry.wordBank || entry.pl.split(/\s+/);
@@ -183,6 +235,10 @@ function makeBuild(entry) {
   };
 }
 
+/**
+ * @param {Dialogue} dlg
+ * @returns {DialogueExercise|null} null si aucune ligne `target`.
+ */
 function makeDialogue(dlg) {
   // Mini-dialogue : une réplique "cible" à reconstituer depuis une banque de mots,
   // les autres répliques servent de contexte (affichées, non notées).
@@ -204,6 +260,10 @@ function makeDialogue(dlg) {
   };
 }
 
+/**
+ * @param {SentenceEntry} entry
+ * @returns {ClozeExercise}
+ */
 function makeCloze(entry) {
   // Cache un mot "intéressant" de la phrase (le plus long, souvent porteur de grammaire).
   // On utilise toujours la phrase réelle (entry.pl), jamais le wordBank qui peut
@@ -239,18 +299,28 @@ function makeCloze(entry) {
 
 /* ---------------------------- correction ---------------------------- */
 
+/**
+ * @param {string|null} [str]
+ * @returns {string}
+ */
 function normalize(str) {
   return Speech.normalize(str);
 }
 
 // Vérifie une réponse (hors 'speak' qui est géré par le score vocal).
+/**
+ * @param {Exercise} exercise
+ * @param {string|string[]|null} userAnswer tableau pour build/dialogue, chaîne sinon.
+ * @returns {boolean}
+ */
 function check(exercise, userAnswer) {
   if (exercise.type === "build" || exercise.type === "dialogue") {
     // userAnswer est un tableau de mots dans l'ordre choisi
-    var got = (userAnswer || []).join(" ");
-    return normalize(got) === normalize(exercise.answer);
+    var mots = Array.isArray(userAnswer) ? userAnswer : [];
+    return normalize(mots.join(" ")) === normalize(exercise.answer);
   }
-  return normalize(userAnswer) === normalize(exercise.answer);
+  var saisie = typeof userAnswer === "string" ? userAnswer : "";
+  return normalize(saisie) === normalize(exercise.answer);
 }
 
 export const Exercises = {

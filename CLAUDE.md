@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 npm install
 npm run dev        # http://localhost:5173/apprendre-polonais/  (PAS la racine /)
-npm test           # 80 assertions, ~1 s
+npm test           # 260 assertions, ~1,5 s
 npm run typecheck  # tsc --noEmit, DOIT valoir 0
 npm run build      # dist/
 npm run preview    # http://localhost:4173/apprendre-polonais/
@@ -34,8 +34,10 @@ déclaré dans `index.html` — **l'ordre de dépendances est porté par le grap
 d'imports**, plus par l'ordre des balises `<script>`.
 
 Le graphe est un DAG strict : `lessons → badges → state → srs → speech →
-gamification → exercises → session → ui → app`. Il n'y a **pas** de cycle
-State ⇄ Gamification (Gamification → State : 14 références, l'inverse : 0) ; la
+gamification → progress → exercises → session → ui → app`. Il n'y a **pas** de
+cycle State ⇄ Gamification (Gamification → State : 14 références, l'inverse : 0),
+et `js/progress.js` est un module séparé **précisément pour ne pas en créer un**
+(il doit créditer l'XP et toucher les badges, ce que `state.js` ne peut pas) ; la
 logique de streak est dupliquée entre `state.js rolloverDay()` et
 `gamification.js touchActivity()`, ce qui peut donner l'illusion d'un cycle.
 
@@ -99,10 +101,117 @@ Le dispatch de `renderExercise` est un `switch` avec un `default` en `never` :
 **ajouter un type d'exercice sans écrire son renderer est une erreur de
 compilation**. Ne pas le retransformer en `if/else`, qui ne narrow pas.
 
+## Persistance
+
+Tout l'état utilisateur vit sous **une seule clé** `polski-zubr-v1` dans
+`localStorage`. `js/state.js` en est le seul propriétaire.
+
+**Le contrat, en un test** : `tests/state-load.test.js` fait `load()` → `save()`
+→ relit et exige l'**égalité octet pour octet** après tri des clés, sur une
+fixture dérivée d'une vraie sauvegarde. Un champ ajouté, retiré, réordonné,
+arrondi ou re-typé le fait rougir. C'est un test de **caractérisation** : il
+était vert avant le durcissement et n'a jamais été modifié. S'il rougit, ce
+n'est presque jamais la fixture qui a tort.
+
+**Chaîne de lecture, dans cet ordre imposé** : `readVersion` → `runMigrations` →
+`validate`. Une migration doit recevoir la forme de *sa* version d'origine, pas
+une forme déjà « réparée » vers le schéma courant — sinon la validation
+détruirait les champs anciens qu'elle est censée lire.
+
+- `readVersion` est **tolérante** : absente, non numérique, non finie ou < 1 →
+  1. Toutes les sauvegardes existantes valent 1, et une version poubelle ne doit
+  pas enfermer l'utilisateur en lecture seule.
+- `runMigrations(loaded, migrations, target)` est **pure et paramétrée** : elle
+  ne lit ni `CURRENT_VERSION` ni `MIGRATIONS`, ce qui permet de tester la
+  mécanique avec des migrations factices alors que `MIGRATIONS` est **vide** et
+  que `CURRENT_VERSION` vaut **1**. Ne pas incrémenter « pour tester » :
+  ça invaliderait les exports existants.
+- `validate()` **copie par liste blanche** les 9 clés connues et **répare champ
+  par champ** en journalisant dans `State.status().repairs`. Réparer et non
+  rejeter : sur un seul champ corrompu, rejeter en bloc détruirait 10 750 XP et
+  29 leçons. Une seule exception où le rejet est juste — racine non-objet
+  ordinaire, où il n'y a rien à sauver.
+  ⚠️ **`typeof x === "object"` ne suffit pas, il faut exclure les tableaux**
+  (`isPlainObject`). `{"items": []}` était une perte totale *sans aucun
+  symptôme* : un tableau est truthy, il accepte les clés string, l'app se
+  comportait normalement — mais `JSON.stringify` ignore les propriétés
+  non-indicielles, donc chaque `save()` réécrivait `{"items":[]}`.
+- `repairs` doit être **vide** sur une sauvegarde saine. C'est le test qui
+  garantit qu'on ne « répare » pas de la donnée valide.
+
+**Version future → lecture seule.** `version > CURRENT_VERSION` lève
+`FutureVersionError` : `readOnly` passe à vrai et est lu **au sommet de
+`save()`**, pas aux sites d'appel — sinon la première chose que fait `load()`
+(via `rolloverDay()`) serait d'écraser. `exportJSON()` renvoie alors le **texte
+brut original**, octet pour octet : seule façon de ne pas rétrograder la
+sauvegarde en la faisant passer par la sérialisation. L'écran dédié doit garder
+ses trois issues (exporter, recharger, repartir de zéro) — ne jamais enfermer
+l'utilisateur dehors.
+
+**Écritures.** `scheduleSave()` est un **throttle et non un debounce** : il ne
+**réarme jamais** un timer en vol (fenêtre 3 s). Un debounce ne réduirait rien
+sur le chronomètre, dont les ticks sont espacés bien au-delà de la fenêtre.
+Budget mesuré : **21 écritures** pour une session de 20 exercices, contre ~70
+avant. Le plancher est d'une écriture par réponse et c'est sémantiquement juste
+— les fusionner exigerait une fenêtre ≥ 15 s, donc jusqu'à 15 s de perte sur
+crash. Deux exceptions qui `flush()` immédiatement : `rolloverDay()` (un crash à
+00 h 00 min 05 s ferait perdre un jour de streak) et la fin d'une leçon.
+
+Flush de sortie sur **`visibilitychange`/hidden, `pagehide` et `freeze`** — il
+doit d'abord **verser `pendingSec`** dans l'état, *puis* écrire. **Ne pas ajouter
+`beforeunload`** : pas fiable sur mobile, et il désactive le bfcache.
+⚠️ Corollaire à connaître en débogage : `localStorage.clear()` suivi d'un
+`location.reload()` **ne remet pas à zéro** — le flush de sortie réécrit l'état
+encore en mémoire. Injecter un état propre, ou recharger deux fois.
+
+**Écrire dans l'état passe par `js/progress.js`**, jamais par `State.get()`.
+Les 7 intentions (`answerRecorded`, `sessionFinished`, `timeSpent`,
+`dayRolledOver`, `pronunciationPerfect`, `settingChanged`, `progressImported` /
+`progressReset`) appliquent la mutation, déclarent les chemins via
+`State.touch()` et programment l'écriture. `State.get()` reste pour les
+**lectures**. L'invariant est verrouillé par un grep sur `app.js` dans
+`tests/progress.test.js`, pas par convention.
+
+Chaque intention **relit `State.get()`** au lieu de capturer une référence :
+`reset()` et `importJSON()` **remplacent** l'objet d'état, donc un `var s =
+State.get()` capturé au rendu deviendrait orphelin. C'est structurel, pas une
+précaution.
+
+`State.dirtyPaths()` fait de l'ensemble d'écriture une **spécification
+exécutable** : `expect(State.dirtyPaths()).toEqual(["settings"])` dit « un
+réglage ne touche jamais aux items ».
+
+**Import : refuser, pas réparer** — asymétrie assumée avec `load()`, où réparer
+est le bon réflexe puisqu'on n'a rien d'autre, alors qu'à l'import
+l'utilisateur a une donnée à protéger et une action à réessayer.
+`previewImport()` valide **sans rien modifier**, pour que la confirmation puisse
+chiffrer les deux côtés.
+
+**Champs morts, conservés volontairement** (annotés dans `types/app.d.ts`) :
+`version` hors lecture initiale, `profile.createdAt`, `streak.longest`, et
+`items[].seenCount` / `correctCount` / `lastSeen` — ces trois derniers pèsent
+~60 % de `items`. Les retirer changerait la forme persistée ; c'est le prix
+assumé de la sûreté.
+
+⚠️ **Ne pas retirer `var state = defaultState()`** (`state.js`) : `js/speech.js`
+appelle `loadVoices()` au **niveau module**, donc avant `State.load()`, et lit
+`settings.voiceName`. Ce n'est pas une élégance, c'est ce qui empêche un crash
+au chargement.
+
+Les fixtures sont ancrées sur **`2026-03-02T12:00:00`** (la même date que
+`tests/srs.test.js` — une seule date magique dans le dépôt), midi local parce
+que `todayStr()` est local. Les corruptions ne sont **pas** des fichiers
+séparés : `tests/state-corruption.test.js` **empoisonne la fixture réaliste**,
+ce qui permet d'asserter que les sous-arbres sains ont *survécu*.
+`tests/fixtures/README.md` porte la recette de dérivation. La vraie sauvegarde
+n'est **pas** commitée (dépôt public) ; `.gitignore` couvre
+`polski-zubr-sauvegarde*.json` et `*.local.test.js`.
+
 **Data flow**: `data/lessons.js` and `data/badges.js` export `POLISH_LESSONS` / `POLISH_BADGES` → les modules JS les importent → `app.js` is the top-level controller.
 
 **Module responsibilities:**
-- `js/state.js` — all user progression, persisted to `localStorage` under key `polski-zubr-v1`
+- `js/state.js` — all user progression, persisted to `localStorage` under key `polski-zubr-v1` (cf. § Persistance)
+- `js/progress.js` — les 7 **intentions** de progression : le seul chemin d'écriture dans l'état
 - `js/srs.js` — Leitner spaced-repetition scheduling (box 0–5, due dates)
 - `js/speech.js` — Web Speech API wrappers (TTS + recognition)
 - `js/gamification.js` — XP, levels, streak, daily goal (30 min), badge checks

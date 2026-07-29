@@ -122,6 +122,9 @@ interface SrsItem {
   box: number;
   /** "YYYY-MM-DD", heure LOCALE (cf. State.todayStr). */
   dueDate: string;
+  /* MORTS : écrits par SRS.record, jamais relus. Ils représentent ~60 % du
+     poids de `items`. Conservés — les retirer changerait la forme persistée,
+     ce que le palier 3 s'est interdit (cf. CLAUDE.md § Persistance). */
   seenCount: number;
   correctCount: number;
   lastSeen: string | null;
@@ -152,13 +155,22 @@ interface LoadStatus {
 }
 
 interface PersistedState {
+  /** Lu par State.readVersion au chargement ; jamais lu par le reste du code. */
   version: number;
+  /** `createdAt` est MORT : écrit une fois, jamais relu. */
   profile: { createdAt: string; totalXP: number; level: number };
+  /** `longest` est MORT : entretenu par touchActivity, affiché nulle part. */
   streak: { current: number; longest: number; lastActiveDate: string | null };
   dailyGoal: {
     minutesTarget: number;
     todayDate: string;
     secondsToday: number;
+    /**
+     * VERROU D'IDEMPOTENCE, et non un cache de `secondsToday >= cible`. Il
+     * existe pour que le bonus de 100 XP ne soit crédité qu'une fois par jour.
+     * Le recalculer depuis `secondsToday` recréditerait à chaque tick de 30 s.
+     * Remis à `false` par rolloverDay, jamais autrement.
+     */
     goalMetToday: boolean;
   };
   /* `| undefined` volontaire : le contenu vient d'un JSON utilisateur non

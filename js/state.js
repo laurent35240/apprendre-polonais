@@ -259,12 +259,30 @@ var state = defaultState();
  */
 var status = { mode: "normal", loadedVersion: CURRENT_VERSION, repairs: [] };
 
+/**
+ * Aucune écriture n'est permise. Le drapeau est lu au sommet de save(), et NON
+ * testé aux sites d'appel : sinon la première chose que ferait load() (via
+ * rolloverDay) serait d'écraser la sauvegarde qu'on cherche à protéger.
+ */
+var readOnly = false;
+
+/**
+ * Texte brut d'une sauvegarde du futur, conservé intact pour l'export. Le faire
+ * passer par JSON.stringify(state) la rétrograderait — c'est exactement ce
+ * qu'on veut éviter.
+ * @type {string|null}
+ */
+var rawFuture = null;
+
 /** @returns {LoadStatus} */
 function getStatus() {
   return status;
 }
 
 function load() {
+  // L'état du module ne doit pas fuir d'un chargement au suivant.
+  readOnly = false;
+  rawFuture = null;
   var raw = null;
   try {
     raw = localStorage.getItem(STORAGE_KEY);
@@ -273,21 +291,45 @@ function load() {
   }
   if (!raw) {
     state = defaultState();
+    status = { mode: "normal", loadedVersion: CURRENT_VERSION, repairs: [] };
   } else {
     try {
       var m = migrate(JSON.parse(raw));
       state = m.state;
-      status = {
-        mode: "normal",
-        loadedVersion: CURRENT_VERSION,
-        repairs: m.repairs
-      };
+      status = { mode: "normal", loadedVersion: m.from, repairs: m.repairs };
       if (m.repairs.length) {
         console.warn("Sauvegarde réparée au chargement :", m.repairs);
       }
     } catch (e) {
-      console.warn("Sauvegarde illisible, réinitialisation.", e);
-      state = defaultState();
+      if (e instanceof FutureVersionError) {
+        // LECTURE SEULE. On garde le texte brut pour l'export, et on affiche
+        // une vue best-effort de la progression réelle : save() étant
+        // neutralisé, aucune réparation approximative ne peut abîmer le
+        // stockage.
+        readOnly = true;
+        rawFuture = raw;
+        status = {
+          mode: "readonly",
+          reason: "future-version",
+          loadedVersion: e.loadedVersion,
+          repairs: []
+        };
+        try {
+          state = validate(JSON.parse(raw)).state;
+        } catch (e2) {
+          state = defaultState();
+        }
+        console.warn(e.message + " — progression en lecture seule.");
+      } else {
+        console.warn("Sauvegarde illisible, réinitialisation.", e);
+        state = defaultState();
+        status = {
+          mode: "normal",
+          reason: "unreadable",
+          loadedVersion: CURRENT_VERSION,
+          repairs: []
+        };
+      }
     }
   }
   // DANS un try : ces deux appels écrivent dans `state`, et sur une sauvegarde
@@ -307,14 +349,98 @@ function load() {
 }
 
 /**
+ * Levée quand la sauvegarde vient d'une version PLUS RÉCENTE que ce code.
+ * On ne peut ni la lire correctement ni la réécrire sans la détruire : elle
+ * déclenche donc le mode lecture seule.
+ */
+class FutureVersionError extends Error {
+  /** @param {number} loadedVersion */
+  constructor(loadedVersion) {
+    super(
+      "Sauvegarde en version " + loadedVersion + ", ce code lit la version " +
+        CURRENT_VERSION
+    );
+    this.name = "FutureVersionError";
+    this.loadedVersion = loadedVersion;
+  }
+}
+
+/**
+ * Chaîne de migrations. Chaque entrée transforme un état de la version `to - 1`
+ * vers `to`, en place ou en renvoyant un nouvel objet.
+ *
+ * VIDE tant que CURRENT_VERSION vaut 1 : la forme persistée n'a jamais changé.
+ * La mécanique est néanmoins testée, avec des migrations factices — c'est tout
+ * l'intérêt d'avoir rendu `runMigrations` pure et paramétrée.
+ *
+ * Discipline : TOUTE évolution de la forme persistée incrémente
+ * CURRENT_VERSION et ajoute son entrée ici. C'est ce que le garde-fou de
+ * version rend auto-appliqué.
+ * @type {Migration[]}
+ */
+var MIGRATIONS = [];
+
+/**
+ * Version d'une sauvegarde, tolérante : absente, non numérique, non finie, non
+ * entière ou < 1 → traitée comme 1. Toutes les sauvegardes écrites avant ce
+ * palier valent 1, et une version poubelle ne doit pas enfermer l'utilisateur
+ * en lecture seule.
+ * @param {any} loaded
+ * @returns {number}
+ */
+function readVersion(loaded) {
+  var v = loaded && loaded.version;
+  if (typeof v !== "number" || !Number.isFinite(v)) return 1;
+  v = Math.floor(v);
+  return v < 1 ? 1 : v;
+}
+
+/**
+ * Applique les migrations nécessaires. PURE et paramétrée : ne lit ni
+ * CURRENT_VERSION ni MIGRATIONS, donc testable avec des migrations factices.
+ * @param {any} loaded
+ * @param {Migration[]} migrations
+ * @param {number} target
+ * @returns {{state: any, from: number, applied: number[]}}
+ */
+function runMigrations(loaded, migrations, target) {
+  var from = readVersion(loaded);
+  var cur = loaded;
+  /** @type {number[]} */
+  var applied = [];
+  for (var i = 0; i < migrations.length; i++) {
+    var m = migrations[i];
+    if (m.to > from && m.to <= target) {
+      cur = m.up(cur) || cur;
+      applied.push(m.to);
+    }
+  }
+  return { state: cur, from: from, applied: applied };
+}
+
+/**
  * Amène une sauvegarde brute au schéma courant.
  * `any` est le type HONNÊTE en entrée : le JSON vient de localStorage ou d'un
  * import utilisateur. C'est précisément `validate()` qui referme ce trou.
+ * Ordre imposé : version → migrations → validation. Une migration doit
+ * recevoir la forme de SA version d'origine, pas une forme déjà normalisée vers
+ * le schéma courant — sinon la validation détruirait les champs anciens qu'elle
+ * doit lire.
  * @param {any} loaded
- * @returns {{state: PersistedState, repairs: string[]}}
+ * @returns {{state: PersistedState, from: number, applied: number[], repairs: string[]}}
+ * @throws {FutureVersionError} si la sauvegarde vient d'une version future.
  */
 function migrate(loaded) {
-  return validate(loaded);
+  var from = readVersion(loaded);
+  if (from > CURRENT_VERSION) throw new FutureVersionError(from);
+  var r = runMigrations(loaded, MIGRATIONS, CURRENT_VERSION);
+  var v = validate(r.state);
+  return {
+    state: v.state,
+    from: from,
+    applied: r.applied,
+    repairs: v.repairs
+  };
 }
 
 // La 1re leçon est disponible, les autres verrouillées tant que non atteintes.
@@ -362,11 +488,23 @@ function rolloverDay() {
   }
 }
 
+/**
+ * Écrit l'état. Le garde de lecture seule est ICI et non aux sites d'appel :
+ * sinon le premier `rolloverDay()` de `load()` écraserait la sauvegarde qu'on
+ * cherche à protéger.
+ * @returns {boolean} true si l'écriture a eu lieu.
+ */
 function save() {
+  if (readOnly) {
+    console.warn("Écriture refusée : sauvegarde en lecture seule.");
+    return false;
+  }
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    return true;
   } catch (e) {
     console.warn("Impossible de sauvegarder.", e);
+    return false;
   }
 }
 
@@ -374,7 +512,15 @@ function get() {
   return state;
 }
 
+/**
+ * Repart de zéro. Lève le mode lecture seule : c'est un écrasement INTENTIONNEL,
+ * seule sortie qui permette de réutiliser l'app après une sauvegarde du futur.
+ * @returns {PersistedState}
+ */
 function reset() {
+  readOnly = false;
+  rawFuture = null;
+  status = { mode: "normal", loadedVersion: CURRENT_VERSION, repairs: [] };
   state = defaultState();
   ensureLessonStatuses();
   save();
@@ -382,7 +528,13 @@ function reset() {
 }
 
 // Export / import de la sauvegarde (backup manuel).
+/**
+ * @returns {string} En lecture seule, le texte brut ORIGINAL octet pour octet :
+ *   le faire passer par JSON.stringify(state) rétrograderait la sauvegarde,
+ *   c'est-à-dire exactement ce que le mode cherche à empêcher.
+ */
 function exportJSON() {
+  if (rawFuture !== null) return rawFuture;
   return JSON.stringify(state, null, 2);
 }
 
@@ -406,8 +558,12 @@ export const State = {
   STORAGE_KEY: STORAGE_KEY,
   load: load,
   status: getStatus,
+  FutureVersionError: FutureVersionError,
   // Exposés pour les tests d'invariants ; aucun appelant applicatif.
   _validate: validate,
+  _runMigrations: runMigrations,
+  _readVersion: readVersion,
+  _migrations: MIGRATIONS,
   _maxBox: MAX_BOX_PERSISTED,
   _currentVersion: CURRENT_VERSION,
   save: save,

@@ -329,3 +329,9 @@ interface ElAttrs {
   /* Tout le reste part en setAttribute ; null/undefined sont ignorés. */
   [k: string]: unknown;
 }
+
+/** Une étape de migration du schéma persisté : version `to - 1` → `to`. */
+interface Migration {
+  to: number;
+  up: (s: any) => any;
+}

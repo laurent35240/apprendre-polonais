@@ -4,17 +4,33 @@
 import { State } from "./state.js";
 
 // Crée un élément DOM. el('div', {class:'x'}, [child, 'texte'])
+// Génériqué sur le nom de balise : el("input", …) rend un HTMLInputElement,
+// donc `.value` / `.checked` / `.disabled` sont typés chez l'appelant sans
+// aucun cast. document.createElement fait déjà cette correspondance.
+/**
+ * @template {keyof HTMLElementTagNameMap} K
+ * @param {K} tag
+ * @param {ElAttrs} [attrs]
+ * @param {ElChild|ElChild[]} [children]
+ * @returns {HTMLElementTagNameMap[K]}
+ */
 function el(tag, attrs, children) {
   var node = document.createElement(tag);
-  attrs = attrs || {};
-  Object.keys(attrs).forEach(function (k) {
-    if (k === "class") node.className = attrs[k];
-    else if (k === "html") node.innerHTML = attrs[k];
-    else if (k === "text") node.textContent = attrs[k];
-    else if (k.indexOf("on") === 0 && typeof attrs[k] === "function") {
-      node.addEventListener(k.slice(2).toLowerCase(), attrs[k]);
-    } else if (attrs[k] !== null && attrs[k] !== undefined) {
-      node.setAttribute(k, attrs[k]);
+  var a = attrs || {};
+  Object.keys(a).forEach(function (k) {
+    var v = a[k];
+    // Les 4 casts qui suivent sont le prix de la signature d'index d'ElAttrs :
+    // a[k] avec k générique s'élargit à l'union de toutes les propriétés.
+    if (k === "class") node.className = /** @type {string} */ (v);
+    else if (k === "html") node.innerHTML = /** @type {string} */ (v);
+    else if (k === "text") node.textContent = /** @type {string} */ (v);
+    else if (k.indexOf("on") === 0 && typeof v === "function") {
+      node.addEventListener(
+        k.slice(2).toLowerCase(),
+        /** @type {EventListener} */ (v)
+      );
+    } else if (v !== null && v !== undefined) {
+      node.setAttribute(k, String(v));
     }
   });
   if (children != null) {
@@ -26,8 +42,26 @@ function el(tag, attrs, children) {
   return node;
 }
 
+/**
+ * @template {Node} T
+ * @param {T} node
+ * @returns {T}
+ */
 function clear(node) {
   while (node.firstChild) node.removeChild(node.firstChild);
+  return node;
+}
+
+/**
+ * Récupère un élément requis du document, et LÈVE s'il est absent. Un
+ * index.html amputé doit produire une erreur bruyante, pas la page blanche
+ * silencieuse qu'on obtiendrait en propageant un null.
+ * @param {string} id
+ * @returns {HTMLElement}
+ */
+function required(id) {
+  var node = document.getElementById(id);
+  if (!node) throw new Error("Élément #" + id + " absent de index.html");
   return node;
 }
 
@@ -221,8 +255,8 @@ function soundWrong() {
 /* --------------------------- anneau de temps ------------------------ */
 // Renvoie un SVG d'anneau de progression (0..1).
 function ring(ratio, label, sub) {
-  var r = 52;
-  var c = 2 * Math.PI * r;
+  var r = "52";  // chaîne : setAttribute n'accepte pas de nombre
+  var c = 2 * Math.PI * Number(r);
   var offset = c * (1 - Math.max(0, Math.min(1, ratio)));
   var svgns = "http://www.w3.org/2000/svg";
   var wrap = el("div", { class: "ring-wrap" });
@@ -261,6 +295,7 @@ function formatMinSec(totalSec) {
 export const UI = {
   el: el,
   clear: clear,
+  required: required,
   MASCOT: MASCOT,
   mascotImg: mascotImg,
   badgeImg: badgeImg,

@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    /* --- Entrée : du JS annoté en JSDoc, aucune émission ---------------
+       checkJs est FAUX volontairement : le typage est en opt-in, fichier
+       par fichier, via `// @ts-check` en tête. Un fichier non vérifié voit
+       quand même ses JSDoc exploitées par ses consommateurs, donc typer un
+       module profite à tous sans faire rougir ceux qui ne sont pas encore
+       migrés. La CI reste verte par mécanisme, pas par discipline.
+       `npm run typecheck:preview` force checkJs pour voir le reste à faire. */
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "resolveJsonModule": true,
+
+    /* --- Environnement : Vite / ESM / navigateur ----------------------
+       target aligné sur build.target de vite.config.js : une seule source
+       de vérité pour le plancher navigateur. ES2020 et non ES2017 (le
+       minimum des sources) parce que les tests utilisent flatMap. */
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["vite/client"],
+    "isolatedModules": true,
+
+    /* Obligatoire : sans lui, happy-dom sort 8 erreurs qui n'ont rien à
+       voir avec ce code (WeakRef absent de lib.ES2020, node:stream/web). */
+    "skipLibCheck": true,
+
+    /* --- Rigueur ------------------------------------------------------
+       Restent volontairement OFF :
+       - noUncheckedIndexedAccess : JSDoc n'a pas d'opérateur `!`, chaque
+         site coûterait un cast sur sa propre ligne. Remplacé par un
+         compromis ciblé : items/lessons sont typés `| undefined` dans
+         PersistedState, parce qu'eux viennent d'un JSON utilisateur.
+       - exactOptionalPropertyTypes : casse les Object.assign de migrate()
+         pour zéro bug attrapé.
+       - noImplicitOverride, strictPropertyInitialization : zéro classe dans
+         le projet, donc indétectables.
+       - noPropertyAccessFromIndexSignature : conflit avec ElAttrs, qui a
+         une signature d'index ET des propriétés déclarées. */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["js", "data", "tests", "types", "vite.config.js"]
+}

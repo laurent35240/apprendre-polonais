@@ -10,10 +10,13 @@
     "preview": "vite preview --port 4173 --strictPort",
     "test": "vitest run",
     "test:watch": "vitest",
-    "verify": "npm run test && npm run build"
+    "typecheck": "tsc --noEmit",
+    "typecheck:preview": "tsc --noEmit --checkJs",
+    "verify": "npm run typecheck && npm run test && npm run build"
   },
   "devDependencies": {
     "happy-dom": "^20.11.1",
+    "typescript": "^5.9.3",
     "vite": "^7.1.0",
     "vitest": "^3.2.0"
   },

@@ -11,9 +11,17 @@ import { Exercises } from "./exercises.js";
 import { Session } from "./session.js";
 import { UI } from "./ui.js";
 
-var el, clear;
-var appRoot, topbar;
-var session = null; // { exercises, index, results, meta, xp }
+// Alias résolus dès l'évaluation du module (et non dans boot()) : l'import est
+// hissé et évalué avant ce corps — le graphe est un DAG strict, sans cycle.
+// Résoudre ici plutôt que dans boot() rend `el` typé, ce qui propage les types
+// d'éléments DOM dans tout le fichier.
+var el = UI.el;
+var clear = UI.clear;
+
+/** @type {HTMLElement} */ var appRoot;
+/** @type {HTMLElement} */ var topbar;
+/** @type {SessionState|null} */
+var session = null;
 // Jeton d'annulation des lectures audio enchaînées (voir speakSequence).
 var autoPlayToken = 0;
 // Une réponse a déjà été enregistrée pour l'exercice courant. Sert de jeton de
@@ -22,6 +30,7 @@ var answered = false;
 // Le feedback est affiché : Entrée passe à la suite.
 var awaitingContinue = false;
 // Reconnaissance vocale en cours, à annuler si on quitte l'exercice.
+/** @type {SpeechRecognition|null} */
 var activeRec = null;
 
 // Sortie de session. Appelé par TOUS les écrans hors session : sans ça, l'état
@@ -80,10 +89,10 @@ if (document.readyState === "loading") {
 }
 
 function boot() {
-  el = UI.el;
-  clear = UI.clear;
-  appRoot = document.getElementById("app");
-  topbar = document.getElementById("topbar");
+  // required() lève si l'élément manque : un index.html amputé doit produire
+  // une erreur bruyante plutôt qu'une page blanche muette.
+  appRoot = UI.required("app");
+  topbar = UI.required("topbar");
 
   State.load();
   Exercises.buildIndex();

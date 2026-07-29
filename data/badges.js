@@ -7,6 +7,7 @@
 
 import { POLISH_LESSONS } from "./lessons.js";
 
+/** @type {Badge[]} */
 export const POLISH_BADGES = [
   {
     id: "first-steps",
@@ -14,7 +15,7 @@ export const POLISH_BADGES = [
     title: "Premiers pas",
     desc: "Terminer ta toute première leçon.",
     check: (s) =>
-      Object.values(s.lessons).some((l) => l.status === "completed")
+      Object.values(s.lessons).some((l) => l?.status === "completed")
   },
   {
     id: "streak-3",
@@ -71,7 +72,7 @@ export const POLISH_BADGES = [
     title: "Mémoire d'éléphant",
     desc: "Amener 10 mots au niveau maximum (boîte 5).",
     check: (s) =>
-      Object.values(s.items).filter((i) => i.box >= 5).length >= 10
+      Object.values(s.items).filter((i) => (i?.box ?? 0) >= 5).length >= 10
   },
   {
     id: "halfway",
@@ -79,7 +80,7 @@ export const POLISH_BADGES = [
     title: "À mi-chemin",
     desc: "Terminer 10 leçons.",
     check: (s) =>
-      Object.values(s.lessons).filter((l) => l.status === "completed").length >= 10
+      Object.values(s.lessons).filter((l) => l?.status === "completed").length >= 10
   },
   {
     id: "graduate",
@@ -90,7 +91,7 @@ export const POLISH_BADGES = [
       const total = (POLISH_LESSONS || []).length;
       return (
         total > 0 &&
-        Object.values(s.lessons).filter((l) => l.status === "completed").length >= total
+        Object.values(s.lessons).filter((l) => l?.status === "completed").length >= total
       );
     }
   }

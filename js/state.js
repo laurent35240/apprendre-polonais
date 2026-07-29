@@ -15,6 +15,7 @@ function todayStr(d) {
   return y + "-" + m + "-" + day;
 }
 
+/** @returns {PersistedState} */
 function defaultState() {
   return {
     version: CURRENT_VERSION,
@@ -42,7 +43,10 @@ function defaultState() {
   };
 }
 
-var state = null;
+// Initialisé dès l'évaluation du module plutôt qu'à `null` : `get()` ne peut
+// donc jamais renvoyer null, ce qui évite ~70 gardes mortes chez les
+// appelants. load() écrase aussitôt cette valeur, elle n'est jamais observée.
+var state = defaultState();
 
 function load() {
   var raw = null;

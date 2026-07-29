@@ -1,3 +1,4 @@
+// @ts-check
 /* =====================================================================
    STATE — modèle de progression + persistance localStorage
    ===================================================================== */
@@ -6,6 +7,12 @@ import { POLISH_LESSONS } from "../data/lessons.js";
 var STORAGE_KEY = "polski-zubr-v1";
 var CURRENT_VERSION = 1;
 
+/**
+ * Date au format "YYYY-MM-DD", en heure LOCALE (choix assumé : c'est ce que
+ * l'utilisateur perçoit comme « aujourd'hui »).
+ * @param {Date} [d]
+ * @returns {string}
+ */
 function todayStr(d) {
   d = d || new Date();
   // Date locale au format YYYY-MM-DD
@@ -71,6 +78,13 @@ function load() {
 }
 
 // Migration douce : complète les champs manquants d'une ancienne sauvegarde.
+/**
+ * `any` est le type HONNÊTE ici : le JSON vient de localStorage ou d'un import
+ * utilisateur, il n'est pas validé. Ce paramètre documente donc un trou réel,
+ * à combler par une validation de schéma (palier ultérieur).
+ * @param {any} loaded
+ * @returns {PersistedState}
+ */
 function migrate(loaded) {
   var d = defaultState();
   var merged = Object.assign({}, d, loaded);
@@ -104,9 +118,10 @@ function ensureLessonStatuses() {
   // Déverrouille la leçon suivant chaque leçon complétée.
   lessons.forEach(function (lesson, idx) {
     var l = state.lessons[lesson.id];
-    if (l.status === "completed" && lessons[idx + 1]) {
-      var next = state.lessons[lessons[idx + 1].id];
-      if (next.status === "locked") next.status = "available";
+    var suivante = lessons[idx + 1];
+    if (l && l.status === "completed" && suivante) {
+      var next = state.lessons[suivante.id];
+      if (next && next.status === "locked") next.status = "available";
     }
   });
 }
@@ -154,6 +169,11 @@ function exportJSON() {
   return JSON.stringify(state, null, 2);
 }
 
+/**
+ * @param {string} text
+ * @returns {PersistedState}
+ * @throws {SyntaxError} si le JSON est invalide — volontairement propagé.
+ */
 function importJSON(text) {
   var parsed = JSON.parse(text); // laisse remonter l'erreur si invalide
   state = migrate(parsed);

@@ -1,3 +1,4 @@
+// @ts-check
 /* =====================================================================
    GAMIFICATION — XP, niveaux, streak, objectif quotidien, badges
    ===================================================================== */
@@ -9,16 +10,28 @@ var XP_LESSON_BONUS = 50;
 var XP_DAILY_GOAL_BONUS = 100;
 var XP_PER_LEVEL = 500; // XP nécessaire par niveau
 
+/**
+ * @param {number} xp
+ * @returns {number} niveau, à partir de 1.
+ */
 function levelForXP(xp) {
   return Math.floor(xp / XP_PER_LEVEL) + 1;
 }
 
+/**
+ * @param {number} xp
+ * @returns {{into: number, need: number, ratio: number}}
+ */
 function levelProgress(xp) {
   var into = xp % XP_PER_LEVEL;
   return { into: into, need: XP_PER_LEVEL, ratio: into / XP_PER_LEVEL };
 }
 
 // Ajoute des XP et recalcule le niveau. Renvoie true si niveau gagné.
+/**
+ * @param {number} amount
+ * @returns {boolean} true si le niveau a augmenté.
+ */
 function addXP(amount) {
   var s = State.get();
   var before = s.profile.level;
@@ -52,6 +65,10 @@ function touchActivity() {
 
 // Ajoute du temps passé (en secondes) et gère le bonus d'objectif quotidien.
 // Renvoie { goalJustMet: bool }.
+/**
+ * @param {number} seconds
+ * @returns {{goalJustMet: boolean}}
+ */
 function addTime(seconds) {
   var s = State.get();
   State.rolloverDay();
@@ -82,8 +99,10 @@ function markPerfectPronunciation() {
 }
 
 // Vérifie tous les badges ; renvoie la liste des badges NOUVELLEMENT gagnés.
+/** @returns {Badge[]} */
 function checkBadges() {
   var s = State.get();
+  /** @type {Badge[]} */
   var newly = [];
   (POLISH_BADGES || []).forEach(function (badge) {
     if (s.badges.indexOf(badge.id) !== -1) return;

@@ -136,6 +136,21 @@ interface LessonProgress {
 
 type Theme = "auto" | "light" | "dark";
 
+/** Résultat du dernier chargement de la sauvegarde. */
+interface LoadStatus {
+  /** `readonly` = sauvegarde d'une version future, rien ne sera écrit. */
+  mode: "normal" | "readonly";
+  /** Pourquoi le mode dégradé, quand il y en a un. */
+  reason?: "future-version" | "unreadable";
+  loadedVersion: number;
+  /**
+   * Champs réparés à la lecture, un libellé par réparation. VIDE sur une
+   * sauvegarde saine — c'est ce qui garantit qu'on ne « répare » pas de la
+   * donnée valide.
+   */
+  repairs: string[];
+}
+
 interface PersistedState {
   version: number;
   profile: { createdAt: string; totalXP: number; level: number };

@@ -104,20 +104,39 @@ function checkBadges() {
   var s = State.get();
   /** @type {Badge[]} */
   var newly = [];
+
+  // Garde de forme : `s.badges.indexOf` et `.push` étaient HORS du try/catch,
+  // donc un `badges` d'un type inattendu levait un TypeError qui remontait
+  // jusqu'à boot() — page blanche. La validation de state.js rend le cas
+  // inatteignable ; cette garde est la seconde ceinture, et couvre aussi les
+  // tests qui construisent un état à la main.
+  if (!Array.isArray(s.badges)) {
+    console.warn("badges n'est pas un tableau, vérification ignorée.", s.badges);
+    return newly;
+  }
+
   (POLISH_BADGES || []).forEach(function (badge) {
     if (s.badges.indexOf(badge.id) !== -1) return;
     var earned = false;
     try {
       earned = badge.check(s);
     } catch (e) {
+      // Ce catch était MUET : sur un état partiel, 6 badges sur 11 pouvaient
+      // être définitivement cassés sans une ligne de log.
+      console.warn("badge " + badge.id + " : check() a levé, badge ignoré.", e);
       earned = false;
     }
-    if (earned) {
-      s.badges.push(badge.id);
-      newly.push(badge);
-    }
+    if (earned) newly.push(badge);
   });
-  if (newly.length) State.save();
+
+  // Écriture APRÈS la boucle : la mutation de s.badges sort du chemin qui peut
+  // lever, donc on ne peut plus se retrouver avec 3 badges attribués sur 5.
+  if (newly.length) {
+    newly.forEach(function (b) {
+      s.badges.push(b.id);
+    });
+    State.save();
+  }
   return newly;
 }
 

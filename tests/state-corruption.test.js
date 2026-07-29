@@ -13,6 +13,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { State } from "../js/state.js";
 import { SRS } from "../js/srs.js";
 import { Gamification } from "../js/gamification.js";
+import { POLISH_BADGES } from "../data/badges.js";
 import { ANCHOR } from "./fixtures/anchor.js";
 import REALISTIC from "./fixtures/state-v1-realistic.json";
 
@@ -264,5 +265,54 @@ describe("sauvegarde illisible", () => {
     localStorage.setItem(KEY, '{"version":1,"profile":{"totalXP":10');
     expect(() => State.load()).not.toThrow();
     expect(State.get().profile.totalXP).toBe(0);
+  });
+});
+
+/* ===================== checkBadges durci ================================ */
+describe("checkBadges ne peut plus échouer en silence", () => {
+  it("ne lève sur aucun des 13 poisons", () => {
+    for (const [nom, empoisonner] of POISONS) {
+      localStorage.clear();
+      poser(empoisonner());
+      State.load();
+      expect(() => Gamification.checkBadges(), nom).not.toThrow();
+    }
+  });
+
+  it("un état sans `badges` valide ne lève pas et journalise", () => {
+    poser({ ...REALISTIC, badges: 42 });
+    State.load();
+    // validate() a déjà remis un tableau : checkBadges fonctionne normalement
+    expect(() => Gamification.checkBadges()).not.toThrow();
+    expect(Array.isArray(State.get().badges)).toBe(true);
+  });
+
+  it("un check() qui lève est journalisé, pas avalé", () => {
+    poser(REALISTIC);
+    State.load();
+    const s = State.get();
+    s.badges = []; // force la réévaluation des 11 badges
+    const casse = POLISH_BADGES[0].check;
+    POLISH_BADGES[0].check = () => {
+      throw new Error("check cassé");
+    };
+    try {
+      expect(() => Gamification.checkBadges()).not.toThrow();
+      expect(console.warn).toHaveBeenCalled();
+      // le badge fautif n'est pas accordé, les autres le sont
+      expect(State.get().badges).not.toContain(POLISH_BADGES[0].id);
+    } finally {
+      POLISH_BADGES[0].check = casse;
+    }
+  });
+
+  it("n'attribue jamais partiellement : tout ou rien après la boucle", () => {
+    poser(REALISTIC);
+    State.load();
+    const s = State.get();
+    s.badges = [];
+    const nouveaux = Gamification.checkBadges();
+    // les ids renvoyés sont EXACTEMENT ceux écrits dans l'état
+    expect([...State.get().badges].sort()).toEqual(nouveaux.map((b) => b.id).sort());
   });
 });

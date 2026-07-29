@@ -72,8 +72,19 @@ function load() {
       state = defaultState();
     }
   }
-  ensureLessonStatuses();
-  rolloverDay();
+  // DANS un try : ces deux appels écrivent dans `state`, et sur une sauvegarde
+  // corrompue (`lessons` ou `badges` d'un type inattendu) ils lèvent un
+  // TypeError — les modules ES étant toujours en mode strict, affecter une
+  // propriété sur un primitif est fatal. L'exception remontait jusqu'à boot(),
+  // donc `renderHome()` n'était jamais appelé : PAGE BLANCHE, et l'utilisateur
+  // enfermé dehors sans accès à l'export ni au bouton de réinitialisation.
+  // Les deux lignes ci-dessous suppriment ce mode de défaillance.
+  try {
+    ensureLessonStatuses();
+    rolloverDay();
+  } catch (e) {
+    console.warn("Post-traitement du chargement échoué.", e);
+  }
   return state;
 }
 

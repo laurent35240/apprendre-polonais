@@ -511,11 +511,15 @@ function getStatus() {
 
 function load() {
   // L'état du module ne doit pas fuir d'un chargement au suivant — y compris un
-  // save programmé, qui écrirait l'état du chargement PRÉCÉDENT.
+  // save programmé, qui écrirait l'état du chargement PRÉCÉDENT. Un seul
+  // load() a lieu par session réelle (au boot, avant tout Cloud.startSync()),
+  // donc vider les observateurs ici ne casse rien en usage normal — mais
+  // rend les tests isolables les uns des autres.
   cancelScheduledSave();
   dirty.clear();
   readOnly = false;
   rawFuture = null;
+  savedListeners = [];
   var raw = null;
   try {
     raw = localStorage.getItem(STORAGE_KEY);
@@ -726,6 +730,19 @@ function rolloverDay() {
   }
 }
 
+// Petit registre d'observateurs (palier 4, Firebase) : cloud.js s'y abonne
+// pour programmer un push réseau après chaque écriture locale réussie, sans
+// avoir à connaître le mécanisme interne du throttle localStorage. Appelés
+// APRÈS le succès de setItem, jamais sur une écriture refusée (lecture seule)
+// ou en échec (quota dépassé).
+/** @type {Array<() => void>} */
+var savedListeners = [];
+
+/** @param {() => void} callback @returns {void} */
+function onSaved(callback) {
+  savedListeners.push(callback);
+}
+
 /**
  * Écrit l'état. Le garde de lecture seule est ICI et non aux sites d'appel :
  * sinon le premier `rolloverDay()` de `load()` écraserait la sauvegarde qu'on
@@ -740,6 +757,9 @@ function save() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     dirty.clear();
+    savedListeners.forEach(function (cb) {
+      cb();
+    });
     return true;
   } catch (e) {
     console.warn("Impossible de sauvegarder.", e);
@@ -894,6 +914,7 @@ export const State = {
   status: getStatus,
   scheduleSave: scheduleSave,
   flush: flush,
+  onSaved: onSaved,
   touch: touch,
   dirtyPaths: dirtyPaths,
   isDirty: isDirty,

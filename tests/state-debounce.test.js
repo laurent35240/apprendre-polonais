@@ -107,6 +107,38 @@ describe("fenêtre d'absorption", () => {
   });
 });
 
+describe("onSaved", () => {
+  // Palier 4 : cloud.js s'y abonne pour programmer un push réseau après
+  // chaque écriture locale réussie, sans connaître le mécanisme du throttle.
+  it("appelle les observateurs APRÈS une écriture réussie, jamais avant", () => {
+    const appels = [];
+    State.onSaved(() => appels.push("saved"));
+    State.touch("profile");
+    expect(State.flush()).toBe(true);
+    expect(appels).toEqual(["saved"]);
+  });
+
+  it("n'appelle rien quand flush() est un no-op (rien de sale)", () => {
+    State.flush(); // vide l'ensemble
+    const appels = [];
+    State.onSaved(() => appels.push("saved"));
+    expect(State.flush()).toBe(false);
+    expect(appels).toEqual([]);
+  });
+
+  it("n'appelle rien en lecture seule", () => {
+    localStorage.setItem(KEY, JSON.stringify({ ...REALISTIC, version: 99 }));
+    State.load();
+    expect(State.status().mode).toBe("readonly");
+    const appels = [];
+    State.onSaved(() => appels.push("saved"));
+    State.touch("profile");
+    State.scheduleSave();
+    vi.advanceTimersByTime(60000);
+    expect(appels).toEqual([]);
+  });
+});
+
 describe("flush", () => {
   it("écrit immédiatement ce qui est en attente", () => {
     const espion = espionnerEcritures();

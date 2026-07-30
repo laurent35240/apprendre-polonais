@@ -256,7 +256,8 @@ function makeDialogue(dlg) {
     answerLang: "pl",
     audioText: target.pl,
     bank: shuffle(bank),
-    instruction: "Complète la réplique manquante du dialogue"
+    instruction: "Complète la réplique manquante du dialogue",
+    speaker: target.who
   };
 }
 

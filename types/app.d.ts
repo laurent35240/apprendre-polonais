@@ -267,6 +267,8 @@ interface DialogueExercise extends ExerciseBase {
   bank: string[];
   context: DialogueLine[];
   title: string;
+  /** `who` de la ligne cible : la voix jouée au feedback doit correspondre au locuteur. */
+  speaker: string;
 }
 
 type Exercise =

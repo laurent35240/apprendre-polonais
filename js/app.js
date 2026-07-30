@@ -1428,6 +1428,9 @@ function showFeedback(ex, correct, customMsg) {
   clear(fb);
   fb.className = "feedback show " + (correct ? "ok" : "ko");
   var line = correct ? UI.cheer() : UI.consoleLine();
+  // Le locuteur de la réplique cible : sinon le feedback rejoue la réponse
+  // du dialogue avec la voix par défaut au lieu de celle du personnage.
+  var speaker = ex.type === "dialogue" ? ex.speaker : undefined;
   var content = el("div", { class: "feedback-inner" }, [
     el("div", { class: "feedback-head" }, [
       UI.mascotImg(correct ? "happy" : "sad", "feedback-mascot"),
@@ -1439,7 +1442,7 @@ function showFeedback(ex, correct, customMsg) {
       : el("div", { class: "feedback-answer" }, [
           el("span", { text: "Réponse : " }),
           el("strong", { class: "pl", text: ex.answer }),
-          audioButton(ex.audioText)
+          audioButton(ex.audioText, false, speaker)
         ]),
     el("button", {
       class: "btn " + (correct ? "btn-primary" : "btn-warn"),
@@ -1462,7 +1465,7 @@ function showFeedback(ex, correct, customMsg) {
     var token = autoPlayToken;
     setTimeout(function () {
       if (token !== autoPlayToken) return; // exercice quitté entre-temps
-      Speech.speak(ex.audioText);
+      Speech.speak(ex.audioText, ttsOptsFor(speaker));
     }, 300);
   }
   // Entrée pour continuer

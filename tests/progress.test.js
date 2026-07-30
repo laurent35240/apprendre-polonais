@@ -261,6 +261,42 @@ describe("import / reset", () => {
   });
 });
 
+describe("cloudMerged", () => {
+  it("fusionne au lieu de remplacer, recalcule niveau et badges", () => {
+    const distant = {
+      ...REALISTIC,
+      profile: { ...REALISTIC.profile, totalXP: REALISTIC.profile.totalXP + 5000, level: 32 },
+      items: {
+        ...REALISTIC.items,
+        [Object.keys(REALISTIC.items)[0]]: {
+          ...REALISTIC.items[Object.keys(REALISTIC.items)[0]],
+          box: 5
+        }
+      }
+    };
+    const r = Progress.cloudMerged(JSON.stringify(distant));
+    expect(r.repairs).toEqual([]);
+    // Le distant est le "gagnant" XP : son totalXP est retenu tel quel (pas
+    // de leçon rattrapée dans ce scénario), et le niveau recalculé le reflète.
+    expect(State.get().profile.totalXP).toBe(REALISTIC.profile.totalXP + 5000);
+    expect(State.get().profile.level).toBe(Gamification.levelForXP(State.get().profile.totalXP));
+    // L'item monté côté distant l'est resté après fusion (max des box).
+    expect(State.get().items[Object.keys(REALISTIC.items)[0]].box).toBe(5);
+  });
+
+  it("une fusion avec soi-même (écho) ne signale ni montée de niveau ni nouveau badge", () => {
+    const r = Progress.cloudMerged(JSON.stringify(State.get()));
+    expect(r.leveledUp).toBe(false);
+    expect(r.newBadges).toEqual([]);
+  });
+
+  it("écrit immédiatement : une fusion est un jalon", () => {
+    const espion = espionnerEcritures();
+    Progress.cloudMerged(JSON.stringify(State.get()));
+    expect(espion).toHaveBeenCalled(); // sans avancer les timers
+  });
+});
+
 /* ============ l'invariant, verrouillé mécaniquement ===================== */
 describe("app.js n'écrit plus dans l'état", () => {
   const src = readFileSync(resolve(import.meta.dirname, "../js/app.js"), "utf8");

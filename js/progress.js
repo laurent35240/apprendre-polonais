@@ -198,6 +198,50 @@ function progressReset() {
   return State.reset();
 }
 
+/* ----------------------- synchro multi-appareils ----------------------- */
+
+/**
+ * Fusionne une sauvegarde distante (palier 4, Firebase) dans l'état local, au
+ * lieu de le REMPLACER comme progressImported. State.mergeRemote fait le gros
+ * du travail (parse, validation, fusion par champ) mais laisse `level`
+ * provisoire et ne vérifie pas les badges — ce sont des préoccupations de
+ * Gamification, que state.js ne doit pas importer (même contrainte de DAG que
+ * pour answerRecorded/sessionFinished, cf. l'en-tête du module).
+ *
+ * `Gamification.addXP(0)` recalcule `level` depuis le `totalXP` fusionné sans
+ * nouvelle API : ajouter zéro ne change pas le total, mais la fonction
+ * recalcule quand même le niveau à partir de lui.
+ *
+ * Une fusion est un JALON, comme sessionFinished : flush immédiat, pas de
+ * throttle — l'appareil distant doit voir le résultat sans attendre 3 s.
+ * @param {string} remoteText
+ * @returns {{repairs: string[], leveledUp: boolean, newBadges: Badge[]}}
+ * @throws {SyntaxError|InvalidSaveError|FutureVersionError} propagés depuis
+ *   State.mergeRemote, à traiter comme importSave() le fait déjà pour
+ *   progressImported.
+ */
+function cloudMerged(remoteText) {
+  var xpAvant = State.get().profile.totalXP;
+  var m = State.mergeRemote(remoteText);
+  var leveledUp = Gamification.addXP(0);
+  var newBadges = Gamification.checkBadges();
+  State.touch("profile");
+  State.touch("streak");
+  State.touch("dailyGoal");
+  State.touch("items");
+  State.touch("lessons");
+  State.touch("badges");
+  State.touch("flags");
+  State.flush();
+  return {
+    repairs: m.repairs,
+    // leveledUp ne peut être vrai que si le total a effectivement bougé ;
+    // sur un merge(s, s) (écho), addXP(0) ne change rien et renvoie false.
+    leveledUp: leveledUp && State.get().profile.totalXP > xpAvant,
+    newBadges: newBadges
+  };
+}
+
 export const Progress = {
   answerRecorded: answerRecorded,
   sessionFinished: sessionFinished,
@@ -206,5 +250,6 @@ export const Progress = {
   pronunciationPerfect: pronunciationPerfect,
   settingChanged: settingChanged,
   progressImported: progressImported,
-  progressReset: progressReset
+  progressReset: progressReset,
+  cloudMerged: cloudMerged
 };

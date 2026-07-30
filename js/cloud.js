@@ -116,6 +116,19 @@ async function sendMagicLink(email) {
 }
 
 /**
+ * Résout une fois l'état d'authentification INITIAL déterminé (session
+ * persistée relue depuis IndexedDB). À attendre avant de lire isSignedIn()
+ * au boot : `onAuthStateChanged` (dans init()) est asynchrone, donc sans ce
+ * garde-fou, un utilisateur déjà connecté lors d'une précédente visite
+ * semblerait déconnecté jusqu'à ce que ce callback ait fini de s'exécuter.
+ * @returns {Promise<void>}
+ */
+async function ready() {
+  var a = requireAuth();
+  await a.authStateReady();
+}
+
+/**
  * À appeler au boot, avant tout rendu : détecte si l'URL courante EST un
  * lien magique, et termine la connexion si oui. No-op silencieux sinon —
  * c'est le cas de loin le plus fréquent (chaque chargement normal de l'app).
@@ -275,6 +288,7 @@ function getStatus() {
 export const Cloud = {
   init: init,
   sendMagicLink: sendMagicLink,
+  ready: ready,
   completeSignInFromUrl: completeSignInFromUrl,
   signOut: signOut,
   isSignedIn: isSignedIn,

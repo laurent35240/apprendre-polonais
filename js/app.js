@@ -121,13 +121,23 @@ async function boot() {
   // Synchro : init tôt, puis termine une connexion en cours si l'URL est un
   // lien magique (cas peu fréquent — la grande majorité des chargements n'en
   // sont pas, d'où le early-return silencieux dans completeSignInFromUrl).
+  // Cloud.ready() attend la relecture d'une session déjà persistée (sinon un
+  // utilisateur déjà connecté semblerait déconnecté jusqu'à ce que le
+  // callback asynchrone de Firebase ait fini de s'exécuter) ; unique pull
+  // avant le premier rendu, puis l'écoute temps réel démarre en tâche de fond.
   Cloud.init(FIREBASE_CONFIG);
   try {
     var signedIn = await Cloud.completeSignInFromUrl();
     if (signedIn) UI.toast("Connecté ✅", "success");
+    await Cloud.ready();
+    if (Cloud.isSignedIn()) {
+      var pulled = await Cloud.pull();
+      if (pulled.merged) UI.toast("Progression synchronisée ☁️", "success");
+      Cloud.startSync();
+    }
   } catch (e) {
-    console.warn("Connexion par lien magique impossible.", e);
-    UI.toast("Connexion impossible 😕", "error");
+    console.warn("Synchro cloud impossible.", e);
+    UI.toast("Synchro impossible 😕", "error");
   }
 
   startTimeTracker();
@@ -247,11 +257,18 @@ function flushPendingTime() {
  * Ordre imposé : verser le temps, PUIS écrire. Idempotent — appelé jusqu'à trois
  * fois pour un même départ, sans effet (pendingSec est à zéro et flush() est un
  * no-op si rien n'est sale).
+ *
+ * Le push cloud est un BEST-EFFORT explicite, hors du throttle réseau de 30 s
+ * (`Cloud.push()` directement, pas `schedulePush()`) : ce throttle ne
+ * tournera jamais si l'onglet ferme avant son échéance. `Cloud.push()` est un
+ * no-op silencieux si non connecté ; son échec (page déjà en train de se
+ * fermer) ne doit bloquer ni le flush local ni la fermeture elle-même.
  * @returns {void}
  */
 function onHide() {
   flushPendingTime();
   State.flush();
+  Cloud.push().catch(function () {});
 }
 
 document.addEventListener("visibilitychange", function () {
@@ -1716,14 +1733,23 @@ function renderSettings() {
   });
   card.appendChild(row("Minutes par jour", goalSel));
 
-  // Synchronisation (palier 4). Pas de fusion Firestore encore dans ce
-  // commit — juste l'auth par lien magique. Pas de Cloud.status() non plus :
-  // vient avec le push/pull.
+  // Synchronisation (palier 4).
   card.appendChild(el("h3", { text: "Synchronisation" }));
   if (Cloud.isSignedIn()) {
     var user = Cloud.currentUser();
+    var sync = Cloud.status();
     card.appendChild(
       el("p", { class: "notice", text: "Connecté en tant que " + (user ? user.email : "") })
+    );
+    card.appendChild(
+      el("p", {
+        class: "small",
+        text: sync.lastError
+          ? "Erreur de synchro : " + sync.lastError
+          : sync.lastPushAt
+            ? "Synchronisé à " + heureLocale(sync.lastPushAt)
+            : "En attente de la première synchro…"
+      })
     );
     card.appendChild(
       el("div", { class: "settings-buttons" }, [
@@ -1817,6 +1843,19 @@ function row(label, control) {
     el("label", { class: "setting-label", text: label }),
     control
   ]);
+}
+
+/**
+ * "HH:MM" en heure locale, pour l'affichage du statut de synchro.
+ * @param {number} ms
+ * @returns {string}
+ */
+function heureLocale(ms) {
+  var d = new Date(ms);
+  var p2 = function (/** @type {number} */ n) {
+    return String(n).padStart(2, "0");
+  };
+  return p2(d.getHours()) + ":" + p2(d.getMinutes());
 }
 
 /**

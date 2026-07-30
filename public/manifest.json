@@ -12,7 +12,7 @@
   "background_color": "#fef6e4",
   "theme_color": "#ff5e5b",
   "icons": [
-    { "src": "assets/img/favicon.png", "sizes": "128x128", "type": "image/png" },
-    { "src": "assets/img/zubr-base.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "assets/img/zubr-head.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/img/zubr-head-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }

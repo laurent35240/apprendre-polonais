@@ -9,6 +9,8 @@ import { Speech } from "./speech.js";
 import { Gamification } from "./gamification.js";
 import { Exercises } from "./exercises.js";
 import { Progress } from "./progress.js";
+import { Cloud } from "./cloud.js";
+import { FIREBASE_CONFIG } from "./config.js";
 import { Session } from "./session.js";
 import { UI } from "./ui.js";
 
@@ -95,7 +97,7 @@ if (document.readyState === "loading") {
   boot();
 }
 
-function boot() {
+async function boot() {
   // required() lève si l'élément manque : un index.html amputé doit produire
   // une erreur bruyante plutôt qu'une page blanche muette.
   appRoot = UI.required("app");
@@ -109,10 +111,23 @@ function boot() {
   if (st.mode === "readonly") {
     // Sauvegarde écrite par une version plus récente : rien ne doit muter.
     // Pas de startTimeTracker(), pas de checkBadges() — juste de quoi lire sa
-    // progression et l'exporter intacte.
+    // progression et l'exporter intacte. Pas de Cloud.init() non plus : rien
+    // ne doit pouvoir écrire, y compris vers Firestore.
     updateHeader();
     renderReadOnlyNotice(st);
     return;
+  }
+
+  // Synchro : init tôt, puis termine une connexion en cours si l'URL est un
+  // lien magique (cas peu fréquent — la grande majorité des chargements n'en
+  // sont pas, d'où le early-return silencieux dans completeSignInFromUrl).
+  Cloud.init(FIREBASE_CONFIG);
+  try {
+    var signedIn = await Cloud.completeSignInFromUrl();
+    if (signedIn) UI.toast("Connecté ✅", "success");
+  } catch (e) {
+    console.warn("Connexion par lien magique impossible.", e);
+    UI.toast("Connexion impossible 😕", "error");
   }
 
   startTimeTracker();
@@ -1700,6 +1715,58 @@ function renderSettings() {
     updateHeader();
   });
   card.appendChild(row("Minutes par jour", goalSel));
+
+  // Synchronisation (palier 4). Pas de fusion Firestore encore dans ce
+  // commit — juste l'auth par lien magique. Pas de Cloud.status() non plus :
+  // vient avec le push/pull.
+  card.appendChild(el("h3", { text: "Synchronisation" }));
+  if (Cloud.isSignedIn()) {
+    var user = Cloud.currentUser();
+    card.appendChild(
+      el("p", { class: "notice", text: "Connecté en tant que " + (user ? user.email : "") })
+    );
+    card.appendChild(
+      el("div", { class: "settings-buttons" }, [
+        el("button", {
+          class: "btn btn-secondary",
+          text: "Se déconnecter",
+          onclick: function () {
+            Cloud.signOut().then(function () {
+              UI.toast("Déconnecté", "");
+              renderSettings();
+            });
+          }
+        })
+      ])
+    );
+  } else {
+    var emailInput = el("input", {
+      type: "email",
+      class: "select",
+      placeholder: "ton@email.com"
+    });
+    card.appendChild(row("E-mail", emailInput));
+    card.appendChild(
+      el("div", { class: "settings-buttons" }, [
+        el("button", {
+          class: "btn btn-secondary",
+          text: "📧 Recevoir mon lien de connexion",
+          onclick: function () {
+            var email = emailInput.value.trim();
+            if (!email) return;
+            Cloud.sendMagicLink(email)
+              .then(function () {
+                UI.toast("Lien envoyé, vérifie ta boîte mail 📬", "success");
+              })
+              .catch(function (e) {
+                console.warn("Envoi du lien impossible.", e);
+                UI.toast("Envoi impossible 😕", "error");
+              });
+          }
+        })
+      ])
+    );
+  }
 
   // Sauvegarde
   card.appendChild(el("h3", { text: "Sauvegarde" }));

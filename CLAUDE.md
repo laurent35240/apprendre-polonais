@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 npm install
 npm run dev        # http://localhost:5173/apprendre-polonais/  (PAS la racine /)
-npm test           # 260 assertions, ~1,5 s
+npm test           # 280 assertions, ~1,5 s
 npm run typecheck  # tsc --noEmit, DOIT valoir 0
 npm run build      # dist/
 npm run preview    # http://localhost:4173/apprendre-polonais/
@@ -27,19 +27,23 @@ branch » : la racine du repo n'est plus servable directement).
 
 ## Architecture
 
-Vanilla JS en **modules ES**, bundlé par Vite. Zéro dépendance runtime ; 3
-devDependencies (vite, vitest, happy-dom, typescript). Chaque module exporte une façade
-nommée (`export const State = {…}`), et `js/app.js` est le point d'entrée unique
+Vanilla JS en **modules ES**, bundlé par Vite. **Une dépendance runtime** —
+`firebase` (palier 4, synchro multi-appareils) — plus 4 devDependencies (vite,
+vitest, happy-dom, typescript). Chaque module exporte une façade nommée
+(`export const State = {…}`), et `js/app.js` est le point d'entrée unique
 déclaré dans `index.html` — **l'ordre de dépendances est porté par le graphe
 d'imports**, plus par l'ordre des balises `<script>`.
 
 Le graphe est un DAG strict : `lessons → badges → state → srs → speech →
-gamification → progress → exercises → session → ui → app`. Il n'y a **pas** de
-cycle State ⇄ Gamification (Gamification → State : 14 références, l'inverse : 0),
-et `js/progress.js` est un module séparé **précisément pour ne pas en créer un**
-(il doit créditer l'XP et toucher les badges, ce que `state.js` ne peut pas) ; la
-logique de streak est dupliquée entre `state.js rolloverDay()` et
-`gamification.js touchActivity()`, ce qui peut donner l'illusion d'un cycle.
+gamification → progress → cloud → exercises → session → ui → app`. Il n'y a
+**pas** de cycle State ⇄ Gamification (Gamification → State : 14 références,
+l'inverse : 0), et `js/progress.js` est un module séparé **précisément pour ne
+pas en créer un** (il doit créditer l'XP et toucher les badges, ce que
+`state.js` ne peut pas) ; la logique de streak est dupliquée entre `state.js
+rolloverDay()` et `gamification.js touchActivity()`, ce qui peut donner
+l'illusion d'un cycle. `js/cloud.js` obéit à la même contrainte de DAG que
+`progress.js` : il a besoin de `State`/`Progress`, jamais l'inverse, et
+n'importe pas `ui.js` (il renvoie des faits, `app.js` décide des toasts).
 
 **Assets** : `public/assets/img/` est copié verbatim par Vite (pas de hachage),
 parce que `js/ui.js` construit ses chemins d'images par concaténation — donc
@@ -212,6 +216,7 @@ n'est **pas** commitée (dépôt public) ; `.gitignore` couvre
 **Module responsibilities:**
 - `js/state.js` — all user progression, persisted to `localStorage` under key `polski-zubr-v1` (cf. § Persistance)
 - `js/progress.js` — les 7 **intentions** de progression : le seul chemin d'écriture dans l'état
+- `js/cloud.js` — synchro multi-appareils (Firebase, cf. § Synchronisation) : auth par lien magique, push/pull Firestore
 - `js/srs.js` — Leitner spaced-repetition scheduling (box 0–5, due dates)
 - `js/speech.js` — Web Speech API wrappers (TTS + recognition)
 - `js/gamification.js` — XP, levels, streak, daily goal (30 min), badge checks
@@ -221,6 +226,76 @@ n'est **pas** commitée (dépôt public) ; `.gitignore` couvre
 - `js/app.js` — screen navigation, exercise loop, DOMContentLoaded boot
 
 **Home screen — lesson grouping (`js/app.js`):** the home path groups lessons into "sentiers" (packs of 5) via `trailNode()`. Lessons are iterated **sorted by `order`** (`sortedLessons()` / `byOrder`), not array order — `order` is the display sequence and does not match `id`. **`order` is the single source of truth for sequencing**: both the home display (`app.js`) and the unlock chain (`js/state.js` `ensureLessonStatuses`) sort by `order`, so the physical position of a lesson block in the `POLISH_LESSONS` array is irrelevant — new lessons can be appended anywhere and just need a unique `order`. `order` values must be unique; they need not be contiguous. Trail names + emojis live in the `TRAILS` array. By default only the trail holding the current lesson is expanded (`currentTrailIndex()` / `currentLessonId()` = first non-`completed`, non-`locked` lesson); manual expand/collapse is kept in the in-memory `trailOpenOverride` map (not persisted). The "Reprendre" button calls `jumpToCurrent()`, which opens the right trail, re-renders, then scrolls to the lesson node (`[data-lesson-id]`) and briefly adds `.lesson-node--highlight`. The connecting trail line is pure CSS (`.trail-body::before`, `css/styles.css`): it sits above card backgrounds but below the lesson badges (z-index), so badges must stay opaque — avoid `opacity` on the whole `.lesson-node` and avoid `transform` on hover (both would let the line show through / over the badge).
+
+## Synchronisation multi-appareils (palier 4)
+
+Login par lien magique (Firebase Authentication, e-mail sans mot de passe) +
+progression synchronisée via Firestore, un document par utilisateur
+(collection `progress`, id = `uid`). **Fusion par item**, jamais « dernier qui
+écrit gagne » sur le blob entier : chaque champ racine se fusionne par sa
+propre règle, individuellement idempotente et commutative (`max`, union, OR),
+sauf `settings`/`dailyGoal` où **`local` gagne toujours** par design —
+préférences et compteurs propres à l'appareil, pas de la progression
+partagée.
+
+**La propriété qui fait tenir tout le reste** : `State._merge(s, s) === s`
+pour tout champ hors `settings`/`dailyGoal`. C'est elle, combinée à la garde
+de `Progress.cloudMerged` (ne `touch`/`flush` QUE si la fusion a réellement
+changé quelque chose — comparaison par valeur avant/après), qui arrête la
+boucle push→pull→push : un appareil qui reçoit sa propre écriture en retour
+depuis Firestore la fusionne avec elle-même, ce qui ne change rien et ne
+déclenche donc aucune nouvelle écriture ni aucun nouveau push. Le `writerId`
+(identifiant d'onglet, dans chaque document poussé) et la fenêtre de grâce de
+5 s dans `js/cloud.js` ne sont qu'une **économie** de calcul et de réseau
+(reconnaître son propre écho pour l'ignorer sans même appeler `merge`) — leur
+absence ne casserait rien, l'idempotence suffit à la correction.
+
+| Champ | Règle |
+|---|---|
+| `items[id].box`, `.dueDate`, `.seenCount`, `.correctCount`, `.lastSeen` | `max`, champ par champ (pas l'objet gagnant en bloc) ; union des ids |
+| `lessons[id].status` | rang max (`locked < available < inProgress < completed`) ; `ensureLessonStatuses()` ré-ouvre la suite après fusion |
+| `lessons[id].bestScore` | `max` |
+| `badges` | union dédupliquée |
+| `flags.*` | OR logique |
+| `profile.totalXP` | `max` des deux totaux + `XP_LESSON_BONUS` par leçon rattrapée côté gagnant (traçable et exact) |
+| `profile.level` | recalculé après coup via `Gamification.addXP(0)`, jamais fusionné directement |
+| `profile.createdAt` | `min` |
+| `streak.current`/`.longest`/`.lastActiveDate` | `max` — ne régresse jamais visiblement |
+| `dailyGoal.*`, `settings.*` | **`local` gagne toujours**, sauf `dailyGoal.goalMetToday` en OR |
+
+**Limites acceptées, documentées plutôt que résolues** : l'XP de simples
+bonnes réponses gagné sur l'appareil non retenu, sans compléter de leçon,
+n'est pas récupéré par la fusion (aucune trace individuelle des réponses
+n'existe — `seenCount`/`correctCount` sont déjà des champs morts, cf. §
+Persistance). Le streak sous-estime la continuité réelle si l'usage alterne
+d'un appareil à l'autre sans jamais synchroniser entre les deux. Reconstruire
+l'un ou l'autre exigerait un historique d'événements que la forme persistée
+ne porte pas — hors périmètre de ce palier, même sûreté qu'avec les champs
+morts : on documente la dette plutôt que de complexifier pour la refermer
+(un vector-clock à la place de `max`/union/OR a été explicitement écarté :
+complexité disproportionnée pour un usage personnel à faible fréquence
+d'écriture concurrente).
+
+`mergeStates`/`State._merge` **ne tourne que sur deux états déjà validés à
+`CURRENT_VERSION`** des deux côtés — jamais sur une forme non passée par
+`validate()`. `State.mergeRemote(text)` est le miroir exact de `importJSON`
+(même pipeline parse → plausibilité → migrate/validate) mais fusionne au lieu
+d'écraser, et **ne sauvegarde pas elle-même** : c'est `Progress.cloudMerged`
+qui décide du moment (jalon, flush immédiat comme `sessionFinished`).
+
+`State.onSaved(callback)` est un petit registre d'observateurs, appelé après
+chaque écriture locale réussie (jamais en lecture seule) : `js/cloud.js` s'y
+abonne pour programmer un push Firestore débouncé, sans connaître le
+mécanisme interne du throttle `localStorage`. Débounce réseau **séparé** du
+débounce local — 30 s contre 3 s, un `setDoc` Firestore n'étant pas gratuit
+comme un `setItem` — même discipline « jamais réarmé ». `onHide()` pousse en
+plus un `Cloud.push()` best-effort **direct** (hors throttle) : ce dernier ne
+tournerait jamais si l'onglet ferme avant son échéance.
+
+Import manuel (`js/state.js importJSON`) et synchro cloud (`mergeRemote`) ne
+doivent jamais être confondus dans le code : le premier REMPLACE
+intentionnellement (l'utilisateur choisit d'écraser), le second FUSIONNE
+toujours.
 
 ## Content editing
 

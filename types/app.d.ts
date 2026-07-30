@@ -359,3 +359,17 @@ interface ImportPreview {
   lessonsCompleted: number;
   repairs: string[];
 }
+
+/**
+ * Forme du document Firestore `progress/{uid}` (palier 4). `state` n'est PAS
+ * typé `PersistedState` ici : il vient du réseau, aussi peu fiable qu'un JSON
+ * importé — `State.mergeRemote` le fait passer par le même pipeline
+ * migrate/validate qu'un fichier d'import avant de le fusionner. `writerId`
+ * et `updatedAt` sont hors du schéma `PersistedState` : jamais lus par
+ * `validate()`, ils servent uniquement à l'anti-écho de `js/cloud.js`.
+ */
+interface CloudProgressDoc {
+  state: unknown;
+  writerId: string;
+  updatedAt: unknown; // FieldValue à l'écriture (serverTimestamp()), Timestamp à la lecture
+}

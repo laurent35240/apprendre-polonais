@@ -222,7 +222,8 @@ async function pull() {
   var snap = await getDoc(doc(db, "progress", user.uid));
   lastPullAt = Date.now();
   if (!snap.exists()) return { merged: false, repairs: [] };
-  var data = snap.data();
+  /** @type {CloudProgressDoc} */
+  var data = /** @type {any} */ (snap.data());
   var r = Progress.cloudMerged(JSON.stringify(data.state));
   return { merged: true, repairs: r.repairs };
 }
@@ -240,7 +241,8 @@ function startSync() {
     doc(db, "progress", user.uid),
     function (snap) {
       if (!snap.exists()) return;
-      var data = snap.data();
+      /** @type {CloudProgressDoc} */
+      var data = /** @type {any} */ (snap.data());
       // Anti-écho : purement une économie (cf. en-tête du fichier) — sans
       // cette garde, fusionner son propre état avec lui-même serait déjà un
       // no-op inoffensif grâce à l'idempotence de State._merge.

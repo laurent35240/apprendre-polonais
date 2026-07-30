@@ -204,6 +204,161 @@ function validate(loaded) {
   return { state: out, repairs: rep };
 }
 
+/* ========================= fusion multi-appareils =======================
+   Palier 4 (Firebase). `mergeStates` ne tourne JAMAIS sur une forme non
+   validée : les deux entrées doivent déjà avoir `version === CURRENT_VERSION`
+   — c'est à l'appelant (mergeRemote) de le garantir en repassant `remote` par
+   `migrate`/`validate` avant d'arriver ici, exactement comme importJSON le
+   fait pour un fichier importé.
+
+   Propriété centrale, testée en premier : mergeStates(s, s) === s (en valeur)
+   pour tout ce qui suit, SAUF `settings`/`dailyGoal` où `local` gagne toujours
+   par design (préférences et compteurs propres à CET appareil, pas de la
+   progression partagée). Chaque règle de champ est individuellement
+   idempotente et commutative (max, union, OR) ; combiner des règles
+   idempotentes/commutatives sur des clés disjointes reste idempotent et
+   commutatif. C'est ce qui rend un écho Firestore (un appareil qui reçoit sa
+   propre écriture en retour) inoffensif PAR CONSTRUCTION plutôt que par
+   détection : fusionner un état avec lui-même ne change rien, donc ne
+   déclenche aucune nouvelle écriture, et la chaîne s'arrête toute seule.
+   ===================================================================== */
+
+var LESSON_RANK = { locked: 0, available: 1, inProgress: 2, completed: 3 };
+
+// Dupliqué depuis Gamification.XP_LESSON_BONUS : state.js ne doit importer ni
+// srs.js ni gamification.js (le DAG va l'autre sens). Même discipline que
+// MAX_BOX_PERSISTED ci-dessus, verrouillée par un test d'égalité.
+var XP_LESSON_BONUS_PERSISTED = 50;
+
+/** @param {string|null} a @param {string|null} b @returns {string|null} */
+function maxDateStr(a, b) {
+  if (a === null) return b;
+  if (b === null) return a;
+  return a > b ? a : b;
+}
+
+/**
+ * Fusionne deux états DÉJÀ VALIDÉS. Voir le commentaire de section ci-dessus
+ * pour les garanties (idempotence, commutativité) et tests/state-merge.test.js
+ * pour le tableau de règles complet, champ par champ.
+ * @param {PersistedState} local
+ * @param {PersistedState} remote
+ * @returns {PersistedState}
+ */
+function mergeStates(local, remote) {
+  var out = defaultState();
+  out.version = CURRENT_VERSION;
+
+  // items : union des ids, puis règle par champ (jamais "l'objet gagnant" en
+  // bloc — box et dueDate/lastSeen ne sont pas forcément portés par le même
+  // côté une fois chaque champ maximisé indépendamment).
+  out.items = {};
+  var itemIds = new Set(Object.keys(local.items).concat(Object.keys(remote.items)));
+  itemIds.forEach(function (id) {
+    var a = local.items[id];
+    var b = remote.items[id];
+    if (a && b) {
+      out.items[id] = {
+        box: Math.max(a.box, b.box),
+        dueDate: a.dueDate > b.dueDate ? a.dueDate : b.dueDate,
+        seenCount: Math.max(a.seenCount, b.seenCount),
+        correctCount: Math.max(a.correctCount, b.correctCount),
+        lastSeen: maxDateStr(a.lastSeen, b.lastSeen)
+      };
+    } else {
+      out.items[id] = a || b;
+    }
+  });
+
+  // lessons : union des ids, statut au rang max, meilleur score au max.
+  // ensureLessonStatuses() (appelée par l'appelant, mergeRemote) déverrouille
+  // la suite si un `completed` apparaît côté fusionné sans exister nulle part
+  // avant la fusion.
+  out.lessons = {};
+  var lessonIds = new Set(
+    Object.keys(local.lessons).concat(Object.keys(remote.lessons))
+  );
+  lessonIds.forEach(function (id) {
+    var a = local.lessons[id];
+    var b = remote.lessons[id];
+    if (a && b) {
+      var status = LESSON_RANK[a.status] >= LESSON_RANK[b.status] ? a.status : b.status;
+      out.lessons[id] = { status: status, bestScore: Math.max(a.bestScore, b.bestScore) };
+    } else {
+      out.lessons[id] = a || b;
+    }
+  });
+
+  // badges : union dédupliquée. checkBadges() documente déjà "ne retire
+  // jamais un badge" — l'union est la seule règle cohérente avec cet invariant.
+  out.badges = Array.from(new Set(local.badges.concat(remote.badges)));
+
+  // flags : OR logique — un fait déjà survenu ne redevient pas faux.
+  out.flags = {
+    perfectPronunciation:
+      local.flags.perfectPronunciation || remote.flags.perfectPronunciation,
+    everMetDailyGoal: local.flags.everMetDailyGoal || remote.flags.everMetDailyGoal
+  };
+
+  // profile.totalXP : max des deux totaux, PLUS le bonus de chaque leçon que
+  // la fusion vient de compléter côté "gagnant" (celui dont le totalXP est
+  // retenu) — traçable et exact. Limite documentée : l'XP de simples bonnes
+  // réponses gagné sur l'appareil non retenu, sans compléter de leçon, n'est
+  // PAS récupéré (seenCount/correctCount sont déjà des champs morts, aucune
+  // trace individuelle des réponses n'existe). Dette assumée, de la même
+  // famille que les champs morts documentés au palier 3.
+  var winner = local.profile.totalXP >= remote.profile.totalXP ? local : remote;
+  var newlyCompleted = 0;
+  Object.keys(out.lessons).forEach(function (id) {
+    var merged = out.lessons[id];
+    var winnerStatus = winner.lessons[id] && winner.lessons[id].status;
+    if (merged && merged.status === "completed" && winnerStatus !== "completed") {
+      newlyCompleted++;
+    }
+  });
+  out.profile.totalXP = winner.profile.totalXP + newlyCompleted * XP_LESSON_BONUS_PERSISTED;
+  // level n'est PAS fusionné directement : il est laissé provisoire ici
+  // (max des deux) et RECALCULÉ par l'appelant depuis le totalXP retenu —
+  // Gamification.addXP(0) fait exactement ce recalcul sans nouvelle API.
+  out.profile.level = Math.max(local.profile.level, remote.profile.level);
+  out.profile.createdAt =
+    local.profile.createdAt < remote.profile.createdAt
+      ? local.profile.createdAt
+      : remote.profile.createdAt;
+
+  // streak : jamais de régression visible. Limite documentée : si l'usage
+  // alterne d'un jour sur l'autre sans jamais synchroniser, la vraie
+  // continuité combinée est sous-estimée — la reconstruire exigerait un
+  // historique de dates actives, hors périmètre de ce palier.
+  out.streak = {
+    current: Math.max(local.streak.current, remote.streak.current),
+    longest: Math.max(
+      local.streak.longest,
+      remote.streak.longest,
+      local.streak.current,
+      remote.streak.current
+    ),
+    lastActiveDate: maxDateStr(local.streak.lastActiveDate, remote.streak.lastActiveDate)
+  };
+
+  // dailyGoal et settings : LOCAL gagne toujours, par design — pas de la
+  // progression partagée, mais des compteurs/préférences propres à CET
+  // appareil (secondsToday mesure du temps-écran PHYSIQUE local ; sommer
+  // deux appareils n'aurait aucun sens et sur-compterait le bonus quotidien,
+  // déjà réglé via totalXP ci-dessus). Seule exception : goalMetToday, en OR
+  // — si l'objectif a été atteint sur L'UN des deux appareils aujourd'hui,
+  // il l'a été.
+  out.dailyGoal = {
+    minutesTarget: local.dailyGoal.minutesTarget,
+    todayDate: local.dailyGoal.todayDate,
+    secondsToday: local.dailyGoal.secondsToday,
+    goalMetToday: local.dailyGoal.goalMetToday || remote.dailyGoal.goalMetToday
+  };
+  out.settings = local.settings;
+
+  return out;
+}
+
 /**
  * Date au format "YYYY-MM-DD", en heure LOCALE (choix assumé : c'est ce que
  * l'utilisateur perçoit comme « aujourd'hui »).
@@ -707,6 +862,32 @@ function importJSON(text) {
   return { state: state, repairs: m.repairs };
 }
 
+/**
+ * Fusionne une sauvegarde distante (ex: Firestore) dans l'état local, au lieu
+ * de le REMPLACER comme importJSON. Même pipeline parse → plausibilité →
+ * migrate/validate que importJSON (mêmes erreurs propagées), mais l'étape
+ * finale appelle mergeStates au lieu d'écraser. Ne sauvegarde PAS elle-même :
+ * laisse l'appelant (Progress.cloudMerged) recalculer niveau et badges avant
+ * de flush — une fusion est un jalon, pas une écriture anodine.
+ * @param {string} text
+ * @returns {{state: PersistedState, repairs: string[]}}
+ * @throws {SyntaxError|InvalidSaveError|FutureVersionError} tous propagés,
+ *   comme importJSON.
+ */
+function mergeRemote(text) {
+  var parsed = JSON.parse(text);
+  assertPlausibleSave(parsed);
+  var m = migrate(parsed); // lève FutureVersionError si `remote` vient du futur
+  // Une sauvegarde locale déjà en lecture seule n'a, par définition, pas pu
+  // être validée à CURRENT_VERSION : la précondition de mergeStates (les DEUX
+  // entrées à CURRENT_VERSION) n'est pas remplie côté local. No-op plutôt que
+  // de fusionner une forme non validée.
+  if (readOnly) return { state: state, repairs: [] };
+  state = mergeStates(state, m.state);
+  ensureLessonStatuses();
+  return { state: state, repairs: m.repairs };
+}
+
 export const State = {
   STORAGE_KEY: STORAGE_KEY,
   load: load,
@@ -725,6 +906,8 @@ export const State = {
   _readVersion: readVersion,
   _migrations: MIGRATIONS,
   _maxBox: MAX_BOX_PERSISTED,
+  _xpLessonBonus: XP_LESSON_BONUS_PERSISTED,
+  _merge: mergeStates,
   _currentVersion: CURRENT_VERSION,
   save: save,
   get: get,
@@ -732,6 +915,7 @@ export const State = {
   todayStr: todayStr,
   exportJSON: exportJSON,
   importJSON: importJSON,
+  mergeRemote: mergeRemote,
   ensureLessonStatuses: ensureLessonStatuses,
   rolloverDay: rolloverDay
 };

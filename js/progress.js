@@ -214,6 +214,16 @@ function progressReset() {
  *
  * Une fusion est un JALON, comme sessionFinished : flush immédiat, pas de
  * throttle — l'appareil distant doit voir le résultat sans attendre 3 s.
+ *
+ * ⚠️ Ne touche/flush QUE si la fusion a RÉELLEMENT changé quelque chose
+ * (comparaison par valeur avant/après). C'est cette garde, et non la seule
+ * idempotence de State._merge, qui arrête la boucle push→pull→push : sans
+ * elle, un écho Firestore (un appareil qui reçoit sa propre écriture en
+ * retour) fusionnerait un état avec lui-même — un no-op en VALEUR — mais
+ * déclencherait quand même un save() puis un nouveau push, indéfiniment.
+ * La comparaison JSON brute est sûre ici (pas besoin de trier les clés) :
+ * tout état de cette app est construit par defaultState()/validate()/
+ * mergeStates, qui posent toujours les clés dans le même ordre.
  * @param {string} remoteText
  * @returns {{repairs: string[], leveledUp: boolean, newBadges: Badge[]}}
  * @throws {SyntaxError|InvalidSaveError|FutureVersionError} propagés depuis
@@ -221,8 +231,12 @@ function progressReset() {
  *   progressImported.
  */
 function cloudMerged(remoteText) {
+  var avant = JSON.stringify(State.get());
   var xpAvant = State.get().profile.totalXP;
   var m = State.mergeRemote(remoteText);
+  if (JSON.stringify(State.get()) === avant) {
+    return { repairs: m.repairs, leveledUp: false, newBadges: [] };
+  }
   var leveledUp = Gamification.addXP(0);
   var newBadges = Gamification.checkBadges();
   State.touch("profile");

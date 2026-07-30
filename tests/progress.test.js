@@ -290,9 +290,23 @@ describe("cloudMerged", () => {
     expect(r.newBadges).toEqual([]);
   });
 
-  it("écrit immédiatement : une fusion est un jalon", () => {
+  it("un écho Firestore (fusion avec soi-même) ne programme AUCUNE écriture", () => {
+    // C'est ce qui arrête la boucle push→pull→push : sans cette garde, un
+    // appareil qui reçoit sa propre écriture en retour la fusionnerait avec
+    // elle-même (no-op en valeur) mais écrirait quand même, indéfiniment.
     const espion = espionnerEcritures();
     Progress.cloudMerged(JSON.stringify(State.get()));
+    expect(espion).not.toHaveBeenCalled();
+    expect(State.isDirty()).toBe(false);
+  });
+
+  it("écrit immédiatement quand la fusion change réellement quelque chose : c'est un jalon", () => {
+    const distant = {
+      ...REALISTIC,
+      profile: { ...REALISTIC.profile, totalXP: REALISTIC.profile.totalXP + 100 }
+    };
+    const espion = espionnerEcritures();
+    Progress.cloudMerged(JSON.stringify(distant));
     expect(espion).toHaveBeenCalled(); // sans avancer les timers
   });
 });

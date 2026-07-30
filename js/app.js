@@ -1768,7 +1768,7 @@ function renderSettings() {
   } else {
     var emailInput = el("input", {
       type: "email",
-      class: "select",
+      class: "select email-input",
       placeholder: "ton@email.com"
     });
     card.appendChild(row("E-mail", emailInput));

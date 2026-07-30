@@ -1025,6 +1025,10 @@ h3 {
   font-family: inherit;
   font-weight: 700;
 }
+.email-input {
+  min-width: 220px;
+  flex: 1;
+}
 .rate-row {
   display: flex;
   align-items: center;

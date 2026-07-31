@@ -114,7 +114,7 @@ var IMG_BASE = import.meta.env.BASE_URL + "assets/img/";
 // <img> de la mascotte, avec repli sur l'emoji si l'image manque.
 // pose: base | happy | sad | celebrate | levelup ; cls: classe(s) de taille.
 /**
- * @param {"base"|"happy"|"sad"|"celebrate"|"levelup"} pose
+ * @param {"base"|"happy"|"sad"|"celebrate"|"levelup"|"head"} pose
  * @param {string} [cls]
  * @returns {HTMLImageElement}
  */

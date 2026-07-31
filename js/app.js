@@ -344,13 +344,13 @@ function updateHeader() {
   var prog = Gamification.levelProgress(s.profile.totalXP);
   clear(topbar);
   var brand = el("div", { class: "brand", onclick: function () { renderHome(); } }, [
-    UI.mascotImg("base", "brand-emoji"),
+    UI.mascotImg("head", "brand-emoji"),
     el("span", { class: "brand-name", text: "Polski z Żubrem" })
   ]);
   var stats = el("div", { class: "topstats" }, [
     stat("🔥", s.streak.current, "jours"),
     stat("⚡", s.profile.totalXP, "XP"),
-    stat("🎓", "Niv. " + s.profile.level, "")
+    stat("🎓", s.profile.level, "niv.")
   ]);
   var goalRatio = Gamification.dailyGoalRatio();
   var mins = Math.floor(s.dailyGoal.secondsToday / 60);
@@ -373,10 +373,9 @@ function updateHeader() {
     text: "⚙️",
     onclick: renderSettings
   });
+  var right = el("div", { class: "topbar-right" }, [stats, goal, settingsBtn]);
   topbar.appendChild(brand);
-  topbar.appendChild(stats);
-  topbar.appendChild(goal);
-  topbar.appendChild(settingsBtn);
+  topbar.appendChild(right);
 
   // En lecture seule, rien de ce que fait l'app ne doit avoir l'air enregistré.
   if (State.status().mode === "readonly") {

@@ -104,7 +104,14 @@ body {
 .topstats {
   display: flex;
   gap: 14px;
+}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
   margin-left: auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 .stat {
   display: flex;
@@ -1159,8 +1166,32 @@ input[type="checkbox"] {
   .brand-name {
     display: none;
   }
+  .brand-emoji {
+    font-size: 22px;
+  }
   .topstats {
     gap: 10px;
+  }
+  .topbar-right {
+    gap: 8px;
+  }
+  .stat-unit {
+    display: none;
+  }
+  .topgoal,
+  .topgoal .ring-wrap {
+    width: 36px;
+    height: 36px;
+  }
+  .topgoal .ring-label {
+    font-size: 10px;
+  }
+  .topgoal .ring-sub {
+    display: none;
+  }
+  .icon-btn {
+    font-size: 18px;
+    padding: 4px 6px;
   }
   .prompt-text {
     font-size: 24px;

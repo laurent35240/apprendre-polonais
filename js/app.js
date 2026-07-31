@@ -550,7 +550,7 @@ function lessonNode(lesson, s) {
           }
     },
     [
-      el("div", { class: "lesson-badge", text: done ? "✅" : String(lesson.order) }),
+      el("div", { class: "lesson-badge", text: String(lesson.order) }),
       el("div", { class: "lesson-info" }, [
         el("div", { class: "lesson-title", text: lesson.title }),
         el("div", {
@@ -613,7 +613,7 @@ function trailNode(index, lessons, s) {
         [
           el("span", {
             class: "trail-badge",
-            text: done ? "✅" : trail.icon
+            text: trail.icon
           }),
           el("div", { class: "trail-info" }, [
             el("div", { class: "trail-title", text: trail.name }),

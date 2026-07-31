@@ -1028,17 +1028,6 @@ function renderListen(card, ex) {
   card.appendChild(
     el("div", { class: "prompt listen-prompt" }, [audioButton(ex.audioText, true)])
   );
-  card.appendChild(
-    el("button", {
-      class: "link-btn",
-      text: "↻ Réécouter",
-      // Réécouter reste possible après réponse (cf. lockExerciseCard).
-      "data-keep-enabled": "1",
-      onclick: function () {
-        Speech.speak(ex.audioText);
-      }
-    })
-  );
   var opts = el("div", { class: "options" });
   ex.options.forEach(function (opt) {
     opts.appendChild(
@@ -1468,6 +1457,13 @@ function showFeedback(ex, correct, customMsg) {
       el("strong", { text: correct ? "Correct !" : "Presque…" })
     ]),
     el("div", { class: "feedback-msg", text: customMsg || line }),
+    ex.type === "listen"
+      ? el("div", { class: "feedback-answer" }, [
+          el("span", { text: "Mot entendu : " }),
+          el("strong", { class: "pl", text: ex.audioText }),
+          audioButton(ex.audioText, false)
+        ])
+      : null,
     correct
       ? null
       : el("div", { class: "feedback-answer" }, [

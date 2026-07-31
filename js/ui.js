@@ -4,6 +4,17 @@
    ===================================================================== */
 import { State } from "./state.js";
 
+// Insécable avant ! ? ; : — typographie française : ces signes ne doivent
+// jamais se retrouver seuls en début de ligne. Sans risque pour le polonais,
+// qui n'espace jamais ces signes (donc rien à remplacer dans ce cas).
+/**
+ * @param {string} s
+ * @returns {string}
+ */
+function frenchTypo(s) {
+  return s.replace(/ ([!?;:])/g, " $1");
+}
+
 // Crée un élément DOM. el('div', {class:'x'}, [child, 'texte'])
 // Génériqué sur le nom de balise : el("input", …) rend un HTMLInputElement,
 // donc `.value` / `.checked` / `.disabled` sont typés chez l'appelant sans
@@ -24,7 +35,7 @@ function el(tag, attrs, children) {
     // a[k] avec k générique s'élargit à l'union de toutes les propriétés.
     if (k === "class") node.className = /** @type {string} */ (v);
     else if (k === "html") node.innerHTML = /** @type {string} */ (v);
-    else if (k === "text") node.textContent = /** @type {string} */ (v);
+    else if (k === "text") node.textContent = frenchTypo(/** @type {string} */ (v));
     else if (k.indexOf("on") === 0 && typeof v === "function") {
       node.addEventListener(
         k.slice(2).toLowerCase(),
@@ -37,7 +48,7 @@ function el(tag, attrs, children) {
   if (children != null) {
     (Array.isArray(children) ? children : [children]).forEach(function (c) {
       if (c == null) return;
-      node.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+      node.appendChild(typeof c === "string" ? document.createTextNode(frenchTypo(c)) : c);
     });
   }
   return node;

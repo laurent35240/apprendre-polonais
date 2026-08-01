@@ -880,6 +880,33 @@ h3 {
   margin-top: 2px;
 }
 
+/* Compréhension de texte */
+.reading-passage {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--line);
+  background: var(--bg-2);
+  margin-bottom: 16px;
+}
+.reading-text p {
+  margin: 0 0 8px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.reading-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Production libre */
+.write-hint {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 6px 0 0;
+}
+
 /* Prononciation */
 .mic-wrap {
   display: flex;

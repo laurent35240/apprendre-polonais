@@ -120,7 +120,7 @@ describe("chargement de la fixture réaliste", () => {
     for (const l of Object.values(s.lessons)) {
       parStatut[l.status] = (parStatut[l.status] || 0) + 1;
     }
-    expect(parStatut).toEqual({ completed: 29, available: 4, locked: 7 });
+    expect(parStatut).toEqual({ completed: 29, available: 6, locked: 15 });
   });
 
   it("rolloverDay est un no-op : todayDate vaut déjà l'ancre", () => {

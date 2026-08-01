@@ -802,7 +802,7 @@ export const POLISH_LESSONS = [
   /* ================================ 15 =============================== */
   {
     id: "lesson-13",
-    order: 24,
+    order: 25,
     title: "Parler d'hier — le passé",
     theme: "passé",
     mascotIntro:
@@ -857,7 +857,7 @@ export const POLISH_LESSONS = [
   /* ================================ 16 =============================== */
   {
     id: "lesson-14",
-    order: 25,
+    order: 27,
     title: "La routine du matin — les verbes réfléchis (się)",
     theme: "routine",
     mascotIntro:
@@ -912,7 +912,7 @@ export const POLISH_LESSONS = [
   /* ================================ 17 =============================== */
   {
     id: "lesson-15",
-    order: 26,
+    order: 28,
     title: "Le corps et la santé — chez le médecin",
     theme: "santé",
     mascotIntro:
@@ -968,7 +968,7 @@ export const POLISH_LESSONS = [
   /* ================================ 18 =============================== */
   {
     id: "lesson-16",
-    order: 29,
+    order: 31,
     title: "En ville — trouver son chemin",
     theme: "ville",
     mascotIntro:
@@ -1024,7 +1024,7 @@ export const POLISH_LESSONS = [
   /* ================================ 19 =============================== */
   {
     id: "lesson-17",
-    order: 30,
+    order: 32,
     title: "Les transports — l'instrumental",
     theme: "instrumental",
     mascotIntro:
@@ -1080,7 +1080,7 @@ export const POLISH_LESSONS = [
   /* ================================ 20 =============================== */
   {
     id: "lesson-18",
-    order: 33,
+    order: 35,
     title: "Au marché et à table — le datif",
     theme: "datif",
     mascotIntro:
@@ -1136,7 +1136,7 @@ export const POLISH_LESSONS = [
   /* ================================ 21 =============================== */
   {
     id: "lesson-19",
-    order: 36,
+    order: 40,
     title: "Comparer — le comparatif et le superlatif",
     theme: "comparaisons",
     mascotIntro:
@@ -1192,7 +1192,7 @@ export const POLISH_LESSONS = [
   /* ================================ 22 =============================== */
   {
     id: "lesson-20",
-    order: 37,
+    order: 41,
     title: "La météo et les saisons",
     theme: "météo",
     mascotIntro:
@@ -1248,7 +1248,7 @@ export const POLISH_LESSONS = [
   /* ================================ 23 =============================== */
   {
     id: "lesson-21",
-    order: 39,
+    order: 43,
     title: "Au bureau et projets polis — le conditionnel",
     theme: "conditionnel",
     mascotIntro:
@@ -1862,7 +1862,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 23 — Sentiments ==================== */
   {
     id: "lesson-32",
-    order: 23,
+    order: 24,
     title: "Les sentiments et le caractère — uczucia",
     theme: "sentiments",
     mascotIntro:
@@ -1931,7 +1931,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 27 — Apparence ===================== */
   {
     id: "lesson-33",
-    order: 27,
+    order: 29,
     title: "Décrire les gens — l'apparence",
     theme: "apparence",
     mascotIntro:
@@ -2000,7 +2000,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 28 — Impératif ===================== */
   {
     id: "lesson-34",
-    order: 28,
+    order: 30,
     title: "Ordres et conseils — l'impératif",
     theme: "impératif",
     mascotIntro:
@@ -2069,7 +2069,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 31 — Voyage ======================== */
   {
     id: "lesson-35",
-    order: 31,
+    order: 33,
     title: "Voyage et hébergement — podróże",
     theme: "voyage",
     mascotIntro:
@@ -2138,7 +2138,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 32 — Téléphone ===================== */
   {
     id: "lesson-36",
-    order: 32,
+    order: 34,
     title: "Au téléphone et en ligne — telefon i internet",
     theme: "communication",
     mascotIntro:
@@ -2207,7 +2207,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 34 — Fêtes ========================= */
   {
     id: "lesson-37",
-    order: 34,
+    order: 36,
     title: "Fêtes et traditions — święta",
     theme: "fêtes",
     mascotIntro:
@@ -2276,7 +2276,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 35 — Pronoms ======================= */
   {
     id: "lesson-38",
-    order: 35,
+    order: 38,
     title: "Les pronoms déclinés — mnie, cię, go, ją",
     theme: "pronoms",
     mascotIntro:
@@ -2345,7 +2345,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 38 — Nature ======================== */
   {
     id: "lesson-39",
-    order: 38,
+    order: 42,
     title: "La nature et les animaux — przyroda",
     theme: "nature",
     mascotIntro:
@@ -2414,7 +2414,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 40 — Récit ========================= */
   {
     id: "lesson-40",
-    order: 40,
+    order: 49,
     title: "Raconter une histoire — récit au passé",
     theme: "récit",
     mascotIntro:
@@ -2477,6 +2477,690 @@ export const POLISH_LESSONS = [
           { who: "A", pl: "I co dalej?", fr: "Et après ?" },
           { who: "B", pl: "W końcu wróciłem do domu.", fr: "Finalement je suis rentré à la maison.",
             target: true, wordBank: ["W", "końcu", "wróciłem", "do", "domu", "potem"] }
+        ]
+      }
+    ]
+  },
+
+  /* =====================================================================
+     LEÇONS B1 — intercalées via `order`, comme le bloc A2 ci-dessus.
+     ⚠️ Contenu à faire relire par une personne polonophone.
+     Référence de calibrage : "Z językiem polskim każdego dnia" (Mandziej,
+     2020), niveau annoncé "A2 z elementami B1" — cf. plan.
+     ===================================================================== */
+
+  /* ======================= order 23 — Adjectif (cas) ================= */
+  {
+    id: "lesson-43",
+    order: 23,
+    title: "L'adjectif décliné à tous les cas",
+    theme: "adjectifs",
+    mascotIntro:
+      "Żubr veut décrire son voisin sympathique, sa décision difficile, son ami curieux — dans tous les cas, pas seulement au nominatif et à l'accusatif. 🧩",
+    grammarNotes: [
+      {
+        id: "g-43-1",
+        title: "L'adjectif au génitif",
+        explanationFr:
+          "Après « nie ma » et les verbes qui demandent le génitif (szukać, potrzebować) : féminin -a → -ej (miła → miłej), masculin/neutre -y/-i/-e → -ego (miły → miłego, gotowe → gotowego).",
+        examples: [
+          { pl: "Szukam miłego sąsiada.", fr: "Je cherche un voisin sympathique.", note: "génitif masc." },
+          { pl: "Nie mam gotowego rozwiązania.", fr: "Je n'ai pas de solution toute prête." }
+        ]
+      },
+      {
+        id: "g-43-2",
+        title: "L'adjectif à l'instrumental et au locatif",
+        explanationFr:
+          "Instrumental (z, przez) : -ym (masc./neutre), -ą (fém.). Locatif (o, w, na) : -ym (masc./neutre), -ej (fém.). « Rozmawiam z miłym sąsiadem », « Myślę o trudnej decyzji ».",
+        examples: [
+          { pl: "Rozmawiam z zajętym kolegą.", fr: "Je parle avec un collègue occupé.", note: "instrumental" },
+          { pl: "Myślę o trudnej decyzji.", fr: "Je pense à une décision difficile.", note: "locatif" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-43-sasiad", pl: "sąsiad", fr: "le voisin", category: "personne" },
+      { id: "v-43-rozwiazanie", pl: "rozwiązanie", fr: "la solution", category: "objet" },
+      { id: "v-43-decyzja", pl: "decyzja", fr: "la décision", category: "objet" },
+      { id: "v-43-problem", pl: "problem", fr: "le problème", category: "objet" },
+      { id: "v-43-zajety", pl: "zajęty", fr: "occupé", category: "description" },
+      { id: "v-43-pewny", pl: "pewny", fr: "sûr / certain", category: "description" },
+      { id: "v-43-gotowy", pl: "gotowy", fr: "prêt", category: "description" },
+      { id: "v-43-znany", pl: "znany", fr: "connu / célèbre", category: "description" },
+      { id: "v-43-szukac", pl: "szukać", fr: "chercher (+ génitif)", category: "verbe" },
+      { id: "v-43-potrzebowac", pl: "potrzebować", fr: "avoir besoin de (+ génitif)", category: "verbe" },
+      { id: "v-43-rozmawiac", pl: "rozmawiać", fr: "discuter / parler avec", category: "verbe" }
+    ],
+    sentences: [
+      { id: "s-43-1", pl: "Szukam miłego sąsiada.", fr: "Je cherche un voisin sympathique.", grammarFocus: "g-43-1",
+        wordBank: ["Szukam", "miłego", "sąsiada", "miły", "sąsiad"] },
+      { id: "s-43-2", pl: "Nie mam gotowego rozwiązania.", fr: "Je n'ai pas de solution toute prête.", grammarFocus: "g-43-1",
+        wordBank: ["Nie", "mam", "gotowego", "rozwiązania", "gotowe", "rozwiązanie"] },
+      { id: "s-43-3", pl: "Rozmawiam z zajętym kolegą.", fr: "Je parle avec un collègue occupé.", grammarFocus: "g-43-2",
+        wordBank: ["Rozmawiam", "z", "zajętym", "kolegą", "zajęty", "kolega"] },
+      { id: "s-43-4", pl: "Myślę o trudnej decyzji.", fr: "Je pense à une décision difficile.", grammarFocus: "g-43-2",
+        wordBank: ["Myślę", "o", "trudnej", "decyzji", "trudna", "decyzja"] }
+    ]
+  },
+
+  /* ==================== order 26 — Aspect approfondi ================== */
+  {
+    id: "lesson-41",
+    order: 26,
+    title: "Aspect approfondi : perfectif et imperfectif à l'usage",
+    theme: "aspect",
+    mascotIntro:
+      "Żubr sait déjà qu'il existe deux verbes pour une même action. Il est temps de vraiment s'en servir — au passé, au futur, sans « będę ». 🔁",
+    grammarNotes: [
+      {
+        id: "g-41-1",
+        title: "Le futur perfectif, sans « będę »",
+        explanationFr:
+          "Le perfectif se conjugue comme le présent mais désigne un futur ponctuel et achevé : przeczytam (je lirai), napiszę (j'écrirai), skończę (je finirai). Jamais de « będę » avec un verbe perfectif.",
+        examples: [
+          { pl: "Przeczytam tę książkę do piątku.", fr: "Je lirai ce livre avant vendredi.", note: "perfectif" },
+          { pl: "Napiszę ci wiadomość, jak tylko skończę.", fr: "Je t'écrirai un message dès que j'aurai fini." }
+        ]
+      },
+      {
+        id: "g-41-2",
+        title: "Paires aspectuelles courantes",
+        explanationFr:
+          "Beaucoup de paires changent de radical : iść/pójść (aller à pied), jechać/pojechać (aller en véhicule), widzieć/zobaczyć (voir). Le perfectif marque un résultat ponctuel, pas une habitude.",
+        examples: [
+          { pl: "Codziennie idę do pracy, ale dziś pójdę wcześniej.", fr: "Chaque jour je vais au travail, mais aujourd'hui j'irai plus tôt.", note: "imperfectif puis perfectif" },
+          { pl: "Wczoraj zobaczyłem coś dziwnego.", fr: "Hier j'ai vu quelque chose de bizarre.", note: "perfectif, passé ponctuel" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-41-przeczytac", pl: "przeczytać", fr: "lire (perfectif)", category: "verbe" },
+      { id: "v-41-napisac", pl: "napisać", fr: "écrire (perfectif)", category: "verbe" },
+      { id: "v-41-zobaczyc", pl: "zobaczyć", fr: "voir (perfectif)", category: "verbe" },
+      { id: "v-41-powiedziec", pl: "powiedzieć", fr: "dire (perfectif)", category: "verbe" },
+      { id: "v-41-pojsc", pl: "pójść", fr: "aller à pied (perfectif)", category: "verbe" },
+      { id: "v-41-pojechac", pl: "pojechać", fr: "aller en véhicule (perfectif)", category: "verbe" },
+      { id: "v-41-skonczyc", pl: "skończyć", fr: "finir / terminer (perfectif)", category: "verbe" },
+      { id: "v-41-zaczac", pl: "zacząć", fr: "commencer (perfectif)", category: "verbe" },
+      { id: "v-41-czasami", pl: "czasami", fr: "parfois", category: "adverbe" },
+      { id: "v-41-znowu", pl: "znowu", fr: "encore une fois / à nouveau", category: "adverbe" },
+      { id: "v-41-wreszcie", pl: "wreszcie", fr: "enfin", category: "adverbe" }
+    ],
+    sentences: [
+      { id: "s-41-1", pl: "Codziennie idę do pracy, ale dziś pójdę wcześniej.", fr: "Chaque jour je vais au travail, mais aujourd'hui j'irai plus tôt.", grammarFocus: "g-41-2",
+        wordBank: ["Codziennie", "idę", "do", "pracy", "ale", "dziś", "pójdę", "wcześniej"] },
+      { id: "s-41-2", pl: "Przeczytam tę książkę do piątku.", fr: "Je lirai ce livre avant vendredi.", grammarFocus: "g-41-1",
+        wordBank: ["Przeczytam", "tę", "książkę", "do", "piątku", "czytam"] },
+      { id: "s-41-3", pl: "Wczoraj zobaczyłem coś dziwnego.", fr: "Hier j'ai vu quelque chose de bizarre.", grammarFocus: "g-41-2",
+        wordBank: ["Wczoraj", "zobaczyłem", "coś", "dziwnego", "widziałem"] },
+      { id: "s-41-4", pl: "Napiszę ci wiadomość, jak tylko skończę.", fr: "Je t'écrirai un message dès que j'aurai fini.", grammarFocus: "g-41-1",
+        wordBank: ["Napiszę", "ci", "wiadomość", "jak", "tylko", "skończę", "piszę"] }
+    ],
+    productions: [
+      { id: "p-41-1", prompt: "Transforme au perfectif : tu es en train d'écrire une lettre (« Piszę list. ») → dis que tu l'AURAS TERMINÉE ce soir.",
+        answers: ["Napiszę list wieczorem.", "Napiszę ten list wieczorem."], grammarFocus: "g-41-1", hint: "napisać = perfectif de pisać" },
+      { id: "p-41-2", prompt: "Transforme au passé perfectif : « Codziennie idę do szkoły. » → dis qu'hier, pour une fois, tu ES ALLÉ à l'école en retard.",
+        answers: ["Wczoraj poszedłem do szkoły późno.", "Wczoraj poszłam do szkoły późno."], grammarFocus: "g-41-2", hint: "pójść = perfectif de iść" },
+      { id: "p-41-3", prompt: "Dis, sans « będę » : « Je le finirai demain. »",
+        answers: ["Skończę to jutro."], grammarFocus: "g-41-1" }
+    ]
+  },
+
+  /* ========================= order 37 — Vocatif ======================= */
+  {
+    id: "lesson-42",
+    order: 37,
+    title: "Le vocatif : s'adresser à quelqu'un",
+    theme: "vocatif",
+    mascotIntro:
+      "« Mamo! Tato! Kochanie! » — pour interpeller quelqu'un directement, le polonais a un cas à part : le vocatif. Żubr t'apprend à appeler ses amis ! 📣",
+    grammarNotes: [
+      {
+        id: "g-42-1",
+        title: "Le vocatif des noms et prénoms féminins",
+        explanationFr:
+          "Pour appeler quelqu'un, on utilise le vocatif. Les noms féminins en -a prennent -o : mama → mamo!, Anna → Anno!. Le titre « Pani » ne change pas.",
+        examples: [
+          { pl: "Mamo, gdzie jesteś?", fr: "Maman, où es-tu ?" },
+          { pl: "Anno, chodź tutaj!", fr: "Anna, viens ici !" }
+        ]
+      },
+      {
+        id: "g-42-2",
+        title: "Le vocatif masculin et les formules de politesse",
+        explanationFr:
+          "Les prénoms masculins prennent -u ou -e selon la consonne finale : Tomek → Tomku!, Piotr → Piotrze!. « Pan » devient « Panie! » (Panie Piotrze! = Monsieur Piotr !).",
+        examples: [
+          { pl: "Panie Piotrze, ma Pan chwilę?", fr: "Monsieur Piotr, avez-vous un instant ?" },
+          { pl: "Tomku, wszystkiego najlepszego!", fr: "Tomek, tous mes vœux !" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-42-mamo", pl: "mamo", fr: "maman ! (en l'appelant)", category: "vocatif" },
+      { id: "v-42-tato", pl: "tato", fr: "papa ! (en l'appelant)", category: "vocatif" },
+      { id: "v-42-kochanie", pl: "kochanie", fr: "mon/ma chéri(e) (en l'appelant)", category: "vocatif" },
+      { id: "v-42-anno", pl: "Anno", fr: "Anna ! (vocatif du prénom)", category: "vocatif" },
+      { id: "v-42-panie", pl: "Panie", fr: "Monsieur ! (vocatif de Pan)", category: "vocatif" },
+      { id: "v-42-pani", pl: "Pani", fr: "Madame ! (vocatif de Pani, invariable)", category: "vocatif" },
+      { id: "v-42-przyjacielu", pl: "przyjacielu", fr: "mon ami ! (vocatif de przyjaciel)", category: "vocatif" },
+      { id: "v-42-kolego", pl: "kolego", fr: "collègue / copain ! (vocatif de kolega)", category: "vocatif" },
+      { id: "v-42-boze", pl: "Boże", fr: "mon Dieu ! (vocatif irrégulier de Bóg, très courant)", category: "vocatif" },
+      { id: "v-42-chwila", pl: "chwila", fr: "l'instant / le moment", category: "objet" },
+      { id: "v-42-przyjaciel", pl: "przyjaciel", fr: "l'ami", category: "personne" }
+    ],
+    sentences: [
+      { id: "s-42-1", pl: "Mamo, gdzie jesteś?", fr: "Maman, où es-tu ?", grammarFocus: "g-42-1",
+        wordBank: ["Mamo", "gdzie", "jesteś"] },
+      { id: "s-42-2", pl: "Anno, chodź tutaj!", fr: "Anna, viens ici !", grammarFocus: "g-42-1",
+        wordBank: ["Anno", "chodź", "tutaj"] },
+      { id: "s-42-3", pl: "Panie Piotrze, ma Pan chwilę?", fr: "Monsieur Piotr, avez-vous un instant ?", grammarFocus: "g-42-2",
+        wordBank: ["Panie", "Piotrze", "ma", "Pan", "chwilę", "Pani"] },
+      { id: "s-42-4", pl: "Tomku, wszystkiego najlepszego!", fr: "Tomek, tous mes vœux !", grammarFocus: "g-42-2",
+        wordBank: ["Tomku", "wszystkiego", "najlepszego"] }
+    ],
+    dialogues: [
+      {
+        id: "d-42-1",
+        title: "Salutation formelle",
+        lines: [
+          { who: "A", pl: "Panie Piotrze, dzień dobry!", fr: "Monsieur Piotr, bonjour !" },
+          { who: "B", pl: "Dzień dobry! Co słychać?", fr: "Bonjour ! Quoi de neuf ?" },
+          { who: "A", pl: "Wszystko dobrze, dziękuję. A u Pana?", fr: "Tout va bien, merci. Et vous ?" },
+          { who: "B", pl: "Też dobrze, dziękuję Panie.", fr: "Bien aussi, merci Monsieur.",
+            target: true, wordBank: ["Też", "dobrze", "dziękuję", "Panie", "Pani"] }
+        ]
+      }
+    ]
+  },
+
+  /* ================== order 39 — Pronoms déclinés (cas) ================ */
+  {
+    id: "lesson-44",
+    order: 39,
+    title: "Les pronoms déclinés à tous les cas",
+    theme: "pronoms",
+    mascotIntro:
+      "« Chez moi, sans toi, avec lui, à propos d'elle » — après une préposition, les pronoms prennent encore d'autres formes. Dernière étape ! 🔗",
+    grammarNotes: [
+      {
+        id: "g-44-1",
+        title: "Les pronoms au génitif : u, bez, od + pronom",
+        explanationFr:
+          "Après u (chez), bez (sans), od (de, depuis) : u mnie (chez moi), bez ciebie (sans toi), od niego (de lui). Après une préposition, il/elle/eux prennent une forme en -n- (niego, niej, nich).",
+        examples: [
+          { pl: "Zostanę u niej na obiad.", fr: "Je resterai chez elle pour le déjeuner.", note: "génitif" },
+          { pl: "Nie mogę żyć bez ciebie.", fr: "Je ne peux pas vivre sans toi." }
+        ]
+      },
+      {
+        id: "g-44-2",
+        title: "Les pronoms à l'instrumental et au locatif : z, o + pronom",
+        explanationFr:
+          "Avec (z) : ze mną, z tobą, z nim, z nią (instrumental). À propos de (o) : o mnie, o tobie, o nim, o niej (locatif).",
+        examples: [
+          { pl: "Chcę iść z tobą.", fr: "Je veux aller avec toi.", note: "instrumental" },
+          { pl: "Myślę o nim cały czas.", fr: "Je pense à lui tout le temps.", note: "locatif" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-44-mna", pl: "mną", fr: "moi (instrumental, après « z »)", category: "pronom" },
+      { id: "v-44-toba", pl: "tobą", fr: "toi (instrumental)", category: "pronom" },
+      { id: "v-44-nim", pl: "nim", fr: "lui (instrumental/locatif)", category: "pronom" },
+      { id: "v-44-nia", pl: "nią", fr: "elle (instrumental)", category: "pronom" },
+      { id: "v-44-niego", pl: "niego", fr: "lui (génitif, après préposition)", category: "pronom" },
+      { id: "v-44-niej", pl: "niej", fr: "elle (génitif/locatif, après préposition)", category: "pronom" },
+      { id: "v-44-nami", pl: "nami", fr: "nous (instrumental)", category: "pronom" },
+      { id: "v-44-wami", pl: "wami", fr: "vous (instrumental)", category: "pronom" },
+      { id: "v-44-nich", pl: "nich", fr: "eux/elles (génitif/locatif, après préposition)", category: "pronom" },
+      { id: "v-44-ciebie", pl: "ciebie", fr: "toi (génitif, forme longue)", category: "pronom" },
+      { id: "v-44-bez", pl: "bez", fr: "sans (+ génitif)", category: "préposition" },
+      { id: "v-44-u", pl: "u", fr: "chez (+ génitif)", category: "préposition" }
+    ],
+    sentences: [
+      { id: "s-44-1", pl: "Zostanę u niej na obiad.", fr: "Je resterai chez elle pour le déjeuner.", grammarFocus: "g-44-1",
+        wordBank: ["Zostanę", "u", "niej", "na", "obiad"] },
+      { id: "s-44-2", pl: "Nie mogę żyć bez ciebie.", fr: "Je ne peux pas vivre sans toi.", grammarFocus: "g-44-1",
+        wordBank: ["Nie", "mogę", "żyć", "bez", "ciebie"] },
+      { id: "s-44-3", pl: "Chcę iść z tobą.", fr: "Je veux aller avec toi.", grammarFocus: "g-44-2",
+        wordBank: ["Chcę", "iść", "z", "tobą"] },
+      { id: "s-44-4", pl: "Myślę o nim cały czas.", fr: "Je pense à lui tout le temps.", grammarFocus: "g-44-2",
+        wordBank: ["Myślę", "o", "nim", "cały", "czas"] }
+    ]
+  },
+
+  /* ================== order 44 — Subordonnées relatives ================ */
+  {
+    id: "lesson-45",
+    order: 44,
+    title: "Subordonnées relatives : który / która / które",
+    theme: "relatives",
+    mascotIntro:
+      "« Znam osobę, KTÓRA mówi po polsku. » Żubr relie enfin deux phrases en une seule grâce au pronom relatif ! 🔗",
+    grammarNotes: [
+      {
+        id: "g-45-1",
+        title: "Który/która/które : accord avec le nom",
+        explanationFr:
+          "« który » (masc.), « która » (fém.), « które » (neutre/pluriel) s'accordent avec le nom qu'ils remplacent, pas avec le sujet de la phrase. « Kobieta, KTÓRA śpiewa » (la femme qui chante).",
+        examples: [
+          { pl: "To jest kobieta, która śpiewa.", fr: "C'est la femme qui chante." },
+          { pl: "Znam mężczyznę, który tam stoi.", fr: "Je connais l'homme qui se tient là." }
+        ]
+      },
+      {
+        id: "g-45-2",
+        title: "Który se décline selon sa fonction dans la relative",
+        explanationFr:
+          "« który » prend le cas exigé par son rôle DANS la relative, pas dans la phrase principale : sujet → który/która, complément d'objet → którego/którą, avec préposition → le cas demandé par la préposition.",
+        examples: [
+          { pl: "To jest serial, który oglądam.", fr: "C'est la série que je regarde.", note: "accusatif" },
+          { pl: "To jest dom, w którym mieszkam.", fr: "C'est la maison dans laquelle j'habite.", note: "locatif" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-45-ktory", pl: "który", fr: "qui / que (masc., sujet)", category: "pronom" },
+      { id: "v-45-ktora", pl: "która", fr: "qui / que (fém., sujet)", category: "pronom" },
+      { id: "v-45-ktore", pl: "które", fr: "qui / que (neutre/pluriel, sujet)", category: "pronom" },
+      { id: "v-45-ktorego", pl: "którego", fr: "que (masc./neutre, complément)", category: "pronom" },
+      { id: "v-45-ktora-comp", pl: "którą", fr: "que (fém., complément)", category: "pronom" },
+      { id: "v-45-ktorym", pl: "którym", fr: "lequel (locatif/instrumental, masc./neutre)", category: "pronom" },
+      { id: "v-45-mezczyzna", pl: "mężczyzna", fr: "l'homme", category: "personne" },
+      { id: "v-45-kobieta", pl: "kobieta", fr: "la femme", category: "personne" },
+      { id: "v-45-serial", pl: "serial", fr: "la série (TV)", category: "objet" },
+      { id: "v-45-ogladac", pl: "oglądać", fr: "regarder", category: "verbe" },
+      { id: "v-45-stac", pl: "stać", fr: "se tenir (debout)", category: "verbe" },
+      { id: "v-45-spiewac", pl: "śpiewać", fr: "chanter", category: "verbe" }
+    ],
+    sentences: [
+      { id: "s-45-1", pl: "To jest kobieta, która śpiewa.", fr: "C'est la femme qui chante.", grammarFocus: "g-45-1",
+        wordBank: ["To", "jest", "kobieta", "która", "śpiewa", "który"] },
+      { id: "s-45-2", pl: "Znam mężczyznę, który tam stoi.", fr: "Je connais l'homme qui se tient là.", grammarFocus: "g-45-1",
+        wordBank: ["Znam", "mężczyznę", "który", "tam", "stoi", "która"] },
+      { id: "s-45-3", pl: "To jest serial, który oglądam.", fr: "C'est la série que je regarde.", grammarFocus: "g-45-2",
+        wordBank: ["To", "jest", "serial", "który", "oglądam", "którego"] },
+      { id: "s-45-4", pl: "To jest dom, w którym mieszkam.", fr: "C'est la maison dans laquelle j'habite.", grammarFocus: "g-45-2",
+        wordBank: ["To", "jest", "dom", "w", "którym", "mieszkam", "której"] }
+    ],
+    readings: [
+      {
+        id: "r-45-1",
+        title: "Mój sąsiad",
+        paragraphs: [
+          "Mam sąsiada, który nazywa się Marek.",
+          "Marek jest mężczyzną, który zawsze wstaje bardzo wcześnie.",
+          "To jest osoba, którą bardzo lubię, ponieważ jest zawsze uśmiechnięta.",
+          "Wieczorem oglądamy razem serial, który oglądamy już od miesiąca."
+        ],
+        questions: [
+          { id: "rq-45-1", question: "Comment s'appelle le voisin ?", options: ["Marek", "Piotr", "Tomek"], answer: "Marek" },
+          { id: "rq-45-2", question: "Que fait Marek chaque matin ?", options: ["Il se lève très tôt", "Il dort tard", "Il part en voyage"], answer: "Il se lève très tôt" },
+          { id: "rq-45-3", question: "Pourquoi l'auteur aime bien Marek ?", options: ["Parce qu'il est toujours souriant", "Parce qu'il est riche", "Parce qu'il chante bien"], answer: "Parce qu'il est toujours souriant" }
+        ]
+      }
+    ]
+  },
+
+  /* ==================== order 45 — Complétives et opinion ============== */
+  {
+    id: "lesson-46",
+    order: 45,
+    title: "Donner son avis : complétives en « że »",
+    theme: "opinion",
+    mascotIntro:
+      "« Myślę, że… », « Uważam, że… » — Żubr a un avis sur tout, et il sait enfin comment le dire correctement ! 🗣️",
+    grammarNotes: [
+      {
+        id: "g-46-1",
+        title: "Les complétives avec « że »",
+        explanationFr:
+          "« że » (que) introduit une proposition complétive après des verbes d'opinion : myślę, że… (je pense que…), wiem, że… (je sais que…). La virgule avant « że » est obligatoire.",
+        examples: [
+          { pl: "Myślę, że to dobry plan.", fr: "Je pense que c'est un bon plan." },
+          { pl: "Wiem, że masz rację.", fr: "Je sais que tu as raison." }
+        ]
+      },
+      {
+        id: "g-46-2",
+        title: "Donner et nuancer son opinion",
+        explanationFr:
+          "« Moim zdaniem » (à mon avis), « uważam, że » (je considère que), « zgadzam się / nie zgadzam się » (je suis / ne suis pas d'accord).",
+        examples: [
+          { pl: "Moim zdaniem to świetny film.", fr: "À mon avis, c'est un excellent film." },
+          { pl: "Nie zgadzam się z tobą.", fr: "Je ne suis pas d'accord avec toi." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-46-myslec", pl: "myśleć", fr: "penser", category: "verbe" },
+      { id: "v-46-sadzic", pl: "sądzić", fr: "croire / juger", category: "verbe" },
+      { id: "v-46-uwazac", pl: "uważać", fr: "considérer / estimer", category: "verbe" },
+      { id: "v-46-zgadzac", pl: "zgadzać się", fr: "être d'accord", category: "verbe" },
+      { id: "v-46-dyskutowac", pl: "dyskutować", fr: "discuter / débattre", category: "verbe" },
+      { id: "v-46-moim-zdaniem", pl: "moim zdaniem", fr: "à mon avis", category: "opinion" },
+      { id: "v-46-zdanie", pl: "zdanie", fr: "la phrase / l'avis", category: "opinion" },
+      { id: "v-46-opinia", pl: "opinia", fr: "l'opinion", category: "opinion" },
+      { id: "v-46-racja", pl: "racja", fr: "la raison / le bon droit", category: "opinion" },
+      { id: "v-46-chyba", pl: "chyba", fr: "je crois / peut-être", category: "adverbe" },
+      { id: "v-46-ze", pl: "że", fr: "que (conjonction)", category: "grammaire" }
+    ],
+    sentences: [
+      { id: "s-46-1", pl: "Myślę, że to dobry plan.", fr: "Je pense que c'est un bon plan.", grammarFocus: "g-46-1",
+        wordBank: ["Myślę", "że", "to", "dobry", "plan"] },
+      { id: "s-46-2", pl: "Wiem, że masz rację.", fr: "Je sais que tu as raison.", grammarFocus: "g-46-1",
+        wordBank: ["Wiem", "że", "masz", "rację", "racja"] },
+      { id: "s-46-3", pl: "Moim zdaniem to świetny film.", fr: "À mon avis, c'est un excellent film.", grammarFocus: "g-46-2",
+        wordBank: ["Moim", "zdaniem", "to", "świetny", "film"] },
+      { id: "s-46-4", pl: "Nie zgadzam się z tobą.", fr: "Je ne suis pas d'accord avec toi.", grammarFocus: "g-46-2",
+        wordBank: ["Nie", "zgadzam", "się", "z", "tobą"] }
+    ],
+    dialogues: [
+      {
+        id: "d-46-1",
+        title: "Un petit débat",
+        lines: [
+          { who: "A", pl: "Moim zdaniem ten serial jest nudny.", fr: "À mon avis, cette série est ennuyeuse." },
+          { who: "B", pl: "Nie zgadzam się z tobą, jest świetny!", fr: "Je ne suis pas d'accord avec toi, elle est excellente !" },
+          { who: "A", pl: "Może masz rację.", fr: "Peut-être que tu as raison." },
+          { who: "B", pl: "Myślę, że powinniśmy obejrzeć jeszcze jeden odcinek.", fr: "Je pense qu'on devrait regarder encore un épisode.",
+            target: true, wordBank: ["Myślę", "że", "powinniśmy", "obejrzeć", "jeszcze", "jeden", "odcinek", "sądzę"] }
+        ]
+      }
+    ],
+    productions: [
+      { id: "p-46-1", prompt: "Donne ton avis : à ton avis, le café est délicieux.",
+        answers: ["Moim zdaniem kawa jest smaczna.", "Uważam, że kawa jest smaczna.", "Myślę, że kawa jest dobra."], grammarFocus: "g-46-2", hint: "moim zdaniem / uważam, że…" },
+      { id: "p-46-2", prompt: "Dis que tu es d'accord avec quelqu'un : « Je suis d'accord avec toi. »",
+        answers: ["Zgadzam się z tobą."], grammarFocus: "g-46-2" },
+      { id: "p-46-3", prompt: "Complète : « Je sais que tu as raison. »",
+        answers: ["Wiem, że masz rację."], grammarFocus: "g-46-1" }
+    ]
+  },
+
+  /* ======================= order 46 — Cause et but ===================== */
+  {
+    id: "lesson-47",
+    order: 46,
+    title: "Cause et but : ponieważ, bo, żeby",
+    theme: "cause",
+    mascotIntro:
+      "« Ponieważ jest zimno… » Żubr explique enfin POURQUOI il fait les choses, et POUR QUOI il les fait. 🎯",
+    grammarNotes: [
+      {
+        id: "g-47-1",
+        title: "Exprimer la cause : bo, ponieważ",
+        explanationFr:
+          "« bo » (car, familier) et « ponieważ » (parce que, plus formel) introduisent une cause, placées après la conséquence. Point de grammaire attesté au niveau A2+B1.",
+        examples: [
+          { pl: "Nie idę, bo jestem chory.", fr: "Je n'y vais pas car je suis malade." },
+          { pl: "Zostałem w domu, ponieważ padał deszcz.", fr: "Je suis resté à la maison parce qu'il pleuvait." }
+        ]
+      },
+      {
+        id: "g-47-2",
+        title: "Exprimer le but : żeby",
+        explanationFr:
+          "« żeby » (pour que / afin de) introduit un but. Même sujet dans les deux propositions : żeby + infinitif. Sujets différents : żeby + forme spéciale (żebyś, żebym…).",
+        examples: [
+          { pl: "Pracuję, żeby zarobić pieniądze.", fr: "Je travaille pour gagner de l'argent.", note: "même sujet : żeby + infinitif" },
+          { pl: "Mówię głośno, żebyś mnie usłyszał.", fr: "Je parle fort pour que tu m'entendes.", note: "sujets différents" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-47-bo", pl: "bo", fr: "car (familier)", category: "connecteur" },
+      { id: "v-47-poniewaz", pl: "ponieważ", fr: "parce que", category: "connecteur" },
+      { id: "v-47-dlatego-ze", pl: "dlatego że", fr: "parce que (formel)", category: "connecteur" },
+      { id: "v-47-zeby", pl: "żeby", fr: "pour que / afin de", category: "connecteur" },
+      { id: "v-47-zarobic", pl: "zarobić", fr: "gagner (de l'argent)", category: "verbe" },
+      { id: "v-47-usłyszec", pl: "usłyszeć", fr: "entendre (perfectif)", category: "verbe" },
+      { id: "v-47-padac", pl: "padać", fr: "tomber (pluie/neige)", category: "verbe" },
+      { id: "v-47-glosno", pl: "głośno", fr: "fort / à voix haute", category: "adverbe" },
+      { id: "v-47-cicho", pl: "cicho", fr: "doucement / silencieusement", category: "adverbe" },
+      { id: "v-47-powod", pl: "powód", fr: "la raison / la cause", category: "objet" },
+      { id: "v-47-cel", pl: "cel", fr: "le but", category: "objet" }
+    ],
+    sentences: [
+      { id: "s-47-1", pl: "Nie idę, bo jestem chory.", fr: "Je n'y vais pas car je suis malade.", grammarFocus: "g-47-1",
+        wordBank: ["Nie", "idę", "bo", "jestem", "chory", "ponieważ"] },
+      { id: "s-47-2", pl: "Zostałem w domu, ponieważ padał deszcz.", fr: "Je suis resté à la maison parce qu'il pleuvait.", grammarFocus: "g-47-1",
+        wordBank: ["Zostałem", "w", "domu", "ponieważ", "padał", "deszcz", "bo"] },
+      { id: "s-47-3", pl: "Pracuję, żeby zarobić pieniądze.", fr: "Je travaille pour gagner de l'argent.", grammarFocus: "g-47-2",
+        wordBank: ["Pracuję", "żeby", "zarobić", "pieniądze"] },
+      { id: "s-47-4", pl: "Mówię głośno, żebyś mnie usłyszał.", fr: "Je parle fort pour que tu m'entendes.", grammarFocus: "g-47-2",
+        wordBank: ["Mówię", "głośno", "żebyś", "mnie", "usłyszał"] }
+    ],
+    productions: [
+      { id: "p-47-1", prompt: "Explique pourquoi tu restes à la maison (cause : il fait froid, « zimno »).",
+        answers: ["Zostaję w domu, bo jest zimno.", "Zostaję w domu, ponieważ jest zimno."], grammarFocus: "g-47-1" },
+      { id: "p-47-2", prompt: "Exprime un but : « J'apprends le polonais pour parler avec ma famille. »",
+        answers: ["Uczę się polskiego, żeby rozmawiać z rodziną."], grammarFocus: "g-47-2", hint: "żeby + infinitif si le sujet est le même" },
+      { id: "p-47-3", prompt: "Dis : « Je ne viens pas car je suis occupé. »",
+        answers: ["Nie przychodzę, bo jestem zajęty.", "Nie przyjdę, bo jestem zajęty."], grammarFocus: "g-47-1" }
+    ]
+  },
+
+  /* =================== order 47 — Concession et opposition ============= */
+  {
+    id: "lesson-48",
+    order: 47,
+    title: "Concession et opposition : mimo że, chociaż, jednak",
+    theme: "concession",
+    mascotIntro:
+      "« Chociaż pada deszcz, idę na spacer. » Żubr sort quand même sous la pluie — grâce à la concession ! ☔",
+    grammarNotes: [
+      {
+        id: "g-48-1",
+        title: "Chociaż / mimo że : bien que",
+        explanationFr:
+          "« chociaż » et « mimo że » (bien que, malgré le fait que) introduisent une opposition : l'action a lieu MALGRÉ la circonstance.",
+        examples: [
+          { pl: "Chociaż jestem zmęczony, idę na siłownię.", fr: "Bien que je sois fatigué, je vais à la salle de sport." },
+          { pl: "Mimo że pada deszcz, wychodzę na spacer.", fr: "Malgré la pluie, je sors me promener." }
+        ]
+      },
+      {
+        id: "g-48-2",
+        title: "Jednak / ale : mais pourtant",
+        explanationFr:
+          "« jednak » (pourtant, cependant) nuance ou contredit ce qui précède, souvent en milieu ou fin de phrase. « ale » (mais) est plus neutre et se place en tête de la seconde proposition.",
+        examples: [
+          { pl: "To jest drogie, jednak warto.", fr: "C'est cher, pourtant ça vaut le coup." },
+          { pl: "Chcę iść, ale jestem chory.", fr: "Je veux y aller, mais je suis malade." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-48-chociaz", pl: "chociaż", fr: "bien que / même si", category: "connecteur" },
+      { id: "v-48-mimo-ze", pl: "mimo że", fr: "bien que / malgré le fait que", category: "connecteur" },
+      { id: "v-48-jednak", pl: "jednak", fr: "pourtant / cependant", category: "connecteur" },
+      { id: "v-48-ale", pl: "ale", fr: "mais", category: "connecteur" },
+      { id: "v-48-silownia", pl: "siłownia", fr: "la salle de sport", category: "loisirs" },
+      { id: "v-48-warto", pl: "warto", fr: "ça vaut le coup", category: "expression" },
+      { id: "v-48-wychodzic", pl: "wychodzić", fr: "sortir", category: "verbe" },
+      { id: "v-48-spacer", pl: "spacer", fr: "la promenade", category: "loisirs" },
+      { id: "v-48-silny", pl: "silny", fr: "fort", category: "description" },
+      { id: "v-48-slaby", pl: "słaby", fr: "faible", category: "description" }
+    ],
+    sentences: [
+      { id: "s-48-1", pl: "Chociaż jestem zmęczony, idę na siłownię.", fr: "Bien que je sois fatigué, je vais à la salle de sport.", grammarFocus: "g-48-1",
+        wordBank: ["Chociaż", "jestem", "zmęczony", "idę", "na", "siłownię"] },
+      { id: "s-48-2", pl: "Mimo że pada deszcz, wychodzę na spacer.", fr: "Malgré la pluie, je sors me promener.", grammarFocus: "g-48-1",
+        wordBank: ["Mimo", "że", "pada", "deszcz", "wychodzę", "na", "spacer"] },
+      { id: "s-48-3", pl: "To jest drogie, jednak warto.", fr: "C'est cher, pourtant ça vaut le coup.", grammarFocus: "g-48-2",
+        wordBank: ["To", "jest", "drogie", "jednak", "warto"] },
+      { id: "s-48-4", pl: "Chcę iść, ale jestem chory.", fr: "Je veux y aller, mais je suis malade.", grammarFocus: "g-48-2",
+        wordBank: ["Chcę", "iść", "ale", "jestem", "chory"] }
+    ],
+    productions: [
+      { id: "p-48-1", prompt: "Exprime une concession : « Bien qu'il fasse froid, je sors. »",
+        answers: ["Chociaż jest zimno, wychodzę.", "Mimo że jest zimno, wychodzę."], grammarFocus: "g-48-1" },
+      { id: "p-48-2", prompt: "Dis : « C'est difficile, pourtant j'aime ça. »",
+        answers: ["To jest trudne, jednak to lubię.", "Jest trudne, jednak lubię to."], grammarFocus: "g-48-2", hint: "jednak se place après la première proposition" }
+    ]
+  },
+
+  /* ===================== order 48 — Discours indirect =================== */
+  {
+    id: "lesson-49",
+    order: 48,
+    title: "Discours indirect : rapporter les paroles de quelqu'un",
+    theme: "discours indirect",
+    mascotIntro:
+      "« Powiedział, że… » Żubr rapporte enfin ce que ses amis lui ont dit, sans les citer mot pour mot ! 💬",
+    grammarNotes: [
+      {
+        id: "g-49-1",
+        title: "Rapporter des paroles : powiedział, że…",
+        explanationFr:
+          "Discours direct « Jestem zajęty » → discours indirect « Powiedział, że jest zajęty » (il a dit qu'il était occupé). On garde le TEMPS d'origine, mais on change la personne.",
+        examples: [
+          { pl: "Powiedział, że jest zajęty.", fr: "Il a dit qu'il était occupé.", note: "discours direct : « Jestem zajęty »" },
+          { pl: "Powiedziała, że przyjdzie później.", fr: "Elle a dit qu'elle viendrait plus tard." }
+        ]
+      },
+      {
+        id: "g-49-2",
+        title: "Rapporter une question : zapytał, czy…",
+        explanationFr:
+          "Une question directe (oui/non) devient « czy » (si) au discours indirect. Avec un mot interrogatif (kiedy, gdzie, co…), on le garde tel quel.",
+        examples: [
+          { pl: "Zapytał, czy przyjdę.", fr: "Il a demandé si je viendrais.", note: "discours direct : « Czy przyjdziesz? »" },
+          { pl: "Zapytała, gdzie jestem.", fr: "Elle a demandé où j'étais." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-49-zapytac", pl: "zapytać", fr: "demander (poser une question)", category: "verbe" },
+      { id: "v-49-odpowiedziec", pl: "odpowiedzieć", fr: "répondre", category: "verbe" },
+      { id: "v-49-czy", pl: "czy", fr: "si (dans une question rapportée)", category: "grammaire" },
+      { id: "v-49-cytat", pl: "cytat", fr: "la citation", category: "objet" },
+      { id: "v-49-slowa", pl: "słowa", fr: "les mots / les paroles", category: "objet" },
+      { id: "v-49-twierdzic", pl: "twierdzić", fr: "affirmer / prétendre", category: "verbe" },
+      { id: "v-49-zaprzeczyc", pl: "zaprzeczyć", fr: "nier / démentir", category: "verbe" },
+      { id: "v-49-kiedy", pl: "kiedy", fr: "quand", category: "grammaire" },
+      { id: "v-49-prawda", pl: "prawda", fr: "la vérité", category: "objet" },
+      { id: "v-49-klamac", pl: "kłamać", fr: "mentir", category: "verbe" }
+    ],
+    sentences: [
+      { id: "s-49-1", pl: "Powiedział, że jest zajęty.", fr: "Il a dit qu'il était occupé.", grammarFocus: "g-49-1",
+        wordBank: ["Powiedział", "że", "jest", "zajęty", "powiedziała"] },
+      { id: "s-49-2", pl: "Powiedziała, że przyjdzie później.", fr: "Elle a dit qu'elle viendrait plus tard.", grammarFocus: "g-49-1",
+        wordBank: ["Powiedziała", "że", "przyjdzie", "później", "powiedział"] },
+      { id: "s-49-3", pl: "Zapytał, czy przyjdę.", fr: "Il a demandé si je viendrais.", grammarFocus: "g-49-2",
+        wordBank: ["Zapytał", "czy", "przyjdę", "zapytała"] },
+      { id: "s-49-4", pl: "Zapytała, gdzie jestem.", fr: "Elle a demandé où j'étais.", grammarFocus: "g-49-2",
+        wordBank: ["Zapytała", "gdzie", "jestem", "zapytał"] }
+    ],
+    dialogues: [
+      {
+        id: "d-49-1",
+        title: "Il a dit quoi ?",
+        lines: [
+          { who: "A", pl: "Co powiedział Marek?", fr: "Qu'a dit Marek ?" },
+          { who: "B", pl: "Powiedział, że jest bardzo zajęty.", fr: "Il a dit qu'il était très occupé." },
+          { who: "A", pl: "A czy zapytał o mnie?", fr: "Et a-t-il demandé de mes nouvelles ?" },
+          { who: "B", pl: "Tak, zapytał, kiedy przyjedziesz.", fr: "Oui, il a demandé quand tu arriverais.",
+            target: true, wordBank: ["Tak", "zapytał", "kiedy", "przyjedziesz", "powiedział"] }
+        ]
+      }
+    ],
+    readings: [
+      {
+        id: "r-49-1",
+        title: "Co powiedziała Ania?",
+        paragraphs: [
+          "Ania zadzwoniła do mnie wczoraj wieczorem.",
+          "Powiedziała, że jest bardzo zmęczona po pracy.",
+          "Zapytała, czy mogę pomóc jej w sobotę.",
+          "Odpowiedziałem, że oczywiście mogę."
+        ],
+        questions: [
+          { id: "rq-49-1", question: "Quand Ania a-t-elle appelé ?", options: ["Hier soir", "Ce matin", "La semaine dernière"], answer: "Hier soir" },
+          { id: "rq-49-2", question: "Qu'a dit Ania sur son état ?", options: ["Qu'elle était très fatiguée", "Qu'elle était malade", "Qu'elle était en vacances"], answer: "Qu'elle était très fatiguée" },
+          { id: "rq-49-3", question: "Qu'a demandé Ania ?", options: ["Si je pouvais l'aider samedi", "Si je voulais dîner", "Si j'avais de l'argent"], answer: "Si je pouvais l'aider samedi" }
+        ]
+      }
+    ],
+    productions: [
+      { id: "p-49-1", prompt: "Rapporte cette phrase de Tomek : « Jestem chory. » → « Tomek a dit qu'il était malade. »",
+        answers: ["Tomek powiedział, że jest chory.", "Tomek powiedział, że był chory."], grammarFocus: "g-49-1" },
+      { id: "p-49-2", prompt: "Rapporte cette question : « Czy masz czas? » → « Il a demandé si j'avais du temps. »",
+        answers: ["Zapytał, czy mam czas."], grammarFocus: "g-49-2" }
+    ]
+  },
+
+  /* ================ order 50 — Compréhension de texte (capstone) ======= */
+  {
+    id: "lesson-50",
+    order: 50,
+    title: "Compréhension d'un texte suivi",
+    theme: "récit suivi",
+    mascotIntro:
+      "Dernière étape (pour l'instant) : un vrai petit texte à lire, du début à la fin, comme un(e) vrai(e) polonophone. Bravo d'être arrivé jusque là ! 🏆",
+    grammarNotes: [
+      {
+        id: "g-50-1",
+        title: "Repérer les connecteurs pour suivre un récit",
+        explanationFr:
+          "Un texte suivi enchaîne les idées avec des connecteurs déjà vus : najpierw, potem, ponieważ, mimo że… Les repérer aide à suivre la logique sans tout traduire mot à mot.",
+        examples: [
+          { pl: "Najpierw szukałem spokoju, potem zobaczyłem księżyc.", fr: "D'abord je cherchais la tranquillité, ensuite j'ai vu la lune." },
+          { pl: "Mimo że było ciemno, nie bałem się.", fr: "Bien qu'il fasse sombre, je n'avais pas peur." }
+        ]
+      },
+      {
+        id: "g-50-2",
+        title: "Deviner le sens d'un mot inconnu par le contexte",
+        explanationFr:
+          "Pas besoin de connaître chaque mot : le contexte (verbe, connecteur, sujet) donne souvent le sens général. C'est la compétence clé de la lecture B1 — comprendre l'essentiel, pas tout traduire.",
+        examples: [
+          { pl: "Zgubiłem się w lesie, lecz wreszcie znalazłem drogę.", fr: "Je me suis perdu dans la forêt, mais j'ai enfin trouvé le chemin." },
+          { pl: "Byłem przestraszony, jednak szedłem dalej.", fr: "J'étais effrayé, pourtant je continuais à marcher." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-50-zgubic", pl: "zgubić się", fr: "se perdre", category: "récit" },
+      { id: "v-50-znalezc", pl: "znaleźć", fr: "trouver (perfectif)", category: "verbe" },
+      { id: "v-50-droga", pl: "droga", fr: "le chemin / la route", category: "objet" },
+      { id: "v-50-przestraszony", pl: "przestraszony", fr: "effrayé", category: "description" },
+      { id: "v-50-spokoj", pl: "spokój", fr: "la tranquillité / le calme", category: "objet" },
+      { id: "v-50-cisza", pl: "cisza", fr: "le silence", category: "objet" },
+      { id: "v-50-wracac", pl: "wracać", fr: "revenir / rentrer", category: "verbe" },
+      { id: "v-50-ksiezyc", pl: "księżyc", fr: "la lune", category: "nature" },
+      { id: "v-50-ciemno", pl: "ciemno", fr: "sombre / il fait noir", category: "description" },
+      { id: "v-50-gwiazda", pl: "gwiazda", fr: "l'étoile", category: "nature" }
+    ],
+    sentences: [
+      { id: "s-50-1", pl: "Zgubiłem się w lesie, lecz wreszcie znalazłem drogę.", fr: "Je me suis perdu dans la forêt, mais j'ai enfin trouvé le chemin.", grammarFocus: "g-50-2",
+        wordBank: ["Zgubiłem", "się", "w", "lesie", "lecz", "wreszcie", "znalazłem", "drogę"] },
+      { id: "s-50-2", pl: "Najpierw szukałem spokoju, potem zobaczyłem księżyc.", fr: "D'abord je cherchais la tranquillité, ensuite j'ai vu la lune.", grammarFocus: "g-50-1",
+        wordBank: ["Najpierw", "szukałem", "spokoju", "potem", "zobaczyłem", "księżyc"] },
+      { id: "s-50-3", pl: "Mimo że było ciemno, nie bałem się.", fr: "Bien qu'il fasse sombre, je n'avais pas peur.", grammarFocus: "g-50-1",
+        wordBank: ["Mimo", "że", "było", "ciemno", "nie", "bałem", "się"] },
+      { id: "s-50-4", pl: "Byłem przestraszony, jednak szedłem dalej.", fr: "J'étais effrayé, pourtant je continuais à marcher.", grammarFocus: "g-50-2",
+        wordBank: ["Byłem", "przestraszony", "jednak", "szedłem", "dalej"] }
+    ],
+    readings: [
+      {
+        id: "r-50-1",
+        title: "Noc w lesie",
+        paragraphs: [
+          "Pewnego wieczoru Żubr postanowił pojechać do lasu, ponieważ szukał spokoju.",
+          "Najpierw szedł wzdłuż rzeki, potem zgubił się między drzewami.",
+          "Mimo że było ciemno, nie bał się, bo widział księżyc i gwiazdy.",
+          "Nagle usłyszał jakiś dźwięk, ale to był tylko wiatr.",
+          "W końcu znalazł drogę i wrócił do domu, szczęśliwy i spokojny."
+        ],
+        questions: [
+          { id: "rq-50-1", question: "Pourquoi Żubr est-il allé dans la forêt ?", options: ["Il cherchait la tranquillité", "Il cherchait de la nourriture", "Il rendait visite à un ami"], answer: "Il cherchait la tranquillité" },
+          { id: "rq-50-2", question: "Qu'est-ce qui lui est arrivé entre les arbres ?", options: ["Il s'est perdu", "Il s'est endormi", "Il a rencontré un ours"], answer: "Il s'est perdu" },
+          { id: "rq-50-3", question: "Pourquoi n'avait-il pas peur malgré l'obscurité ?", options: ["Il voyait la lune et les étoiles", "Il avait une lampe", "Il connaissait bien la forêt"], answer: "Il voyait la lune et les étoiles" },
+          { id: "rq-50-4", question: "Qu'était le bruit soudain qu'il a entendu ?", options: ["Le vent", "Un animal", "Une voiture"], answer: "Le vent" }
         ]
       }
     ]

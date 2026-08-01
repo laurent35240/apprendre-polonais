@@ -66,7 +66,9 @@ var TRAILS = [
   { name: "Le sentier des portraits", icon: "🎨" },  // 21–25 pluriel, adjectif décliné, sentiments, passé, się
   { name: "Le sentier de la ville", icon: "🏙️" },    // 26–30 corps, apparence, impératif, ville, transports
   { name: "Le sentier des échanges", icon: "✈️" },   // 31–35 voyage, téléphone, datif, fêtes, pronoms
-  { name: "Le sentier des nuances", icon: "🌍" }     // 36–40 comparatif, météo, nature, conditionnel, récit
+  { name: "Le sentier des nuances", icon: "🌍" },    // 36–40 fêtes, vocatif, pronoms (tous cas), comparatif
+  { name: "Le sentier des grands horizons", icon: "🌄" }, // 41–45 météo, nature, conditionnel poli, relatives, opinion
+  { name: "Le sentier du récit", icon: "📖" }        // 46–50 cause/but, concession, discours indirect, récit, lecture
 ];
 var TRAIL_SIZE = 5;
 // Ouverture forcée par l'utilisateur (en mémoire, non persistée) : index -> bool
@@ -914,6 +916,12 @@ function renderExercise() {
     case "speak":
       renderSpeak(card, ex);
       break;
+    case "reading":
+      renderReading(card, ex);
+      break;
+    case "write":
+      renderWrite(card, ex);
+      break;
     default:
       /** @type {never} */ (ex);
   }
@@ -1055,6 +1063,50 @@ function renderListen(card, ex) {
   }
 }
 
+/* ---- Compréhension de texte ---- */
+/**
+ * @param {HTMLElement} card
+ * @param {ReadingExercise} ex
+ * @returns {void}
+ */
+function renderReading(card, ex) {
+  var textZone = el(
+    "div",
+    { class: "reading-text" },
+    ex.passage.map(function (p) { return el("p", { text: p }); })
+  );
+  var passage = el("div", { class: "reading-passage" }, [
+    audioButton(ex.audioText, false),
+    textZone
+  ]);
+  card.appendChild(passage);
+
+  var promptWrap = el("div", { class: "prompt" });
+  promptWrap.appendChild(
+    el("span", { class: "prompt-text " + ex.promptLang, text: ex.promptText })
+  );
+  card.appendChild(promptWrap);
+
+  var opts = el("div", { class: "options" });
+  ex.options.forEach(function (opt) {
+    opts.appendChild(
+      el("button", {
+        class: "option " + ex.answerLang,
+        text: opt,
+        onclick: function (e) {
+          handleAnswer(
+            ex,
+            opt,
+            /** @type {HTMLElement} */ (e.currentTarget),
+            opts
+          );
+        }
+      })
+    );
+  });
+  card.appendChild(opts);
+}
+
 /* ---- Saisie / trous ---- */
 /**
  * @param {HTMLElement} card
@@ -1108,6 +1160,68 @@ function renderType(card, ex) {
       type: "button",
       onclick: function() {
         // slice(0, null) === slice(0, 0) : ?? 0 est exactement équivalent.
+        var start = input.selectionStart ?? 0;
+        var end = input.selectionEnd ?? 0;
+        input.value = input.value.slice(0, start) + ch + input.value.slice(end);
+        input.setSelectionRange(start + 1, start + 1);
+        input.focus();
+      }
+    }));
+  });
+  card.appendChild(diacriticBar);
+
+  setTimeout(function () {
+    input.focus();
+  }, 50);
+}
+
+/* ---- Production libre ---- */
+/**
+ * @param {HTMLElement} card
+ * @param {WriteExercise} ex
+ * @returns {void}
+ */
+function renderWrite(card, ex) {
+  var promptWrap = el("div", { class: "prompt" });
+  promptWrap.appendChild(
+    el("span", { class: "prompt-text " + ex.promptLang, text: ex.promptText })
+  );
+  card.appendChild(promptWrap);
+  if (ex.hint) card.appendChild(el("div", { class: "write-hint", text: "💡 " + ex.hint }));
+
+  var input = el("input", {
+    class: "text-input",
+    type: "text",
+    autocomplete: "off",
+    autocorrect: "off",
+    autocapitalize: "off",
+    spellcheck: "false",
+    placeholder: "Écris ta phrase en polonais…"
+  });
+  var submit = el("button", {
+    class: "btn btn-primary",
+    text: "Valider",
+    onclick: function () {
+      handleAnswer(ex, input.value, null, null, input);
+    }
+  });
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      e.stopPropagation();
+      submit.click();
+    }
+  });
+  card.appendChild(el("div", { class: "type-row" }, [input, submit]));
+
+  var POLISH_CHARS_W = ['ą','ć','ę','ł','ń','ó','ś','ź','ż'];
+  var diacriticBar = el("div", { class: "diacritic-bar" });
+  POLISH_CHARS_W.forEach(function (ch) {
+    diacriticBar.appendChild(el("button", {
+      class: "diacritic-btn",
+      text: ch,
+      type: "button",
+      onclick: function () {
         var start = input.selectionStart ?? 0;
         var end = input.selectionEnd ?? 0;
         input.value = input.value.slice(0, start) + ch + input.value.slice(end);

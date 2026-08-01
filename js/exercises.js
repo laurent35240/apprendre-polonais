@@ -12,6 +12,9 @@
      build      reconstruire une phrase depuis une banque de mots
      cloze      texte à trous ciblant la grammaire
      dialogue   reconstituer la réplique cible d'un mini-dialogue en contexte
+     reading    compréhension : lire un texte suivi, répondre à une question
+     write      production libre : traduire ou transformer une phrase (plusieurs
+                réponses acceptées)
    ===================================================================== */
 import { POLISH_LESSONS } from "../data/lessons.js";
 import { Speech } from "./speech.js";
@@ -298,6 +301,48 @@ function makeCloze(entry) {
   };
 }
 
+/**
+ * @param {Reading} reading
+ * @param {ReadingQuestion} question
+ * @returns {ReadingExercise}
+ */
+function makeReading(reading, question) {
+  // Le texte est en polonais (avec écoute) ; la question et les options sont
+  // en français, pour évaluer la compréhension du texte plutôt que la
+  // traduction — comme une épreuve de compréhension écrite classique.
+  return {
+    type: "reading",
+    itemId: question.id,
+    passage: reading.paragraphs,
+    promptText: question.question,
+    promptLang: "fr",
+    answer: question.answer,
+    answerLang: "fr",
+    audioText: reading.paragraphs.join(" "),
+    options: shuffle(question.options),
+    instruction: reading.title
+  };
+}
+
+/**
+ * @param {Production} production
+ * @returns {WriteExercise}
+ */
+function makeWrite(production) {
+  return {
+    type: "write",
+    itemId: production.id,
+    promptText: production.prompt,
+    promptLang: "fr",
+    answer: production.answers[0],
+    answerLang: "pl",
+    audioText: production.answers[0],
+    acceptedAnswers: production.answers,
+    hint: production.hint,
+    instruction: "Écris ta phrase en polonais"
+  };
+}
+
 /* ---------------------------- correction ---------------------------- */
 
 /**
@@ -321,6 +366,12 @@ function check(exercise, userAnswer) {
     return normalize(mots.join(" ")) === normalize(exercise.answer);
   }
   var saisie = typeof userAnswer === "string" ? userAnswer : "";
+  if (exercise.type === "write") {
+    var voulue = normalize(saisie);
+    return exercise.acceptedAnswers.some(function (a) {
+      return normalize(a) === voulue;
+    });
+  }
   return normalize(saisie) === normalize(exercise.answer);
 }
 
@@ -334,6 +385,8 @@ export const Exercises = {
   makeBuild: makeBuild,
   makeCloze: makeCloze,
   makeDialogue: makeDialogue,
+  makeReading: makeReading,
+  makeWrite: makeWrite,
   check: check,
   shuffle: shuffle
 };

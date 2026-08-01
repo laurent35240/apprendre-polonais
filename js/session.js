@@ -111,6 +111,18 @@ function buildLessonSession(lessonId) {
     if (ex) out.push(ex);
   });
 
+  // 2c) Compréhension de texte : une question par lecture
+  (lesson.readings || []).forEach(function (r) {
+    (r.questions || []).forEach(function (q) {
+      out.push(E.makeReading(r, q));
+    });
+  });
+
+  // 2d) Production libre (traduction ou transformation) : niveau B1
+  (lesson.productions || []).forEach(function (p) {
+    out.push(E.makeWrite(p));
+  });
+
   // 3) Prononciation (si dispo) : 2 mots + 1 phrase
   if (speakOK()) {
     var vocab = lesson.vocabulary || [];

@@ -93,6 +93,31 @@ interface Dialogue {
   lines: DialogueLine[];
 }
 
+interface ReadingQuestion {
+  id: string;
+  question: string;
+  options: string[];
+  answer: string;
+}
+
+interface Reading {
+  id: string;
+  title: string;
+  paragraphs: string[];
+  questions: ReadingQuestion[];
+}
+
+interface Production {
+  id: string;
+  /** Indice en français, ou phrase polonaise source pour une transformation. */
+  prompt: string;
+  /** Plusieurs formulations acceptées — vérifiées par normalize(), pas une seule chaîne figée. */
+  answers: string[];
+  /** Clé étrangère vers un GrammarNote.id de la MÊME leçon. */
+  grammarFocus: string;
+  hint?: string;
+}
+
 interface Lesson {
   id: string;
   /** Seule source de vérité du séquencement — indépendant de l'ordre du tableau. */
@@ -104,6 +129,8 @@ interface Lesson {
   vocabulary: Vocab[];
   sentences: Sentence[];
   dialogues?: Dialogue[];
+  readings?: Reading[];
+  productions?: Production[];
 }
 
 interface Badge {
@@ -271,6 +298,20 @@ interface DialogueExercise extends ExerciseBase {
   speaker: string;
 }
 
+interface ReadingExercise extends ExerciseBase {
+  type: "reading";
+  /** Paragraphes du texte, affichés au-dessus de la question. */
+  passage: string[];
+  options: string[];
+}
+
+interface WriteExercise extends ExerciseBase {
+  type: "write";
+  /** Toutes les formulations acceptées ; `answer` porte la première (affichage seulement). */
+  acceptedAnswers: string[];
+  hint?: string;
+}
+
 type Exercise =
   | McExercise
   | ListenExercise
@@ -278,7 +319,9 @@ type Exercise =
   | ClozeExercise
   | SpeakExercise
   | BuildExercise
-  | DialogueExercise;
+  | DialogueExercise
+  | ReadingExercise
+  | WriteExercise;
 
 /* Les deux variantes qui se reconstruisent depuis une banque de mots :
    c'est le paramètre légitime d'appendWordBankPicker. */

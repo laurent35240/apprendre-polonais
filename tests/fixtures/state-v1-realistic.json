@@ -3419,6 +3419,46 @@
     "lesson-40": {
       "status": "locked",
       "bestScore": 0
+    },
+    "lesson-41": {
+      "status": "available",
+      "bestScore": 0
+    },
+    "lesson-42": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-43": {
+      "status": "available",
+      "bestScore": 0
+    },
+    "lesson-44": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-45": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-46": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-47": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-48": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-49": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-50": {
+      "status": "locked",
+      "bestScore": 0
     }
   },
   "badges": [

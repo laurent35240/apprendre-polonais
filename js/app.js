@@ -59,16 +59,17 @@ function stopRecognition() {
 
 // Regroupement des leçons en « sentiers » de 5 (purement visuel).
 var TRAILS = [
-  { name: "Le sentier des débuts", icon: "🌱" },     // 1–5   salutations → nombres
-  { name: "Le sentier du quotidien", icon: "🏡" },   // 6–10  commander, s'habiller, modaux
-  { name: "Le sentier du temps", icon: "⏰" },        // 11–15 lieux, heure, calendrier
-  { name: "Le sentier des envies", icon: "🍽️" },     // 16–20 dates, génitif, cuisine, aspect, adjectif
-  { name: "Le sentier des portraits", icon: "🎨" },  // 21–25 pluriel, adjectif décliné, sentiments, passé, się
-  { name: "Le sentier de la ville", icon: "🏙️" },    // 26–30 corps, apparence, impératif, ville, transports
-  { name: "Le sentier des échanges", icon: "✈️" },   // 31–35 voyage, téléphone, datif, fêtes, pronoms
-  { name: "Le sentier des nuances", icon: "🌍" },    // 36–40 fêtes, vocatif, pronoms (tous cas), comparatif
-  { name: "Le sentier des grands horizons", icon: "🌄" }, // 41–45 météo, nature, conditionnel poli, relatives, opinion
-  { name: "Le sentier du récit", icon: "📖" }        // 46–50 cause/but, concession, discours indirect, récit, lecture
+  { name: "Le sentier des débuts", icon: "🌱" },     // 1–5   salutations, présentation, pays/nationalités, famille, nombres
+  { name: "Le sentier du quotidien", icon: "🏡" },   // 6–10  nombres, restaurant, shopping, verbes du quotidien
+  { name: "Le sentier du temps", icon: "⏰" },        // 11–15 modaux, loisirs, maison/locatif, routine, heure
+  { name: "Le sentier des envies", icon: "🍽️" },     // 16–20 calendrier, dates, génitif, cuisine, aspect/futur
+  { name: "Le sentier des portraits", icon: "🎨" },  // 21–25 couleurs/adjectif, pluriel, adjectif décliné (x2), sentiments
+  { name: "Le sentier du miroir", icon: "🪞" },      // 26–30 passé, aspect approfondi, routine/się, corps, apparence
+  { name: "Le sentier de la ville", icon: "🏙️" },    // 31–35 impératif, ville, transports, voyage, téléphone/internet
+  { name: "Le sentier des nuances", icon: "🌍" },    // 36–40 datif, fêtes, vocatif, pronoms déclinés (x2)
+  { name: "Le sentier des grands horizons", icon: "🌄" }, // 41–45 comparatif, météo, nature, conditionnel poli, relatives
+  { name: "Le sentier du récit", icon: "📖" },       // 46–50 opinion, cause/but, concession, discours indirect, récit
+  { name: "Le sentier de la lecture", icon: "📚" }   // 51    compréhension d'un texte suivi (capstone)
 ];
 var TRAIL_SIZE = 5;
 // Ouverture forcée par l'utilisateur (en mémoire, non persistée) : index -> bool

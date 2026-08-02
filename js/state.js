@@ -695,14 +695,23 @@ function ensureLessonStatuses() {
       };
     }
   });
-  // Déverrouille la leçon suivant chaque leçon complétée.
-  lessons.forEach(function (lesson, idx) {
+  // Recalcule le déverrouillage sur l'ORDER courant à chaque appel (jamais figé
+  // sur un ordre passé) : une leçon "available" mais non commencée est
+  // reverrouillée si son prédécesseur actuel n'est pas terminé — ce qui
+  // rattrape les leçons insérées après coup entre deux leçons déjà
+  // déverrouillées. "completed" et "inProgress" ne sont, elles, jamais
+  // rétrogradées : le travail réel de l'utilisateur reste acquis même si
+  // `order` change ensuite.
+  var prevCompleted = true; // pas de prédécesseur pour la 1re leçon
+  lessons.forEach(function (lesson) {
     var l = state.lessons[lesson.id];
-    var suivante = lessons[idx + 1];
-    if (l && l.status === "completed" && suivante) {
-      var next = state.lessons[suivante.id];
-      if (next && next.status === "locked") next.status = "available";
+    if (!l) return; // toujours créée par la boucle précédente ; garde pour tsc
+    if (l.status === "locked" && prevCompleted) {
+      l.status = "available";
+    } else if (l.status === "available" && !prevCompleted) {
+      l.status = "locked";
     }
+    prevCompleted = l.status === "completed";
   });
 }
 

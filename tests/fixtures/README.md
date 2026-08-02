@@ -51,7 +51,7 @@ au chargement. Les tests de rollover avancent l'horloge eux-mêmes.
 | `items[].box` | verbatim | Préserve `{1:32, 2:114, 3:217, 4:93, 5:7}`, d'où découlent les badges |
 | `items[].dueDate`, `lastSeen` | **− 149 j** | Étalement conservé : 285 des 463 items sont dus à l'ancre |
 | `items[].seenCount`, `correctCount` | verbatim | Champs morts, mais la forme persistée ne change pas |
-| `lessons` (40 entrées) | verbatim | 29 `completed`, 4 `available`, 7 `locked`, `bestScore` inclus |
+| `lessons` (51 entrées) | verbatim | 29 `completed`, 6 `available`, 16 `locked`, `bestScore` inclus. `lesson-19` est `locked` (son prédécesseur par `order` courant, `lesson-44`, ne l'est pas) — c'est délibéré : la fixture doit rester cohérente avec `order`, sinon `ensureLessonStatuses()` la corrige au chargement et casse le test d'égalité octet |
 | `profile.totalXP`, `level` | verbatim (10750, 22) | |
 | `profile.createdAt` | normalisé | Un horodatage à la milliseconde trahit une habitude |
 | `streak`, `dailyGoal`, `badges`, `flags`, `settings` | verbatim, dates décalées | |

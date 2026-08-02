@@ -120,7 +120,7 @@ describe("chargement de la fixture réaliste", () => {
     for (const l of Object.values(s.lessons)) {
       parStatut[l.status] = (parStatut[l.status] || 0) + 1;
     }
-    expect(parStatut).toEqual({ completed: 29, available: 7, locked: 15 });
+    expect(parStatut).toEqual({ completed: 29, available: 6, locked: 16 });
   });
 
   it("rolloverDay est un no-op : todayDate vaut déjà l'ancre", () => {
@@ -196,6 +196,36 @@ describe("ensureLessonStatuses", () => {
     const done = Object.values(State.get().lessons)
       .filter((l) => l.status === "completed");
     expect(done).toHaveLength(29);
+  });
+
+  // Correction : reproduit le bug observé en prod après l'insertion de 10
+  // leçons B1 (commit 9cd127b), qui a réassigné le champ `order` de leçons
+  // déjà jouées. Une leçon "available" le reste pour toujours dans l'ancienne
+  // implémentation (déverrouillage additif, jamais réévalué), même si son
+  // prédécesseur PAR ORDER courant n'est plus `completed`.
+  it("reverrouille une leçon 'available' si son prédécesseur actuel n'est plus 'completed'", () => {
+    const s = chargerAvec(REALISTIC);
+    const parOrder = [...POLISH_LESSONS].sort((a, b) => a.order - b.order);
+    const idx = parOrder.findIndex((l) => s.lessons[l.id].status === "available");
+    expect(idx).toBeGreaterThan(0); // il existe bien un prédécesseur
+
+    s.lessons[parOrder[idx - 1].id].status = "locked";
+    State.ensureLessonStatuses();
+
+    expect(s.lessons[parOrder[idx].id].status).toBe("locked");
+  });
+
+  it("ne reverrouille jamais une leçon 'inProgress' même si son prédécesseur n'est plus 'completed'", () => {
+    const s = chargerAvec(REALISTIC);
+    const parOrder = [...POLISH_LESSONS].sort((a, b) => a.order - b.order);
+    const idx = parOrder.findIndex((l) => s.lessons[l.id].status === "available");
+    const id = parOrder[idx].id;
+
+    s.lessons[id].status = "inProgress";
+    s.lessons[parOrder[idx - 1].id].status = "locked";
+    State.ensureLessonStatuses();
+
+    expect(s.lessons[id].status).toBe("inProgress");
   });
 });
 

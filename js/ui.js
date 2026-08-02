@@ -143,6 +143,49 @@ function mascotImg(pose, cls) {
   return img;
 }
 
+// Personnages des histoires bonus (data/stories.js) : `who` -> fichier + emoji
+// de repli. Table locale et non paramètre d'appel : qui existe est un fait du
+// contenu, pas une décision du site d'appel.
+// Convention de nommage : <personnage>-head.png dans public/assets/img/.
+// Żubr réutilise l'image qui sert déjà d'icône PWA — même style, rien à ajouter.
+// `| undefined` volontaire : `who` vient des données de contenu, non validé par
+// le typeur. C'est ce qui donne son sens à la garde de characterImg — sans ça
+// elle serait typée comme du code mort.
+/** @type {Record<string, {file: string, emoji: string, alt: string}|undefined>} */
+var CHARACTERS = {
+  "Ż": { file: "zubr-head", emoji: MASCOT, alt: "Żubr" },
+  B: { file: "bocian-head", emoji: "🪿", alt: "Bocian" }
+};
+
+// <img> de la tête d'un personnage, ou NULL si `who` n'en désigne pas un.
+// Le `null` n'est pas un cas d'échec, c'est le mécanisme : le narrateur ("N")
+// n'a pas de visage, et c'est ce retour — combiné au fait que `el()` ignore les
+// enfants null — qui lui évite un avatar sans qu'aucun renderer ait à tester
+// "N". Ajouter un personnage se fait donc ici, et nulle part ailleurs.
+/**
+ * @param {string} who
+ * @param {string} [cls]
+ * @returns {HTMLImageElement|null}
+ */
+function characterImg(who, cls) {
+  var perso = CHARACTERS[who];
+  if (!perso) return null;
+  // Emoji capturé AVANT la closure : le narrowing de `perso` (un `var`) n'y
+  // survivrait pas — même piège que renderLessonIntro dans app.js.
+  var repli = perso.emoji;
+  var img = el("img", {
+    class: "mascot-img " + (cls || ""),
+    src: IMG_BASE + perso.file + ".png",
+    alt: perso.alt,
+    draggable: "false"
+  });
+  img.addEventListener("error", function () {
+    var span = el("span", { class: "emoji-fallback " + (cls || ""), text: repli });
+    if (img.parentNode) img.parentNode.replaceChild(span, img);
+  });
+  return img;
+}
+
 // <img> d'un badge (déduit du id), repli sur son emoji.
 /**
  * @param {string} badgeId
@@ -356,6 +399,7 @@ export const UI = {
   required: required,
   MASCOT: MASCOT,
   mascotImg: mascotImg,
+  characterImg: characterImg,
   badgeImg: badgeImg,
   cheer: cheer,
   consoleLine: console_,

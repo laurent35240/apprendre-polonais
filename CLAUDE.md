@@ -34,8 +34,8 @@ vitest, happy-dom, typescript). Chaque module exporte une façade nommée
 déclaré dans `index.html` — **l'ordre de dépendances est porté par le graphe
 d'imports**, plus par l'ordre des balises `<script>`.
 
-Le graphe est un DAG strict : `lessons → badges → state → srs → speech →
-gamification → progress → cloud → exercises → session → ui → app`. Il n'y a
+Le graphe est un DAG strict : `lessons → stories → badges → state → srs →
+speech → gamification → progress → cloud → exercises → session → ui → app`. Il n'y a
 **pas** de cycle State ⇄ Gamification (Gamification → State : 14 références,
 l'inverse : 0), et `js/progress.js` est un module séparé **précisément pour ne
 pas en créer un** (il doit créditer l'XP et toucher les badges, ce que
@@ -51,8 +51,17 @@ invisibles à l'analyse statique. Ils sont préfixés par `import.meta.env.BASE_
 pour rester absolus. ⚠️ Chaque `<img>` a un **repli emoji** sur l'événement
 `error` : un chemin cassé n'émet aucune erreur en console, on voit juste 🦬 au
 lieu du bison. C'est `tests/assets-paths.test.js` qui rend cette régression
-détectable. `assets/gen/` (15 Mo de sources brutes) reste volontairement hors de
-`public/`.
+détectable. `assets/gen/` (15 Mo de sources brutes, gitignoré, un nom par image
+finale) reste volontairement hors de `public/`.
+
+Les images sont des stickers kawaii générés (Gemini, plugin `google-image-gen`)
+sur fond vert chroma, puis détourés en PNG transparents par **`tools/detourer.py`**
+— le seul Python du dépôt, et il y est parce qu'il a été perdu deux fois en
+vivant dans un dossier temporaire. Il n'entre **ni dans le build ni dans la CI**
+(outil d'atelier, lancé à la main), et s'exécute avec l'interpréteur du plugin,
+qui embarque Pillow : `cd $PLUGIN && uv run python tools/detourer.py <src> <dst>
+512`. Son en-tête documente pourquoi un floodfill nu ne suffit pas (le liseré
+vert d'anti-aliasing, encore visible sur `zubr-head.png`).
 
 ## Tests
 
@@ -169,8 +178,9 @@ doit d'abord **verser `pendingSec`** dans l'état, *puis* écrire. **Ne pas ajou
 encore en mémoire. Injecter un état propre, ou recharger deux fois.
 
 **Écrire dans l'état passe par `js/progress.js`**, jamais par `State.get()`.
-Les 7 intentions (`answerRecorded`, `sessionFinished`, `timeSpent`,
-`dayRolledOver`, `pronunciationPerfect`, `settingChanged`, `progressImported` /
+Les 9 intentions (`answerRecorded`, `sessionFinished`, `storyAnswerRecorded`,
+`storyFinished`, `timeSpent`, `dayRolledOver`, `pronunciationPerfect`,
+`settingChanged`, `progressImported` /
 `progressReset`) appliquent la mutation, déclarent les chemins via
 `State.touch()` et programment l'écriture. `State.get()` reste pour les
 **lectures**. L'invariant est verrouillé par un grep sur `app.js` dans
@@ -211,21 +221,25 @@ ce qui permet d'asserter que les sous-arbres sains ont *survécu*.
 n'est **pas** commitée (dépôt public) ; `.gitignore` couvre
 `polski-zubr-sauvegarde*.json` et `*.local.test.js`.
 
-**Data flow**: `data/lessons.js` and `data/badges.js` export `POLISH_LESSONS` / `POLISH_BADGES` → les modules JS les importent → `app.js` is the top-level controller.
+**Data flow**: `data/lessons.js`, `data/stories.js` and `data/badges.js` export `POLISH_LESSONS` / `POLISH_STORIES` / `POLISH_BADGES` → les modules JS les importent → `app.js` is the top-level controller.
 
 **Module responsibilities:**
 - `js/state.js` — all user progression, persisted to `localStorage` under key `polski-zubr-v1` (cf. § Persistance)
-- `js/progress.js` — les 7 **intentions** de progression : le seul chemin d'écriture dans l'état
+- `js/progress.js` — les 9 **intentions** de progression : le seul chemin d'écriture dans l'état
 - `js/cloud.js` — synchro multi-appareils (Firebase, cf. § Synchronisation) : auth par lien magique, push/pull Firestore
 - `js/srs.js` — Leitner spaced-repetition scheduling (box 0–5, due dates)
 - `js/speech.js` — Web Speech API wrappers (TTS + recognition)
 - `js/gamification.js` — XP, levels, streak, daily goal (30 min), badge checks
-- `js/exercises.js` — exercise generation and answer checking for all types (MCQ, listen, type, word-bank/build, fill-in/cloze, pronunciation, dialogue)
-- `js/session.js` — builds a session array mixing new items + due SRS reviews
+- `js/exercises.js` — exercise generation and answer checking for all types (MCQ, listen, type, word-bank/build, fill-in/cloze, pronunciation, dialogue) + les 4 épreuves d'histoire (cf. § Histoires bonus)
+- `js/session.js` — builds a session array mixing new items + due SRS reviews ; `buildStorySession` pour les histoires (ordre du récit, sans révisions)
 - `js/ui.js` — DOM helpers, mascotte, toasts, confetti, sounds
 - `js/app.js` — screen navigation, exercise loop, DOMContentLoaded boot
 
-**Home screen — lesson grouping (`js/app.js`):** the home path groups lessons into "sentiers" (packs of 5) via `trailNode()`. Lessons are iterated **sorted by `order`** (`sortedLessons()` / `byOrder`), not array order — `order` is the display sequence and does not match `id`. **`order` is the single source of truth for sequencing**: both the home display (`app.js`) and the unlock chain (`js/state.js` `ensureLessonStatuses`) sort by `order`, so the physical position of a lesson block in the `POLISH_LESSONS` array is irrelevant — new lessons can be appended anywhere and just need a unique `order`. `order` values must be unique; they need not be contiguous. Trail names + emojis live in the `TRAILS` array. By default only the trail holding the current lesson is expanded (`currentTrailIndex()` / `currentLessonId()` = first non-`completed`, non-`locked` lesson); manual expand/collapse is kept in the in-memory `trailOpenOverride` map (not persisted). The "Reprendre" button calls `jumpToCurrent()`, which opens the right trail, re-renders, then scrolls to the lesson node (`[data-lesson-id]`) and briefly adds `.lesson-node--highlight`. The connecting trail line is pure CSS (`.trail-body::before`, `css/styles.css`): it sits above card backgrounds but below the lesson badges (z-index), so badges must stay opaque — avoid `opacity` on the whole `.lesson-node` and avoid `transform` on hover (both would let the line show through / over the badge).
+**Home screen — lesson grouping (`js/app.js`):** the home path groups lessons into "sentiers" (packs of 5) via `trailNode()`. Lessons are iterated **sorted by `order`** (`sortedLessons()` / `byOrder`), not array order — `order` is the display sequence and does not match `id`. **`order` is the single source of truth for sequencing**: both the home display (`app.js`) and the unlock chain (`js/state.js` `ensureLessonStatuses`) sort by `order`, so the physical position of a lesson block in the `POLISH_LESSONS` array is irrelevant — new lessons can be appended anywhere and just need a unique `order`. `order` values must be unique; they need not be contiguous. Trail names + emojis live in the `TRAILS` array. By default only the trail holding the current lesson is expanded (`currentTrailIndex()` / `currentLessonId()` = first non-`completed`, non-`locked` lesson); manual expand/collapse is kept in the in-memory `trailOpenOverride` map (not persisted). The "Reprendre" button calls `jumpToCurrent()`, which opens the right trail, re-renders, then scrolls to the lesson node (`[data-lesson-id]`) and briefly adds `.lesson-node--highlight`. The connecting trail line is pure CSS (`.trail-body::before`, `css/styles.css`): it sits above card backgrounds but below the lesson badges (z-index), so badges must stay opaque — avoid `opacity` on the whole `.lesson-node` and avoid `transform` on hover (both would let the line show through / over the badge). Une **histoire bonus**
+(`data/stories.js`) s'ajoute en dernière position du sentier qu'elle vise
+(`storyForTrail` / `storyNode`) : elle ne compte **ni** dans le `doneCount`
+affiché **ni** dans `currentTrailIndex` / `jumpToCurrent`, puisqu'elle est
+optionnelle — un sentier reste « Terminé 🎉 » sans elle. Cf. § Histoires bonus.
 
 ## Synchronisation multi-appareils (palier 4)
 
@@ -296,6 +310,93 @@ Import manuel (`js/state.js importJSON`) et synchro cloud (`mergeRemote`) ne
 doivent jamais être confondus dans le code : le premier REMPLACE
 intentionnellement (l'utilisateur choisit d'écraser), le second FUSIONNE
 toujours.
+
+## Histoires bonus (niveaux de fin de sentier)
+
+`data/stories.js` (`POLISH_STORIES`) porte un format distinct des leçons : un
+court récit dialogué découpé en **scènes**, chaque scène étant suivie d'**une
+épreuve** qui porte sur ce qui vient d'être lu. Une histoire est un **bonus
+optionnel** rattaché à un sentier par `trailIndex` (index 0-based dans `TRAILS`)
+et affichée en dernière position de ce sentier.
+
+**Pourquoi un concept séparé et non une 52ᵉ leçon.** Trois contraintes
+existantes l'imposent — ne pas essayer de les contourner :
+1. `js/app.js` découpe les leçons triées en paquets **rigides de 5**
+   (`TRAIL_SIZE`) : une leçon insérée décalerait tous les sentiers suivants et
+   désynchroniserait le tableau `TRAILS`.
+2. `tests/data-invariants.test.js` verrouille « 51 leçons », « `order` est
+   exactement [1..51] » et « 816 item-ids, aucun renommé ».
+3. `State.ensureLessonStatuses()` est une chaîne de déverrouillage **linéaire** :
+   une histoire dedans bloquerait le sentier suivant.
+
+**Le déverrouillage est CALCULÉ, jamais persisté.** `storyNode` (`js/app.js`)
+regarde si les 5 leçons du sentier sont `completed`. Seule la **complétion** est
+persistée, dans `state.lessons[storyId]` — la même map que les leçons, donc
+**aucun changement de forme persistée** : `validate()` recopie les entrées par
+`status`/`bestScore` sans connaître les ids, et la fusion cloud (rang max +
+`max` sur `bestScore`) fonctionne déjà telle quelle.
+
+⚠️ **L'entrée `lessons[storyId]` est créée PARESSEUSEMENT**, par
+`Progress.storyFinished` uniquement — il n'existe volontairement pas
+d'`ensureStoryStatuses()` appelée depuis `load()`. Sinon `load()` → `save()`
+ajouterait une clé à toute sauvegarde existante et le test d'égalité **octet pour
+octet** de `tests/state-load.test.js` rougirait à juste titre.
+
+⚠️ **Les ids d'épreuve ne sont PAS des clés SRS.** `Exercises.buildIndex()` ne
+parcourt que `POLISH_LESSONS`, donc `getEntry()` ne les résout pas et
+`buildReviewSession` les ignorerait pour toujours : les enregistrer ne créerait
+que du poids mort dans `localStorage` **et** dans le document Firestore. D'où
+l'intention dédiée `Progress.storyAnswerRecorded` (XP seul), et
+`Progress.storyFinished` qui n'appelle **pas** `ensureLessonStatuses()`. Les deux
+choix sont verrouillés par `tests/progress.test.js`.
+
+**Les 4 épreuves** (`step.kind` dans les données → `type` de l'exercice) :
+`quiz` → `story-quiz` (QCM à **1 ou 2** bonnes réponses ; `answers` porte la
+vérité, pas `answer`), `build` → `story-build` (reconstituer la réplique suivante
+depuis des tuiles, réutilise `appendWordBankPicker`), `gap` → `story-gap`
+(choisir le mot manquant parmi des tuiles — distinct du `cloze` des leçons, qui
+est en saisie libre et choisit lui-même le mot caché), `match` → `story-match`
+(relier PL↔FR, correction en **tout ou rien**). Les quatre partagent
+`appendSceneContext` (`js/app.js`), qui affiche les répliques de la scène et les
+lit à voix haute. `who` ∈ `{"Ż", "B", "N"}` — `"N"` est le **narrateur**, rendu
+en pleine largeur (`.story-narrator`) et laissé sur la voix par défaut par
+`ttsOptsFor`, sans quoi il parlerait comme Żubr.
+
+`story-build` ne réutilise **pas** le type `dialogue` : dans un dialogue de leçon
+la réplique cible est masquée *au sein* du contexte (`target: true`), alors qu'ici
+la scène est entièrement visible et la réplique à produire s'y ajoute. Fusionner
+les deux chargerait le renderer des leçons de cas qu'elles n'ont pas.
+
+**Têtes de personnages.** `UI.characterImg(who, cls)` rend l'avatar d'un locuteur
+depuis la table `CHARACTERS` de `js/ui.js` — convention de nommage
+`<personnage>-head.png` dans `public/assets/img/`. Żubr **réutilise
+`zubr-head.png`**, qui sert déjà d'icône PWA (même style, rien à dupliquer) ;
+`bocian-head.png` a été généré avec Gemini en prenant le premier comme référence
+de style. Ajouter un personnage se fait dans cette table, et nulle part ailleurs.
+
+⚠️ `characterImg` rend **`null`** pour un `who` inconnu, donc pour le narrateur
+`"N"`. Ce n'est pas un cas d'échec, c'est le mécanisme : combiné au fait que
+`UI.el` ignore les enfants `null`, il donne au narrateur sa ligne pleine largeur
+**sans qu'aucun renderer ait à tester `"N"`**. `tests/assets-paths.test.js` et
+`tests/stories.test.js` verrouillent les deux moitiés de l'invariant (tout
+locuteur ≠ `"N"` a une image, et `"N"` n'en a pas) — nécessaire parce que le
+repli emoji du handler `error` avale silencieusement un chemin cassé.
+
+Dans le rendu, l'avatar est **hors** de la bulle, façon messagerie : un wrapper
+`.story-row` porte le placement (`align-self`) et la largeur utile, la bulle ne
+garde que sa couleur et son coin cassé. Deux pièges dans `css/styles.css` :
+`align-self` **doit** être neutralisé sur la bulle à l'intérieur d'une row (il y
+pilote l'axe vertical et décollerait la bulle de son avatar), et `.mascot-img`
+n'ayant aucune dimension propre, `img.story-avatar` est ce qui empêche l'image de
+s'afficher en 512 px. L'ordre du DOM reste toujours avatar-puis-bulle, y compris
+à droite où seul `flex-direction: row-reverse` inverse le rendu : un lecteur
+d'écran annonce ainsi « qui parle » avant « ce qu'il dit ».
+
+Invariants de contenu dans `tests/stories.test.js` : `answers ⊆ options`,
+`wordBank ⊇ mots(pl)`, `answer ∈ options` + marqueur `_____`, ids **disjoints**
+des 816 item-ids (ils cohabitent dans la même map `localStorage`), et un test de
+bout en bout qui vérifie que la bonne réponse de chaque épreuve est bien acceptée
+par `Exercises.check`.
 
 ## Content editing
 

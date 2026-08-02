@@ -7,6 +7,7 @@
    ===================================================================== */
 import { Exercises as E } from "./exercises.js";
 import { POLISH_LESSONS } from "../data/lessons.js";
+import { POLISH_STORIES } from "../data/stories.js";
 import { State } from "./state.js";
 import { SRS } from "./srs.js";
 import { Speech } from "./speech.js";
@@ -183,6 +184,38 @@ function buildReviewSession() {
   return out;
 }
 
+/**
+ * @param {string} id
+ * @returns {Story|undefined}
+ */
+function storyById(id) {
+  return (POLISH_STORIES || []).filter(function (s) {
+    return s.id === id;
+  })[0];
+}
+
+// Construit la session d'une histoire bonus : une épreuve par scène, DANS
+// L'ORDRE DU FICHIER. Pas de shuffle ici, contrairement à buildLessonSession :
+// c'est un récit, les scènes se lisent dans l'ordre. Aucune révision SRS n'est
+// mélangée dedans — une histoire est un intermède, pas un entraînement.
+/**
+ * @param {string} storyId
+ * @returns {Exercise[]} vide si l'histoire est inconnue.
+ */
+function buildStorySession(storyId) {
+  var story = storyById(storyId);
+  if (!story) return [];
+  /** @type {Exercise[]} */
+  var out = [];
+  var scenes = story.scenes || [];
+  // Boucle `for` et non `.map` : le narrowing de `story` (un `var`) ne
+  // survivrait pas à la closure du callback — même piège que renderLessonIntro.
+  for (var i = 0; i < scenes.length; i++) {
+    out.push(E.makeStoryStep(story, scenes[i]));
+  }
+  return out;
+}
+
 // Répartit les exercices "difficiles/oraux" pour éviter les grappes.
 /**
  * @param {Exercise[]} list
@@ -196,5 +229,7 @@ function interleave(list) {
 export const Session = {
   buildLessonSession: buildLessonSession,
   buildReviewSession: buildReviewSession,
-  lessonById: lessonById
+  buildStorySession: buildStorySession,
+  lessonById: lessonById,
+  storyById: storyById
 };

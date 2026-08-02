@@ -165,3 +165,132 @@ describe("résolubilité du corpus", () => {
     expect(insolubles).toEqual([]);
   });
 });
+
+/* ================= correction des épreuves d'histoire ================= */
+/* Les objets sont construits À LA MAIN et non via makeStoryStep : on teste ici
+   la règle de correction seule, pas la fabrique (couverte par stories.test.js).
+   C'est aussi ce qui permet d'exprimer les cas que les données ne contiennent
+   pas — un QCM multiple à 3 réponses, une paire inventée… */
+
+describe("check — story-quiz (une seule bonne réponse)", () => {
+  const ex = {
+    type: "story-quiz",
+    multi: false,
+    answer: "Żubr poznał nową osobę.",
+    answers: ["Żubr poznał nową osobę."]
+  };
+
+  it("accepte la bonne option", () => {
+    expect(Exercises.check(ex, "Żubr poznał nową osobę.")).toBe(true);
+  });
+
+  it("refuse une autre option", () => {
+    expect(Exercises.check(ex, "Żubr poszedł do kina.")).toBe(false);
+  });
+
+  it("passe par normalize (casse, ponctuation)", () => {
+    expect(Exercises.check(ex, "  żubr poznał nową osobę  ")).toBe(true);
+  });
+
+  it("refuse une réponse vide ou absente", () => {
+    expect(Exercises.check(ex, "")).toBe(false);
+    expect(Exercises.check(ex, null)).toBe(false);
+  });
+});
+
+describe("check — story-quiz (deux bonnes réponses)", () => {
+  const ex = {
+    type: "story-quiz",
+    multi: true,
+    answer: "A",
+    answers: ["A", "B"]
+  };
+
+  it("accepte les deux bonnes, dans n'importe quel ordre", () => {
+    expect(Exercises.check(ex, ["A", "B"])).toBe(true);
+    expect(Exercises.check(ex, ["B", "A"])).toBe(true);
+  });
+
+  it("refuse un sous-ensemble", () => {
+    expect(Exercises.check(ex, ["A"])).toBe(false);
+    expect(Exercises.check(ex, [])).toBe(false);
+  });
+
+  it("refuse un sur-ensemble", () => {
+    expect(Exercises.check(ex, ["A", "B", "C"])).toBe(false);
+  });
+
+  it("refuse deux fois la même bonne réponse", () => {
+    // Sinon un double clic compenserait la réponse manquante.
+    expect(Exercises.check(ex, ["A", "A"])).toBe(false);
+  });
+
+  it("refuse le bon nombre de réponses mais les mauvaises", () => {
+    expect(Exercises.check(ex, ["C", "D"])).toBe(false);
+    expect(Exercises.check(ex, ["A", "C"])).toBe(false);
+  });
+
+  it("refuse une chaîne là où un tableau est attendu", () => {
+    expect(Exercises.check(ex, "A")).toBe(false);
+  });
+});
+
+describe("check — story-gap", () => {
+  const ex = { type: "story-gap", answer: "pizzę" };
+
+  it("accepte le bon mot, refuse les distracteurs", () => {
+    expect(Exercises.check(ex, "pizzę")).toBe(true);
+    expect(Exercises.check(ex, "lasagne")).toBe(false);
+    expect(Exercises.check(ex, "dzięki")).toBe(false);
+  });
+});
+
+describe("check — story-match", () => {
+  const paires = [
+    { pl: "Bocian", fr: "la cigogne" },
+    { pl: "Restauracja", fr: "le restaurant" },
+    { pl: "Do zobaczenia", fr: "au revoir" }
+  ];
+  const ex = { type: "story-match", pairs: paires, answer: "…" };
+
+  it("accepte les paires justes, dans n'importe quel ordre", () => {
+    expect(Exercises.check(ex, paires)).toBe(true);
+    expect(Exercises.check(ex, paires.slice().reverse())).toBe(true);
+  });
+
+  it("refuse dès qu'une seule paire est fausse — tout ou rien", () => {
+    const presque = [
+      { pl: "Bocian", fr: "la cigogne" },
+      { pl: "Restauracja", fr: "au revoir" },
+      { pl: "Do zobaczenia", fr: "le restaurant" }
+    ];
+    expect(Exercises.check(ex, presque)).toBe(false);
+  });
+
+  it("refuse un appariement incomplet", () => {
+    expect(Exercises.check(ex, paires.slice(0, 2))).toBe(false);
+    expect(Exercises.check(ex, [])).toBe(false);
+  });
+
+  it("refuse une forme inattendue au lieu de l'interpréter de travers", () => {
+    expect(Exercises.check(ex, "Bocian")).toBe(false);
+    expect(Exercises.check(ex, null)).toBe(false);
+    expect(Exercises.check(ex, [null, null, null])).toBe(false);
+  });
+});
+
+describe("check — story-build", () => {
+  const ex = { type: "story-build", answer: "Nazywam się Żubr i mam dziesięć lat." };
+
+  it("accepte les mots dans le bon ordre", () => {
+    expect(
+      Exercises.check(ex, ["Nazywam", "się", "Żubr", "i", "mam", "dziesięć", "lat"])
+    ).toBe(true);
+  });
+
+  it("refuse un ordre incorrect", () => {
+    expect(
+      Exercises.check(ex, ["Żubr", "się", "Nazywam", "i", "mam", "dziesięć", "lat"])
+    ).toBe(false);
+  });
+});

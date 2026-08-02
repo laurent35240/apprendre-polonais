@@ -15,6 +15,13 @@
      reading    compréhension : lire un texte suivi, répondre à une question
      write      production libre : traduire ou transformer une phrase (plusieurs
                 réponses acceptées)
+
+   Les 4 épreuves des histoires bonus (data/stories.js) sont, elles, écrites à
+   la main dans les données — un récit ne se génère pas :
+     story-quiz  QCM sur la scène, 1 OU 2 bonnes réponses
+     story-build reconstituer la réplique suivante depuis des tuiles
+     story-gap   choisir le mot manquant d'une réplique parmi des tuiles
+     story-match relier des mots polonais à leur traduction
    ===================================================================== */
 import { POLISH_LESSONS } from "../data/lessons.js";
 import { Speech } from "./speech.js";
@@ -343,6 +350,160 @@ function makeWrite(production) {
   };
 }
 
+/* ------------------- épreuves d'histoire (data/stories.js) ----------- */
+
+// `sceneTitle` et `context` sont communs aux 4 épreuves : elles s'affichent
+// toutes au-dessus des répliques de leur scène.
+/**
+ * @param {Story} story
+ * @param {StoryScene} scene
+ * @returns {{ context: StoryLine[], sceneTitle: string }}
+ */
+function storyShell(story, scene) {
+  return { context: scene.lines, sceneTitle: story.title };
+}
+
+/**
+ * @param {Story} story
+ * @param {StoryScene} scene
+ * @param {StoryQuizStep} step
+ * @returns {StoryQuizExercise}
+ */
+function makeStoryQuiz(story, scene, step) {
+  var shell = storyShell(story, scene);
+  return {
+    type: "story-quiz",
+    itemId: step.id,
+    context: shell.context,
+    sceneTitle: shell.sceneTitle,
+    promptText: step.question,
+    promptLang: "pl",
+    subText: step.questionFr,
+    // `answer` n'est ici qu'un libellé d'AFFICHAGE (le « Réponse : … » du
+    // feedback) : la vérité est `answers`, que check() lit dans le cas multiple.
+    // D'où la jonction quand il y en a deux — n'en montrer qu'une laisserait
+    // croire que l'autre était fausse.
+    answer: step.answers.join(" · "),
+    answerLang: "pl",
+    audioText: step.question,
+    options: shuffle(step.options),
+    answers: step.answers,
+    multi: step.answers.length > 1,
+    instruction:
+      step.answers.length > 1
+        ? "Choisis les DEUX bonnes réponses"
+        : "Réponds à la question"
+  };
+}
+
+/**
+ * @param {Story} story
+ * @param {StoryScene} scene
+ * @param {StoryBuildStep} step
+ * @returns {StoryBuildExercise}
+ */
+function makeStoryBuild(story, scene, step) {
+  var shell = storyShell(story, scene);
+  return {
+    type: "story-build",
+    itemId: step.id,
+    context: shell.context,
+    sceneTitle: shell.sceneTitle,
+    promptText: step.fr,
+    promptLang: "fr",
+    answer: step.pl,
+    answerLang: "pl",
+    audioText: step.pl,
+    bank: shuffle(step.wordBank),
+    speaker: step.who,
+    instruction: "Reconstitue la réplique qui suit"
+  };
+}
+
+/**
+ * @param {Story} story
+ * @param {StoryScene} scene
+ * @param {StoryGapStep} step
+ * @returns {StoryGapExercise}
+ */
+function makeStoryGap(story, scene, step) {
+  var shell = storyShell(story, scene);
+  return {
+    type: "story-gap",
+    itemId: step.id,
+    context: shell.context,
+    sceneTitle: shell.sceneTitle,
+    promptText: step.sentence,
+    promptLang: "pl",
+    subText: step.fr,
+    answer: step.answer,
+    answerLang: "pl",
+    // La phrase complète, trou rempli : c'est elle qu'on écoute au feedback,
+    // pas la version à trou (« _____ » ne se prononce pas).
+    audioText: step.sentence.replace(/_+/, step.answer),
+    options: shuffle(step.options),
+    speaker: step.who,
+    instruction: "Choisis le mot manquant"
+  };
+}
+
+/**
+ * @param {Story} story
+ * @param {StoryScene} scene
+ * @param {StoryMatchStep} step
+ * @returns {StoryMatchExercise}
+ */
+function makeStoryMatch(story, scene, step) {
+  var shell = storyShell(story, scene);
+  return {
+    type: "story-match",
+    itemId: step.id,
+    context: shell.context,
+    sceneTitle: shell.sceneTitle,
+    promptText: "Relie chaque mot polonais à sa traduction.",
+    promptLang: "fr",
+    // Pas de réponse unique à afficher : `answer` sert le feedback textuel.
+    answer: step.pairs
+      .map(function (p) {
+        return p.pl + " = " + p.fr;
+      })
+      .join(" · "),
+    answerLang: "pl",
+    audioText: step.pairs
+      .map(function (p) {
+        return p.pl;
+      })
+      .join(", "),
+    pairs: step.pairs,
+    instruction: "Relie les mots"
+  };
+}
+
+// Fabrique la bonne épreuve selon `step.kind`. Le `default` en `never` fait
+// d'un nouveau `kind` sans fabrique une erreur de compilation, exactement comme
+// le switch de renderExercise.
+/**
+ * @param {Story} story
+ * @param {StoryScene} scene
+ * @returns {Exercise}
+ */
+function makeStoryStep(story, scene) {
+  var step = scene.step;
+  switch (step.kind) {
+    case "quiz":
+      return makeStoryQuiz(story, scene, step);
+    case "build":
+      return makeStoryBuild(story, scene, step);
+    case "gap":
+      return makeStoryGap(story, scene, step);
+    case "match":
+      return makeStoryMatch(story, scene, step);
+    default:
+      /** @type {never} */ (step);
+      throw new Error("Épreuve d'histoire inconnue");
+  }
+}
+
 /* ---------------------------- correction ---------------------------- */
 
 /**
@@ -353,17 +514,62 @@ function normalize(str) {
   return Speech.normalize(str);
 }
 
+// Égalité d'ENSEMBLES après normalisation : l'ordre de sélection ne compte pas,
+// mais ni un sous-ensemble ni un sur-ensemble ne passent.
+/**
+ * @param {string[]} got
+ * @param {string[]} want
+ * @returns {boolean}
+ */
+function sameSet(got, want) {
+  var a = got.map(normalize).filter(Boolean);
+  var b = want.map(normalize);
+  // Dédoublonne `a` : deux clics sur la même option ne doivent pas compenser
+  // une réponse manquante.
+  var uniques = a.filter(function (x, i) {
+    return a.indexOf(x) === i;
+  });
+  if (uniques.length !== b.length) return false;
+  return uniques.every(function (x) {
+    return b.indexOf(x) !== -1;
+  });
+}
+
 // Vérifie une réponse (hors 'speak' qui est géré par le score vocal).
 /**
  * @param {Exercise} exercise
- * @param {string|string[]|null} userAnswer tableau pour build/dialogue, chaîne sinon.
+ * @param {UserAnswer} userAnswer forme dictée par le type d'exercice (cf. UserAnswer).
  * @returns {boolean}
  */
 function check(exercise, userAnswer) {
-  if (exercise.type === "build" || exercise.type === "dialogue") {
+  if (
+    exercise.type === "build" ||
+    exercise.type === "dialogue" ||
+    exercise.type === "story-build"
+  ) {
     // userAnswer est un tableau de mots dans l'ordre choisi
-    var mots = Array.isArray(userAnswer) ? userAnswer : [];
+    var mots = Array.isArray(userAnswer) ? userAnswer.map(String) : [];
     return normalize(mots.join(" ")) === normalize(exercise.answer);
+  }
+  if (exercise.type === "story-quiz" && exercise.multi) {
+    /** @type {string[]} */
+    var choix = Array.isArray(userAnswer) ? userAnswer.map(String) : [];
+    return sameSet(choix, exercise.answers);
+  }
+  if (exercise.type === "story-match") {
+    // Tout ou rien : les 5 paires justes, ou faux. Cohérent avec le `correct`
+    // binaire du reste de l'app — il n'existe pas de score partiel.
+    var faites = Array.isArray(userAnswer) ? userAnswer : [];
+    if (faites.length !== exercise.pairs.length) return false;
+    return faites.every(function (/** @type {any} */ p) {
+      if (!p || typeof p !== "object") return false;
+      return exercise.pairs.some(function (attendue) {
+        return (
+          normalize(attendue.pl) === normalize(p.pl) &&
+          normalize(attendue.fr) === normalize(p.fr)
+        );
+      });
+    });
   }
   var saisie = typeof userAnswer === "string" ? userAnswer : "";
   if (exercise.type === "write") {
@@ -387,6 +593,7 @@ export const Exercises = {
   makeDialogue: makeDialogue,
   makeReading: makeReading,
   makeWrite: makeWrite,
+  makeStoryStep: makeStoryStep,
   check: check,
   shuffle: shuffle
 };

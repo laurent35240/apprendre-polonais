@@ -1274,3 +1274,171 @@ img.badge-emoji { width: 48px; height: 48px; flex-shrink: 0; }
   text-align: center;
   letter-spacing: 0.02em;
 }
+
+/* ================= Histoires bonus (data/stories.js) ================= */
+
+/* Nœud d'accueil, en fin de sentier. Teinte parchemin pour le distinguer des
+   leçons sans changer sa structure : c'est une variante de .lesson-node, pas un
+   composant à part.
+   ⚠️ La pastille doit rester OPAQUE et le survol sans `transform` — les deux
+   laisseraient passer la ligne du sentier (cf. .lesson-node). */
+.story-node {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--purple) 45%, var(--line));
+  background: color-mix(in srgb, var(--accent) 10%, var(--card));
+}
+.story-node:hover {
+  border-color: var(--purple);
+}
+.story-node .lesson-badge {
+  background: var(--purple);
+  color: #fff;
+  font-size: 22px;
+}
+.story-node.locked .lesson-badge {
+  background: var(--line);
+  color: var(--ink-soft);
+}
+.story-node.done {
+  border-style: solid;
+  border-color: var(--green);
+}
+.story-node.done .lesson-badge {
+  background: var(--green);
+  color: var(--green-ink);
+}
+
+/* Écran d'accueil de l'histoire */
+.story-kicker {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--purple);
+}
+.story-subtitle {
+  margin: 2px 0 6px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* La scène : mêmes bulles qu'un dialogue de leçon, plus la ligne du narrateur */
+.story-scene {
+  margin-bottom: 14px;
+}
+
+/* Avatar + bulle, façon messagerie. La ROW porte le placement et la largeur
+   utile ; la bulle ne garde que sa couleur et son coin cassé. */
+.story-row {
+  display: flex;
+  align-items: flex-end; /* l'avatar s'aligne sur le bas de la bulle */
+  gap: 8px;
+  max-width: 92%;
+}
+.story-row.who-a {
+  align-self: flex-start;
+}
+.story-row.who-b {
+  align-self: flex-end;
+  /* Inversion purement visuelle : le DOM reste avatar-puis-bulle (cf. app.js). */
+  flex-direction: row-reverse;
+}
+/* La largeur est désormais celle de la row. Et `align-self` DOIT être neutralisé :
+   dans une row flex il pilote l'axe VERTICAL, donc il écraserait align-items et
+   décollerait la bulle de son avatar. */
+.story-row .dialogue-line {
+  max-width: 100%;
+  align-self: auto;
+}
+/* `.mascot-img` n'a aucune dimension propre : sans cette règle l'avatar
+   s'afficherait en 512 px. Son pendant `.emoji-fallback` est indispensable —
+   à défaut le repli retomberait sur 2.2rem et sauterait à l'œil. */
+img.story-avatar {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+.emoji-fallback.story-avatar {
+  font-size: 30px;
+}
+.dialogue-line.story-narrator {
+  max-width: 100%;
+  align-self: stretch;
+  text-align: center;
+  border-style: dashed;
+  background: transparent;
+  border-color: color-mix(in srgb, var(--purple) 30%, var(--line));
+}
+.dialogue-line.story-narrator .dialogue-pl {
+  justify-content: center;
+}
+.dialogue-line.story-narrator .pl {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+/* QCM à réponses multiples : l'option cochée avant validation */
+.option.selected {
+  border-color: var(--secondary);
+  background: color-mix(in srgb, var(--secondary) 16%, var(--card));
+}
+
+/* Relier polonais ↔ français */
+.story-match {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 14px;
+  margin-top: 16px;
+}
+.match-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.match-tile {
+  padding: 12px 14px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--card);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+}
+.match-tile.pl {
+  color: var(--primary);
+}
+.match-tile:hover:not(:disabled) {
+  border-color: var(--secondary);
+}
+.match-tile.selected {
+  border-color: var(--secondary);
+  background: color-mix(in srgb, var(--secondary) 16%, var(--card));
+}
+.match-tile.paired {
+  border-color: var(--purple);
+  background: color-mix(in srgb, var(--purple) 12%, var(--card));
+}
+/* Le numéro de paire : c'est lui qui montre QUI est relié à QUI, faute de
+   pouvoir tracer un trait entre deux colonnes en CSS seul. */
+.match-tile.paired::after {
+  content: attr(data-pair);
+  float: right;
+  margin-left: 8px;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #fff;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+}
+.match-tile:disabled {
+  cursor: default;
+}

@@ -5,7 +5,8 @@
    Une couche de TRANSACTION au-dessus des moteurs de règles. Chaque fonction
    représente une intention utilisateur : elle applique la mutation complète,
    déclare les chemins modifiés et programme l'écriture. Les 32 sites d'écriture
-   dispersés dans app.js, gamification.js et srs.js se ramènent à 7 intentions.
+   dispersés dans app.js, gamification.js et srs.js se ramènent à 9 intentions
+   (7 à l'origine, plus les 2 des histoires bonus).
 
    Pourquoi un module SÉPARÉ et non state.js : `answerRecorded` doit créditer
    l'XP et `sessionFinished` toucher le streak et les badges. Les mettre dans
@@ -93,6 +94,89 @@ function sessionFinished(lessonId, pct) {
 
   return {
     lessonJustCompleted: lessonJustCompleted,
+    xpGained: xpGained,
+    leveledUp: leveledUp,
+    level: State.get().profile.level,
+    newBadges: Gamification.checkBadges()
+  };
+}
+
+/* --------------------- histoires bonus (data/stories.js) --------------- */
+
+/**
+ * Une réponse dans une histoire bonus. Crédite l'XP, et RIEN d'autre.
+ *
+ * Pas de `SRS.record` ni de `State.touch("items.…")`, contrairement à
+ * `answerRecorded` : les ids d'épreuve n'existent pas dans l'index d'exercices
+ * (`Exercises.buildIndex` ne parcourt que POLISH_LESSONS), donc
+ * `buildReviewSession` les ignorerait silencieusement pour toujours. Les
+ * enregistrer ne créerait que du poids mort — dans localStorage ET dans le
+ * document Firestore. C'est `tests/progress.test.js` qui verrouille l'absence
+ * d'`items` dans l'ensemble d'écriture.
+ * @param {boolean} correct
+ * @returns {{xpGained: number, leveledUp: boolean, level: number}}
+ */
+function storyAnswerRecorded(correct) {
+  var xpGained = 0;
+  var leveledUp = false;
+  if (correct) {
+    xpGained = Gamification.XP_PER_CORRECT;
+    leveledUp = Gamification.addXP(xpGained);
+  }
+  State.scheduleSave();
+  return {
+    xpGained: xpGained,
+    leveledUp: leveledUp,
+    level: State.get().profile.level
+  };
+}
+
+/**
+ * Fin d'une histoire bonus. Miroir de `sessionFinished` avec deux différences
+ * assumées :
+ *
+ * 1. L'entrée `lessons[storyId]` est CRÉÉE ICI si elle manque — c'est le seul
+ *    endroit du code qui la crée. Rien ne la crée au chargement (pas
+ *    d'`ensureStoryStatuses`), sinon `load()` → `save()` ajouterait une clé à
+ *    toute sauvegarde existante et le test d'égalité octet de
+ *    `tests/state-load.test.js` rougirait à juste titre.
+ * 2. Pas d'appel à `ensureLessonStatuses()` : une histoire est un bonus, elle
+ *    ne doit RIEN déverrouiller. C'est aussi pourquoi elle n'est pas dans
+ *    POLISH_LESSONS (cf. CLAUDE.md § Histoires bonus).
+ * @param {string} storyId
+ * @param {number} pct score 0-100.
+ * @returns {{storyJustCompleted: boolean, xpGained: number, leveledUp: boolean, level: number, newBadges: Badge[]}}
+ */
+function storyFinished(storyId, pct) {
+  Gamification.touchActivity();
+
+  var lessons = State.get().lessons;
+  var st = lessons[storyId];
+  if (!st) {
+    st = { status: "available", bestScore: 0 };
+    lessons[storyId] = st;
+  }
+
+  var storyJustCompleted = false;
+  var xpGained = 0;
+  var leveledUp = false;
+
+  st.bestScore = Math.max(st.bestScore || 0, pct);
+  if (pct >= 60) {
+    if (st.status !== "completed") storyJustCompleted = true;
+    st.status = "completed";
+    xpGained = Gamification.XP_LESSON_BONUS;
+    leveledUp = Gamification.addXP(xpGained);
+  } else if (st.status !== "completed") {
+    st.status = "inProgress";
+  }
+
+  State.touch("lessons");
+  // Jalon, comme la fin d'une leçon : on ne laisse pas l'écriture en attente.
+  State.flush();
+
+  return {
+    storyJustCompleted: storyJustCompleted,
     xpGained: xpGained,
     leveledUp: leveledUp,
     level: State.get().profile.level,
@@ -259,6 +343,8 @@ function cloudMerged(remoteText) {
 export const Progress = {
   answerRecorded: answerRecorded,
   sessionFinished: sessionFinished,
+  storyAnswerRecorded: storyAnswerRecorded,
+  storyFinished: storyFinished,
   timeSpent: timeSpent,
   dayRolledOver: dayRolledOver,
   pronunciationPerfect: pronunciationPerfect,

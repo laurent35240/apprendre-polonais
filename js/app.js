@@ -3,6 +3,7 @@
    APP — contrôleur : navigation, rendu des écrans, boucle d'exercices
    ===================================================================== */
 import { POLISH_LESSONS } from "../data/lessons.js";
+import { POLISH_STORIES } from "../data/stories.js";
 import { POLISH_BADGES } from "../data/badges.js";
 import { State } from "./state.js";
 import { Speech } from "./speech.js";
@@ -571,6 +572,65 @@ function lessonNode(lesson, s) {
   return node;
 }
 
+/* ---- Histoires bonus : nœud d'accueil en fin de sentier ---- */
+
+/**
+ * @param {number} trailIndex index 0-based dans TRAILS
+ * @returns {Story|undefined}
+ */
+function storyForTrail(trailIndex) {
+  return (POLISH_STORIES || []).filter(function (st) {
+    return st.trailIndex === trailIndex;
+  })[0];
+}
+
+// Le déverrouillage est CALCULÉ (les 5 leçons du sentier sont-elles terminées ?)
+// et non lu dans l'état : rien ne crée d'entrée `lessons[storyId]` au
+// chargement, sinon toute sauvegarde existante gagnerait une clé au premier
+// `save()` (cf. Progress.storyFinished et CLAUDE.md § Histoires bonus). Seule la
+// COMPLÉTION est persistée.
+/**
+ * @param {Story} story
+ * @param {boolean} trailDone les 5 leçons du sentier sont terminées.
+ * @param {PersistedState} s
+ * @returns {HTMLElement}
+ */
+function storyNode(story, trailDone, s) {
+  var st = s.lessons[story.id];
+  var done = !!st && st.status === "completed";
+  // Une histoire déjà terminée reste ouverte même si `order` a changé depuis :
+  // le travail réel de l'utilisateur ne se reverrouille pas.
+  var locked = !trailDone && !done;
+
+  return el(
+    "div",
+    {
+      class: "lesson-node story-node " + (locked ? "locked" : "") + (done ? " done" : ""),
+      "data-story-id": story.id,
+      onclick: locked
+        ? null
+        : function () {
+            renderStoryIntro(story.id);
+          }
+    },
+    [
+      el("div", { class: "lesson-badge", text: story.icon }),
+      el("div", { class: "lesson-info" }, [
+        el("div", { class: "lesson-title", text: story.title }),
+        el("div", {
+          class: "lesson-sub",
+          text: locked
+            ? "🔒 Termine les 5 leçons du sentier"
+            : done
+            ? "Histoire terminée — score " + (st ? st.bestScore ?? 0 : 0) + "%"
+            : "Histoire bonus · " + (story.scenes || []).length + " épreuves"
+        })
+      ]),
+      locked ? null : el("div", { class: "lesson-chevron", text: "›" })
+    ]
+  );
+}
+
 // Un « sentier » = un paquet de 5 leçons, dépliable/repliable.
 /**
  * @param {number} index
@@ -596,6 +656,11 @@ function trailNode(index, lessons, s) {
   lessons.forEach(function (l) {
     body.appendChild(lessonNode(l, s));
   });
+  // Histoire bonus du sentier, en dernière position. Elle ne compte NI dans
+  // `doneCount` NI dans `done` : elle est optionnelle, un sentier reste
+  // « Terminé 🎉 » sans elle.
+  var story = storyForTrail(index);
+  if (story) body.appendChild(storyNode(story, done, s));
 
   return el(
     "div",
@@ -819,6 +884,62 @@ function renderLessonIntro(lessonId) {
   }
 }
 
+/* ---- Écran d'accueil d'une histoire bonus ---- */
+
+// Volontairement plus léger que renderLessonIntro : pas de notes de grammaire ni
+// d'aperçu de vocabulaire. Une histoire ne présente rien de nouveau, elle fait
+// rejouer ce qui est déjà acquis dans le sentier.
+/**
+ * @param {string} storyId
+ * @returns {void}
+ */
+function renderStoryIntro(storyId) {
+  var story = Session.storyById(storyId);
+  if (!story) return;
+  // Capturés ici : le narrowing d'un `var` ne survit pas aux closures des
+  // handlers ci-dessous (même piège que renderLessonIntro).
+  var titre = story.title;
+  endSession();
+  clear(appRoot);
+  scrollTop();
+
+  appRoot.appendChild(
+    el("button", {
+      class: "link-btn",
+      text: "‹ Retour",
+      onclick: function () { renderHome(); }
+    })
+  );
+
+  appRoot.appendChild(
+    el("div", { class: "card lesson-intro story-intro" }, [
+      el("div", { class: "intro-head" }, [
+        UI.mascotImg("celebrate", "intro-mascot"),
+        el("div", {}, [
+          el("div", { class: "story-kicker", text: story.icon + " Histoire bonus" }),
+          el("h1", { text: story.title }),
+          el("p", { class: "story-subtitle", text: story.titleFr }),
+          el("p", { class: "mascot-line", text: story.mascotIntro })
+        ])
+      ])
+    ])
+  );
+
+  appRoot.appendChild(
+    el("button", {
+      class: "btn btn-primary btn-big",
+      text: "Commencer l'histoire 📖",
+      onclick: function () {
+        startSession(Session.buildStorySession(storyId), {
+          kind: "story",
+          storyId: storyId,
+          title: titre
+        });
+      }
+    })
+  );
+}
+
 /**
  * @param {GrammarExample} ex
  * @returns {HTMLElement}
@@ -923,6 +1044,18 @@ function renderExercise() {
     case "write":
       renderWrite(card, ex);
       break;
+    case "story-quiz":
+      renderStoryQuiz(card, ex);
+      break;
+    case "story-build":
+      renderStoryBuild(card, ex);
+      break;
+    case "story-gap":
+      renderStoryGap(card, ex);
+      break;
+    case "story-match":
+      renderStoryMatch(card, ex);
+      break;
     default:
       /** @type {never} */ (ex);
   }
@@ -933,15 +1066,21 @@ function renderExercise() {
   appRoot.appendChild(el("div", { id: "feedback", class: "feedback" }));
 }
 
-// Options TTS différenciant les deux voix d'un dialogue (A plus aiguë, B plus grave).
+// Options TTS différenciant les voix d'un échange.
+// Dialogues de leçon : "A" plus aiguë, "B" plus grave.
+// Histoires bonus : "Ż" (Żubr) prend la voix aiguë, "B" (Bocian) la grave, et
+// "N" (le narrateur) reste sur la voix par défaut — sans ce cas, le narrateur
+// tomberait dans la même voix que Żubr et on ne distinguerait plus le récit des
+// répliques.
 /**
  * @param {string} [speaker]
  * @returns {SpeakOpts}
  */
 function ttsOptsFor(speaker) {
   if (!speaker) return {};
-  var isB = speaker === "B";
-  return { pitch: isB ? 0.82 : 1.1, voiceIndex: isB ? 1 : 0 };
+  if (speaker === "N") return {};
+  var grave = speaker === "B";
+  return { pitch: grave ? 0.82 : 1.1, voiceIndex: grave ? 1 : 0 };
 }
 
 /**
@@ -1376,6 +1515,331 @@ function renderDialogue(card, ex) {
   }, 350);
 }
 
+/* ---- Histoires bonus : contexte de scène partagé par les 4 épreuves ---- */
+
+// Affiche le titre de l'histoire puis les répliques de la scène, et lance leur
+// lecture enchaînée. Rien n'est masqué ici, contrairement à renderDialogue : la
+// scène est le TEXTE qu'on vient de lire, l'épreuve porte dessus.
+/**
+ * @param {HTMLElement} card
+ * @param {StoryQuizExercise|StoryBuildExercise|StoryGapExercise|StoryMatchExercise} ex
+ * @returns {void}
+ */
+function appendSceneContext(card, ex) {
+  if (ex.sceneTitle)
+    card.appendChild(el("div", { class: "dialogue-title", text: ex.sceneTitle }));
+
+  var convo = el("div", { class: "dialogue story-scene" });
+  (ex.context || []).forEach(function (line) {
+    // Le narrateur n'est pas un interlocuteur : sa ligne traverse toute la
+    // largeur au lieu de prendre un côté.
+    var isNarrator = line.who === "N";
+    var side = isNarrator ? "story-narrator" : line.who === "B" ? "who-b" : "who-a";
+    var bubble = el("div", { class: "dialogue-line " + side });
+    var head = el("div", { class: "dialogue-pl" });
+    head.appendChild(audioButton(line.pl, false, line.who));
+    head.appendChild(el("span", { class: "pl", text: line.pl }));
+    bubble.appendChild(head);
+    if (line.fr) bubble.appendChild(el("div", { class: "dialogue-fr", text: line.fr }));
+
+    // Avatar HORS de la bulle (façon messagerie). `characterImg` rend null pour
+    // le narrateur : c'est ce null — et non un test sur "N" — qui lui laisse sa
+    // ligne pleine largeur sans emballage.
+    var avatar = UI.characterImg(line.who, "story-avatar");
+    if (!avatar) {
+      convo.appendChild(bubble);
+    } else {
+      // Ordre du DOM toujours avatar-puis-bulle, y compris à droite : c'est le
+      // CSS (row-reverse) qui inverse le rendu, pour que l'ordre d'annonce d'un
+      // lecteur d'écran reste « qui parle », puis « ce qu'il dit ».
+      convo.appendChild(el("div", { class: "story-row " + side }, [avatar, bubble]));
+    }
+  });
+  card.appendChild(convo);
+
+  var token = autoPlayToken;
+  setTimeout(function () {
+    if (token !== autoPlayToken) return;
+    speakSequence(ex.context || [], 400);
+  }, 350);
+}
+
+/* ---- Histoire : QCM (1 ou 2 bonnes réponses) ---- */
+/**
+ * @param {HTMLElement} card
+ * @param {StoryQuizExercise} ex
+ * @returns {void}
+ */
+function renderStoryQuiz(card, ex) {
+  appendSceneContext(card, ex);
+
+  card.appendChild(
+    el("div", { class: "prompt" }, [
+      audioButton(ex.audioText),
+      el("span", { class: "prompt-text pl", text: ex.promptText })
+    ])
+  );
+  card.appendChild(el("div", { class: "subtext", text: ex.subText }));
+
+  var opts = el("div", { class: "options" });
+
+  if (!ex.multi) {
+    // Cas simple : strictement le motif de renderMC / renderReading.
+    ex.options.forEach(function (opt) {
+      opts.appendChild(
+        el("button", {
+          class: "option pl",
+          text: opt,
+          onclick: function (e) {
+            handleAnswer(ex, opt, /** @type {HTMLElement} */ (e.currentTarget), opts);
+          }
+        })
+      );
+    });
+    card.appendChild(opts);
+    return;
+  }
+
+  // Cas multiple : les options deviennent des bascules. Source de vérité unique
+  // = `chosen` (indices dans ex.options) ; l'état visuel en est DÉRIVÉ à chaque
+  // refresh, jamais maintenu en parallèle du DOM (même discipline que
+  // appendWordBankPicker).
+  /** @type {number[]} */
+  var chosen = [];
+  /** @type {HTMLButtonElement[]} */
+  var tiles = [];
+
+  function refresh() {
+    tiles.forEach(function (tile, i) {
+      tile.classList.toggle("selected", chosen.indexOf(i) !== -1);
+    });
+  }
+
+  ex.options.forEach(function (opt, i) {
+    var tile = el("button", {
+      class: "option pl",
+      text: opt,
+      onclick: function () {
+        var at = chosen.indexOf(i);
+        if (at === -1) chosen.push(i);
+        else chosen.splice(at, 1);
+        refresh();
+      }
+    });
+    tiles.push(tile);
+    opts.appendChild(tile);
+  });
+  card.appendChild(opts);
+
+  card.appendChild(
+    el("button", {
+      class: "btn btn-primary",
+      text: "Valider",
+      onclick: function () {
+        handleAnswer(
+          ex,
+          chosen.map(function (i) { return ex.options[i]; }),
+          null,
+          opts
+        );
+      }
+    })
+  );
+}
+
+/* ---- Histoire : reconstituer la réplique suivante ---- */
+/**
+ * @param {HTMLElement} card
+ * @param {StoryBuildExercise} ex
+ * @returns {void}
+ */
+function renderStoryBuild(card, ex) {
+  appendSceneContext(card, ex);
+  card.appendChild(
+    el("div", { class: "prompt" }, [
+      el("span", { class: "prompt-text fr", text: "→ " + ex.promptText })
+    ])
+  );
+  appendWordBankPicker(card, ex);
+}
+
+/* ---- Histoire : mot manquant à choisir ---- */
+/**
+ * @param {HTMLElement} card
+ * @param {StoryGapExercise} ex
+ * @returns {void}
+ */
+function renderStoryGap(card, ex) {
+  appendSceneContext(card, ex);
+
+  card.appendChild(
+    el("div", { class: "prompt" }, [
+      el("span", { class: "prompt-text pl", text: ex.promptText })
+    ])
+  );
+  card.appendChild(el("div", { class: "subtext", text: ex.subText }));
+
+  // Tuiles et non boutons d'option : c'est un mot qu'on pose dans un trou, la
+  // forme visuelle doit le dire (mêmes classes que la banque de mots).
+  var opts = el("div", { class: "build-bank" });
+  ex.options.forEach(function (opt) {
+    opts.appendChild(
+      el("button", {
+        class: "chip bank-chip",
+        text: opt,
+        onclick: function (e) {
+          handleAnswer(ex, opt, /** @type {HTMLElement} */ (e.currentTarget), opts);
+        }
+      })
+    );
+  });
+  card.appendChild(opts);
+}
+
+/* ---- Histoire : relier polonais ↔ français ---- */
+/**
+ * @param {HTMLElement} card
+ * @param {StoryMatchExercise} ex
+ * @returns {void}
+ */
+function renderStoryMatch(card, ex) {
+  appendSceneContext(card, ex);
+  card.appendChild(
+    el("div", { class: "prompt" }, [
+      el("span", { class: "prompt-text fr", text: ex.promptText })
+    ])
+  );
+
+  // Colonne de droite mélangée : alignée sur la gauche, l'exercice serait
+  // résoluble sans lire un seul mot.
+  var gauche = ex.pairs.map(function (p) { return p.pl; });
+  var droite = Exercises.shuffle(
+    ex.pairs.map(function (p) { return p.fr; })
+  );
+
+  // SOURCE DE VÉRITÉ UNIQUE : `paires` (indices [gauche, droite]) et
+  // `enAttente` (index de gauche sélectionné, ou null). Tout l'affichage en est
+  // dérivé par refresh() — aucun état visuel maintenu en parallèle du DOM.
+  /** @type {number[][]} */
+  var paires = [];
+  /** @type {number|null} */
+  var enAttente = null;
+
+  /** @type {HTMLButtonElement[]} */
+  var tuilesG = [];
+  /** @type {HTMLButtonElement[]} */
+  var tuilesD = [];
+
+  /**
+   * @param {number} i index dans `gauche`
+   * @returns {number} rang de la paire (1-based), ou 0 si non appariée
+   */
+  function rangGauche(i) {
+    for (var k = 0; k < paires.length; k++) if (paires[k][0] === i) return k + 1;
+    return 0;
+  }
+  /**
+   * @param {number} j index dans `droite`
+   * @returns {number}
+   */
+  function rangDroite(j) {
+    for (var k = 0; k < paires.length; k++) if (paires[k][1] === j) return k + 1;
+    return 0;
+  }
+
+  var valider = el("button", {
+    class: "btn btn-primary",
+    text: "Valider",
+    onclick: function () {
+      handleAnswer(
+        ex,
+        paires.map(function (p) {
+          return { pl: gauche[p[0]], fr: droite[p[1]] };
+        }),
+        null,
+        null
+      );
+    }
+  });
+
+  function refresh() {
+    tuilesG.forEach(function (tile, i) {
+      var rang = rangGauche(i);
+      tile.classList.toggle("paired", rang > 0);
+      tile.classList.toggle("selected", enAttente === i);
+      tile.setAttribute("data-pair", rang ? String(rang) : "");
+    });
+    tuilesD.forEach(function (tile, j) {
+      var rang = rangDroite(j);
+      tile.classList.toggle("paired", rang > 0);
+      tile.setAttribute("data-pair", rang ? String(rang) : "");
+    });
+    // Valider n'a de sens que si TOUTES les paires sont faites : la correction
+    // est en tout-ou-rien, un envoi partiel serait un faux garanti.
+    valider.disabled = paires.length !== ex.pairs.length;
+  }
+
+  /**
+   * Retire la paire contenant cet index, s'il y en a une.
+   * @param {0|1} cote 0 = gauche, 1 = droite
+   * @param {number} idx
+   * @returns {boolean} vrai si une paire a été défaite
+   */
+  function defaire(cote, idx) {
+    for (var k = 0; k < paires.length; k++) {
+      if (paires[k][cote] === idx) {
+        paires.splice(k, 1);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  var colG = el("div", { class: "match-col" });
+  gauche.forEach(function (mot, i) {
+    var tile = el("button", {
+      class: "match-tile pl",
+      text: mot,
+      onclick: function () {
+        // Un re-clic sur une tuile appariée défait la paire.
+        if (defaire(0, i)) {
+          enAttente = null;
+        } else {
+          enAttente = enAttente === i ? null : i;
+        }
+        refresh();
+      }
+    });
+    tuilesG.push(tile);
+    colG.appendChild(tile);
+  });
+
+  var colD = el("div", { class: "match-col" });
+  droite.forEach(function (mot, j) {
+    var tile = el("button", {
+      class: "match-tile fr",
+      text: mot,
+      onclick: function () {
+        if (defaire(1, j)) {
+          refresh();
+          return;
+        }
+        // Sans mot polonais sélectionné, un clic à droite n'a rien à relier.
+        if (enAttente === null) return;
+        paires.push([enAttente, j]);
+        enAttente = null;
+        refresh();
+      }
+    });
+    tuilesD.push(tile);
+    colD.appendChild(tile);
+  });
+
+  card.appendChild(el("div", { class: "story-match" }, [colG, colD]));
+  card.appendChild(valider);
+  refresh();
+}
+
 /* ---- Prononciation ---- */
 /**
  * @param {HTMLElement} card
@@ -1487,7 +1951,7 @@ function lockExerciseCard() {
 
 /**
  * @param {Exercise} ex
- * @param {string|string[]} answer
+ * @param {UserAnswer} answer
  * @param {HTMLElement|null} [clickedNode]
  * @param {HTMLElement|null} [optsContainer]
  * @param {HTMLInputElement|null} [input]
@@ -1500,11 +1964,15 @@ function handleAnswer(ex, answer, clickedNode, optsContainer, input) {
   if (optsContainer) {
     // Même clé de comparaison que Exercises.check (normalize) : une comparaison
     // stricte pouvait surligner « wrong » une option que check() acceptait.
-    var want = Speech.normalize(ex.answer);
+    // `answers` et non `answer` quand il existe : sur un QCM à deux bonnes
+    // réponses, ne surligner que la première laisserait croire que l'autre
+    // était fausse.
+    var want = ("answers" in ex ? ex.answers : [ex.answer]).map(Speech.normalize);
     Array.prototype.forEach.call(optsContainer.children, function (btn) {
       btn.disabled = true;
-      if (Speech.normalize(btn.textContent) === want)
+      if (want.indexOf(Speech.normalize(btn.textContent)) !== -1)
         btn.classList.add("correct");
+      else if (btn.classList.contains("selected")) btn.classList.add("wrong");
     });
     if (clickedNode && !correct) clickedNode.classList.add("wrong");
   }
@@ -1538,7 +2006,12 @@ function recordAndFeedback(ex, correct, _score, customMsg) {
   // Une transaction unique. `session.xp` reste ici : c'est un compteur en
   // mémoire, non persisté — le sortir dans progress.js mélangerait les
   // responsabilités.
-  var res = Progress.answerRecorded(ex.itemId, correct);
+  // Les épreuves d'histoire passent par une intention distincte : leurs ids ne
+  // sont pas des clés SRS (cf. Progress.storyAnswerRecorded).
+  var res =
+    session.meta.kind === "story"
+      ? Progress.storyAnswerRecorded(correct)
+      : Progress.answerRecorded(ex.itemId, correct);
   if (correct) {
     session.xp += res.xpGained;
     UI.soundCorrect();
@@ -1564,8 +2037,10 @@ function showFeedback(ex, correct, customMsg) {
   fb.className = "feedback show " + (correct ? "ok" : "ko");
   var line = correct ? UI.cheer() : UI.consoleLine();
   // Le locuteur de la réplique cible : sinon le feedback rejoue la réponse
-  // du dialogue avec la voix par défaut au lieu de celle du personnage.
-  var speaker = ex.type === "dialogue" ? ex.speaker : undefined;
+  // avec la voix par défaut au lieu de celle du personnage. `in` plutôt qu'un
+  // test sur `type` : dialogue, story-build et story-gap portent tous un
+  // `speaker`, et un futur type qui en porte un sera couvert d'office.
+  var speaker = "speaker" in ex ? ex.speaker : undefined;
   var content = el("div", { class: "feedback-inner" }, [
     el("div", { class: "feedback-head" }, [
       UI.mascotImg(correct ? "happy" : "sad", "feedback-mascot"),
@@ -1643,14 +2118,25 @@ function finishSession() {
   }).length;
   var pct = total ? Math.round((correct / total) * 100) : 0;
 
-  var res = Progress.sessionFinished(
-    session.meta.kind === "lesson" ? session.meta.lessonId : null,
-    pct
-  );
+  // Une histoire ne déverrouille rien : elle a sa propre intention, qui ne
+  // touche pas la chaîne des leçons (cf. Progress.storyFinished).
+  var res =
+    session.meta.kind === "story"
+      ? Progress.storyFinished(session.meta.storyId, pct)
+      : Progress.sessionFinished(
+          session.meta.kind === "lesson" ? session.meta.lessonId : null,
+          pct
+        );
   session.xp += res.xpGained;
   if (res.leveledUp) UI.levelUpToast(res.level);
   renderSummary(
-    pct, correct, total, res.lessonJustCompleted, res.newBadges, session.xp
+    pct,
+    correct,
+    total,
+    "lessonJustCompleted" in res ? res.lessonJustCompleted : false,
+    res.newBadges,
+    session.xp,
+    "storyJustCompleted" in res && res.storyJustCompleted
   );
 }
 
@@ -1663,9 +2149,11 @@ function finishSession() {
  * @param {boolean} lessonDone
  * @param {Badge[]} newBadges
  * @param {number} xpGagne
+ * @param {boolean} [storyDone] histoire bonus terminée : message différent, car
+ *   elle ne déverrouille rien.
  * @returns {void}
  */
-function renderSummary(pct, correct, total, lessonDone, newBadges, xpGagne) {
+function renderSummary(pct, correct, total, lessonDone, newBadges, xpGagne, storyDone) {
   clear(appRoot);
   scrollTop();
   updateHeader();
@@ -1685,6 +2173,9 @@ function renderSummary(pct, correct, total, lessonDone, newBadges, xpGagne) {
     el("h1", { text: headline }),
     lessonDone
       ? el("p", { class: "summary-unlock", text: "🔓 Leçon terminée, la suivante est débloquée !" })
+      : null,
+    storyDone
+      ? el("p", { class: "summary-unlock", text: "📖 Histoire terminée ! Tu as lu un vrai récit en polonais." })
       : null,
     el("div", { class: "summary-stats" }, [
       summaryStat(correct + "/" + total, "bonnes réponses"),

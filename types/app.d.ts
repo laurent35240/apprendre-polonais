@@ -133,6 +133,80 @@ interface Lesson {
   productions?: Production[];
 }
 
+/* ---- Histoires bonus (un « niveau bonus » par sentier) --------------
+   Volontairement HORS de `Lesson` : une histoire n'a pas d'`order`, n'entre
+   pas dans la chaîne de déverrouillage et ses ids ne sont pas des clés SRS.
+   Cf. CLAUDE.md § Histoires bonus. */
+
+/** "Ż" = Żubr, "B" = Bocian, "N" = narrateur. */
+type StoryWho = "Ż" | "B" | "N";
+
+interface StoryLine {
+  who: StoryWho;
+  pl: string;
+  fr: string;
+}
+
+/** QCM à 1 OU 2 bonnes réponses — `answers` porte la vérité, pas une chaîne. */
+interface StoryQuizStep {
+  kind: "quiz";
+  id: string;
+  /** Énoncé en polonais (l'histoire se lit en polonais). */
+  question: string;
+  /** Traduction de l'énoncé, affichée en sous-titre. */
+  questionFr: string;
+  options: string[];
+  /** Sous-ensemble de `options`. 1 ou 2 entrées. */
+  answers: string[];
+}
+
+/** Reconstituer une réplique depuis des tuiles. Même règle que Sentence.wordBank. */
+interface StoryBuildStep {
+  kind: "build";
+  id: string;
+  who: StoryWho;
+  pl: string;
+  fr: string;
+  /** Mots de `pl` + distracteurs optionnels. */
+  wordBank: string[];
+}
+
+interface StoryGapStep {
+  kind: "gap";
+  id: string;
+  who: StoryWho;
+  /** Contient le marqueur de trou `_____`. */
+  sentence: string;
+  fr: string;
+  /** Doit appartenir à `options`. */
+  answer: string;
+  options: string[];
+}
+
+interface StoryMatchStep {
+  kind: "match";
+  id: string;
+  pairs: { pl: string; fr: string }[];
+}
+
+type StoryStep = StoryQuizStep | StoryBuildStep | StoryGapStep | StoryMatchStep;
+
+interface StoryScene {
+  lines: StoryLine[];
+  step: StoryStep;
+}
+
+interface Story {
+  id: string;
+  /** Index 0-based dans le tableau TRAILS de js/app.js. Un sentier au plus. */
+  trailIndex: number;
+  icon: string;
+  title: string;
+  titleFr: string;
+  mascotIntro: string;
+  scenes: StoryScene[];
+}
+
 interface Badge {
   id: string;
   emoji: string;
@@ -312,6 +386,54 @@ interface WriteExercise extends ExerciseBase {
   hint?: string;
 }
 
+/* ---- Les 4 épreuves d'une histoire bonus ----------------------------
+   Toutes portent `context` : les répliques de la scène, affichées au-dessus de
+   l'épreuve et lues à voix haute. C'est ce champ commun qui justifie un
+   renderer de contexte partagé (appendSceneContext, js/app.js).
+
+   `story-build` est un type À PART et ne réutilise PAS `dialogue` : dans un
+   dialogue de leçon la réplique cible est MASQUÉE au sein du contexte
+   (`target: true`), alors qu'ici la scène est entièrement visible et la
+   réplique à produire vient s'ajouter à la fin. Fusionner les deux aurait
+   chargé le renderer des leçons de cas qu'elles n'ont pas. */
+
+interface StoryExerciseBase extends ExerciseBase {
+  /** Répliques de la scène. Aucune n'est masquée. */
+  context: StoryLine[];
+  /** Titre de l'histoire, affiché en tête de carte. */
+  sceneTitle: string;
+}
+
+interface StoryQuizExercise extends StoryExerciseBase {
+  type: "story-quiz";
+  options: string[];
+  /** 1 ou 2 entrées. `answer` porte la 1re (affichage seulement). */
+  answers: string[];
+  /** Dérivé de `answers.length > 1` : conditionne le mode bascule du rendu. */
+  multi: boolean;
+  /** Traduction de l'énoncé. */
+  subText: string;
+}
+
+interface StoryBuildExercise extends StoryExerciseBase {
+  type: "story-build";
+  bank: string[];
+  /** `who` de la réplique à produire : sélectionne la voix du feedback. */
+  speaker: StoryWho;
+}
+
+interface StoryGapExercise extends StoryExerciseBase {
+  type: "story-gap";
+  options: string[];
+  subText: string;
+  speaker: StoryWho;
+}
+
+interface StoryMatchExercise extends StoryExerciseBase {
+  type: "story-match";
+  pairs: { pl: string; fr: string }[];
+}
+
 type Exercise =
   | McExercise
   | ListenExercise
@@ -321,17 +443,36 @@ type Exercise =
   | BuildExercise
   | DialogueExercise
   | ReadingExercise
-  | WriteExercise;
+  | WriteExercise
+  | StoryQuizExercise
+  | StoryBuildExercise
+  | StoryGapExercise
+  | StoryMatchExercise;
 
-/* Les deux variantes qui se reconstruisent depuis une banque de mots :
-   c'est le paramètre légitime d'appendWordBankPicker. */
-type WordBankExercise = BuildExercise | DialogueExercise;
+/**
+ * Ce que l'utilisateur soumet, toutes formes confondues. Le TYPE d'exercice
+ * dicte la forme attendue et `Exercises.check` la restreint par narrowing :
+ *   - `string[]` de mots ordonnés    → build / dialogue / story-build
+ *   - `string[]` d'options cochées   → story-quiz multiple
+ *   - `{pl, fr}[]` de paires formées → story-match
+ *   - `string`                       → tous les autres
+ * Une union plutôt qu'un `any` : une forme inattendue est refusée (donc comptée
+ * fausse), jamais interprétée de travers.
+ */
+type UserAnswer = string | string[] | { pl: string; fr: string }[] | null;
+
+/* Les variantes qui se reconstruisent depuis une banque de mots : c'est le
+   paramètre légitime d'appendWordBankPicker. */
+type WordBankExercise = BuildExercise | DialogueExercise | StoryBuildExercise;
 
 /* ============ 6. Session ============================================= */
 
 type SessionMeta =
   | { kind: "lesson"; lessonId: string; title: string }
-  | { kind: "review"; title: string };
+  | { kind: "review"; title: string }
+  /* Distincte de "lesson" : une histoire ne crédite pas de SRS et ne
+     déverrouille rien (cf. Progress.storyFinished). */
+  | { kind: "story"; storyId: string; title: string };
 
 interface SessionResult {
   itemId: string;

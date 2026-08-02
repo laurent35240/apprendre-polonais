@@ -157,6 +157,112 @@ describe("sessionFinished", () => {
   });
 });
 
+/* ================== histoires bonus (data/stories.js) ================== */
+
+describe("storyAnswerRecorded", () => {
+  it("crédite l'XP sans créer AUCUN item SRS", () => {
+    // LA spécification exécutable du choix de conception : les ids d'épreuve
+    // n'existent pas dans l'index d'exercices, un item SRS créé ici resterait
+    // du poids mort à vie dans localStorage et dans Firestore.
+    const itemsAvant = Object.keys(State.get().items).length;
+    const xpAvant = State.get().profile.totalXP;
+    const r = Progress.storyAnswerRecorded(true);
+    expect(r.xpGained).toBe(Gamification.XP_PER_CORRECT);
+    expect(State.get().profile.totalXP).toBe(xpAvant + Gamification.XP_PER_CORRECT);
+    expect(Object.keys(State.get().items)).toHaveLength(itemsAvant);
+    expect(State.dirtyPaths()).toEqual(["profile"]);
+  });
+
+  it("une réponse fausse ne touche rien du tout", () => {
+    const xpAvant = State.get().profile.totalXP;
+    const r = Progress.storyAnswerRecorded(false);
+    expect(r.xpGained).toBe(0);
+    expect(State.get().profile.totalXP).toBe(xpAvant);
+    expect(State.dirtyPaths()).toEqual([]);
+  });
+
+  it("n'écrit qu'une fois après la fenêtre", () => {
+    const espion = espionnerEcritures();
+    Progress.storyAnswerRecorded(true);
+    vi.advanceTimersByTime(3000);
+    expect(espion).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("storyFinished", () => {
+  const ID = "story-2-restauracja";
+
+  it("crée l'entrée absente et la marque terminée", () => {
+    expect(State.get().lessons[ID]).toBeUndefined();
+    const xpAvant = State.get().profile.totalXP;
+    const r = Progress.storyFinished(ID, 80);
+    expect(r.storyJustCompleted).toBe(true);
+    expect(r.xpGained).toBe(Gamification.XP_LESSON_BONUS);
+    expect(State.get().lessons[ID]).toEqual({ status: "completed", bestScore: 80 });
+    expect(State.get().profile.totalXP).toBe(xpAvant + Gamification.XP_LESSON_BONUS);
+  });
+
+  it("l'entrée créée a exactement les 2 champs de la forme persistée", () => {
+    Progress.storyFinished(ID, 80);
+    expect(Object.keys(State.get().lessons[ID]).sort()).toEqual([
+      "bestScore",
+      "status"
+    ]);
+  });
+
+  it("un score insuffisant passe en inProgress, sans bonus", () => {
+    const xpAvant = State.get().profile.totalXP;
+    const r = Progress.storyFinished(ID, 40);
+    expect(r.storyJustCompleted).toBe(false);
+    expect(r.xpGained).toBe(0);
+    expect(State.get().lessons[ID].status).toBe("inProgress");
+    expect(State.get().profile.totalXP).toBe(xpAvant);
+  });
+
+  it("ne rétrograde pas une histoire déjà terminée et garde le meilleur score", () => {
+    Progress.storyFinished(ID, 100);
+    const r = Progress.storyFinished(ID, 20);
+    expect(r.storyJustCompleted).toBe(false);
+    expect(State.get().lessons[ID]).toEqual({ status: "completed", bestScore: 100 });
+  });
+
+  it("ne déverrouille AUCUNE leçon — le bonus est non bloquant", () => {
+    // La contrepartie du choix « optionnelle » : terminer l'histoire ne doit pas
+    // faire avancer d'un cran la chaîne de déverrouillage.
+    const lecons = Object.fromEntries(
+      Object.entries(State.get().lessons).map(([k, v]) => [k, { ...v }])
+    );
+    Progress.storyFinished(ID, 100);
+    const apres = { ...State.get().lessons };
+    delete apres[ID];
+    expect(JSON.stringify(canon(apres))).toBe(JSON.stringify(canon(lecons)));
+  });
+
+  it("n'ajoute qu'une clé à `lessons`, et c'est celle de l'histoire", () => {
+    const avant = Object.keys(State.get().lessons);
+    Progress.storyFinished(ID, 80);
+    const apres = Object.keys(State.get().lessons);
+    expect(apres.filter((k) => !avant.includes(k))).toEqual([ID]);
+  });
+
+  it("écrit immédiatement : la fin d'une histoire est un jalon", () => {
+    const espion = espionnerEcritures();
+    Progress.storyFinished(ID, 80);
+    expect(espion).toHaveBeenCalled(); // sans avancer les timers
+  });
+
+  // Pas d'assertion sur dirtyPaths ici, contrairement à answerRecorded :
+  // storyFinished flush(), et save() vide l'ensemble des chemins sales. On
+  // observe donc ce qui a été ÉCRIT, ce qui est de toute façon plus fort.
+  it("la sauvegarde écrite porte l'histoire et pas un item de plus", () => {
+    const itemsAvant = Object.keys(REALISTIC.items).length;
+    Progress.storyFinished(ID, 80);
+    const ecrit = JSON.parse(localStorage.getItem(KEY));
+    expect(ecrit.lessons[ID]).toEqual({ status: "completed", bestScore: 80 });
+    expect(Object.keys(ecrit.items)).toHaveLength(itemsAvant);
+  });
+});
+
 describe("timeSpent", () => {
   it("cumule le temps du jour", () => {
     const avant = State.get().dailyGoal.secondsToday;

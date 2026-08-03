@@ -445,6 +445,7 @@ function renderHome(keepScroll) {
       mins +
       "). En avant !";
   var hero = el("div", { class: "hero card" }, [
+    UI.decorImg("sapin-2", "hero-decor"),
     UI.mascotImg("base", "hero-mascot"),
     el("div", { class: "hero-text" }, [
       el("h1", { text: "Cześć, Laurent !" }),
@@ -524,6 +525,9 @@ function renderHome(keepScroll) {
 
   // Badges
   appRoot.appendChild(renderBadges(s));
+
+  // Bandeau forestier pleine largeur en pied de page
+  appRoot.appendChild(UI.decorImg("foret-bandeau", "forest-banner"));
 }
 
 /**

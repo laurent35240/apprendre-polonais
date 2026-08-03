@@ -22,6 +22,8 @@ const PERSOS = [
   { who: "Ż", file: "zubr-head" },
   { who: "B", file: "bocian-head" }
 ];
+// Décor forestier (js/ui.js decorImg) : mêmes clés que la table DECOR.
+const DECORS = ["sapin-1", "sapin-2", "feuille", "foret-bandeau"];
 const IMG_DIR = resolve(import.meta.dirname, "../public/assets/img");
 const BASE = "/apprendre-polonais/assets/img/";
 
@@ -40,6 +42,10 @@ describe("fichiers présents sur disque", () => {
 
   it("favicon.png existe", () => {
     expect(existsSync(`${IMG_DIR}/favicon.png`)).toBe(true);
+  });
+
+  it.each(DECORS)("%s.png existe", (name) => {
+    expect(existsSync(`${IMG_DIR}/${name}.png`)).toBe(true);
   });
 });
 
@@ -73,11 +79,17 @@ describe("chemins produits par UI", () => {
       );
   });
 
+  it("decorImg préfixe par le base pour chaque décor", () => {
+    for (const name of DECORS)
+      expect(UI.decorImg(name).getAttribute("src")).toBe(`${BASE}${name}.png`);
+  });
+
   it("tout chemin produit est absolu — un relatif casserait sans slash final", () => {
     const srcs = [
       ...POSES.map((p) => UI.mascotImg(p).getAttribute("src")),
       ...PERSOS.map((p) => UI.characterImg(p.who).getAttribute("src")),
-      ...POLISH_BADGES.map((b) => UI.badgeImg(b.id, b.emoji).getAttribute("src"))
+      ...POLISH_BADGES.map((b) => UI.badgeImg(b.id, b.emoji).getAttribute("src")),
+      ...DECORS.map((name) => UI.decorImg(name).getAttribute("src"))
     ];
     for (const s of srcs) expect(s.startsWith("/")).toBe(true);
   });
@@ -87,11 +99,13 @@ describe("chemins produits par UI", () => {
       ...POSES.map((p) => UI.mascotImg(p).getAttribute("src")),
       ...PERSOS.map((p) => UI.characterImg(p.who).getAttribute("src")),
       ...POLISH_BADGES.map((b) => UI.badgeImg(b.id, b.emoji).getAttribute("src")),
+      ...DECORS.map((name) => UI.decorImg(name).getAttribute("src")),
       `${BASE}favicon.png`
     ];
-    // 6 poses + 2 personnages + 11 badges + favicon. `zubr-head` y figure deux
-    // fois (pose `head` ET personnage Ż) : c'est voulu, l'image est partagée.
-    expect(srcs).toHaveLength(20);
+    // 6 poses + 2 personnages + 11 badges + 4 décors + favicon. `zubr-head` y
+    // figure deux fois (pose `head` ET personnage Ż) : c'est voulu, l'image
+    // est partagée.
+    expect(srcs).toHaveLength(24);
     for (const s of srcs) {
       const nom = s.slice(BASE.length);
       expect(existsSync(`${IMG_DIR}/${nom}`), s).toBe(true);

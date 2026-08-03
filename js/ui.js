@@ -207,6 +207,44 @@ function badgeImg(badgeId, emoji, cls) {
   return img;
 }
 
+// Décor forestier (sapins, feuille) : purement cosmétique, aucune sémantique
+// de personnage ou de badge — d'où une table et une fonction séparées de
+// CHARACTERS/badgeImg plutôt qu'un détournement de l'une d'elles.
+/** @type {Record<string, {file: string, emoji: string}>} */
+var DECOR = {
+  "sapin-1": { file: "sapin-1", emoji: "🌲" },
+  "sapin-2": { file: "sapin-2", emoji: "🌲" },
+  feuille: { file: "feuille", emoji: "🍂" },
+  "foret-bandeau": { file: "foret-bandeau", emoji: "🌳" }
+};
+
+// <img> de décor forestier, repli sur son emoji. `aria-hidden` : purement
+// cosmétique, rien à annoncer à un lecteur d'écran.
+/**
+ * @param {"sapin-1"|"sapin-2"|"feuille"|"foret-bandeau"} name
+ * @param {string} [cls]
+ * @returns {HTMLImageElement}
+ */
+function decorImg(name, cls) {
+  var deco = DECOR[name];
+  var img = el("img", {
+    class: "decor-img " + (cls || ""),
+    src: IMG_BASE + deco.file + ".png",
+    alt: "",
+    "aria-hidden": "true",
+    draggable: "false"
+  });
+  img.addEventListener("error", function () {
+    var span = el("span", {
+      class: "emoji-fallback " + (cls || ""),
+      "aria-hidden": "true",
+      text: deco.emoji
+    });
+    if (img.parentNode) img.parentNode.replaceChild(span, img);
+  });
+  return img;
+}
+
 /* ------------------------------ toasts ------------------------------ */
 /**
  * @param {string|HTMLElement} msg
@@ -401,6 +439,7 @@ export const UI = {
   mascotImg: mascotImg,
   characterImg: characterImg,
   badgeImg: badgeImg,
+  decorImg: decorImg,
   cheer: cheer,
   consoleLine: console_,
   toast: toast,

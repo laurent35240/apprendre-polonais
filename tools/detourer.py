@@ -92,24 +92,30 @@ def detourer(src, dst, taille=TAILLE_DEFAUT):
             px[x, y] = (0, 0, 0, 0)
         print(f"  passe liseré : {len(a_retirer)} pixels retirés")
 
-    out = out.resize((taille, taille), Image.LANCZOS)
+    # `taille` borne la plus GRANDE dimension ; l'autre suit le ratio de la
+    # source. Sans quoi une bannière large (ratio ≠ 1:1) sortirait écrasée en
+    # carré — inoffensif jusqu'ici puisque toutes les sources étaient déjà
+    # carrées, donc ce calcul leur rend exactement le même résultat.
+    echelle = taille / max(w, h)
+    nw, nh = round(w * echelle), round(h * echelle)
+    out = out.resize((nw, nh), Image.LANCZOS)
     out.save(dst)
 
     # --- récapitulatif : de quoi conclure sans ouvrir l'image ---
     v = out.load()
     coins = [
         v[0, 0][3],
-        v[taille - 1, 0][3],
-        v[0, taille - 1][3],
-        v[taille - 1, taille - 1][3],
+        v[nw - 1, 0][3],
+        v[0, nh - 1][3],
+        v[nw - 1, nh - 1][3],
     ]
     restants = sum(
         1
-        for y in range(taille)
-        for x in range(taille)
+        for y in range(nh)
+        for x in range(nw)
         if v[x, y][3] > 0 and dominance_verte(v[x, y])
     )
-    print(f"{dst} — {taille}x{taille}, alpha des coins = {coins}")
+    print(f"{dst} — {nw}x{nh}, alpha des coins = {coins}")
     print(f"pixels à dominance verte restants : {restants}")
     if any(coins):
         print("⚠️  un coin n'est pas transparent : le fond n'était pas uniforme ?")

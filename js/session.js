@@ -114,8 +114,8 @@ function buildLessonSession(lessonId) {
 
   // 2c) Compréhension de texte : une question par lecture
   (lesson.readings || []).forEach(function (r) {
-    (r.questions || []).forEach(function (q) {
-      out.push(E.makeReading(r, q));
+    (r.questions || []).forEach(function (q, i) {
+      out.push(E.makeReading(r, q, i === 0));
     });
   });
 

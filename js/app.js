@@ -1249,6 +1249,13 @@ function renderReading(card, ex) {
     );
   });
   card.appendChild(opts);
+  if (ex.autoPlay) {
+    var token = autoPlayToken;
+    setTimeout(function () {
+      if (token !== autoPlayToken) return; // exercice quitté entre-temps
+      Speech.speak(ex.audioText);
+    }, 350);
+  }
 }
 
 /* ---- Saisie / trous ---- */

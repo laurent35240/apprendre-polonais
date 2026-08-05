@@ -377,6 +377,8 @@ interface ReadingExercise extends ExerciseBase {
   /** Paragraphes du texte, affichés au-dessus de la question. */
   passage: string[];
   options: string[];
+  /** Posé uniquement sur la 1ʳᵉ question d'une lecture, pour ne l'auto-lire qu'une fois. */
+  autoPlay?: true;
 }
 
 interface WriteExercise extends ExerciseBase {

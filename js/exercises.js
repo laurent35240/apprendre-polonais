@@ -311,13 +311,15 @@ function makeCloze(entry) {
 /**
  * @param {Reading} reading
  * @param {ReadingQuestion} question
+ * @param {boolean} [autoPlay]
  * @returns {ReadingExercise}
  */
-function makeReading(reading, question) {
+function makeReading(reading, question, autoPlay) {
   // Le texte est en polonais (avec écoute) ; la question et les options sont
   // en français, pour évaluer la compréhension du texte plutôt que la
   // traduction — comme une épreuve de compréhension écrite classique.
-  return {
+  /** @type {ReadingExercise} */
+  var ex = {
     type: "reading",
     itemId: question.id,
     passage: reading.paragraphs,
@@ -329,6 +331,8 @@ function makeReading(reading, question) {
     options: shuffle(question.options),
     instruction: reading.title
   };
+  if (autoPlay) ex.autoPlay = true;
+  return ex;
 }
 
 /**

@@ -2088,8 +2088,10 @@ function showFeedback(ex, correct, customMsg) {
   updateHeader();
   // Rejoue systématiquement le mot/la phrase en polonais (apprentissage par
   // l'oreille), que la réponse soit bonne ou mauvaise. Léger délai pour ne pas
-  // couvrir le petit son de validation/erreur.
-  if (ex.audioText) {
+  // couvrir le petit son de validation/erreur. Exclu pour `reading` : son
+  // `audioText` est le passage entier, pas un mot/une phrase — la lecture
+  // automatique unique en tête d'exercice (et le bouton 🔊 manuel) suffit.
+  if (ex.audioText && ex.type !== "reading") {
     var token = autoPlayToken;
     setTimeout(function () {
       if (token !== autoPlayToken) return; // exercice quitté entre-temps

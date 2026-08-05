@@ -48,7 +48,10 @@ function endSession() {
   stopRecognition();
 }
 
+// Coupe aussi la synthèse vocale (feedback en cours de relecture) : les deux
+// audios "en vol" sont ce qu'on veut annuler ensemble à la sortie d'exercice.
 function stopRecognition() {
+  Speech.cancelSpeak();
   if (!activeRec) return;
   try {
     activeRec.abort();
@@ -1896,6 +1899,10 @@ function renderSpeak(card, ex) {
       // callbacks ne doivent ni écrire dans un DOM détaché ni créditer d'XP
       // pour un exercice abandonné.
       var token = autoPlayToken;
+      // Coupe une éventuelle relecture TTS encore en cours (ex. feedback de
+      // l'exercice précédent) : sur mobile elle se mélangerait sinon au son
+      // natif de démarrage du micro.
+      Speech.cancelSpeak();
       micBtn.classList.add("listening");
       status.textContent = "🎙️ J'écoute…";
       activeRec = Speech.listen({

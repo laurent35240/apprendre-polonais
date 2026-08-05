@@ -77,6 +77,15 @@ function listVoices() {
   return voices.slice();
 }
 
+// Coupe une synthèse en cours (ou en file). À appeler avant de démarrer la
+// reconnaissance vocale : sur mobile, le son natif de démarrage du micro peut
+// se superposer à une lecture TTS encore audible (ex. relecture de feedback),
+// ce qui sonne comme deux sons mélangés.
+function cancelSpeak() {
+  if (!ttsAvailable()) return;
+  window.speechSynthesis.cancel();
+}
+
 /* ----------------------- Reconnaissance vocale ----------------------- */
 
 var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -228,6 +237,7 @@ export const Speech = {
   ttsAvailable: ttsAvailable,
   hasPolishVoice: hasPolishVoice,
   speak: speak,
+  cancelSpeak: cancelSpeak,
   listVoices: listVoices,
   reloadVoices: loadVoices,
   recognitionAvailable: recognitionAvailable,

@@ -2962,7 +2962,7 @@ export const POLISH_LESSONS = [
         id: "g-47-1",
         title: "Exprimer la cause : bo, ponieważ",
         explanationFr:
-          "« bo » (car, familier) et « ponieważ » (parce que, plus formel) introduisent une cause, placées après la conséquence. Point de grammaire attesté au niveau A2+B1.",
+          "« bo » (car, familier) et « ponieważ » (parce que, plus formel) introduisent une cause, placées après la conséquence.",
         examples: [
           { pl: "Nie idę, bo jestem chory.", fr: "Je n'y vais pas car je suis malade." },
           { pl: "Zostałem w domu, ponieważ padał deszcz.", fr: "Je suis resté à la maison parce qu'il pleuvait." }

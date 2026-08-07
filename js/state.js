@@ -35,12 +35,17 @@ var THEMES = ["auto", "light", "dark"];
 // cycle. Un test d'invariant verrouille l'égalité des deux constantes.
 var MAX_BOX_PERSISTED = 5;
 
-/** @param {any} v @returns {boolean} objet ordinaire — les TABLEAUX sont exclus. */
+/**
+ * @param {any} v
+ * @returns {boolean} objet ordinaire — les TABLEAUX sont exclus.
+ */
 function isPlainObject(v) {
   return typeof v === "object" && v !== null && !Array.isArray(v);
 }
 
-/** @param {any} v @returns {string} étiquette courte pour le journal. */
+/** @param {any} v
+ * @returns {string} étiquette courte pour le journal.
+ */
 function describe(v) {
   if (v === null) return "null";
   if (Array.isArray(v)) return "tableau(" + v.length + ")";
@@ -48,7 +53,10 @@ function describe(v) {
 }
 
 /**
- * @param {any} v @param {number} def @param {number} min @param {number} max
+ * @param {any} v
+ * @param {number} def
+ * @param {number} min
+ * @param {number} max
  * @returns {number}
  */
 function num(v, def, min, max) {
@@ -57,14 +65,21 @@ function num(v, def, min, max) {
 }
 
 /**
- * @param {any} v @param {number} def @param {number} min @param {number} max
+ * @param {any} v
+ * @param {number} def
+ * @param {number} min
+ * @param {number} max
  * @returns {number}
  */
 function int(v, def, min, max) {
   return Math.round(num(v, def, min, max));
 }
 
-/** @param {any} v @param {boolean} def @returns {boolean} */
+/**
+ * @param {any} v
+ * @param {boolean} def
+ * @returns {boolean}
+ */
 function bool(v, def) {
   return typeof v === "boolean" ? v : def;
 }
@@ -73,7 +88,8 @@ var DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 /**
  * @template {string|null} T
- * @param {any} v @param {T} def
+ * @param {any} v
+ * @param {T} def
  * @returns {string|T}
  */
 function dateStr(v, def) {
@@ -230,7 +246,10 @@ var LESSON_RANK = { locked: 0, available: 1, inProgress: 2, completed: 3 };
 // MAX_BOX_PERSISTED ci-dessus, verrouillée par un test d'égalité.
 var XP_LESSON_BONUS_PERSISTED = 50;
 
-/** @param {string|null} a @param {string|null} b @returns {string|null} */
+/** @param {string|null} a
+ * @param {string|null} b
+ * @returns {string|null}
+ */
 function maxDateStr(a, b) {
   if (a === null) return b;
   if (b === null) return a;

@@ -1,6 +1,6 @@
 /* =====================================================================
    EXERCISES — génération et correction. Le test le plus précieux du fichier
-   est le dernier : il vérifie que les 225 exercices « build » du corpus sont
+   est le dernier : il vérifie que les 245 exercices « build » du corpus sont
    RÉSOLUBLES, à travers le vrai code de correction — donc immunisé contre une
    divergence entre la logique du test et celle de la prod.
    ===================================================================== */
@@ -84,9 +84,9 @@ describe("dialogue", () => {
     ).toBeNull();
   });
 
-  it("sur les 21 dialogues réels : answer = pl de la cible, bank non vide", () => {
+  it("sur les 25 dialogues réels : answer = pl de la cible, bank non vide", () => {
     const dialogues = POLISH_LESSONS.flatMap((l) => l.dialogues || []);
-    expect(dialogues).toHaveLength(21);
+    expect(dialogues).toHaveLength(25);
     for (const d of dialogues) {
       const ex = Exercises.makeDialogue(d);
       const cible = d.lines.find((li) => li.target);
@@ -133,11 +133,11 @@ describe("check", () => {
 
 /* ------------------------------------------------------------------ */
 describe("résolubilité du corpus", () => {
-  // Le test à plus forte valeur : pour CHACUN des 225 exercices build du jeu,
+  // Le test à plus forte valeur : pour CHACUN des 245 exercices build du jeu,
   // reconstituer la phrase dans l'ordre depuis wordBank doit être accepté par
   // le vrai check(). Un wordBank incomplet rendrait l'exercice impossible à
   // valider, sans qu'aucune erreur ne soit levée en production.
-  it("les 225 exercices build/dialogue sont tous résolubles", () => {
+  it("les 245 exercices build/dialogue sont tous résolubles", () => {
     const cas = [
       ...sentences.map((s) => ({ id: s.id, type: "build", pl: s.pl, bank: s.wordBank })),
       ...POLISH_LESSONS.flatMap((l) => l.dialogues || []).map((d) => {
@@ -145,7 +145,7 @@ describe("résolubilité du corpus", () => {
         return { id: d.id, type: "dialogue", pl: t.pl, bank: t.wordBank };
       })
     ];
-    expect(cas).toHaveLength(225);
+    expect(cas).toHaveLength(245);
 
     const insolubles = [];
     for (const c of cas) {

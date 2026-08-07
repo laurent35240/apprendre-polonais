@@ -587,7 +587,7 @@ export const POLISH_LESSONS = [
   /* ================================ 10 =============================== */
   {
     id: "lesson-08",
-    order: 14,
+    order: 15,
     title: "Le temps et la routine",
     theme: "temps",
     mascotIntro:
@@ -642,7 +642,7 @@ export const POLISH_LESSONS = [
   /* ================================ 11 =============================== */
   {
     id: "lesson-11",
-    order: 16,
+    order: 17,
     title: "Le calendrier — jours et mois",
     theme: "calendrier",
     mascotIntro:
@@ -707,7 +707,7 @@ export const POLISH_LESSONS = [
   /* ================================ 12 =============================== */
   {
     id: "lesson-09",
-    order: 18,
+    order: 19,
     title: "Les courses et les quantités — le génitif",
     theme: "courses",
     mascotIntro:
@@ -761,7 +761,7 @@ export const POLISH_LESSONS = [
   /* ================================ 13 =============================== */
   {
     id: "lesson-10",
-    order: 20,
+    order: 21,
     title: "Projets et futur — l'aspect verbal",
     theme: "futur",
     mascotIntro:
@@ -815,7 +815,7 @@ export const POLISH_LESSONS = [
   /* ================================ 14 =============================== */
   {
     id: "lesson-12",
-    order: 21,
+    order: 22,
     title: "Les couleurs et les descriptions — l'adjectif",
     theme: "adjectifs",
     mascotIntro:
@@ -871,7 +871,7 @@ export const POLISH_LESSONS = [
   /* ================================ 15 =============================== */
   {
     id: "lesson-13",
-    order: 26,
+    order: 28,
     title: "Parler d'hier — le passé",
     theme: "passé",
     mascotIntro:
@@ -926,7 +926,7 @@ export const POLISH_LESSONS = [
   /* ================================ 16 =============================== */
   {
     id: "lesson-14",
-    order: 28,
+    order: 30,
     title: "La routine du matin — les verbes réfléchis (się)",
     theme: "routine",
     mascotIntro:
@@ -981,7 +981,7 @@ export const POLISH_LESSONS = [
   /* ================================ 17 =============================== */
   {
     id: "lesson-15",
-    order: 29,
+    order: 31,
     title: "Le corps et la santé — chez le médecin",
     theme: "santé",
     mascotIntro:
@@ -1037,7 +1037,7 @@ export const POLISH_LESSONS = [
   /* ================================ 18 =============================== */
   {
     id: "lesson-16",
-    order: 32,
+    order: 34,
     title: "En ville — trouver son chemin",
     theme: "ville",
     mascotIntro:
@@ -1093,7 +1093,7 @@ export const POLISH_LESSONS = [
   /* ================================ 19 =============================== */
   {
     id: "lesson-17",
-    order: 33,
+    order: 35,
     title: "Les transports — l'instrumental",
     theme: "instrumental",
     mascotIntro:
@@ -1149,7 +1149,7 @@ export const POLISH_LESSONS = [
   /* ================================ 20 =============================== */
   {
     id: "lesson-18",
-    order: 36,
+    order: 38,
     title: "Au marché et à table — le datif",
     theme: "datif",
     mascotIntro:
@@ -1205,7 +1205,7 @@ export const POLISH_LESSONS = [
   /* ================================ 21 =============================== */
   {
     id: "lesson-19",
-    order: 41,
+    order: 43,
     title: "Comparer — le comparatif et le superlatif",
     theme: "comparaisons",
     mascotIntro:
@@ -1261,7 +1261,7 @@ export const POLISH_LESSONS = [
   /* ================================ 22 =============================== */
   {
     id: "lesson-20",
-    order: 42,
+    order: 45,
     title: "La météo et les saisons",
     theme: "météo",
     mascotIntro:
@@ -1317,7 +1317,7 @@ export const POLISH_LESSONS = [
   /* ================================ 23 =============================== */
   {
     id: "lesson-21",
-    order: 44,
+    order: 48,
     title: "Au bureau et projets polis — le conditionnel",
     theme: "conditionnel",
     mascotIntro:
@@ -1586,7 +1586,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 14 — Heure ========================= */
   {
     id: "lesson-27",
-    order: 15,
+    order: 16,
     title: "L'heure précise — która godzina",
     theme: "heure",
     mascotIntro:
@@ -1655,7 +1655,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 16 — Dates ========================= */
   {
     id: "lesson-28",
-    order: 17,
+    order: 18,
     title: "Nombres ordinaux et dates — daty",
     theme: "dates",
     mascotIntro:
@@ -1724,7 +1724,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 18 — Cuisine ======================= */
   {
     id: "lesson-29",
-    order: 19,
+    order: 20,
     title: "Cuisiner et manger — w kuchni",
     theme: "cuisine",
     mascotIntro:
@@ -1793,7 +1793,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 21 — Pluriel ======================= */
   {
     id: "lesson-30",
-    order: 22,
+    order: 23,
     title: "Le pluriel des noms — liczba mnoga",
     theme: "pluriel",
     mascotIntro:
@@ -1862,7 +1862,7 @@ export const POLISH_LESSONS = [
   /* ================== order 22 — Adjectif décliné =================== */
   {
     id: "lesson-31",
-    order: 23,
+    order: 25,
     title: "L'adjectif décliné et au pluriel",
     theme: "adjectifs",
     mascotIntro:
@@ -1931,7 +1931,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 23 — Sentiments ==================== */
   {
     id: "lesson-32",
-    order: 25,
+    order: 27,
     title: "Les sentiments et le caractère — uczucia",
     theme: "sentiments",
     mascotIntro:
@@ -2000,7 +2000,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 27 — Apparence ===================== */
   {
     id: "lesson-33",
-    order: 30,
+    order: 32,
     title: "Décrire les gens — l'apparence",
     theme: "apparence",
     mascotIntro:
@@ -2069,7 +2069,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 28 — Impératif ===================== */
   {
     id: "lesson-34",
-    order: 31,
+    order: 33,
     title: "Ordres et conseils — l'impératif",
     theme: "impératif",
     mascotIntro:
@@ -2138,7 +2138,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 31 — Voyage ======================== */
   {
     id: "lesson-35",
-    order: 34,
+    order: 36,
     title: "Voyage et hébergement — podróże",
     theme: "voyage",
     mascotIntro:
@@ -2207,7 +2207,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 32 — Téléphone ===================== */
   {
     id: "lesson-36",
-    order: 35,
+    order: 37,
     title: "Au téléphone et en ligne — telefon i internet",
     theme: "communication",
     mascotIntro:
@@ -2276,7 +2276,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 34 — Fêtes ========================= */
   {
     id: "lesson-37",
-    order: 37,
+    order: 39,
     title: "Fêtes et traditions — święta",
     theme: "fêtes",
     mascotIntro:
@@ -2345,7 +2345,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 35 — Pronoms ======================= */
   {
     id: "lesson-38",
-    order: 39,
+    order: 41,
     title: "Les pronoms déclinés — mnie, cię, go, ją",
     theme: "pronoms",
     mascotIntro:
@@ -2414,7 +2414,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 38 — Nature ======================== */
   {
     id: "lesson-39",
-    order: 43,
+    order: 46,
     title: "La nature et les animaux — przyroda",
     theme: "nature",
     mascotIntro:
@@ -2483,7 +2483,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 40 — Récit ========================= */
   {
     id: "lesson-40",
-    order: 50,
+    order: 54,
     title: "Raconter une histoire — récit au passé",
     theme: "récit",
     mascotIntro:
@@ -2561,7 +2561,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 23 — Adjectif (cas) ================= */
   {
     id: "lesson-43",
-    order: 24,
+    order: 26,
     title: "L'adjectif décliné à tous les cas",
     theme: "adjectifs",
     mascotIntro:
@@ -2616,7 +2616,7 @@ export const POLISH_LESSONS = [
   /* ==================== order 26 — Aspect approfondi ================== */
   {
     id: "lesson-41",
-    order: 27,
+    order: 29,
     title: "Aspect approfondi : perfectif et imperfectif à l'usage",
     theme: "aspect",
     mascotIntro:
@@ -2679,7 +2679,7 @@ export const POLISH_LESSONS = [
   /* ========================= order 37 — Vocatif ======================= */
   {
     id: "lesson-42",
-    order: 38,
+    order: 40,
     title: "Le vocatif : s'adresser à quelqu'un",
     theme: "vocatif",
     mascotIntro:
@@ -2747,7 +2747,7 @@ export const POLISH_LESSONS = [
   /* ================== order 39 — Pronoms déclinés (cas) ================ */
   {
     id: "lesson-44",
-    order: 40,
+    order: 42,
     title: "Les pronoms déclinés à tous les cas",
     theme: "pronoms",
     mascotIntro:
@@ -2803,7 +2803,7 @@ export const POLISH_LESSONS = [
   /* ================== order 44 — Subordonnées relatives ================ */
   {
     id: "lesson-45",
-    order: 45,
+    order: 49,
     title: "Subordonnées relatives : który / która / które",
     theme: "relatives",
     mascotIntro:
@@ -2876,7 +2876,7 @@ export const POLISH_LESSONS = [
   /* ==================== order 45 — Complétives et opinion ============== */
   {
     id: "lesson-46",
-    order: 46,
+    order: 50,
     title: "Donner son avis : complétives en « że »",
     theme: "opinion",
     mascotIntro:
@@ -2952,7 +2952,7 @@ export const POLISH_LESSONS = [
   /* ======================= order 46 — Cause et but ===================== */
   {
     id: "lesson-47",
-    order: 47,
+    order: 51,
     title: "Cause et but : ponieważ, bo, żeby",
     theme: "cause",
     mascotIntro:
@@ -3015,7 +3015,7 @@ export const POLISH_LESSONS = [
   /* =================== order 47 — Concession et opposition ============= */
   {
     id: "lesson-48",
-    order: 48,
+    order: 52,
     title: "Concession et opposition : mimo że, chociaż, jednak",
     theme: "concession",
     mascotIntro:
@@ -3075,7 +3075,7 @@ export const POLISH_LESSONS = [
   /* ===================== order 48 — Discours indirect =================== */
   {
     id: "lesson-49",
-    order: 49,
+    order: 53,
     title: "Discours indirect : rapporter les paroles de quelqu'un",
     theme: "discours indirect",
     mascotIntro:
@@ -3165,7 +3165,7 @@ export const POLISH_LESSONS = [
   /* ================ order 50 — Compréhension de texte (capstone) ======= */
   {
     id: "lesson-50",
-    order: 51,
+    order: 55,
     title: "Compréhension d'un texte suivi",
     theme: "récit suivi",
     mascotIntro:
@@ -3230,6 +3230,287 @@ export const POLISH_LESSONS = [
           { id: "rq-50-2", question: "Qu'est-ce qui lui est arrivé entre les arbres ?", options: ["Il s'est perdu", "Il s'est endormi", "Il a rencontré un ours"], answer: "Il s'est perdu" },
           { id: "rq-50-3", question: "Pourquoi n'avait-il pas peur malgré l'obscurité ?", options: ["Il voyait la lune et les étoiles", "Il avait une lampe", "Il connaissait bien la forêt"], answer: "Il voyait la lune et les étoiles" },
           { id: "rq-50-4", question: "Qu'était le bruit soudain qu'il a entendu ?", options: ["Le vent", "Un animal", "Une voiture"], answer: "Le vent" }
+        ]
+      }
+    ]
+  },
+
+  /* ================= order 14 — Animaux de compagnie ================== */
+  {
+    id: "lesson-52",
+    order: 14,
+    title: "Zwierzęta domowe — les animaux de compagnie",
+    theme: "animaux domestiques",
+    mascotIntro:
+      "Żubr n'a pas d'animal de compagnie (il EST l'animal), mais il adore les présentations. Chien, chat, hamster : on apprend à dire qui vit chez toi. 🐕🐈",
+    grammarNotes: [
+      {
+        id: "g-52-1",
+        title: "L'accusatif des animés masculins : pies → psa",
+        explanationFr:
+          "Un nom masculin qui désigne un être vivant prend à l'accusatif la forme du génitif : pies → psa, kot → kota, chomik → chomika, królik → królika. Les féminins en -a font -ę (rybka → rybkę) et les neutres ne changent pas (zwierzę → zwierzę).",
+        examples: [
+          { pl: "Mam psa i kota.", fr: "J'ai un chien et un chat.", note: "psa, kota : accusatif animé" },
+          { pl: "Widzę małego chomika.", fr: "Je vois un petit hamster.", note: "l'adjectif suit : małego" }
+        ]
+      },
+      {
+        id: "g-52-2",
+        title: "lubić et karmić se construisent aussi avec l'accusatif",
+        explanationFr:
+          "Comme « mieć », les verbes « lubić » (aimer) et « karmić » (nourrir) demandent l'accusatif. Au pluriel, l'accusatif des animaux est identique au nominatif : psy, koty, rybki.",
+        examples: [
+          { pl: "Lubię zwierzęta domowe.", fr: "J'aime les animaux domestiques." },
+          { pl: "Codziennie karmię rybki.", fr: "Je nourris les poissons chaque jour." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-52-pies", pl: "pies", fr: "le chien", category: "animaux domestiques",
+        example: { pl: "Mój pies ma czarny ogon.", fr: "Mon chien a la queue noire." } },
+      { id: "v-52-kot", pl: "kot", fr: "le chat", category: "animaux domestiques" },
+      { id: "v-52-chomik", pl: "chomik", fr: "le hamster", category: "animaux domestiques" },
+      { id: "v-52-krolik", pl: "królik", fr: "le lapin", category: "animaux domestiques" },
+      { id: "v-52-rybka", pl: "rybka", fr: "le poisson d'aquarium", category: "animaux domestiques" },
+      { id: "v-52-papuga", pl: "papuga", fr: "le perroquet", category: "animaux domestiques" },
+      { id: "v-52-zolw", pl: "żółw", fr: "la tortue", category: "animaux domestiques" },
+      { id: "v-52-zwierze", pl: "zwierzę", fr: "l'animal", category: "animaux domestiques" },
+      { id: "v-52-ogon", pl: "ogon", fr: "la queue", category: "animaux domestiques" },
+      { id: "v-52-lapa", pl: "łapa", fr: "la patte", category: "animaux domestiques" },
+      { id: "v-52-karmic", pl: "karmić", fr: "nourrir", category: "verbe",
+        example: { pl: "Karmię psa dwa razy dziennie.", fr: "Je nourris le chien deux fois par jour." } },
+      { id: "v-52-glaskac", pl: "głaskać", fr: "caresser", category: "verbe" }
+    ],
+    sentences: [
+      { id: "s-52-1", pl: "Mam psa i kota.", fr: "J'ai un chien et un chat.", grammarFocus: "g-52-1",
+        wordBank: ["Mam", "psa", "i", "kota", "pies", "kot"] },
+      { id: "s-52-2", pl: "Lubię zwierzęta domowe.", fr: "J'aime les animaux domestiques.", grammarFocus: "g-52-2",
+        wordBank: ["Lubię", "zwierzęta", "domowe", "zwierzę"] },
+      { id: "s-52-3", pl: "Codziennie karmię rybki.", fr: "Je nourris les poissons chaque jour.", grammarFocus: "g-52-2",
+        wordBank: ["Codziennie", "karmię", "rybki", "rybka"] },
+      { id: "s-52-4", pl: "Widzę małego chomika.", fr: "Je vois un petit hamster.", grammarFocus: "g-52-1",
+        wordBank: ["Widzę", "małego", "chomika", "chomik"] }
+    ],
+    dialogues: [
+      {
+        id: "d-52-1",
+        title: "Masz jakieś zwierzę?",
+        lines: [
+          { who: "A", pl: "Masz jakieś zwierzę w domu?", fr: "Tu as un animal à la maison ?" },
+          { who: "B", pl: "Tak, mam kota i królika.", fr: "Oui, j'ai un chat et un lapin." },
+          { who: "A", pl: "Czy lubisz też psy?", fr: "Aimes-tu aussi les chiens ?" },
+          { who: "B", pl: "Tak, bardzo lubię psy.", fr: "Oui, j'aime beaucoup les chiens.",
+            target: true, wordBank: ["Tak", "bardzo", "lubię", "psy", "pies"] }
+        ]
+      }
+    ]
+  },
+
+  /* ==================== order 24 — Animaux de la ferme ================= */
+  {
+    id: "lesson-53",
+    order: 24,
+    title: "Na wsi — les animaux de la ferme",
+    theme: "ferme",
+    mascotIntro:
+      "Direction la campagne polonaise ! Vaches, chevaux, poules… et l'occasion parfaite de compter des animaux, ce qui en polonais réserve une surprise. 🐄🐓",
+    grammarNotes: [
+      {
+        id: "g-53-1",
+        title: "Le pluriel des noms d'animaux",
+        explanationFr:
+          "Les animaux ne sont pas des personnes : leur pluriel se forme comme celui des objets. Féminins en -a → -y / -i : krowa → krowy, koza → kozy, kura → kury. Masculins → -y / -i / -e : kogut → koguty, koń → konie.",
+        examples: [
+          { pl: "Na wsi są krowy i konie.", fr: "À la campagne il y a des vaches et des chevaux." },
+          { pl: "Kury chodzą po podwórku.", fr: "Les poules se promènent dans la cour." }
+        ]
+      },
+      {
+        id: "g-53-2",
+        title: "Compter les animaux : dwa konie, pięć krów",
+        explanationFr:
+          "Après 2, 3 et 4, le nom reste au nominatif pluriel : dwa konie, trzy kozy. À partir de 5, il passe au génitif pluriel : pięć krów, sześć kur, dziesięć kóz. C'est la règle la plus surprenante du polonais — et la plus utile au marché.",
+        examples: [
+          { pl: "Mamy dwa konie i pięć krów.", fr: "Nous avons deux chevaux et cinq vaches.", note: "konie (nominatif) mais krów (génitif)" },
+          { pl: "W stodole jest sześć kur.", fr: "Il y a six poules dans la grange." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-53-krowa", pl: "krowa", fr: "la vache", category: "ferme" },
+      { id: "v-53-kon", pl: "koń", fr: "le cheval", category: "ferme",
+        example: { pl: "Mamy dwa konie.", fr: "Nous avons deux chevaux." } },
+      { id: "v-53-swinia", pl: "świnia", fr: "le cochon", category: "ferme" },
+      { id: "v-53-owca", pl: "owca", fr: "le mouton", category: "ferme" },
+      { id: "v-53-koza", pl: "koza", fr: "la chèvre", category: "ferme" },
+      { id: "v-53-kura", pl: "kura", fr: "la poule", category: "ferme" },
+      { id: "v-53-kogut", pl: "kogut", fr: "le coq", category: "ferme" },
+      { id: "v-53-kaczka", pl: "kaczka", fr: "le canard", category: "ferme" },
+      { id: "v-53-ges", pl: "gęś", fr: "l'oie", category: "ferme" },
+      { id: "v-53-stodola", pl: "stodoła", fr: "la grange", category: "ferme" },
+      { id: "v-53-wies", pl: "wieś", fr: "le village / la campagne", category: "ferme" },
+      { id: "v-53-podworko", pl: "podwórko", fr: "la cour", category: "ferme" }
+    ],
+    sentences: [
+      { id: "s-53-1", pl: "Na wsi są krowy i konie.", fr: "À la campagne il y a des vaches et des chevaux.", grammarFocus: "g-53-1",
+        wordBank: ["Na", "wsi", "są", "krowy", "i", "konie", "krowa"] },
+      { id: "s-53-2", pl: "Mamy dwa konie i pięć krów.", fr: "Nous avons deux chevaux et cinq vaches.", grammarFocus: "g-53-2",
+        wordBank: ["Mamy", "dwa", "konie", "i", "pięć", "krów", "krowy"] },
+      { id: "s-53-3", pl: "Kury chodzą po podwórku.", fr: "Les poules se promènent dans la cour.", grammarFocus: "g-53-1",
+        wordBank: ["Kury", "chodzą", "po", "podwórku", "podwórko"] },
+      { id: "s-53-4", pl: "W stodole jest sześć kur.", fr: "Il y a six poules dans la grange.", grammarFocus: "g-53-2",
+        wordBank: ["W", "stodole", "jest", "sześć", "kur", "kury"] }
+    ],
+    dialogues: [
+      {
+        id: "d-53-1",
+        title: "Weekend na wsi",
+        lines: [
+          { who: "A", pl: "Co robisz w weekend?", fr: "Que fais-tu ce week-end ?" },
+          { who: "B", pl: "Jadę na wieś do dziadków.", fr: "Je vais à la campagne chez mes grands-parents." },
+          { who: "A", pl: "Czy oni mają zwierzęta?", fr: "Ont-ils des animaux ?" },
+          { who: "B", pl: "Tak, mają kury i dwa konie.", fr: "Oui, ils ont des poules et deux chevaux.",
+            target: true, wordBank: ["Tak", "mają", "kury", "i", "dwa", "konie", "koń"] }
+        ]
+      }
+    ]
+  },
+
+  /* ==================== order 44 — Animaux du monde =================== */
+  {
+    id: "lesson-54",
+    order: 44,
+    title: "Zwierzęta świata — les animaux du monde",
+    theme: "monde animal",
+    mascotIntro:
+      "Żubr est le plus imposant d'Europe… mais que vaut-il face à un éléphant ? On compare, on classe, on exagère un peu. 🦁🐘",
+    grammarNotes: [
+      {
+        id: "g-54-1",
+        title: "Comparer les animaux : większy niż, wyższy od",
+        explanationFr:
+          "Le comparatif se forme en -szy / -ejszy, souvent avec une consonne modifiée : duży → większy, mały → mniejszy, wysoki → wyższy, szybki → szybszy. On compare avec « niż + nominatif » ou « od + génitif ».",
+        examples: [
+          { pl: "Słoń jest większy niż lew.", fr: "L'éléphant est plus grand que le lion." },
+          { pl: "Żyrafa jest wyższa od słonia.", fr: "La girafe est plus haute que l'éléphant.", note: "od + génitif : słonia" }
+        ]
+      },
+      {
+        id: "g-54-2",
+        title: "Classer un animal : być + instrumental",
+        explanationFr:
+          "Pour dire ce QU'EST un animal (sa catégorie), le complément de « być » passe à l'instrumental : drapieżnik → drapieżnikiem, zwierzę → zwierzęciem. Avec un adjectif, lui aussi se décline : najszybszym zwierzęciem.",
+        examples: [
+          { pl: "Lew jest drapieżnikiem.", fr: "Le lion est un prédateur." },
+          { pl: "Gepard jest najszybszym zwierzęciem na świecie.", fr: "Le guépard est l'animal le plus rapide du monde." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-54-lew", pl: "lew", fr: "le lion", category: "monde animal" },
+      { id: "v-54-tygrys", pl: "tygrys", fr: "le tigre", category: "monde animal" },
+      { id: "v-54-slon", pl: "słoń", fr: "l'éléphant", category: "monde animal" },
+      { id: "v-54-zyrafa", pl: "żyrafa", fr: "la girafe", category: "monde animal" },
+      { id: "v-54-malpa", pl: "małpa", fr: "le singe", category: "monde animal" },
+      { id: "v-54-wielblad", pl: "wielbłąd", fr: "le chameau", category: "monde animal" },
+      { id: "v-54-krokodyl", pl: "krokodyl", fr: "le crocodile", category: "monde animal" },
+      { id: "v-54-waz", pl: "wąż", fr: "le serpent", category: "monde animal" },
+      { id: "v-54-rekin", pl: "rekin", fr: "le requin", category: "monde animal" },
+      { id: "v-54-pingwin", pl: "pingwin", fr: "le pingouin", category: "monde animal" },
+      { id: "v-54-gepard", pl: "gepard", fr: "le guépard", category: "monde animal",
+        example: { pl: "Gepard biega bardzo szybko.", fr: "Le guépard court très vite." } },
+      { id: "v-54-drapieznik", pl: "drapieżnik", fr: "le prédateur", category: "monde animal" }
+    ],
+    sentences: [
+      { id: "s-54-1", pl: "Słoń jest większy niż lew.", fr: "L'éléphant est plus grand que le lion.", grammarFocus: "g-54-1",
+        wordBank: ["Słoń", "jest", "większy", "niż", "lew", "mniejszy"] },
+      { id: "s-54-2", pl: "Lew jest drapieżnikiem.", fr: "Le lion est un prédateur.", grammarFocus: "g-54-2",
+        wordBank: ["Lew", "jest", "drapieżnikiem", "drapieżnik"] },
+      { id: "s-54-3", pl: "Żyrafa jest wyższa od słonia.", fr: "La girafe est plus haute que l'éléphant.", grammarFocus: "g-54-1",
+        wordBank: ["Żyrafa", "jest", "wyższa", "od", "słonia", "słoń"] },
+      { id: "s-54-4", pl: "Gepard jest najszybszym zwierzęciem na świecie.", fr: "Le guépard est l'animal le plus rapide du monde.", grammarFocus: "g-54-2",
+        wordBank: ["Gepard", "jest", "najszybszym", "zwierzęciem", "na", "świecie", "szybszym"] }
+    ],
+    dialogues: [
+      {
+        id: "d-54-1",
+        title: "W zoo",
+        lines: [
+          { who: "A", pl: "Które zwierzę lubisz najbardziej?", fr: "Quel animal préfères-tu ?" },
+          { who: "B", pl: "Bardzo lubię żyrafy, bo są wysokie.", fr: "J'aime beaucoup les girafes, parce qu'elles sont hautes." },
+          { who: "A", pl: "A które zwierzę jest najgroźniejsze?", fr: "Et quel animal est le plus dangereux ?" },
+          { who: "B", pl: "Krokodyl jest najgroźniejszy.", fr: "Le crocodile est le plus dangereux.",
+            target: true, wordBank: ["Krokodyl", "jest", "najgroźniejszy", "groźny"] }
+        ]
+      }
+    ]
+  },
+
+  /* =================== order 47 — Animaux de la forêt ================= */
+  {
+    id: "lesson-55",
+    order: 47,
+    title: "W lesie — les animaux de la forêt",
+    theme: "forêt",
+    mascotIntro:
+      "Retour chez Żubr : la forêt polonaise. Loups, renards, chevreuils — et les diminutifs, cette manie polonaise de tout rendre attendrissant. 🌲🦌",
+    grammarNotes: [
+      {
+        id: "g-55-1",
+        title: "Génitif pluriel après une négation ou une quantité",
+        explanationFr:
+          "Après « nie ma » et après les mots de quantité (dużo, mało, kilka), le nom passe au génitif pluriel : wilk → wilków, lis → lisów, sarna → saren, jeż → jeży, mysz → myszy.",
+        examples: [
+          { pl: "W tym lesie nie ma wilków.", fr: "Il n'y a pas de loups dans cette forêt." },
+          { pl: "Nad rzeką jest dużo saren.", fr: "Il y a beaucoup de chevreuils au bord de la rivière." }
+        ]
+      },
+      {
+        id: "g-55-2",
+        title: "Les diminutifs affectueux en -ek / -ka",
+        explanationFr:
+          "Le polonais adore les diminutifs : lis → lisek, zając → zajączek, sowa → sówka, kot → kotek. Ils n'indiquent pas seulement la petite taille, mais surtout la tendresse — on les emploie constamment dans la vie quotidienne.",
+        examples: [
+          { pl: "Mały zajączek biegnie przez las.", fr: "Un petit levraut court à travers la forêt." },
+          { pl: "Lisek śpi pod drzewem.", fr: "Le petit renard dort sous l'arbre." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-55-wilk", pl: "wilk", fr: "le loup", category: "forêt" },
+      { id: "v-55-lis", pl: "lis", fr: "le renard", category: "forêt",
+        example: { pl: "Lisek śpi pod drzewem.", fr: "Le petit renard dort sous l'arbre." } },
+      { id: "v-55-sarna", pl: "sarna", fr: "le chevreuil", category: "forêt" },
+      { id: "v-55-jelen", pl: "jeleń", fr: "le cerf", category: "forêt" },
+      { id: "v-55-dzik", pl: "dzik", fr: "le sanglier", category: "forêt" },
+      { id: "v-55-zajac", pl: "zając", fr: "le lièvre", category: "forêt" },
+      { id: "v-55-wiewiorka", pl: "wiewiórka", fr: "l'écureuil", category: "forêt" },
+      { id: "v-55-sowa", pl: "sowa", fr: "la chouette", category: "forêt" },
+      { id: "v-55-jez", pl: "jeż", fr: "le hérisson", category: "forêt" },
+      { id: "v-55-mysz", pl: "mysz", fr: "la souris", category: "forêt" },
+      { id: "v-55-gniazdo", pl: "gniazdo", fr: "le nid", category: "forêt" },
+      { id: "v-55-slad", pl: "ślad", fr: "la trace / l'empreinte", category: "forêt" }
+    ],
+    sentences: [
+      { id: "s-55-1", pl: "W tym lesie nie ma wilków.", fr: "Il n'y a pas de loups dans cette forêt.", grammarFocus: "g-55-1",
+        wordBank: ["W", "tym", "lesie", "nie", "ma", "wilków", "wilki"] },
+      { id: "s-55-2", pl: "Nad rzeką jest dużo saren.", fr: "Il y a beaucoup de chevreuils au bord de la rivière.", grammarFocus: "g-55-1",
+        wordBank: ["Nad", "rzeką", "jest", "dużo", "saren", "sarny"] },
+      { id: "s-55-3", pl: "Mały zajączek biegnie przez las.", fr: "Un petit levraut court à travers la forêt.", grammarFocus: "g-55-2",
+        wordBank: ["Mały", "zajączek", "biegnie", "przez", "las", "zając"] },
+      { id: "s-55-4", pl: "Lisek śpi pod drzewem.", fr: "Le petit renard dort sous l'arbre.", grammarFocus: "g-55-2",
+        wordBank: ["Lisek", "śpi", "pod", "drzewem", "lis"] }
+    ],
+    dialogues: [
+      {
+        id: "d-55-1",
+        title: "Spacer po lesie",
+        lines: [
+          { who: "A", pl: "Widziałeś jakieś zwierzęta w lesie?", fr: "As-tu vu des animaux dans la forêt ?" },
+          { who: "B", pl: "Tak, widziałem sarnę i wiewiórkę.", fr: "Oui, j'ai vu un chevreuil et un écureuil." },
+          { who: "A", pl: "A czy są tam wilki?", fr: "Et y a-t-il des loups là-bas ?" },
+          { who: "B", pl: "Nie, tutaj nie ma wilków.", fr: "Non, il n'y a pas de loups ici.",
+            target: true, wordBank: ["Nie", "tutaj", "nie", "ma", "wilków", "wilki"] }
         ]
       }
     ]

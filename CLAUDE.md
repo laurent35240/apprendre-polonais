@@ -70,14 +70,14 @@ vert d'anti-aliasing, encore visible sur `zubr-head.png`).
 `State.todayStr()` utilise l'heure locale et la CI tourne en UTC.
 
 `tests/data-invariants.test.js` vérifie ce que TypeScript ne peut pas exprimer
-(unicité des 647 ids, « exactement une ligne `target` » par dialogue,
+(unicité des 884 ids, « exactement une ligne `target` » par dialogue,
 `wordBank ⊇ mots(pl)`, clés étrangères `grammarFocus`…). Ses **10 `it.skip`**
 documentent des invariants qui échouent aujourd'hui : c'est de la dette
 assumée, avec le chiffre exact et la raison en commentaire. Ne pas les
 « réparer » sans décision produit — notamment `[VOULU] le tableau est trié par
 order`, qui doit rester rouge.
 
-`tests/fixtures/item-ids.json` fige les 647 ids. Ce sont les **clés SRS en
+`tests/fixtures/item-ids.json` fige les 884 ids. Ce sont les **clés SRS en
 localStorage** : renommer un id efface la progression de l'utilisateur sur ce
 mot, et ce fichier rend l'accident visible en revue.
 
@@ -319,15 +319,19 @@ court récit dialogué découpé en **scènes**, chaque scène étant suivie d'*
 optionnel** rattaché à un sentier par `trailIndex` (index 0-based dans `TRAILS`)
 et affichée en dernière position de ce sentier.
 
-**Pourquoi un concept séparé et non une 52ᵉ leçon.** Trois contraintes
+**Pourquoi un concept séparé et non une 56ᵉ leçon.** Trois contraintes
 existantes l'imposent — ne pas essayer de les contourner :
 1. `js/app.js` découpe les leçons triées en paquets **rigides de 5**
-   (`TRAIL_SIZE`) : une leçon insérée décalerait tous les sentiers suivants et
-   désynchroniserait le tableau `TRAILS`.
-2. `tests/data-invariants.test.js` verrouille « 51 leçons », « `order` est
-   exactement [1..51] » et « 816 item-ids, aucun renommé ».
+   (`TRAIL_SIZE`) : une leçon insérée décale tous les sentiers suivants et
+   désynchronise les libellés du tableau `TRAILS`.
+2. `tests/data-invariants.test.js` verrouille « 55 leçons », « `order` est
+   exactement [1..55] » et « 884 item-ids, aucun renommé ».
 3. `State.ensureLessonStatuses()` est une chaîne de déverrouillage **linéaire** :
    une histoire dedans bloquerait le sentier suivant.
+
+Ces trois contraintes rendent une histoire impossible à modéliser en leçon,
+mais elles ne rendent pas les leçons figées : **`order` est renumérotable**.
+Le § « Ajouter une leçon » ci-dessous décrit la manœuvre.
 
 **Le déverrouillage est CALCULÉ, jamais persisté.** `storyNode` (`js/app.js`)
 regarde si les 5 leçons du sentier sont `completed`. Seule la **complétion** est
@@ -394,7 +398,7 @@ d'écran annonce ainsi « qui parle » avant « ce qu'il dit ».
 
 Invariants de contenu dans `tests/stories.test.js` : `answers ⊆ options`,
 `wordBank ⊇ mots(pl)`, `answer ∈ options` + marqueur `_____`, ids **disjoints**
-des 816 item-ids (ils cohabitent dans la même map `localStorage`), et un test de
+des 884 item-ids (ils cohabitent dans la même map `localStorage`), et un test de
 bout en bout qui vérifie que la bonne réponse de chaque épreuve est bien acceptée
 par `Exercises.check`.
 
@@ -409,3 +413,39 @@ All pedagogical content lives in `data/lessons.js`. To add or fix vocabulary/gra
 **Speech recognition and numbers:** `js/speech.js` `normalize()` converts Arabic digits to Polish words before scoring (e.g. "18" → "osiemnaście"), because the Web Speech API often returns digits for spoken numbers.
 
 Badges are defined in `data/badges.js` (emoji, title, description, unlock condition).
+
+### Ajouter une leçon
+
+Une leçon s'**insère** à sa place pédagogique, elle ne s'appende pas. La
+manœuvre est mécanique mais touche plusieurs fichiers — c'est la
+**renumérotation de `order`** qui fait tout le travail, le tableau
+`POLISH_LESSONS` restant dans son désordre physique (la nouvelle leçon va en
+fin de tableau).
+
+1. **Écrire le bloc** : `order` cible, **exactement 4** `sentences` et **2**
+   `grammarNotes` (les deux référencées par un `grammarFocus`), vocabulaire avec
+   `category` non vide. Vérifier que le point de grammaire employé est **déjà
+   enseigné** à cet `order` — c'est la seule chose qu'aucun test ne détecte.
+2. **Renuméroter** l'`order` des leçons suivantes (+1 par leçon insérée avant
+   elles). Ne pas toucher aux `id`.
+3. **Préférer un total multiple de 5** : `TRAIL_SIZE` découpe en paquets rigides,
+   et un reste laisse un sentier dépareillé dont l'histoire bonus afficherait
+   « Termine les 5 leçons » à tort.
+4. **Relire `TRAILS`** (`js/app.js`) : ses noms, icônes et commentaires de plage
+   sont **positionnels**, donc faux dès qu'une insertion décale les paquets.
+   Revérifier aussi le `trailIndex` de chaque histoire de `data/stories.js`.
+5. **Régénérer `tests/fixtures/item-ids.json`** (recette dans
+   `tests/fixtures/README.md`) et **ajouter les nouvelles clés à
+   `tests/fixtures/state-v1-realistic.json`** avec le statut que
+   `ensureLessonStatuses()` calcule (`available` si le prédécesseur par `order`
+   est `completed`, sinon `locked`) — sinon le test d'égalité **octet pour
+   octet** rougit, `load()` ajoutant la clé manquante.
+6. **Mettre à jour les compteurs codés en dur** : `data-invariants.test.js`
+   (leçons, vocab, phrases, dialogues, ids, notes, cas `build`),
+   `exercises.test.js`, `state-corruption.test.js`, et la répartition des
+   statuts dans `state-load.test.js`.
+
+⚠️ Insérer une leçon **reverrouille** la leçon `available` non commencée qui la
+suit désormais (`ensureLessonStatuses` recalcule sur l'`order` courant). C'est
+voulu : la progression reste linéaire. Les leçons `completed` et `inProgress`
+ne sont, elles, **jamais** rétrogradées.

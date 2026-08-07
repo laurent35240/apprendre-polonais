@@ -3463,6 +3463,22 @@
     "lesson-50": {
       "status": "locked",
       "bestScore": 0
+    },
+    "lesson-52": {
+      "status": "available",
+      "bestScore": 0
+    },
+    "lesson-53": {
+      "status": "available",
+      "bestScore": 0
+    },
+    "lesson-54": {
+      "status": "locked",
+      "bestScore": 0
+    },
+    "lesson-55": {
+      "status": "locked",
+      "bestScore": 0
     }
   },
   "badges": [

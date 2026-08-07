@@ -7,13 +7,31 @@ serait abandonnée par `State.validate()` (qui copie par liste blanche) tout en
 faisant échouer le test d'égalité octet. Ce fichier est donc le seul endroit où
 documenter les fixtures.
 
-## `item-ids.json` — 647 ids
+## `item-ids.json` — 884 ids
 
-Instantané trié des ids de `data/lessons.js` (470 vocabulaire + 160 phrases + 17
-dialogues). **Ce sont les clés de progression en localStorage** : renommer un id
-efface silencieusement l'historique SRS de ce mot chez l'utilisateur. Le test
+Instantané des ids de `data/lessons.js` (639 vocabulaire + 220 phrases + 25
+dialogues), dans l'ordre de déclaration et groupés par leçon. **Ce sont les clés
+de progression en localStorage** : renommer un id efface silencieusement
+l'historique SRS de ce mot chez l'utilisateur. Le test
 `tests/data-invariants.test.js` › « aucun id n'a été renommé ni supprimé » rend
 l'accident visible en revue.
+
+**Recette de dérivation** (à relancer après tout ajout de leçon) :
+
+```js
+// node --input-type=module, depuis la racine du dépôt
+const { POLISH_LESSONS } = await import("./data/lessons.js");
+const ids = POLISH_LESSONS.flatMap((l) => [
+  ...(l.vocabulary || []).map((v) => v.id),
+  ...(l.sentences || []).map((s) => s.id),
+  ...(l.dialogues || []).map((d) => d.id)
+]);
+// → même expression que `tousLesIds` dans tests/data-invariants.test.js
+```
+
+⚠️ Vérifier qu'**aucun ancien id n'a disparu** de la liste avant d'écrire le
+fichier : c'est tout l'intérêt de l'instantané. Le comparer à
+`git show HEAD:tests/fixtures/item-ids.json`.
 
 ## `anchor.js` — l'ancre temporelle
 

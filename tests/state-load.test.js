@@ -120,7 +120,10 @@ describe("chargement de la fixture réaliste", () => {
     for (const l of Object.values(s.lessons)) {
       parStatut[l.status] = (parStatut[l.status] || 0) + 1;
     }
-    expect(parStatut).toEqual({ completed: 29, available: 6, locked: 16 });
+    // 8 « available » et non 6 : les leçons d'animaux insérées aux orders 14 et
+    // 24 suivent chacune une leçon déjà terminée, elles s'ouvrent donc aussitôt.
+    // Celles des orders 44 et 47 suivent une leçon verrouillée → locked.
+    expect(parStatut).toEqual({ completed: 29, available: 8, locked: 18 });
   });
 
   it("rolloverDay est un no-op : todayDate vaut déjà l'ancre", () => {

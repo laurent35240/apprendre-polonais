@@ -516,7 +516,7 @@ function lessonNode(lesson, s) {
   var st = s.lessons[lesson.id] || { status: "locked", bestScore: 0 };
   var locked = st.status === "locked";
   var done = st.status === "completed";
-  var node = el(
+  return  el(
     "div",
     {
       class:
@@ -546,7 +546,6 @@ function lessonNode(lesson, s) {
       locked ? null : el("div", { class: "lesson-chevron", text: "›" })
     ]
   );
-  return node;
 }
 
 /* ---- Histoires bonus : nœud d'accueil en fin de sentier ---- */

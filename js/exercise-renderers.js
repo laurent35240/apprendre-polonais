@@ -1022,18 +1022,21 @@ function renderSpeak(card, ex) {
       UI.suspendAudio();
       micBtn.classList.add("listening");
       status.textContent = "🎙️ J'écoute…";
+      // Le feedback (bip + relecture TTS) attend `onEnd`, pas `onResult` :
+      // `onresult` se déclenche avant que la session audio du micro soit
+      // refermée, et réactiver l'AudioContext/la synthèse à ce moment-là
+      // provoque le même conflit de session audio Android qu'au démarrage.
+      /** @type {{ok: boolean, score: number, msg: string}|null} */
+      var pendingResult = null;
       activeRec = Speech.listen({
         onResult: function (transcript, _conf, alts) {
           if (token !== autoPlayToken) return;
           var score = Speech.pronunciationScore(ex.answer, alts || [transcript]);
-          var ok = score >= 60;
-          if (score >= 95) Progress.pronunciationPerfect();
-          recordAndFeedback(
-            ex,
-            ok,
-            score,
-            "Tu as dit : « " + transcript + " » — score " + score + "%"
-          );
+          pendingResult = {
+            ok: score >= 60,
+            score: score,
+            msg: "Tu as dit : « " + transcript + " » — score " + score + "%"
+          };
         },
         onError: function (err) {
           if (token !== autoPlayToken) return;
@@ -1050,6 +1053,10 @@ function renderSpeak(card, ex) {
           activeRec = null;
           if (token !== autoPlayToken) return;
           micBtn.classList.remove("listening");
+          if (pendingResult) {
+            if (pendingResult.score >= 95) Progress.pronunciationPerfect();
+            recordAndFeedback(ex, pendingResult.ok, pendingResult.score, pendingResult.msg);
+          }
         }
       });
     }

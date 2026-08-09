@@ -154,7 +154,8 @@ function mascotImg(pose, cls) {
 /** @type {Record<string, {file: string, emoji: string, alt: string}|undefined>} */
 var CHARACTERS = {
   "Ż": { file: "zubr-head", emoji: MASCOT, alt: "Żubr" },
-  B: { file: "bocian-head", emoji: "🪿", alt: "Bocian" }
+  B: { file: "bocian-head", emoji: "🪿", alt: "Bocian" },
+  O: { file: "orzel-head", emoji: "🦅", alt: "Orzeł" }
 };
 
 // <img> de la tête d'un personnage, ou NULL si `who` n'en désigne pas un.

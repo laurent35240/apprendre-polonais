@@ -17,6 +17,7 @@
    `who` sur une réplique :
      "Ż"  Żubr (le bison, la mascotte)
      "B"  Bocian (la cigogne)
+     "O"  Orzeł (l'aigle)
      "N"  le narrateur
 
    Les 4 sortes d'épreuves (`step.kind`) :
@@ -108,8 +109,8 @@ export const POLISH_STORIES = [
           },
           {
             who: "Ż",
-            pl: "Czemu nie? Wolisz pizzę czy lasagne?",
-            fr: "Pourquoi pas ? Tu préfères une pizza ou des lasagnes ?"
+            pl: "Czemu nie? Wolisz pizzę czy zapiekanka ?",
+            fr: "Pourquoi pas ? Tu préfères une pizza ou des zapiekanka ?"
           }
           /* La scène s'arrête ici, sur la question : c'est l'épreuve ci-dessous
              qui porte la réponse de Bocian. Ne pas ajouter de réplique
@@ -124,7 +125,7 @@ export const POLISH_STORIES = [
           // la réponse et l'épreuve n'en serait plus une.
           fr: "Je prendrai volontiers _____, merci.",
           answer: "pizzę",
-          options: ["pizzę", "dzięki", "lasagne"]
+          options: ["pizzę", "dzięki", "zapiekanka"]
         }
       },
       /* -------------------------------- 4 ------------------------------ */
@@ -196,6 +197,197 @@ export const POLISH_STORIES = [
             { pl: "Do zobaczenia", fr: "au revoir" },
             { pl: "Jestem z…", fr: "je viens de…" },
             { pl: "Nazywam się…", fr: "je m'appelle…" }
+          ]
+        }
+      }
+    ]
+  },
+  /* ======================== Sentier 3 — le foyer ======================= */
+  {
+    id: "story-3-wizyta",
+    trailIndex: 2,
+    icon: "🦅",
+    title: "Wizyta u Żubra",
+    titleFr: "La visite chez Żubr",
+    mascotIntro:
+      "Une histoire bonus ! Orzeł, un nouvel ami, vient visiter le foyer de Żubr. Lis chaque passage, écoute les voix, puis relève l'épreuve. 🦅",
+    scenes: [
+      /* -------------------------------- 1 ------------------------------ */
+      {
+        lines: [
+          {
+            who: "N",
+            pl: "Orzeł przylatuje z gór, żeby odwiedzić Żubra w jego domu.",
+            fr: "Orzeł arrive des montagnes pour visiter Żubr chez lui."
+          },
+          {
+            who: "O",
+            pl: "Cześć Żubr! Mam na imię Orzeł, miło cię poznać.",
+            fr: "Salut Żubr ! Je m'appelle Orzeł, ravi de te rencontrer."
+          },
+          {
+            who: "Ż",
+            pl: "Cześć Orzeł! Bardzo mi miło. Ile masz lat?",
+            fr: "Salut Orzeł ! Ravi aussi. Quel âge as-tu ?"
+          },
+          {
+            who: "O",
+            pl: "Mam osiem lat, a ty?",
+            fr: "J'ai huit ans, et toi ?"
+          },
+          {
+            who: "Ż",
+            pl: "Ja mam dziesięć lat. Wejdź, proszę!",
+            fr: "Moi j'ai dix ans. Entre, je t'en prie !"
+          }
+        ],
+        step: {
+          kind: "quiz",
+          id: "st-3-q1",
+          question: "Ile lat ma Orzeł?",
+          questionFr: "Quel âge a Orzeł ?",
+          options: ["dziesięć lat", "osiem lat", "dwadzieścia lat"],
+          answers: ["osiem lat"]
+        }
+      },
+      /* -------------------------------- 2 ------------------------------ */
+      {
+        lines: [
+          {
+            who: "N",
+            pl: "Żubr zaprasza Orła do domu.",
+            fr: "Żubr invite Orzeł à entrer."
+          },
+          {
+            who: "O",
+            pl: "Jaki ładny dom! Co robicie rano?",
+            fr: "Quelle belle maison ! Que faites-vous le matin ?"
+          },
+          {
+            who: "Ż",
+            pl: "Zwykle wstajemy bardzo wcześnie.",
+            fr: "D'habitude, on se lève très tôt."
+          }
+          /* La phrase de l'épreuve ci-dessous n'apparaît pas ici : elle
+             continue naturellement la scène plutôt que de la répéter. */
+        ],
+        step: {
+          kind: "build",
+          id: "st-3-b1",
+          who: "Ż",
+          pl: "Jemy śniadanie w kuchni.",
+          fr: "Nous prenons le petit-déjeuner dans la cuisine.",
+          wordBank: ["Jemy", "śniadanie", "w", "kuchni", "łazience"]
+        }
+      },
+      /* -------------------------------- 3 ------------------------------ */
+      {
+        lines: [
+          {
+            who: "N",
+            pl: "Po śniadaniu Orzeł pyta o plany na dzień.",
+            fr: "Après le petit-déjeuner, Orzeł demande les plans du jour."
+          },
+          {
+            who: "O",
+            pl: "Co robisz w tym tygodniu?",
+            fr: "Que fais-tu cette semaine ?"
+          },
+          {
+            who: "Ż",
+            pl: "Mam dużo pracy, więc muszę być w biurze rano.",
+            fr: "J'ai beaucoup de travail, donc je dois être au bureau le matin."
+          }
+          /* « muszę » est déjà entendu ici, mais pas la phrase complète du
+             trou ci-dessous : l'épreuve reste une vraie épreuve. */
+        ],
+        step: {
+          kind: "gap",
+          id: "st-3-gap1",
+          who: "Ż",
+          sentence: "Dzisiaj _____ skończyć pracę wcześnie.",
+          // Le trou est gardé côté français AUSSI, même règle que st-2-gap1.
+          fr: "Aujourd'hui, je _____ finir le travail tôt.",
+          answer: "muszę",
+          options: ["muszę", "chcę", "umiem"]
+        }
+      },
+      /* -------------------------------- 4 ------------------------------ */
+      {
+        lines: [
+          {
+            who: "N",
+            pl: "Orzeł zauważa zwierzęta domowe Żubra.",
+            fr: "Orzeł remarque les animaux de compagnie de Żubr."
+          },
+          {
+            who: "O",
+            pl: "Jakie masz zwierzęta?",
+            fr: "Quels animaux as-tu ?"
+          },
+          {
+            who: "Ż",
+            pl: "Mam psa i kota. Kota nazywam Mruczek, a psa Reksio.",
+            fr: "J'ai un chien et un chat. J'appelle le chat Mruczek, et le chien Reksio."
+          },
+          {
+            who: "O",
+            pl: "Czy głaskasz je codziennie?",
+            fr: "Tu les caresses tous les jours ?"
+          },
+          {
+            who: "Ż",
+            pl: "Tak, i karmię je rano.",
+            fr: "Oui, et je les nourris le matin."
+          }
+        ],
+        step: {
+          kind: "quiz",
+          id: "st-3-q2",
+          question: "Jakie zwierzęta ma Żubr?",
+          questionFr: "Quels animaux Żubr a-t-il ?",
+          options: ["pies", "kot", "chomik", "rybka"],
+          answers: ["pies", "kot"]
+        }
+      },
+      /* -------------------------------- 5 ------------------------------ */
+      {
+        lines: [
+          {
+            who: "N",
+            pl: "Zbliża się wieczór, Orzeł musi wracać do gór.",
+            fr: "Le soir approche, Orzeł doit rentrer dans les montagnes."
+          },
+          {
+            who: "O",
+            pl: "Która jest godzina?",
+            fr: "Quelle heure est-il ?"
+          },
+          {
+            who: "Ż",
+            pl: "Jest już wieczór, szósta godzina.",
+            fr: "C'est déjà le soir, six heures."
+          },
+          {
+            who: "O",
+            pl: "Muszę już iść. Do zobaczenia w sobotę!",
+            fr: "Je dois y aller. À samedi !"
+          },
+          {
+            who: "Ż",
+            pl: "Do zobaczenia! Miłego wieczoru.",
+            fr: "À bientôt ! Bonne soirée."
+          }
+        ],
+        step: {
+          kind: "match",
+          id: "st-3-match1",
+          pairs: [
+            { pl: "rano", fr: "le matin" },
+            { pl: "wieczorem", fr: "le soir" },
+            { pl: "sobota", fr: "samedi" },
+            { pl: "do zobaczenia", fr: "à bientôt" },
+            { pl: "godzina", fr: "l'heure" }
           ]
         }
       }

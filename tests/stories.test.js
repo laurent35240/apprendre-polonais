@@ -39,8 +39,8 @@ const mots = (s) => Speech.normalize(s).split(/\s+/).filter(Boolean);
 
 /* ------------------------------ structure ---------------------------- */
 describe("structure des histoires", () => {
-  it("1 histoire, ids uniques", () => {
-    expect(POLISH_STORIES).toHaveLength(1);
+  it("2 histoires, ids uniques", () => {
+    expect(POLISH_STORIES).toHaveLength(2);
     expect(new Set(POLISH_STORIES.map((s) => s.id)).size).toBe(POLISH_STORIES.length);
   });
 
@@ -111,11 +111,12 @@ describe("ids d'épreuve", () => {
 
 /* ------------------------------- répliques ---------------------------- */
 describe("répliques", () => {
-  it("who ∈ {Ż, B, N}", () => {
+  it("who ∈ {Ż, B, O, N}", () => {
     for (const li of lignes) {
-      expect(["Ż", "B", "N"], li._story + " scène " + li._no + " : " + li.pl).toContain(
-        li.who
-      );
+      expect(
+        ["Ż", "B", "O", "N"],
+        li._story + " scène " + li._no + " : " + li.pl
+      ).toContain(li.who);
     }
   });
 

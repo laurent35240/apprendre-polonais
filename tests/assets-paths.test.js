@@ -20,7 +20,8 @@ const POSES = ["base", "happy", "sad", "celebrate", "levelup", "head"];
 // PAS et ne doit pas y être : son absence d'avatar est un invariant testé plus bas.
 const PERSOS = [
   { who: "Ż", file: "zubr-head" },
-  { who: "B", file: "bocian-head" }
+  { who: "B", file: "bocian-head" },
+  { who: "O", file: "orzel-head" }
 ];
 // Décor forestier (js/ui.js decorImg) : mêmes clés que la table DECOR.
 const DECORS = ["sapin-1", "sapin-2", "feuille", "foret-bandeau"];
@@ -102,10 +103,10 @@ describe("chemins produits par UI", () => {
       ...DECORS.map((name) => UI.decorImg(name).getAttribute("src")),
       `${BASE}favicon.png`
     ];
-    // 6 poses + 2 personnages + 11 badges + 4 décors + favicon. `zubr-head` y
+    // 6 poses + 3 personnages + 11 badges + 4 décors + favicon. `zubr-head` y
     // figure deux fois (pose `head` ET personnage Ż) : c'est voulu, l'image
     // est partagée.
-    expect(srcs).toHaveLength(24);
+    expect(srcs).toHaveLength(25);
     for (const s of srcs) {
       const nom = s.slice(BASE.length);
       expect(existsSync(`${IMG_DIR}/${nom}`), s).toBe(true);

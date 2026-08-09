@@ -661,7 +661,10 @@ function appendSceneContext(card, ex) {
     // Le narrateur n'est pas un interlocuteur : sa ligne traverse toute la
     // largeur au lieu de prendre un côté.
     var isNarrator = line.who === "N";
-    var side = isNarrator ? "story-narrator" : line.who === "B" ? "who-b" : "who-a";
+    // Żubr est toujours l'hôte, à gauche ; tout autre interlocuteur (Bocian,
+    // Orzeł, …) va à droite — pas un test nominal sur "B" qui n'aurait
+    // marché que pour Bocian.
+    var side = isNarrator ? "story-narrator" : line.who === "Ż" ? "who-a" : "who-b";
     var bubble = el("div", { class: "dialogue-line " + side });
     var head = el("div", { class: "dialogue-pl" });
     head.appendChild(audioButton(line.pl, false, line.who));

@@ -138,8 +138,8 @@ interface Lesson {
    pas dans la chaîne de déverrouillage et ses ids ne sont pas des clés SRS.
    Cf. CLAUDE.md § Histoires bonus. */
 
-/** "Ż" = Żubr, "B" = Bocian, "N" = narrateur. */
-type StoryWho = "Ż" | "B" | "N";
+/** "Ż" = Żubr, "B" = Bocian, "O" = Orzeł, "N" = narrateur. */
+type StoryWho = "Ż" | "B" | "O" | "N";
 
 interface StoryLine {
   who: StoryWho;

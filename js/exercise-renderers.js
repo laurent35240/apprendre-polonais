@@ -1016,6 +1016,10 @@ function renderSpeak(card, ex) {
       // l'exercice précédent) : sur mobile elle se mélangerait sinon au son
       // natif de démarrage du micro.
       Speech.cancelSpeak();
+      // Idem pour l'AudioContext des bips (soundCorrect/soundWrong) : actif
+      // en même temps que la session audio du micro, il cause un pop/
+      // grésillement sur Android à l'activation du micro.
+      UI.suspendAudio();
       micBtn.classList.add("listening");
       status.textContent = "🎙️ J'écoute…";
       activeRec = Speech.listen({

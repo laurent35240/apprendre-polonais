@@ -354,6 +354,7 @@ function beep(freq, durMs, type) {
   try {
     if (!audioCtx)
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state !== "running") audioCtx.resume();
     var osc = audioCtx.createOscillator();
     var gain = audioCtx.createGain();
     osc.type = type || "sine";
@@ -379,6 +380,13 @@ function soundCorrect() {
 }
 function soundWrong() {
   beep(200, 220, "sawtooth");
+}
+// Sur Android, avoir un AudioContext actif en même temps que la session audio
+// du micro (SpeechRecognition) provoque un pop/grésillement à l'activation du
+// micro. À appeler avant de démarrer la reconnaissance vocale ; `beep()`
+// réactive le contexte au besoin, donc les bips continuent de fonctionner.
+function suspendAudio() {
+  if (audioCtx && audioCtx.state === "running") audioCtx.suspend();
 }
 
 /* --------------------------- anneau de temps ------------------------ */
@@ -448,6 +456,7 @@ export const UI = {
   confetti: confetti,
   soundCorrect: soundCorrect,
   soundWrong: soundWrong,
+  suspendAudio: suspendAudio,
   ring: ring,
   formatMinSec: formatMinSec,
   pick: pick

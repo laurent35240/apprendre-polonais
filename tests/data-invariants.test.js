@@ -1,7 +1,7 @@
 /* =====================================================================
    INVARIANTS DE DONNÉES — data/lessons.js et data/badges.js
    ---------------------------------------------------------------------
-   Ces contraintes ne sont PAS exprimables en TypeScript (unicité sur 884 ids,
+   Ces contraintes ne sont PAS exprimables en TypeScript (unicité sur 947 ids,
    « exactement une ligne target », wordBank ⊇ mots(pl), clés étrangères…) :
    ce fichier est donc le seul filet possible.
 
@@ -42,22 +42,22 @@ const mots = (s) => Speech.normalize(s).split(/\s+/).filter(Boolean);
 
 /* ------------------------------ structure ---------------------------- */
 describe("structure", () => {
-  it("55 leçons, ids uniques", () => {
-    expect(POLISH_LESSONS).toHaveLength(55);
-    expect(new Set(POLISH_LESSONS.map((l) => l.id)).size).toBe(55);
+  it("60 leçons, ids uniques", () => {
+    expect(POLISH_LESSONS).toHaveLength(60);
+    expect(new Set(POLISH_LESSONS.map((l) => l.id)).size).toBe(60);
   });
 
-  it("884 item-ids au total, tous uniques", () => {
-    expect(vocab).toHaveLength(639);
-    expect(sentences).toHaveLength(220);
+  it("947 item-ids au total, tous uniques", () => {
+    expect(vocab).toHaveLength(682);
+    expect(sentences).toHaveLength(240);
     expect(dialogues).toHaveLength(25);
-    expect(tousLesIds).toHaveLength(884);
-    expect(new Set(tousLesIds).size).toBe(884);
+    expect(tousLesIds).toHaveLength(947);
+    expect(new Set(tousLesIds).size).toBe(947);
   });
 
-  it("order est exactement [1..55]", () => {
+  it("order est exactement [1..60]", () => {
     const ordres = POLISH_LESSONS.map((l) => l.order).sort((a, b) => a - b);
-    expect(ordres).toEqual(Array.from({ length: 55 }, (_, i) => i + 1));
+    expect(ordres).toEqual(Array.from({ length: 60 }, (_, i) => i + 1));
   });
 
   it("chaque leçon a 4 phrases et 2 notes de grammaire", () => {
@@ -65,8 +65,8 @@ describe("structure", () => {
       expect(l.sentences, l.id).toHaveLength(4);
       expect(l.grammarNotes, l.id).toHaveLength(2);
     }
-    expect(sentences).toHaveLength(220);
-    expect(grammarNotes).toHaveLength(110);
+    expect(sentences).toHaveLength(240);
+    expect(grammarNotes).toHaveLength(120);
   });
 
   it("les champs obligatoires sont présents partout", () => {
@@ -122,7 +122,7 @@ describe("dialogues", () => {
 
 /* ------------------------------- wordBank ---------------------------- */
 describe("wordBank", () => {
-  // 245 exercices « build » : 220 phrases + 25 répliques cibles.
+  // 265 exercices « build » : 240 phrases + 25 répliques cibles.
   const casBuild = [
     ...sentences.map((s) => ({ id: s.id, pl: s.pl, bank: s.wordBank })),
     ...dialogues.map((d) => {
@@ -131,8 +131,8 @@ describe("wordBank", () => {
     })
   ];
 
-  it("couvre tous les mots normalisés de pl (245 cas) — sinon l'exercice est insoluble", () => {
-    expect(casBuild).toHaveLength(245);
+  it("couvre tous les mots normalisés de pl (265 cas) — sinon l'exercice est insoluble", () => {
+    expect(casBuild).toHaveLength(265);
     for (const c of casBuild) {
       const banque = c.bank.map((w) => Speech.normalize(w));
       for (const m of mots(c.pl))
@@ -163,7 +163,7 @@ describe("grammaire", () => {
         n++;
       }
     }
-    expect(n).toBe(220);
+    expect(n).toBe(240);
   });
 
   it("toutes les notes de grammaire sont référencées (réciproque)", () => {

@@ -122,8 +122,10 @@ describe("chargement de la fixture réaliste", () => {
     }
     // 8 « available » et non 6 : les leçons d'animaux insérées aux orders 14 et
     // 24 suivent chacune une leçon déjà terminée, elles s'ouvrent donc aussitôt.
-    // Celles des orders 44 et 47 suivent une leçon verrouillée → locked.
-    expect(parStatut).toEqual({ completed: 29, available: 8, locked: 18 });
+    // Celles des orders 44 et 47 suivent une leçon verrouillée → locked. Les
+    // leçons 56-60 (nouveau sentier) suivent lesson-50 (order 55), lui-même
+    // `locked` dans cette fixture → elles aussi `locked`.
+    expect(parStatut).toEqual({ completed: 29, available: 8, locked: 23 });
   });
 
   it("rolloverDay est un no-op : todayDate vaut déjà l'ancre", () => {

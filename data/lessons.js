@@ -3514,5 +3514,268 @@ export const POLISH_LESSONS = [
         ]
       }
     ]
+  },
+
+  /* ============= order 56 — Voyages et imprévus (nouveau sentier) ====== */
+  {
+    id: "lesson-56",
+    order: 56,
+    title: "Podróże i awarie — Les transports et les imprévus de voyage",
+    theme: "voyage avancé",
+    mascotIntro:
+      "Nouveau sentier, nouveau défi : les voyages avec leurs petits imprévus. Trains en retard, correspondances ratées — même Żubr y est passé ! 🚂",
+    grammarNotes: [
+      {
+        id: "g-56-1",
+        title: "Verbes de mouvement en véhicule : przyjechać, odjechać, przejechać, dojechać",
+        explanationFr:
+          "Le préfixe change le sens du verbe de mouvement jechać (aller en véhicule) : przy- (arriver), od- (partir), prze- (traverser/parcourir), do- (arriver à destination).",
+        examples: [
+          { pl: "Pociąg przyjechał z dwugodzinnym opóźnieniem.", fr: "Le train est arrivé avec deux heures de retard." },
+          { pl: "Autobus odjechał, zanim zdążyliśmy wsiąść.", fr: "Le bus est parti avant que nous ayons eu le temps de monter." }
+        ]
+      },
+      {
+        id: "g-56-2",
+        title: "Verbes de mouvement à pied : wejść, wyjść, podejść, przejść",
+        explanationFr:
+          "Même principe avec iść (aller à pied) : we- (entrer), wy- (sortir), pod- (s'approcher), prze- (traverser). Ces préfixes se combinent avec les mêmes prépositions que jechać.",
+        examples: [
+          { pl: "Musieliśmy wejść do innego wagonu po awarii.", fr: "Nous avons dû monter dans un autre wagon après une panne." },
+          { pl: "Podeszliśmy do kasy, żeby zapytać o pociąg.", fr: "Nous nous sommes approchés du guichet pour demander au sujet du train." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-56-opoznienie", pl: "opóźnienie", fr: "le retard", category: "transport" },
+      { id: "v-56-awaria", pl: "awaria", fr: "la panne", category: "transport" },
+      { id: "v-56-przesiadka", pl: "przesiadka", fr: "la correspondance", category: "transport" },
+      { id: "v-56-zgubic-bagaz", pl: "zgubić bagaż", fr: "perdre ses bagages", category: "voyage" },
+      { id: "v-56-odwolac", pl: "odwołać", fr: "annuler", category: "verbe" },
+      { id: "v-56-tory", pl: "tory", fr: "les voies ferrées", category: "transport" },
+      { id: "v-56-peron", pl: "peron", fr: "le quai", category: "transport" },
+      { id: "v-56-dworzec", pl: "dworzec", fr: "la gare", category: "voyage" },
+      { id: "v-56-wagon", pl: "wagon", fr: "le wagon", category: "transport" },
+      { id: "v-56-taksowka", pl: "taksówka", fr: "le taxi", category: "transport" }
+    ],
+    sentences: [
+      { id: "s-56-1", pl: "Pociąg przyjechał z dwugodzinnym opóźnieniem.", fr: "Le train est arrivé avec deux heures de retard.", grammarFocus: "g-56-1",
+        wordBank: ["Pociąg", "przyjechał", "z", "dwugodzinnym", "opóźnieniem"] },
+      { id: "s-56-2", pl: "Musieliśmy wejść do innego wagonu po awarii.", fr: "Nous avons dû monter dans un autre wagon après une panne.", grammarFocus: "g-56-2",
+        wordBank: ["Musieliśmy", "wejść", "do", "innego", "wagonu", "po", "awarii"] },
+      { id: "s-56-3", pl: "Autobus odjechał, zanim zdążyliśmy na przesiadkę.", fr: "Le bus est parti avant que nous n'ayons eu le temps pour la correspondance.", grammarFocus: "g-56-1",
+        wordBank: ["Autobus", "odjechał", "zanim", "zdążyliśmy", "na", "przesiadkę"] },
+      { id: "s-56-4", pl: "Wyszliśmy z dworca i poszliśmy szukać taksówki.", fr: "Nous sommes sortis de la gare et sommes allés chercher un taxi.", grammarFocus: "g-56-2",
+        wordBank: ["Wyszliśmy", "z", "dworca", "i", "poszliśmy", "szukać", "taksówki"] }
+    ]
+  },
+
+  /* ============================ order 57 — L'entretien d'embauche ====== */
+  {
+    id: "lesson-57",
+    order: 57,
+    title: "Rozmowa o pracę — L'entretien d'embauche et le projet professionnel",
+    theme: "entretien d'embauche",
+    mascotIntro:
+      "Au travail, on soigne sa politesse. Prépare-toi pour un entretien d'embauche en polonais — Żubr croit en toi ! 💼",
+    grammarNotes: [
+      {
+        id: "g-57-1",
+        title: "Le conditionnel hypothétique : gdyby + passé + to...",
+        explanationFr:
+          "Gdybym/gdybyś/gdyby/gdybyśmy/gdybyście/gdyby + verbe au passé introduit une condition hypothétique, souvent suivie de to (« alors »). C'est la version « si... alors » du conditionnel déjà vu avec chciałbym.",
+        examples: [
+          { pl: "Gdybym miał więcej doświadczenia, dostałbym to stanowisko.", fr: "Si j'avais plus d'expérience, j'obtiendrais ce poste." },
+          { pl: "Gdyby zaproponowali lepsze wynagrodzenie, zostałabym dłużej.", fr: "S'ils proposaient un meilleur salaire, je resterais plus longtemps." }
+        ]
+      },
+      {
+        id: "g-57-2",
+        title: "La politesse professionnelle : chciałbym, mógłbym",
+        explanationFr:
+          "Les formes chciałbym/chciałabym (je voudrais) et mógłbym/mogłabym (je pourrais), déjà connues dans un cadre familier, s'emploient aussi au travail pour atténuer une demande — bien plus poli que le présent direct.",
+        examples: [
+          { pl: "Chciałbym opowiedzieć o moich umiejętnościach.", fr: "Je voudrais parler de mes compétences." },
+          { pl: "Czy mógłbym zadać pytanie o rozwój w tej firmie?", fr: "Pourrais-je poser une question sur l'évolution dans cette entreprise ?" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-57-doswiadczenie", pl: "doświadczenie zawodowe", fr: "l'expérience professionnelle", category: "travail" },
+      { id: "v-57-umiejetnosci", pl: "umiejętności", fr: "les compétences", category: "travail" },
+      { id: "v-57-wyzwanie", pl: "wyzwanie", fr: "le défi", category: "travail" },
+      { id: "v-57-wynagrodzenie", pl: "wynagrodzenie", fr: "le salaire", category: "travail" },
+      { id: "v-57-stanowisko", pl: "stanowisko", fr: "le poste", category: "travail" },
+      { id: "v-57-rozwijac-sie", pl: "rozwijać się", fr: "se développer", category: "verbe" },
+      { id: "v-57-rozmowa-o-prace", pl: "rozmowa o pracę", fr: "l'entretien d'embauche", category: "travail" },
+      { id: "v-57-pracodawca", pl: "pracodawca", fr: "l'employeur", category: "travail" }
+    ],
+    sentences: [
+      { id: "s-57-1", pl: "Gdybym miał więcej doświadczenia, dostałbym to stanowisko.", fr: "Si j'avais plus d'expérience, j'obtiendrais ce poste.", grammarFocus: "g-57-1",
+        wordBank: ["Gdybym", "miał", "więcej", "doświadczenia", "dostałbym", "to", "stanowisko"] },
+      { id: "s-57-2", pl: "Gdyby zaproponowali lepsze wynagrodzenie, zostałabym dłużej.", fr: "S'ils proposaient un meilleur salaire, je resterais plus longtemps.", grammarFocus: "g-57-1",
+        wordBank: ["Gdyby", "zaproponowali", "lepsze", "wynagrodzenie", "zostałabym", "dłużej"] },
+      { id: "s-57-3", pl: "Chciałbym opowiedzieć o moich umiejętnościach i wyzwaniach.", fr: "Je voudrais parler de mes compétences et de mes défis.", grammarFocus: "g-57-2",
+        wordBank: ["Chciałbym", "opowiedzieć", "o", "moich", "umiejętnościach", "i", "wyzwaniach"] },
+      { id: "s-57-4", pl: "Czy mógłbym zadać pytanie o rozwój w tej firmie?", fr: "Pourrais-je poser une question sur l'évolution dans cette entreprise ?", grammarFocus: "g-57-2",
+        wordBank: ["Czy", "mógłbym", "zadać", "pytanie", "o", "rozwój", "w", "tej", "firmie"] }
+    ]
+  },
+
+  /* =================== order 58 — Mode de vie sain et objectifs ======== */
+  {
+    id: "lesson-58",
+    order: 58,
+    title: "Zdrowy styl życia i cele — Mode de vie sain et formulation de buts",
+    theme: "bien-être",
+    mascotIntro:
+      "Prendre soin de soi, aussi en polonais : sommeil, alimentation, bonnes habitudes. Żubr recommande vivement de dormir ses huit heures. 🛌",
+    grammarNotes: [
+      {
+        id: "g-58-1",
+        title: "Żeby + sujets différents : żebym, żebyś, żeby, żebyśmy, żebyście",
+        explanationFr:
+          "żeby (pour que) s'accorde avec la personne de la subordonnée quand le sujet change par rapport à la principale : żebym (je), żebyś (tu), żeby (il/elle), żebyśmy (nous), żebyście (vous). Si le sujet est le même, on garde l'infinitif après żeby.",
+        examples: [
+          { pl: "Ćwiczę codziennie, żebym miał więcej energii.", fr: "Je fais de l'exercice tous les jours pour avoir plus d'énergie." },
+          { pl: "Rodzice gotują zdrowo, żebyśmy mieli lepsze nawyki.", fr: "Les parents cuisinent sain pour que nous ayons de meilleures habitudes." }
+        ]
+      },
+      {
+        id: "g-58-2",
+        title: "Nécessité et conseil nuancé : warto, powinienem/powinnam, należy",
+        explanationFr:
+          "warto (ça vaut la peine de) + infinitif exprime un conseil positif ; powinienem/powinnam (je devrais) exprime une recommandation personnelle ; należy + infinitif est plus impersonnel et formel (« il convient de »).",
+        examples: [
+          { pl: "Warto spać osiem godzin, żeby zapobiegać stresowi.", fr: "Ça vaut la peine de dormir huit heures pour prévenir le stress." },
+          { pl: "Powinieneś zrobić badania, jeśli źle się czujesz.", fr: "Tu devrais faire des examens si tu te sens mal." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-58-odzywianie", pl: "odżywianie", fr: "l'alimentation", category: "zdrowie" },
+      { id: "v-58-stres", pl: "stres", fr: "le stress", category: "zdrowie" },
+      { id: "v-58-badania", pl: "badania", fr: "les examens médicaux", category: "zdrowie" },
+      { id: "v-58-nawyk", pl: "nawyk", fr: "l'habitude", category: "zdrowie" },
+      { id: "v-58-samopoczucie", pl: "samopoczucie", fr: "l'état de bien-être", category: "zdrowie" },
+      { id: "v-58-zapobiegac", pl: "zapobiegać", fr: "prévenir", category: "verbe" },
+      { id: "v-58-sen", pl: "sen", fr: "le sommeil", category: "zdrowie" },
+      { id: "v-58-cel", pl: "cel", fr: "le but / l'objectif", category: "zdrowie" }
+    ],
+    sentences: [
+      { id: "s-58-1", pl: "Ćwiczę codziennie, żebym miał więcej energii.", fr: "Je fais de l'exercice tous les jours pour avoir plus d'énergie.", grammarFocus: "g-58-1",
+        wordBank: ["Ćwiczę", "codziennie", "żebym", "miał", "więcej", "energii"] },
+      { id: "s-58-2", pl: "Rodzice gotują zdrowo, żebyśmy mieli lepsze nawyki.", fr: "Les parents cuisinent sain pour que nous ayons de meilleures habitudes.", grammarFocus: "g-58-1",
+        wordBank: ["Rodzice", "gotują", "zdrowo", "żebyśmy", "mieli", "lepsze", "nawyki"] },
+      { id: "s-58-3", pl: "Warto spać osiem godzin, żeby zapobiegać stresowi.", fr: "Ça vaut la peine de dormir huit heures pour prévenir le stress.", grammarFocus: "g-58-2",
+        wordBank: ["Warto", "spać", "osiem", "godzin", "żeby", "zapobiegać", "stresowi"] },
+      { id: "s-58-4", pl: "Powinieneś zrobić badania, jeśli źle się czujesz.", fr: "Tu devrais faire des examens médicaux si tu te sens mal.", grammarFocus: "g-58-2",
+        wordBank: ["Powinieneś", "zrobić", "badania", "jeśli", "źle", "się", "czujesz"] }
+    ]
+  },
+
+  /* ==================== order 59 — Culture et critique de film ========= */
+  {
+    id: "lesson-59",
+    order: 59,
+    title: "Kultura i recenzja filmu — Critique de film et argumentation",
+    theme: "critique de film",
+    mascotIntro:
+      "Direction le cinéma polonais ! Apprends à donner ton avis sur un film, entre enthousiasme et nuance. 🎬",
+    grammarNotes: [
+      {
+        id: "g-59-1",
+        title: "L'aspect au passé dans la critique : imperfectif (trame) vs perfectif (événement clé)",
+        explanationFr:
+          "Dans une critique, l'imperfectif décrit la trame en cours (opowiadał, grała) tandis que le perfectif marque l'événement résolu et marquant (zapłakali, popełnił). Alterner les deux est la clé d'un récit fluide.",
+        examples: [
+          { pl: "Reżyser opowiadał historię miłości, a widzowie zapłakali na koniec.", fr: "Le réalisateur racontait une histoire d'amour, et les spectateurs ont fondu en larmes à la fin." },
+          { pl: "Główna aktorka grała świetnie, ale scenarzysta popełnił jeden błąd.", fr: "L'actrice principale jouait très bien, mais le scénariste a fait une erreur." }
+        ]
+      },
+      {
+        id: "g-59-2",
+        title: "Connecteurs d'argumentation : z jednej strony... z drugiej strony, według mnie, mimo że",
+        explanationFr:
+          "Ces connecteurs structurent une opinion nuancée : z jednej strony... z drugiej strony (d'un côté... de l'autre), według mnie (selon moi), mimo że (bien que) — déjà vu pour la concession, ici appliqué à la critique culturelle.",
+        examples: [
+          { pl: "Z jednej strony fabuła była ciekawa, z drugiej strony zakończenie mnie zawiodło.", fr: "D'un côté l'intrigue était intéressante, de l'autre la fin m'a déçu." },
+          { pl: "Według mnie warto zobaczyć ten film, mimo że jest długi.", fr: "Selon moi, ça vaut la peine de voir ce film, bien qu'il soit long." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-59-rezyser", pl: "reżyser", fr: "le réalisateur", category: "kultura" },
+      { id: "v-59-fabula", pl: "fabuła", fr: "l'intrigue", category: "kultura" },
+      { id: "v-59-gra-aktorska", pl: "gra aktorska", fr: "le jeu d'acteur", category: "kultura" },
+      { id: "v-59-scenariusz", pl: "scenariusz", fr: "le scénario", category: "kultura" },
+      { id: "v-59-warto-zobaczyc", pl: "warto zobaczyć", fr: "ça vaut la peine de voir", category: "kultura" },
+      { id: "v-59-wzruszajacy", pl: "wzruszający", fr: "émouvant", category: "description" },
+      { id: "v-59-recenzja", pl: "recenzja", fr: "la critique (de film)", category: "kultura" },
+      { id: "v-59-nagrodzony", pl: "nagrodzony", fr: "récompensé", category: "description" }
+    ],
+    sentences: [
+      { id: "s-59-1", pl: "Reżyser opowiadał historię miłości, a widzowie zapłakali na koniec.", fr: "Le réalisateur racontait une histoire d'amour, et les spectateurs ont fondu en larmes à la fin.", grammarFocus: "g-59-1",
+        wordBank: ["Reżyser", "opowiadał", "historię", "miłości", "a", "widzowie", "zapłakali", "na", "koniec"] },
+      { id: "s-59-2", pl: "Główna aktorka grała świetnie, ale scenarzysta popełnił jeden błąd.", fr: "L'actrice principale jouait très bien, mais le scénariste a fait une erreur.", grammarFocus: "g-59-1",
+        wordBank: ["Główna", "aktorka", "grała", "świetnie", "ale", "scenarzysta", "popełnił", "jeden", "błąd"] },
+      { id: "s-59-3", pl: "Z jednej strony fabuła była ciekawa, z drugiej strony zakończenie mnie zawiodło.", fr: "D'un côté l'intrigue était intéressante, de l'autre la fin m'a déçu.", grammarFocus: "g-59-2",
+        wordBank: ["Z", "jednej", "strony", "fabuła", "była", "ciekawa", "z", "drugiej", "strony", "zakończenie", "mnie", "zawiodło"] },
+      { id: "s-59-4", pl: "Według mnie warto zobaczyć ten film, mimo że jest długi.", fr: "Selon moi, ça vaut la peine de voir ce film, bien qu'il soit long.", grammarFocus: "g-59-2",
+        wordBank: ["Według", "mnie", "warto", "zobaczyć", "ten", "film", "mimo", "że", "jest", "długi"] }
+    ]
+  },
+
+  /* ========== order 60 — Écologie (capstone du sentier du monde) ======= */
+  {
+    id: "lesson-60",
+    order: 60,
+    title: "Ekologia i wyzwania — L'écologie et les enjeux de société",
+    theme: "écologie",
+    mascotIntro:
+      "Dernière étape de ce nouveau sentier : l'écologie, et un vrai récapitulatif du génitif pluriel. De quoi se sentir presque bilingue ! 🌍",
+    grammarNotes: [
+      {
+        id: "g-60-1",
+        title: "Génitif pluriel : les 3 désinences (récapitulatif)",
+        explanationFr:
+          "Le génitif pluriel a trois désinences : -ów pour la plupart des masculins (problem → problemów), -i/-y pour les féminins en -ia et certains masculins « mous » (kampania → kampanii), et une désinence zéro pour de nombreux féminins en -a (fabryka → fabryk). Tu as déjà croisé ces formes séparément (wilków, saren, myszy) ; ici on les regroupe.",
+        examples: [
+          { pl: "W tym roku było mniej problemów ekologicznych.", fr: "Cette année, il y a eu moins de problèmes écologiques." },
+          { pl: "Miasto zamknęło kilka starych fabryk.", fr: "La ville a fermé plusieurs vieilles usines." }
+        ]
+      },
+      {
+        id: "g-60-2",
+        title: "Quantificateurs et grandeurs complexes : brak, większość, tysiące/miliony",
+        explanationFr:
+          "brak + génitif (l'absence de), większość + génitif pluriel (la majorité de), tysiące/miliony + génitif pluriel (des milliers/millions de) se construisent tous avec le génitif, comme dużo ou wiele déjà vus.",
+        examples: [
+          { pl: "Brak recyklingu jest dużym problemem.", fr: "L'absence de recyclage est un gros problème." },
+          { pl: "Większość mieszkańców popiera nowe kampanie.", fr: "La majorité des habitants soutient les nouvelles campagnes." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-60-zanieczyszczenie", pl: "zanieczyszczenie", fr: "la pollution", category: "ekologia" },
+      { id: "v-60-srodowisko", pl: "środowisko", fr: "l'environnement", category: "ekologia" },
+      { id: "v-60-ochrona", pl: "ochrona", fr: "la protection", category: "ekologia" },
+      { id: "v-60-odpady", pl: "odpady", fr: "les déchets", category: "ekologia" },
+      { id: "v-60-odnawialny", pl: "odnawialny", fr: "renouvelable", category: "description" },
+      { id: "v-60-smog", pl: "smog", fr: "le smog", category: "ekologia" },
+      { id: "v-60-recykling", pl: "recykling", fr: "le recyclage", category: "ekologia" },
+      { id: "v-60-fabryka", pl: "fabryka", fr: "l'usine", category: "ekologia" },
+      { id: "v-60-mieszkaniec", pl: "mieszkaniec", fr: "l'habitant", category: "ekologia" }
+    ],
+    sentences: [
+      { id: "s-60-1", pl: "W naszym mieście jest coraz mniej problemów ze smogiem.", fr: "Dans notre ville, il y a de moins en moins de problèmes de smog.", grammarFocus: "g-60-1",
+        wordBank: ["W", "naszym", "mieście", "jest", "coraz", "mniej", "problemów", "ze", "smogiem"] },
+      { id: "s-60-2", pl: "Miasto zamknęło kilka starych fabryk.", fr: "La ville a fermé plusieurs vieilles usines.", grammarFocus: "g-60-1",
+        wordBank: ["Miasto", "zamknęło", "kilka", "starych", "fabryk"] },
+      { id: "s-60-3", pl: "Brak recyklingu szkodzi środowisku.", fr: "L'absence de recyclage nuit à l'environnement.", grammarFocus: "g-60-2",
+        wordBank: ["Brak", "recyklingu", "szkodzi", "środowisku"] },
+      { id: "s-60-4", pl: "Większość mieszkańców popiera ochronę środowiska.", fr: "La majorité des habitants soutient la protection de l'environnement.", grammarFocus: "g-60-2",
+        wordBank: ["Większość", "mieszkańców", "popiera", "ochronę", "środowiska"] }
+    ]
   }
 ];

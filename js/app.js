@@ -38,7 +38,8 @@ var TRAILS = [
   { name: "Le sentier des rencontres", icon: "🌍" }, // 36–40 voyage, téléphone/internet, datif, fêtes, vocatif
   { name: "Le sentier des grands horizons", icon: "🌄" }, // 41–45 pronoms déclinés (x2), comparatif, ANIMAUX DU MONDE, météo
   { name: "Le sentier de la forêt", icon: "🌲" },    // 46–50 nature, ANIMAUX DE LA FORÊT, conditionnel poli, relatives, opinion
-  { name: "Le sentier du récit", icon: "📖" }        // 51–55 cause/but, concession, discours indirect, récit, compréhension (capstone)
+  { name: "Le sentier du récit", icon: "📖" },       // 51–55 cause/but, concession, discours indirect, récit, compréhension (capstone)
+  { name: "Le sentier du monde", icon: "🌐" }        // 56–60 voyage avancé, entretien d'embauche, bien-être, critique de film, écologie (génitif pluriel)
 ];
 var TRAIL_SIZE = 5;
 // Ouverture forcée par l'utilisateur (en mémoire, non persistée) : index -> bool

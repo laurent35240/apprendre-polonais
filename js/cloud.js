@@ -61,6 +61,11 @@ var writerId =
     ? crypto.randomUUID()
     : "w-" + Math.random().toString(36).slice(2) + Date.now().toString(36);
 
+// Nom de collection Firestore, choisi par l'appelant (app.js) selon
+// l'environnement — permet à `npm run dev` d'écrire dans un document séparé
+// de la prod sans changer de compte de connexion (même uid, chemin différent).
+var progressCollection = "progress";
+
 /** @type {import("firebase/app").FirebaseApp|null} */
 var app = null;
 /** @type {import("firebase/auth").Auth|null} */
@@ -82,12 +87,14 @@ var lastError = null;
 
 /**
  * @param {import("firebase/app").FirebaseOptions} firebaseConfig
+ * @param {string} [collectionName]
  * @returns {void}
  */
-function init(firebaseConfig) {
+function init(firebaseConfig, collectionName) {
   // Idempotent : un double appel (ex. re-render qui rappellerait boot) ne
   // recrée pas une seconde app Firebase.
   if (app) return;
+  if (collectionName) progressCollection = collectionName;
   app = initializeApp(firebaseConfig);
   auth = getAuth(app);
   db = getFirestore(app);
@@ -187,7 +194,7 @@ async function push() {
   var user = currentUser;
   if (!user || !db) return;
   if (State.status().mode === "readonly") return;
-  await setDoc(doc(db, "progress", user.uid), {
+  await setDoc(doc(db, progressCollection, user.uid), {
     state: State.get(),
     writerId: writerId,
     updatedAt: serverTimestamp()
@@ -219,7 +226,7 @@ function schedulePush() {
 async function pull() {
   var user = currentUser;
   if (!user || !db) return { merged: false, repairs: [] };
-  var snap = await getDoc(doc(db, "progress", user.uid));
+  var snap = await getDoc(doc(db, progressCollection, user.uid));
   lastPullAt = Date.now();
   if (!snap.exists()) return { merged: false, repairs: [] };
   /** @type {CloudProgressDoc} */
@@ -238,7 +245,7 @@ function startSync() {
   var user = currentUser;
   if (!user || !db || unsubscribeSnapshot) return;
   unsubscribeSnapshot = onSnapshot(
-    doc(db, "progress", user.uid),
+    doc(db, progressCollection, user.uid),
     function (snap) {
       if (!snap.exists()) return;
       /** @type {CloudProgressDoc} */

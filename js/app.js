@@ -103,7 +103,11 @@ async function boot() {
   // utilisateur déjà connecté semblerait déconnecté jusqu'à ce que le
   // callback asynchrone de Firebase ait fini de s'exécuter) ; unique pull
   // avant le premier rendu, puis l'écoute temps réel démarre en tâche de fond.
-  Cloud.init(FIREBASE_CONFIG);
+  // Collection Firestore distincte en dev : même compte de connexion, même
+  // uid, mais chemin différent — un test local ne touche jamais le document
+  // de prod (cf. CLAUDE.md § Synchronisation).
+  var progressCollection = import.meta.env.DEV ? "progress-dev" : "progress";
+  Cloud.init(FIREBASE_CONFIG, progressCollection);
   try {
     var signedIn = await Cloud.completeSignInFromUrl();
     if (signedIn) UI.toast("Connecté ✅", "success");

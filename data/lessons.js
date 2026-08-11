@@ -3162,14 +3162,14 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ================ order 50 — Compréhension de texte (capstone) ======= */
+  /* ================ order 50 — Compréhension de texte ================= */
   {
     id: "lesson-50",
     order: 55,
     title: "Compréhension d'un texte suivi",
     theme: "récit suivi",
     mascotIntro:
-      "Dernière étape (pour l'instant) : un vrai petit texte à lire, du début à la fin, comme un(e) vrai(e) polonophone. Bravo d'être arrivé jusque là ! 🏆",
+      "Une nouvelle étape : un vrai petit texte à lire, du début à la fin, comme un(e) vrai(e) polonophone. Bravo d'être arrivé jusque là ! 🏆",
     grammarNotes: [
       {
         id: "g-50-1",
@@ -3185,7 +3185,7 @@ export const POLISH_LESSONS = [
         id: "g-50-2",
         title: "Deviner le sens d'un mot inconnu par le contexte",
         explanationFr:
-          "Pas besoin de connaître chaque mot : le contexte (verbe, connecteur, sujet) donne souvent le sens général. C'est la compétence clé de la lecture B1 — comprendre l'essentiel, pas tout traduire.",
+          "Pas besoin de connaître chaque mot : le contexte (verbe, connecteur, sujet) donne souvent le sens général. C'est la compétence clé de la lecture — comprendre l'essentiel, pas tout traduire.",
         examples: [
           { pl: "Zgubiłem się w lesie, lecz wreszcie znalazłem drogę.", fr: "Je me suis perdu dans la forêt, mais j'ai enfin trouvé le chemin." },
           { pl: "Byłem przestraszony, jednak szedłem dalej.", fr: "J'étais effrayé, pourtant je continuais à marcher." }

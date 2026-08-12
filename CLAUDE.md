@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 npm install
 npm run dev        # http://localhost:5173/apprendre-polonais/  (PAS la racine /)
-npm test           # 280 assertions, ~1,5 s
+npm test           # 353 tests (+ 10 it.skip volontaires), ~1,8 s
 npm run typecheck  # tsc --noEmit, DOIT valoir 0
 npm run build      # dist/
 npm run preview    # http://localhost:4173/apprendre-polonais/
@@ -15,8 +15,8 @@ npm run preview    # http://localhost:4173/apprendre-polonais/
 
 Le `base` de `vite.config.js` vaut `/apprendre-polonais/` (chemin de
 déploiement) : `http://localhost:5173/` renvoie donc un 404, c'est normal.
-Le double-clic sur `index.html` **ne fonctionne plus** depuis le passage aux
-modules ES.
+Le double-clic sur `index.html` ne fonctionne pas : l'app est en modules ES,
+il faut le serveur `npm run dev`.
 
 Chrome is required for speech recognition. TTS works anywhere with a `pl-PL` voice installed.
 
@@ -35,15 +35,22 @@ déclaré dans `index.html` — **l'ordre de dépendances est porté par le grap
 d'imports**, plus par l'ordre des balises `<script>`.
 
 Le graphe est un DAG strict : `lessons → stories → badges → state → srs →
-speech → gamification → progress → cloud → exercises → session → ui → app`. Il n'y a
-**pas** de cycle State ⇄ Gamification (Gamification → State : 14 références,
-l'inverse : 0), et `js/progress.js` est un module séparé **précisément pour ne
-pas en créer un** (il doit créditer l'XP et toucher les badges, ce que
-`state.js` ne peut pas) ; la logique de streak est dupliquée entre `state.js
-rolloverDay()` et `gamification.js touchActivity()`, ce qui peut donner
-l'illusion d'un cycle. `js/cloud.js` obéit à la même contrainte de DAG que
-`progress.js` : il a besoin de `State`/`Progress`, jamais l'inverse, et
-n'importe pas `ui.js` (il renvoie des faits, `app.js` décide des toasts).
+speech → gamification → progress → cloud → exercises → session → ui →
+exercise-renderers → app`. `js/config.js` (secrets Firebase) n'a aucune
+dépendance et n'est importé que par `app.js`. Il n'y a **pas** de cycle State
+⇄ Gamification (Gamification → State : 14 références, l'inverse : 0), et
+`js/progress.js` est un module séparé **précisément pour ne pas en créer un**
+(il doit créditer l'XP et toucher les badges, ce que `state.js` ne peut pas) ;
+la logique de streak est dupliquée entre `state.js rolloverDay()` et
+`gamification.js touchActivity()`, ce qui peut donner l'illusion d'un cycle.
+`js/cloud.js` obéit à la même contrainte de DAG que `progress.js` : il a
+besoin de `State`/`Progress`, jamais l'inverse, et n'importe pas `ui.js` (il
+renvoie des faits, `app.js` décide des toasts). `js/exercise-renderers.js`
+porte tout le cycle de vie d'une session d'exercices (déroulé
+question→réponse→feedback→suite et les 19 renderers par type) ; il reçoit
+`renderHome`/`updateHeader`/`renderSummary` via un `init()` plutôt que par
+import pour rester en aval du DAG, `app.js` restant l'unique module qui
+importe dans les deux sens.
 
 **Assets** : `public/assets/img/` est copié verbatim par Vite (pas de hachage),
 parce que `js/ui.js` construit ses chemins d'images par concaténation — donc
@@ -70,14 +77,14 @@ vert d'anti-aliasing, encore visible sur `zubr-head.png`).
 `State.todayStr()` utilise l'heure locale et la CI tourne en UTC.
 
 `tests/data-invariants.test.js` vérifie ce que TypeScript ne peut pas exprimer
-(unicité des 884 ids, « exactement une ligne `target` » par dialogue,
+(unicité des 947 ids, « exactement une ligne `target` » par dialogue,
 `wordBank ⊇ mots(pl)`, clés étrangères `grammarFocus`…). Ses **10 `it.skip`**
 documentent des invariants qui échouent aujourd'hui : c'est de la dette
 assumée, avec le chiffre exact et la raison en commentaire. Ne pas les
 « réparer » sans décision produit — notamment `[VOULU] le tableau est trié par
 order`, qui doit rester rouge.
 
-`tests/fixtures/item-ids.json` fige les 884 ids. Ce sont les **clés SRS en
+`tests/fixtures/item-ids.json` fige les 947 ids. Ce sont les **clés SRS en
 localStorage** : renommer un id efface la progression de l'utilisateur sur ce
 mot, et ce fichier rend l'accident visible en revue.
 
@@ -233,7 +240,9 @@ n'est **pas** commitée (dépôt public) ; `.gitignore` couvre
 - `js/exercises.js` — exercise generation and answer checking for all types (MCQ, listen, type, word-bank/build, fill-in/cloze, pronunciation, dialogue) + les 4 épreuves d'histoire (cf. § Histoires bonus)
 - `js/session.js` — builds a session array mixing new items + due SRS reviews ; `buildStorySession` pour les histoires (ordre du récit, sans révisions)
 - `js/ui.js` — DOM helpers, mascotte, toasts, confetti, sounds
-- `js/app.js` — screen navigation, exercise loop, DOMContentLoaded boot
+- `js/exercise-renderers.js` — le cycle de vie complet d'une session d'exercice (state machine + les 19 renderers par type, cf. § Architecture)
+- `js/config.js` — clés de config Firebase (`FIREBASE_CONFIG`), aucune dépendance
+- `js/app.js` — screen navigation, home screen (sentiers, recherche de leçons), DOMContentLoaded boot
 
 **Home screen — lesson grouping (`js/app.js`):** the home path groups lessons into "sentiers" (packs of 5) via `trailNode()`. Lessons are iterated **sorted by `order`** (`sortedLessons()` / `byOrder`), not array order — `order` is the display sequence and does not match `id`. **`order` is the single source of truth for sequencing**: both the home display (`app.js`) and the unlock chain (`js/state.js` `ensureLessonStatuses`) sort by `order`, so the physical position of a lesson block in the `POLISH_LESSONS` array is irrelevant — new lessons can be appended anywhere and just need a unique `order`. `order` values must be unique; they need not be contiguous. Trail names + emojis live in the `TRAILS` array. By default only the trail holding the current lesson is expanded (`currentTrailIndex()` / `currentLessonId()` = first non-`completed`, non-`locked` lesson); manual expand/collapse is kept in the in-memory `trailOpenOverride` map (not persisted). The "Reprendre" button calls `jumpToCurrent()`, which opens the right trail, re-renders, then scrolls to the lesson node (`[data-lesson-id]`) and briefly adds `.lesson-node--highlight`. The connecting trail line is pure CSS (`.trail-body::before`, `css/styles.css`): it sits above card backgrounds but below the lesson badges (z-index), so badges must stay opaque — avoid `opacity` on the whole `.lesson-node` and avoid `transform` on hover (both would let the line show through / over the badge). Une **histoire bonus**
 (`data/stories.js`) s'ajoute en dernière position du sentier qu'elle vise
@@ -241,11 +250,24 @@ n'est **pas** commitée (dépôt public) ; `.gitignore` couvre
 affiché **ni** dans `currentTrailIndex` / `jumpToCurrent`, puisqu'elle est
 optionnelle — un sentier reste « Terminé 🎉 » sans elle. Cf. § Histoires bonus.
 
+**Recherche de leçons (`js/app.js`)** : barre de recherche sous « Ton
+parcours », index mémoïsé (`buildLessonSearchIndex`, invalidé jamais car
+`POLISH_LESSONS` est statique) sur titre, thème, vocabulaire (pl/fr) et
+titres de `grammarNotes`. Le pliage diacritique (`foldText`) est
+**volontairement séparé** de `Speech.normalize` (`js/speech.js`), qui
+conserve les diacritiques polonais pour la correction de prononciation — un
+contrat différent, pas une duplication accidentelle. Les leçons verrouillées
+apparaissent dans les résultats (grisées, 🔒) mais un clic ne fait que
+localiser la carte via `jumpToCurrent`, jamais ne l'ouvre.
+
 ## Synchronisation multi-appareils (palier 4)
 
 Login par lien magique (Firebase Authentication, e-mail sans mot de passe) +
-progression synchronisée via Firestore, un document par utilisateur
-(collection `progress`, id = `uid`). **Fusion par item**, jamais « dernier qui
+progression synchronisée via Firestore, un document par utilisateur (id =
+`uid`), dans la collection `progress` — ou `progress-dev` en local
+(`import.meta.env.DEV`, choisi par `app.js` et passé à `Cloud.init()`), pour
+qu'un test en `npm run dev` ne pollue jamais les documents de prod. **Fusion
+par item**, jamais « dernier qui
 écrit gagne » sur le blob entier : chaque champ racine se fusionne par sa
 propre règle, individuellement idempotente et commutative (`max`, union, OR),
 sauf `settings`/`dailyGoal` où **`local` gagne toujours** par design —
@@ -319,13 +341,13 @@ court récit dialogué découpé en **scènes**, chaque scène étant suivie d'*
 optionnel** rattaché à un sentier par `trailIndex` (index 0-based dans `TRAILS`)
 et affichée en dernière position de ce sentier.
 
-**Pourquoi un concept séparé et non une 56ᵉ leçon.** Trois contraintes
+**Pourquoi un concept séparé et non une leçon de plus.** Trois contraintes
 existantes l'imposent — ne pas essayer de les contourner :
 1. `js/app.js` découpe les leçons triées en paquets **rigides de 5**
    (`TRAIL_SIZE`) : une leçon insérée décale tous les sentiers suivants et
    désynchronise les libellés du tableau `TRAILS`.
-2. `tests/data-invariants.test.js` verrouille « 55 leçons », « `order` est
-   exactement [1..55] » et « 884 item-ids, aucun renommé ».
+2. `tests/data-invariants.test.js` verrouille « 60 leçons », « `order` est
+   exactement [1..60] » et « 947 item-ids, aucun renommé ».
 3. `State.ensureLessonStatuses()` est une chaîne de déverrouillage **linéaire** :
    une histoire dedans bloquerait le sentier suivant.
 
@@ -398,7 +420,7 @@ d'écran annonce ainsi « qui parle » avant « ce qu'il dit ».
 
 Invariants de contenu dans `tests/stories.test.js` : `answers ⊆ options`,
 `wordBank ⊇ mots(pl)`, `answer ∈ options` + marqueur `_____`, ids **disjoints**
-des 884 item-ids (ils cohabitent dans la même map `localStorage`), et un test de
+des 947 item-ids (ils cohabitent dans la même map `localStorage`), et un test de
 bout en bout qui vérifie que la bonne réponse de chaque épreuve est bien acceptée
 par `Exercises.check`.
 

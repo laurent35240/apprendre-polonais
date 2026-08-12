@@ -456,6 +456,7 @@ function renderHome(keepScroll) {
 
   // Carte des leçons, regroupées par sentiers de 5
   appRoot.appendChild(el("h2", { class: "section-title", text: "Ton parcours" }));
+  appRoot.appendChild(lessonSearchNode(s));
 
   // Actions rapides côte à côte : reprendre / rejouer une leçon terminée.
   var actions = el("div", { class: "home-actions" });
@@ -506,6 +507,175 @@ function renderHome(keepScroll) {
 
   // Bandeau forestier pleine largeur en pied de page
   appRoot.appendChild(UI.decorImg("foret-bandeau", "forest-banner"));
+}
+
+/* -------------------------- Recherche de leçons --------------------- */
+
+// Plié : minuscule + diacritiques retirés (PL et FR). Volontairement séparé
+// de Speech.normalize (js/speech.js), qui CONSERVE les diacritiques polonais
+// pour la correction de prononciation — un contrat différent.
+/**
+ * @param {string} str
+ * @returns {string}
+ */
+function foldText(str) {
+  return (str || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+// Mémoïsé : POLISH_LESSONS est statique, pas besoin de reconstruire l'index
+// à chaque frappe ni à chaque rendu de l'accueil.
+/** @type {Record<string, string>|null} */
+var lessonSearchIndex = null;
+/**
+ * @returns {Record<string, string>}
+ */
+function buildLessonSearchIndex() {
+  if (lessonSearchIndex) return lessonSearchIndex;
+  /** @type {Record<string, string>} */
+  var index = {};
+  sortedLessons().forEach(function (lesson) {
+    var parts = [lesson.title, lesson.theme];
+    (lesson.vocabulary || []).forEach(function (v) {
+      parts.push(v.pl, v.fr);
+    });
+    (lesson.grammarNotes || []).forEach(function (g) {
+      parts.push(g.title);
+    });
+    index[lesson.id] = foldText(parts.join(" "));
+  });
+  lessonSearchIndex = index;
+  return index;
+}
+
+// Toutes les leçons dont le texte indexé contient TOUS les mots de la requête
+// (ET, pas OU) — permet de combiner thème et grammaire dans une même saisie.
+/**
+ * @param {string} query
+ * @returns {Lesson[]}
+ */
+function searchLessons(query) {
+  var words = foldText(query).split(/\s+/).filter(Boolean);
+  if (!words.length) return [];
+  var index = buildLessonSearchIndex();
+  return sortedLessons().filter(function (lesson) {
+    var haystack = index[lesson.id];
+    return words.every(function (w) {
+      return haystack.indexOf(w) !== -1;
+    });
+  });
+}
+
+var LESSON_SEARCH_MAX_RESULTS = 8;
+
+// Carte compacte d'un résultat de recherche : verrouillée ou non, le clic ne
+// fait jamais que localiser la leçon dans le parcours (jumpToCurrent), jamais
+// l'ouvrir — cf. lessonNode, où onclick reste null pour une leçon verrouillée.
+/**
+ * @param {Lesson} lesson
+ * @param {PersistedState} s
+ * @param {() => void} onSelect
+ * @returns {HTMLElement}
+ */
+function lessonSearchResultNode(lesson, s, onSelect) {
+  /** @type {LessonProgress} */
+  var st = s.lessons[lesson.id] || { status: "locked", bestScore: 0 };
+  var locked = st.status === "locked";
+  return el(
+    "div",
+    {
+      class: "lesson-node lesson-search-result" + (locked ? " locked" : ""),
+      onclick: onSelect
+    },
+    [
+      el("div", { class: "lesson-badge", text: String(lesson.order) }),
+      el("div", { class: "lesson-info" }, [
+        el("div", { class: "lesson-title", text: lesson.title }),
+        el("div", {
+          class: "lesson-sub",
+          text: (locked ? "🔒 " : "") + lesson.theme
+        })
+      ])
+    ]
+  );
+}
+
+/**
+ * @param {PersistedState} s
+ * @returns {HTMLElement}
+ */
+function lessonSearchNode(s) {
+  var results = el("div", { class: "lesson-search-results" });
+  results.style.display = "none";
+
+  /**
+   * @param {string} query
+   * @returns {void}
+   */
+  function renderResults(query) {
+    clear(results);
+    if (foldText(query).length < 2) {
+      results.style.display = "none";
+      return;
+    }
+    var matches = searchLessons(query);
+    if (!matches.length) {
+      results.appendChild(
+        el("div", { class: "lesson-search-empty", text: "Aucune leçon trouvée." })
+      );
+    } else {
+      matches.slice(0, LESSON_SEARCH_MAX_RESULTS).forEach(function (lesson) {
+        results.appendChild(
+          lessonSearchResultNode(lesson, s, function () {
+            results.style.display = "none";
+            input.blur();
+            jumpToCurrent(lesson.id);
+          })
+        );
+      });
+      var reste = matches.length - LESSON_SEARCH_MAX_RESULTS;
+      if (reste > 0) {
+        results.appendChild(
+          el("div", {
+            class: "lesson-search-empty",
+            text: "+" + reste + " autre(s) résultat(s)"
+          })
+        );
+      }
+    }
+    results.style.display = "flex";
+  }
+
+  var input = el("input", {
+    class: "text-input lesson-search-input",
+    type: "search",
+    autocomplete: "off",
+    placeholder: "Rechercher une leçon, un thème, un mot…",
+    oninput: function () {
+      renderResults(input.value);
+    },
+    onkeydown: function (e) {
+      if (e.key === "Escape") {
+        input.value = "";
+        results.style.display = "none";
+        input.blur();
+      }
+    },
+    // Délai avant de refermer : un clic sur un résultat déclenche d'abord ce
+    // blur (le focus quitte le champ), puis son propre événement `click` —
+    // sans délai, `display: none` retirerait la carte avant que le clic
+    // n'ait eu la chance de se déclencher.
+    onblur: function () {
+      setTimeout(function () {
+        results.style.display = "none";
+      }, 150);
+    }
+  });
+
+  return el("div", { class: "lesson-search" }, [input, results]);
 }
 
 /**

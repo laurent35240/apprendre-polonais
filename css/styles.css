@@ -383,6 +383,45 @@ h3 {
   color: var(--ink-soft);
 }
 
+/* ------------------------ Recherche de leçons ---------------------- */
+.lesson-search {
+  position: relative;
+  margin-bottom: 14px;
+}
+.lesson-search-input {
+  width: 100%;
+}
+.lesson-search-results {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 8px;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+.lesson-search-result {
+  padding: 10px 12px;
+}
+/* Verrouillée : le style grisé de .locked reste, mais le clic reste actif
+   (il localise la leçon dans le parcours sans l'ouvrir) — curseur normal. */
+.lesson-search-result.locked {
+  cursor: pointer;
+}
+.lesson-search-empty {
+  padding: 10px 12px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  text-align: center;
+}
+
 /* ------------------------- Sentiers (paquets) --------------------- */
 /* Les deux actions rapides partagent la largeur sur une seule ligne. */
 .home-actions {

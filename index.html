@@ -3,6 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!-- Les bundles JS/CSS sont hashés par Vite (toujours frais), mais ce
+         fichier index.html porte un nom fixe : sans ces balises, GitHub
+         Pages le sert avec un cache par défaut et un déploiement récent
+         reste invisible sans hard-refresh. -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>Polski z Żubrem — apprendre le polonais</title>
     <!-- Chemins racine-relatifs : ces fichiers vivent dans public/, que Vite
          copie verbatim en préfixant le `base`. Sans le / initial, le build

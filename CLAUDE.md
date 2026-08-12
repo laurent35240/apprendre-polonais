@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+**Langue** : réponds toujours en français dans ce projet, sauf demande explicite contraire de l'utilisateur.
+
 ## Running the app
 
 ```bash

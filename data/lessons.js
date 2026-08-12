@@ -1497,7 +1497,7 @@ export const POLISH_LESSONS = [
       { id: "s-25-3", pl: "Tu nie wolno palić.", fr: "Ici il est interdit de fumer.", grammarFocus: "g-25-2",
         wordBank: ["Tu", "nie", "wolno", "palić", "można"] },
       { id: "s-25-4", pl: "Trzeba kupić chleb.", fr: "Il faut acheter du pain.", grammarFocus: "g-25-2",
-        wordBank: ["Trzeba", "kupić", "chleb", "trzeba"] }
+        wordBank: ["Trzeba", "kupić", "chleb"] }
     ],
     dialogues: [
       {
@@ -2250,7 +2250,7 @@ export const POLISH_LESSONS = [
     ],
     sentences: [
       { id: "s-36-1", pl: "Zadzwonię do ciebie wieczorem.", fr: "Je t'appellerai ce soir.", grammarFocus: "g-36-1",
-        wordBank: ["Zadzwonię", "do", "ciebie", "wieczorem", "ciebie"] },
+        wordBank: ["Zadzwonię", "do", "ciebie", "wieczorem"] },
       { id: "s-36-2", pl: "Wysłałem ci wiadomość.", fr: "Je t'ai envoyé un message.", grammarFocus: "g-36-2",
         wordBank: ["Wysłałem", "ci", "wiadomość"] },
       { id: "s-36-3", pl: "Nie pamiętam hasła.", fr: "Je ne me souviens pas du mot de passe.", grammarFocus: "g-36-2",

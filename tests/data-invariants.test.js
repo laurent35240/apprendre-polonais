@@ -4,11 +4,6 @@
    Ces contraintes ne sont PAS exprimables en TypeScript (unicité sur 947 ids,
    « exactement une ligne target », wordBank ⊇ mots(pl), clés étrangères…) :
    ce fichier est donc le seul filet possible.
-
-   Les `it.skip` en fin de fichier documentent 10 invariants qui ÉCHOUENT
-   aujourd'hui. Ils sont volontairement laissés rouges-mais-ignorés : c'est la
-   dette rendue visible, pas un oubli. Chacun dit quoi échoue, avec le chiffre
-   exact, et pourquoi on ne corrige pas maintenant.
    ===================================================================== */
 import { describe, it, expect } from "vitest";
 import { POLISH_LESSONS } from "../data/lessons.js";
@@ -244,55 +239,12 @@ describe("catégories", () => {
   });
 });
 
-/* =====================================================================
-   DETTE — invariants qui ÉCHOUENT aujourd'hui
-   Chacun est mesuré et expliqué. Ne pas « réparer » sans décision produit.
-   ===================================================================== */
-describe("dette connue", () => {
-  // [VOULU] POLISH_LESSONS n'est pas trié par `order` : les leçons 1→23 sont
-  // physiquement d'abord (avec des order troués), puis 24→40 comblent les
-  // trous. C'est documenté dans CLAUDE.md : `order` est la SEULE source de
-  // vérité du séquencement (app.js sortedLessons, state.js
-  // ensureLessonStatuses trient dessus), la position physique est sans
-  // importance — c'est ce qui permet d'ajouter une leçon n'importe où.
-  // Ce test existe pour figer l'intention, pas pour être réparé.
-  it.skip("[VOULU] le tableau est trié par order", () => {
-    const o = POLISH_LESSONS.map((l) => l.order);
-    expect(o).toEqual([...o].sort((a, b) => a - b));
-  });
-
-  // 27 violations, TOUTES dans lesson-11, qui utilise le préfixe `cal` au lieu
-  // du numéro de leçon : v-cal-poniedzialek… (21), s-cal-1..4, g-cal-1..2.
-  // Renommer casserait l'historique SRS de 27 items (les ids sont les clés
-  // localStorage) : à ne faire qu'avec une migration.
-  it.skip("[DETTE] id préfixé par le numéro de sa leçon", () => {
-    for (const l of POLISH_LESSONS) {
-      const n = l.id.replace("lesson-", "");
-      for (const v of l.vocabulary || []) expect(v.id).toMatch(new RegExp(`^v-${n}-`));
-    }
-  });
-
-  // 1 seul cas : `v-25-muszę` porte un diacritique alors que tous les autres
-  // ids sont dé-diacrités (v-25-moge, v-25-powinienem…). Même contrainte SRS.
-  it.skip("[DETTE] les ids sont en ASCII pur", () => {
-    for (const id of tousLesIds) expect(id).toMatch(/^[a-z0-9-]+$/);
-  });
-
-  // 15 catégories ont moins de 4 entrées, dont 7 une seule (mesure, argent,
-  // lieu, personne, expression, grammaire, récit). Le QCM veut 1 réponse + 3
-  // distracteurs de MÊME catégorie (exercises.js distractors) : pour ces 15,
-  // le fallback pioche hors catégorie. Pas cassé — moins pertinent.
-  it.skip("[DETTE] toute catégorie utilisée a >= 4 entrées", () => {
-    const parCat = {};
-    for (const v of vocab) (parCat[v.category] ||= []).push(v.id);
-    for (const [cat, ids] of Object.entries(parCat))
-      expect(ids.length, cat).toBeGreaterThanOrEqual(4);
-  });
-
-  // 1 cas : s-36-1 « Zadzwonię do ciebie wieczorem. » a "ciebie" deux fois dans
-  // son wordBank alors que le mot n'apparaît qu'une fois dans la phrase — un
-  // distracteur raté (un doublon strict n'ajoute aucune difficulté).
-  it.skip("[DETTE] pas de doublon inutile dans un wordBank", () => {
+describe("robustesse", () => {
+  // s-36-1 et s-25-4 avaient un mot dupliqué dans leur wordBank (« ciebie »,
+  // « trzeba »/« Trzeba ») alors qu'il n'apparaît qu'une fois dans la phrase —
+  // un distracteur raté (un doublon strict n'ajoute aucune difficulté).
+  // Corrigé dans data/lessons.js.
+  it("pas de doublon inutile dans un wordBank", () => {
     for (const s of sentences) {
       const attendus = mots(s.pl);
       const compte = {};
@@ -307,52 +259,11 @@ describe("dette connue", () => {
     }
   });
 
-  // 5 doublons (catégorie, pl). Le plus notable est pédagogique :
-  // lesson-11 (v-cal-*) réintroduit poniedziałek, sobota et niedziela déjà
-  // enseignés en lesson-08, dans la même catégorie `jour`. Conséquence
-  // concrète : un QCM peut proposer DEUX options identiques. S'y ajoutent
-  // `godzina` (v-08 / v-27) et `rezerwacja` (v-21 / v-35).
-  it.skip("[DETTE] (catégorie, pl) est unique", () => {
-    const vus = new Map();
-    for (const v of vocab) {
-      const k = v.category + "|" + v.pl;
-      expect(vus.has(k), `${k} : ${vus.get(k)} et ${v.id}`).toBe(false);
-      vus.set(k, v.id);
-    }
-  });
-
-  // 9 doublons `pl` et 7 `fr` au global (mêmes paires que ci-dessus, plus
-  // potem, wysoki, niski, historia répartis sur des catégories différentes —
-  // ceux-là sont légitimes : même mot, sens ou emploi différent).
-  it.skip("[DETTE] pl est globalement unique", () => {
-    const vus = new Map();
-    for (const v of vocab) {
-      expect(vus.has(v.pl), `${v.pl} : ${vus.get(v.pl)} et ${v.id}`).toBe(false);
-      vus.set(v.pl, v.id);
-    }
-  });
-
-  it.skip("[DETTE] fr est globalement unique", () => {
-    const vus = new Map();
-    for (const v of vocab) {
-      expect(vus.has(v.fr), `${v.fr} : ${vus.get(v.fr)} et ${v.id}`).toBe(false);
-      vus.set(v.fr, v.id);
-    }
-  });
-
-  // 37 thèmes distincts pour 40 leçons : `nombres` ×3, `adjectifs` ×2.
-  // `theme` est un libellé d'affichage, pas une clé — le test documente
-  // seulement qu'on ne peut PAS s'en servir comme identifiant.
-  it.skip("[DETTE] theme est unique par leçon", () => {
-    expect(new Set(POLISH_LESSONS.map((l) => l.theme)).size).toBe(40);
-  });
-
-  // 5 badges (first-steps, words-25, words-100, master-3, halfway, graduate)
-  // font Object.values(s.lessons) / Object.keys(s.items) SANS garde, donc
-  // lèvent sur un état partiel. Non bloquant en prod : checkBadges ne passe
-  // que State.get() complet, et gamification.js avale l'erreur dans un
-  // try/catch — ce qui est le vrai défaut, à traiter au palier 3.
-  it.skip("[DETTE] check({}) ne lève jamais", () => {
+  // streak-3/7/30, first-steps, words-25, words-100, master-3, halfway et
+  // graduate lisaient s.streak / s.lessons / s.items sans garde, contrairement
+  // au motif déjà en place pour s.flags (perfect-pronunciation, daily-goal).
+  // Corrigé dans data/badges.js.
+  it("check({}) ne lève jamais", () => {
     for (const b of POLISH_BADGES) expect(() => b.check({}), b.id).not.toThrow();
   });
 });

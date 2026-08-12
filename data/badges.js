@@ -16,42 +16,42 @@ export const POLISH_BADGES = [
     title: "Premiers pas",
     desc: "Terminer ta toute première leçon.",
     check: (s) =>
-      Object.values(s.lessons).some((l) => l?.status === "completed")
+      s.lessons && Object.values(s.lessons).some((l) => l?.status === "completed")
   },
   {
     id: "streak-3",
     emoji: "🔥",
     title: "En feu (3 jours)",
     desc: "3 jours d'affilée. Żubr est impressionné.",
-    check: (s) => s.streak.current >= 3
+    check: (s) => s.streak && s.streak.current >=3
   },
   {
     id: "streak-7",
     emoji: "🌶️",
     title: "Semaine de folie",
     desc: "7 jours d'affilée. Tu deviens dangereux.",
-    check: (s) => s.streak.current >= 7
+    check: (s) => s.streak && s.streak.current >=7
   },
   {
     id: "streak-30",
     emoji: "🏆",
     title: "Machine à polonais",
     desc: "30 jours d'affilée. Respect total.",
-    check: (s) => s.streak.current >= 30
+    check: (s) => s.streak && s.streak.current >=30
   },
   {
     id: "words-25",
     emoji: "📚",
     title: "Collectionneur de mots",
     desc: "Rencontrer 25 mots différents.",
-    check: (s) => Object.keys(s.items).length >= 25
+    check: (s) => s.items && Object.keys(s.items).length >= 25
   },
   {
     id: "words-100",
     emoji: "🧠",
     title: "Cerveau bilingue",
     desc: "Rencontrer 100 mots différents.",
-    check: (s) => Object.keys(s.items).length >= 100
+    check: (s) => s.items && Object.keys(s.items).length >= 100
   },
   {
     id: "perfect-pronunciation",
@@ -73,7 +73,7 @@ export const POLISH_BADGES = [
     title: "Mémoire d'éléphant",
     desc: "Amener 10 mots au niveau maximum (boîte 5).",
     check: (s) =>
-      Object.values(s.items).filter((i) => (i?.box ?? 0) >= 5).length >= 10
+      s.items && Object.values(s.items).filter((i) => (i?.box ?? 0) >= 5).length >= 10
   },
   {
     id: "halfway",
@@ -81,7 +81,7 @@ export const POLISH_BADGES = [
     title: "À mi-chemin",
     desc: "Terminer 10 leçons.",
     check: (s) =>
-      Object.values(s.lessons).filter((l) => l?.status === "completed").length >= 10
+      s.lessons && Object.values(s.lessons).filter((l) => l?.status === "completed").length >= 10
   },
   {
     id: "graduate",
@@ -92,6 +92,7 @@ export const POLISH_BADGES = [
       const total = (POLISH_LESSONS || []).length;
       return (
         total > 0 &&
+        s.lessons &&
         Object.values(s.lessons).filter((l) => l?.status === "completed").length >= total
       );
     }

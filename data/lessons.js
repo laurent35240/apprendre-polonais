@@ -149,7 +149,7 @@ export const POLISH_LESSONS = [
         id: "g-61-2",
         title: "Pourquoi le pronom redevient nécessaire",
         explanationFr:
-          "On l'a vu en g-02-2 : le pronom est souvent omis, la terminaison du verbe suffit. Mais à la 3e personne du singulier, on/ona/ono partagent la même forme (« jest ») — seul le pronom distingue alors le genre.",
+          "On l'a vu précédemment : le pronom est souvent omis, la terminaison du verbe suffit. Mais à la 3e personne du singulier, on/ona/ono partagent la même forme (« jest ») — seul le pronom distingue alors le genre.",
         examples: [
           { pl: "On jest wysoki, a ona jest niska.", fr: "Il est grand, elle est petite." },
           { pl: "Oni są zajęci, a one są wolne.", fr: "Ils sont occupés, elles sont libres." }

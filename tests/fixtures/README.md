@@ -77,11 +77,14 @@ au chargement. Les tests de rollover avancent l'horloge eux-mêmes.
 ### Trois invariants, chacun testé
 
 - **`levelForXP(10750) === 22`** — cohérence interne du profil.
-- **Les 7 badges sont exactement ceux que les 11 `check()` accordent.** Les 4
-  non accordés le sont pour de bonnes raisons : `master-3` exige 10 items en
-  boîte 5 et il y en a **7** ; `graduate` exige 40 leçons et il y en a 29 ;
-  `streak-7`/`streak-30` exigent plus que 5. Ce test prouve la cohérence de la
-  fixture *et* couvre les 11 `check()` sur un état réaliste.
+- **Les 6 badges sont exactement ceux que les 17 `check()` accordent.** Les
+  non accordés le sont pour de bonnes raisons : `master-tier1` exige 50 items
+  en boîte 5 et il y en a **7** ; `halfway`/`graduate` exigent respectivement
+  la moitié et la totalité des leçons (60), et il y en a 29 de `completed` ;
+  `streak-7`/`streak-30`/`streak-100` exigent plus que 5 ;
+  `first-story`/`all-stories` exigent une histoire bonus terminée, absente de
+  la fixture. Ce test prouve la cohérence de la fixture *et* couvre les 17
+  `check()` sur un état réaliste.
 - **`secondsToday` 1480 / 1800 avec `goalMetToday: false`** — permet de tester le
   verrou d'idempotence du bonus de 100 XP en ajoutant 320 s.
 
@@ -117,7 +120,7 @@ Les 1000 premiers octets de la fixture réaliste : `JSON.parse` lève. Extension
 Elles sont construites dans le test en **empoisonnant** la fixture réaliste
 (`{...fixture, items: 42}`, `items: []`, `lessons: []`, `badges: 42`…). C'est
 plus fort qu'une fixture isolée : sur `items: 42` on peut asserter que les 10750
-XP, les 29 leçons et les 7 badges ont **survécu** — la propriété qui compte.
+XP, les 29 leçons et les 6 badges ont **survécu** — la propriété qui compte.
 Une fixture autonome ne prouverait que l'absence de crash.
 
 ## Ce qui n'est pas dans le dépôt

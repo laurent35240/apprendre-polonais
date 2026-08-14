@@ -72,7 +72,7 @@ describe("chemins produits par UI", () => {
     expect(UI.characterImg("")).toBeNull();
   });
 
-  it("badgeImg préfixe par le base pour les 11 badges", () => {
+  it("badgeImg préfixe par le base pour les 17 badges", () => {
     for (const b of POLISH_BADGES)
       expect(UI.badgeImg(b.id).getAttribute("src")).toBe(
         `${BASE}badge-${b.id}.png`
@@ -102,10 +102,10 @@ describe("chemins produits par UI", () => {
       ...DECORS.map((name) => UI.decorImg(name).getAttribute("src")),
       `${BASE}favicon.png`
     ];
-    // 6 poses + 3 personnages + 11 badges + 4 décors + favicon. `zubr-head` y
+    // 6 poses + 3 personnages + 17 badges + 4 décors + favicon. `zubr-head` y
     // figure deux fois (pose `head` ET personnage Ż) : c'est voulu, l'image
     // est partagée.
-    expect(srcs).toHaveLength(25);
+    expect(srcs).toHaveLength(31);
     for (const s of srcs) {
       const nom = s.slice(BASE.length);
       expect(existsSync(`${IMG_DIR}/${nom}`), s).toBe(true);

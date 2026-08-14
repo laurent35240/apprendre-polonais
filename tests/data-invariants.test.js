@@ -201,9 +201,9 @@ describe("hygiène textuelle", () => {
 
 /* -------------------------------- badges ----------------------------- */
 describe("badges", () => {
-  it("11 badges, ids uniques, check() est une fonction, emoji non vide", () => {
-    expect(POLISH_BADGES).toHaveLength(11);
-    expect(new Set(POLISH_BADGES.map((b) => b.id)).size).toBe(11);
+  it("17 badges, ids uniques, check() est une fonction, emoji non vide", () => {
+    expect(POLISH_BADGES).toHaveLength(17);
+    expect(new Set(POLISH_BADGES.map((b) => b.id)).size).toBe(17);
     for (const b of POLISH_BADGES) {
       expect(typeof b.check, b.id).toBe("function");
       expect(b.emoji, b.id).toBeTruthy();
@@ -259,10 +259,11 @@ describe("robustesse", () => {
     }
   });
 
-  // streak-3/7/30, first-steps, words-25, words-100, master-3, halfway et
-  // graduate lisaient s.streak / s.lessons / s.items sans garde, contrairement
-  // au motif déjà en place pour s.flags (perfect-pronunciation, daily-goal).
-  // Corrigé dans data/badges.js.
+  // streak-3/7/30/100, first-steps, first-trail, words-tier*, master-tier*,
+  // halfway, graduate, first-story et all-stories lisent s.streak / s.lessons /
+  // s.items sans garde, contrairement au motif déjà en place pour s.flags
+  // (perfect-pronunciation, daily-goal). Toujours vrai après la refonte du
+  // catalogue : chaque check() doit tolérer un état vide.
   it("check({}) ne lève jamais", () => {
     for (const b of POLISH_BADGES) expect(() => b.check({}), b.id).not.toThrow();
   });

@@ -108,7 +108,7 @@ describe("chargement de la fixture réaliste", () => {
     expect(Object.keys(s.items)).toHaveLength(463);
     expect(s.profile.totalXP).toBe(10750);
     expect(s.profile.level).toBe(22);
-    expect(s.badges).toHaveLength(7);
+    expect(s.badges).toHaveLength(6);
     expect(s.streak.current).toBe(5);
     expect(s.dailyGoal.secondsToday).toBe(1480);
     expect(s.version).toBe(1);
@@ -314,7 +314,7 @@ describe("cohérence de la fixture", () => {
       .toBe(REALISTIC.profile.level);
   });
 
-  it("les 7 badges sont exactement ceux que les 11 check() accordent", () => {
+  it("les 6 badges sont exactement ceux que les 17 check() accordent", () => {
     const accordes = POLISH_BADGES
       .filter((b) => b.check(/** @type {any} */ (REALISTIC)))
       .map((b) => b.id);

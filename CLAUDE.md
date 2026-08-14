@@ -434,7 +434,24 @@ All pedagogical content lives in `data/lessons.js`. To add or fix vocabulary/gra
 
 **Speech recognition and numbers:** `js/speech.js` `normalize()` converts Arabic digits to Polish words before scoring (e.g. "18" → "osiemnaście"), because the Web Speech API often returns digits for spoken numbers.
 
-Badges are defined in `data/badges.js` (emoji, title, description, unlock condition).
+**Badges** sont définis dans `data/badges.js` (17 entrées : `id`, `emoji`, `title`,
+`desc`, `check(state)`). Ils sont **thématiques forêt kawaii** — pas d'emoji
+générique, chaque badge a un sticker dédié (`public/assets/img/badge-<id>.png`,
+même pipeline de génération que les personnages, cf. § plus haut) et sa propre
+condition. Les seuils `words-tier*`/`master-tier*` (mots rencontrés / mots en
+boîte 5) sont des **nombres choisis à la main**, pas un pourcentage dynamique
+du total réel d'items (884 aujourd'hui) : le calculer exigerait d'importer
+`js/exercises.js` (`buildIndex`) dans `data/badges.js`, ce qui casserait le DAG
+(`badges` est en amont d'`exercises`). À l'inverse, `halfway`/`graduate`
+(moitié / totalité des leçons) et `all-stories` (toutes les histoires bonus)
+**restent dynamiques** — ils comptent `POLISH_LESSONS.length`/
+`POLISH_STORIES.length`, déjà importables sans violer le DAG — précisément pour
+ne pas se re-dater comme `halfway` l'avait fait (seuil resté figé à 10 leçons
+pendant que le total montait à 60). `first-trail`/`first-story`/`all-stories`
+ne créent aucun nouveau champ persisté : ils lisent `s.lessons`/
+`s.lessons[storyId]`, la même map que les leçons (cf. § Histoires bonus).
+Renommer ou retirer un badge est sans risque : `s.badges` n'est qu'un tableau
+d'ids, un id orphelin devient simplement inerte.
 
 ### Ajouter une leçon
 

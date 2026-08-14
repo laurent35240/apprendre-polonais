@@ -113,10 +113,10 @@ describe("la progression des sous-arbres sains survit", () => {
     expect(s.profile.level).toBe(22);
   });
 
-  it("items corrompu : les 29 leçons et les 7 badges survivent", () => {
+  it("items corrompu : les 29 leçons et les 6 badges survivent", () => {
     poser({ ...REALISTIC, items: 42 });
     const s = State.load();
-    expect(s.badges).toHaveLength(7);
+    expect(s.badges).toHaveLength(6);
     expect(
       Object.values(s.lessons).filter((l) => l.status === "completed")
     ).toHaveLength(29);
@@ -131,11 +131,11 @@ describe("la progression des sous-arbres sains survit", () => {
     ).toHaveLength(29);
   });
 
-  it("lessons corrompu : les 463 items et les 7 badges survivent", () => {
+  it("lessons corrompu : les 463 items et les 6 badges survivent", () => {
     poser({ ...REALISTIC, lessons: 42 });
     const s = State.load();
     expect(Object.keys(s.items)).toHaveLength(463);
-    expect(s.badges).toHaveLength(7);
+    expect(s.badges).toHaveLength(6);
   });
 });
 

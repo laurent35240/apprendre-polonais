@@ -3268,8 +3268,12 @@
       "status": "completed",
       "bestScore": 100
     },
-    "lesson-51": {
+    "lesson-61": {
       "status": "available",
+      "bestScore": 0
+    },
+    "lesson-51": {
+      "status": "locked",
       "bestScore": 0
     },
     "lesson-03": {

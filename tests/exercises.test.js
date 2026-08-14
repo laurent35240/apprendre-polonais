@@ -133,11 +133,11 @@ describe("check", () => {
 
 /* ------------------------------------------------------------------ */
 describe("résolubilité du corpus", () => {
-  // Le test à plus forte valeur : pour CHACUN des 265 exercices build du jeu,
+  // Le test à plus forte valeur : pour CHACUN des 269 exercices build du jeu,
   // reconstituer la phrase dans l'ordre depuis wordBank doit être accepté par
   // le vrai check(). Un wordBank incomplet rendrait l'exercice impossible à
   // valider, sans qu'aucune erreur ne soit levée en production.
-  it("les 265 exercices build/dialogue sont tous résolubles", () => {
+  it("les 269 exercices build/dialogue sont tous résolubles", () => {
     const cas = [
       ...sentences.map((s) => ({ id: s.id, type: "build", pl: s.pl, bank: s.wordBank })),
       ...POLISH_LESSONS.flatMap((l) => l.dialogues || []).map((d) => {
@@ -145,7 +145,7 @@ describe("résolubilité du corpus", () => {
         return { id: d.id, type: "dialogue", pl: t.pl, bank: t.wordBank };
       })
     ];
-    expect(cas).toHaveLength(265);
+    expect(cas).toHaveLength(269);
 
     const insolubles = [];
     for (const c of cas) {

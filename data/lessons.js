@@ -126,10 +126,66 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 3 — Pays et nationalités ============ */
+  /* ======================= order 3 — Pronoms (nominatif) ============= */
+  {
+    id: "lesson-61",
+    order: 3,
+    title: "Les pronoms personnels — ja, ty, on…",
+    theme: "pronoms",
+    mascotIntro:
+      "« Ja, ty, on, ona… » Żubr te présente toute la troupe des pronoms — ceux qu'on a discrètement laissés de côté au chapitre précédent. 🎭",
+    grammarNotes: [
+      {
+        id: "g-61-1",
+        title: "Les pronoms personnels au nominatif",
+        explanationFr:
+          "ja (je), ty (tu), on (il), ona (elle), ono (il/elle, pour un nom neutre comme « dziecko »), my (nous), wy (vous), oni (ils, dès qu'un groupe compte au moins un homme), one (elles, pour un groupe de femmes, d'enfants, d'animaux ou de choses).",
+        examples: [
+          { pl: "To jest dziecko. Ono śpi.", fr: "C'est un enfant. Il/Elle dort.", note: "nom neutre → ono" },
+          { pl: "Oni grają, a one śpiewają.", fr: "Ils jouent, et elles chantent.", note: "oni ≠ one" }
+        ]
+      },
+      {
+        id: "g-61-2",
+        title: "Pourquoi le pronom redevient nécessaire",
+        explanationFr:
+          "On l'a vu en g-02-2 : le pronom est souvent omis, la terminaison du verbe suffit. Mais à la 3e personne du singulier, on/ona/ono partagent la même forme (« jest ») — seul le pronom distingue alors le genre.",
+        examples: [
+          { pl: "On jest wysoki, a ona jest niska.", fr: "Il est grand, elle est petite." },
+          { pl: "Oni są zajęci, a one są wolne.", fr: "Ils sont occupés, elles sont libres." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-61-ja", pl: "ja", fr: "je / moi", category: "pronom" },
+      { id: "v-61-ty", pl: "ty", fr: "tu / toi", category: "pronom" },
+      { id: "v-61-on", pl: "on", fr: "il (masculin)", category: "pronom" },
+      { id: "v-61-ona", pl: "ona", fr: "elle (féminin)", category: "pronom" },
+      { id: "v-61-ono", pl: "ono", fr: "il/elle (neutre)", category: "pronom",
+        example: { pl: "To jest dziecko. Ono śpi.", fr: "C'est un enfant. Il/Elle dort." } },
+      { id: "v-61-my", pl: "my", fr: "nous", category: "pronom" },
+      { id: "v-61-wy", pl: "wy", fr: "vous (pluriel)", category: "pronom" },
+      { id: "v-61-oni", pl: "oni", fr: "ils (groupe avec au moins un homme)", category: "pronom",
+        example: { pl: "Oni grają w piłkę.", fr: "Ils jouent au foot." } },
+      { id: "v-61-one", pl: "one", fr: "elles (groupe de femmes, enfants, choses)", category: "pronom",
+        example: { pl: "One są w szkole.", fr: "Elles sont à l'école." } }
+    ],
+    sentences: [
+      { id: "s-61-1", pl: "Ja jestem szczęśliwy, a ty?", fr: "Je suis heureux, et toi ?", grammarFocus: "g-61-1",
+        wordBank: ["Ja", "jestem", "szczęśliwy", "a", "ty", "ona"] },
+      { id: "s-61-2", pl: "On jest wysoki, a ona jest niska.", fr: "Il est grand, elle est petite.", grammarFocus: "g-61-1",
+        wordBank: ["On", "jest", "wysoki", "a", "ona", "jest", "niska", "ono"] },
+      { id: "s-61-3", pl: "My jesteśmy w domu, a wy jesteście w pracy.", fr: "Nous sommes à la maison, et vous êtes au travail.", grammarFocus: "g-61-2",
+        wordBank: ["My", "jesteśmy", "w", "domu", "a", "wy", "jesteście", "w", "pracy", "oni"] },
+      { id: "s-61-4", pl: "Oni są zajęci, a one są wolne.", fr: "Ils sont occupés, elles sont libres.", grammarFocus: "g-61-2",
+        wordBank: ["Oni", "są", "zajęci", "a", "one", "są", "wolne", "on"] }
+    ]
+  },
+
+  /* ======================= order 4 — Pays et nationalités ============ */
   {
     id: "lesson-51",
-    order: 3,
+    order: 4,
     title: "Les pays et les nationalités",
     theme: "pays",
     mascotIntro:
@@ -198,7 +254,7 @@ export const POLISH_LESSONS = [
   /* ================================ 3 ================================ */
   {
     id: "lesson-03",
-    order: 4,
+    order: 5,
     title: "La famille — rodzina",
     theme: "famille",
     mascotIntro:
@@ -254,7 +310,7 @@ export const POLISH_LESSONS = [
   /* ================================ 4 ================================ */
   {
     id: "lesson-04",
-    order: 5,
+    order: 6,
     title: "Les nombres et l'âge — liczby",
     theme: "nombres",
     mascotIntro:
@@ -310,7 +366,7 @@ export const POLISH_LESSONS = [
   /* ================================ 5 ================================ */
   {
     id: "lesson-22",
-    order: 6,
+    order: 7,
     title: "Les nombres de 11 à 20 — jedenaście do dwadzieścia",
     theme: "nombres",
     mascotIntro:
@@ -368,7 +424,7 @@ export const POLISH_LESSONS = [
   /* ================================ 6 ================================ */
   {
     id: "lesson-23",
-    order: 7,
+    order: 8,
     title: "Les dizaines et grands nombres — od dwudziestu do stu",
     theme: "nombres",
     mascotIntro:
@@ -424,7 +480,7 @@ export const POLISH_LESSONS = [
   /* ================================ 7 ================================ */
   {
     id: "lesson-05",
-    order: 8,
+    order: 9,
     title: "Au restaurant — l'accusatif",
     theme: "nourriture",
     mascotIntro:
@@ -478,7 +534,7 @@ export const POLISH_LESSONS = [
   /* ================================ 8 ================================ */
   {
     id: "lesson-06",
-    order: 10,
+    order: 11,
     title: "Les verbes du quotidien",
     theme: "verbes",
     mascotIntro:
@@ -533,7 +589,7 @@ export const POLISH_LESSONS = [
   /* ================================ 9 ================================ */
   {
     id: "lesson-07",
-    order: 13,
+    order: 14,
     title: "La maison et le lieu — le locatif",
     theme: "maison",
     mascotIntro:
@@ -587,7 +643,7 @@ export const POLISH_LESSONS = [
   /* ================================ 10 =============================== */
   {
     id: "lesson-08",
-    order: 15,
+    order: 16,
     title: "Le temps et la routine",
     theme: "temps",
     mascotIntro:
@@ -642,7 +698,7 @@ export const POLISH_LESSONS = [
   /* ================================ 11 =============================== */
   {
     id: "lesson-11",
-    order: 17,
+    order: 18,
     title: "Le calendrier — jours et mois",
     theme: "calendrier",
     mascotIntro:
@@ -707,7 +763,7 @@ export const POLISH_LESSONS = [
   /* ================================ 12 =============================== */
   {
     id: "lesson-09",
-    order: 19,
+    order: 20,
     title: "Les courses et les quantités — le génitif",
     theme: "courses",
     mascotIntro:
@@ -761,7 +817,7 @@ export const POLISH_LESSONS = [
   /* ================================ 13 =============================== */
   {
     id: "lesson-10",
-    order: 21,
+    order: 22,
     title: "Projets et futur — l'aspect verbal",
     theme: "futur",
     mascotIntro:
@@ -815,7 +871,7 @@ export const POLISH_LESSONS = [
   /* ================================ 14 =============================== */
   {
     id: "lesson-12",
-    order: 22,
+    order: 23,
     title: "Les couleurs et les descriptions — l'adjectif",
     theme: "adjectifs",
     mascotIntro:
@@ -871,7 +927,7 @@ export const POLISH_LESSONS = [
   /* ================================ 15 =============================== */
   {
     id: "lesson-13",
-    order: 28,
+    order: 29,
     title: "Parler d'hier — le passé",
     theme: "passé",
     mascotIntro:
@@ -926,7 +982,7 @@ export const POLISH_LESSONS = [
   /* ================================ 16 =============================== */
   {
     id: "lesson-14",
-    order: 30,
+    order: 31,
     title: "La routine du matin — les verbes réfléchis (się)",
     theme: "routine",
     mascotIntro:
@@ -981,7 +1037,7 @@ export const POLISH_LESSONS = [
   /* ================================ 17 =============================== */
   {
     id: "lesson-15",
-    order: 31,
+    order: 32,
     title: "Le corps et la santé — chez le médecin",
     theme: "santé",
     mascotIntro:
@@ -1037,7 +1093,7 @@ export const POLISH_LESSONS = [
   /* ================================ 18 =============================== */
   {
     id: "lesson-16",
-    order: 34,
+    order: 35,
     title: "En ville — trouver son chemin",
     theme: "ville",
     mascotIntro:
@@ -1093,7 +1149,7 @@ export const POLISH_LESSONS = [
   /* ================================ 19 =============================== */
   {
     id: "lesson-17",
-    order: 35,
+    order: 36,
     title: "Les transports — l'instrumental",
     theme: "instrumental",
     mascotIntro:
@@ -1149,7 +1205,7 @@ export const POLISH_LESSONS = [
   /* ================================ 20 =============================== */
   {
     id: "lesson-18",
-    order: 38,
+    order: 39,
     title: "Au marché et à table — le datif",
     theme: "datif",
     mascotIntro:
@@ -1205,7 +1261,7 @@ export const POLISH_LESSONS = [
   /* ================================ 21 =============================== */
   {
     id: "lesson-19",
-    order: 43,
+    order: 44,
     title: "Comparer — le comparatif et le superlatif",
     theme: "comparaisons",
     mascotIntro:
@@ -1261,7 +1317,7 @@ export const POLISH_LESSONS = [
   /* ================================ 22 =============================== */
   {
     id: "lesson-20",
-    order: 45,
+    order: 46,
     title: "La météo et les saisons",
     theme: "météo",
     mascotIntro:
@@ -1317,7 +1373,7 @@ export const POLISH_LESSONS = [
   /* ================================ 23 =============================== */
   {
     id: "lesson-21",
-    order: 48,
+    order: 49,
     title: "Au bureau et projets polis — le conditionnel",
     theme: "conditionnel",
     mascotIntro:
@@ -1376,10 +1432,10 @@ export const POLISH_LESSONS = [
      ⚠️ Contenu à faire relire par une personne polonophone.
      ===================================================================== */
 
-  /* ======================= order 8 — Vêtements ====================== */
+  /* ======================= order 9 — Vêtements ====================== */
   {
     id: "lesson-24",
-    order: 9,
+    order: 10,
     title: "Vêtements et shopping — ubrania",
     theme: "vêtements",
     mascotIntro:
@@ -1445,10 +1501,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 10 — Modaux ======================== */
+  /* ======================= order 11 — Modaux ======================== */
   {
     id: "lesson-25",
-    order: 11,
+    order: 12,
     title: "Devoir, pouvoir, falloir — les modaux",
     theme: "modaux",
     mascotIntro:
@@ -1514,10 +1570,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 11 — Loisirs ======================= */
+  /* ======================= order 12 — Loisirs ======================= */
   {
     id: "lesson-26",
-    order: 12,
+    order: 13,
     title: "Le temps libre et les loisirs — czas wolny",
     theme: "loisirs",
     mascotIntro:
@@ -1583,10 +1639,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 14 — Heure ========================= */
+  /* ======================= order 15 — Heure ========================= */
   {
     id: "lesson-27",
-    order: 16,
+    order: 17,
     title: "L'heure précise — która godzina",
     theme: "heure",
     mascotIntro:
@@ -1652,10 +1708,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 16 — Dates ========================= */
+  /* ======================= order 17 — Dates ========================= */
   {
     id: "lesson-28",
-    order: 18,
+    order: 19,
     title: "Nombres ordinaux et dates — daty",
     theme: "dates",
     mascotIntro:
@@ -1721,10 +1777,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 18 — Cuisine ======================= */
+  /* ======================= order 19 — Cuisine ======================= */
   {
     id: "lesson-29",
-    order: 20,
+    order: 21,
     title: "Cuisiner et manger — w kuchni",
     theme: "cuisine",
     mascotIntro:
@@ -1790,10 +1846,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 21 — Pluriel ======================= */
+  /* ======================= order 22 — Pluriel ======================= */
   {
     id: "lesson-30",
-    order: 23,
+    order: 24,
     title: "Le pluriel des noms — liczba mnoga",
     theme: "pluriel",
     mascotIntro:
@@ -1859,10 +1915,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ================== order 22 — Adjectif décliné =================== */
+  /* ================== order 23 — Adjectif décliné =================== */
   {
     id: "lesson-31",
-    order: 25,
+    order: 26,
     title: "L'adjectif décliné et au pluriel",
     theme: "adjectifs",
     mascotIntro:
@@ -1928,10 +1984,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 23 — Sentiments ==================== */
+  /* ======================= order 24 — Sentiments ==================== */
   {
     id: "lesson-32",
-    order: 27,
+    order: 28,
     title: "Les sentiments et le caractère — uczucia",
     theme: "sentiments",
     mascotIntro:
@@ -1997,10 +2053,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 27 — Apparence ===================== */
+  /* ======================= order 28 — Apparence ===================== */
   {
     id: "lesson-33",
-    order: 32,
+    order: 33,
     title: "Décrire les gens — l'apparence",
     theme: "apparence",
     mascotIntro:
@@ -2066,10 +2122,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 28 — Impératif ===================== */
+  /* ======================= order 29 — Impératif ===================== */
   {
     id: "lesson-34",
-    order: 33,
+    order: 34,
     title: "Ordres et conseils — l'impératif",
     theme: "impératif",
     mascotIntro:
@@ -2135,10 +2191,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 31 — Voyage ======================== */
+  /* ======================= order 32 — Voyage ======================== */
   {
     id: "lesson-35",
-    order: 36,
+    order: 37,
     title: "Voyage et hébergement — podróże",
     theme: "voyage",
     mascotIntro:
@@ -2204,10 +2260,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 32 — Téléphone ===================== */
+  /* ======================= order 33 — Téléphone ===================== */
   {
     id: "lesson-36",
-    order: 37,
+    order: 38,
     title: "Au téléphone et en ligne — telefon i internet",
     theme: "communication",
     mascotIntro:
@@ -2273,10 +2329,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 34 — Fêtes ========================= */
+  /* ======================= order 35 — Fêtes ========================= */
   {
     id: "lesson-37",
-    order: 39,
+    order: 40,
     title: "Fêtes et traditions — święta",
     theme: "fêtes",
     mascotIntro:
@@ -2342,10 +2398,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 35 — Pronoms ======================= */
+  /* ======================= order 36 — Pronoms ======================= */
   {
     id: "lesson-38",
-    order: 41,
+    order: 42,
     title: "Les pronoms déclinés — mnie, cię, go, ją",
     theme: "pronoms",
     mascotIntro:
@@ -2411,10 +2467,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 38 — Nature ======================== */
+  /* ======================= order 39 — Nature ======================== */
   {
     id: "lesson-39",
-    order: 46,
+    order: 47,
     title: "La nature et les animaux — przyroda",
     theme: "nature",
     mascotIntro:
@@ -2480,10 +2536,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 40 — Récit ========================= */
+  /* ======================= order 41 — Récit ========================= */
   {
     id: "lesson-40",
-    order: 54,
+    order: 55,
     title: "Raconter une histoire — récit au passé",
     theme: "récit",
     mascotIntro:
@@ -2558,10 +2614,10 @@ export const POLISH_LESSONS = [
      2020), niveau annoncé "A2 z elementami B1" — cf. plan.
      ===================================================================== */
 
-  /* ======================= order 23 — Adjectif (cas) ================= */
+  /* ======================= order 24 — Adjectif (cas) ================= */
   {
     id: "lesson-43",
-    order: 26,
+    order: 27,
     title: "L'adjectif décliné à tous les cas",
     theme: "adjectifs",
     mascotIntro:
@@ -2613,10 +2669,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ==================== order 26 — Aspect approfondi ================== */
+  /* ==================== order 27 — Aspect approfondi ================== */
   {
     id: "lesson-41",
-    order: 29,
+    order: 30,
     title: "Aspect approfondi : perfectif et imperfectif à l'usage",
     theme: "aspect",
     mascotIntro:
@@ -2676,10 +2732,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ========================= order 37 — Vocatif ======================= */
+  /* ========================= order 38 — Vocatif ======================= */
   {
     id: "lesson-42",
-    order: 40,
+    order: 41,
     title: "Le vocatif : s'adresser à quelqu'un",
     theme: "vocatif",
     mascotIntro:
@@ -2744,10 +2800,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ================== order 39 — Pronoms déclinés (cas) ================ */
+  /* ================== order 40 — Pronoms déclinés (cas) ================ */
   {
     id: "lesson-44",
-    order: 42,
+    order: 43,
     title: "Les pronoms déclinés à tous les cas",
     theme: "pronoms",
     mascotIntro:
@@ -2800,10 +2856,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ================== order 44 — Subordonnées relatives ================ */
+  /* ================== order 45 — Subordonnées relatives ================ */
   {
     id: "lesson-45",
-    order: 49,
+    order: 50,
     title: "Subordonnées relatives : który / która / które",
     theme: "relatives",
     mascotIntro:
@@ -2873,10 +2929,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ==================== order 45 — Complétives et opinion ============== */
+  /* ==================== order 46 — Complétives et opinion ============== */
   {
     id: "lesson-46",
-    order: 50,
+    order: 51,
     title: "Donner son avis : complétives en « że »",
     theme: "opinion",
     mascotIntro:
@@ -2949,10 +3005,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ======================= order 46 — Cause et but ===================== */
+  /* ======================= order 47 — Cause et but ===================== */
   {
     id: "lesson-47",
-    order: 51,
+    order: 52,
     title: "Cause et but : ponieważ, bo, żeby",
     theme: "cause",
     mascotIntro:
@@ -3012,10 +3068,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* =================== order 47 — Concession et opposition ============= */
+  /* =================== order 48 — Concession et opposition ============= */
   {
     id: "lesson-48",
-    order: 52,
+    order: 53,
     title: "Concession et opposition : mimo że, chociaż, jednak",
     theme: "concession",
     mascotIntro:
@@ -3072,10 +3128,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ===================== order 48 — Discours indirect =================== */
+  /* ===================== order 49 — Discours indirect =================== */
   {
     id: "lesson-49",
-    order: 53,
+    order: 54,
     title: "Discours indirect : rapporter les paroles de quelqu'un",
     theme: "discours indirect",
     mascotIntro:
@@ -3162,10 +3218,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ================ order 50 — Compréhension de texte ================= */
+  /* ================ order 51 — Compréhension de texte ================= */
   {
     id: "lesson-50",
-    order: 55,
+    order: 56,
     title: "Compréhension d'un texte suivi",
     theme: "récit suivi",
     mascotIntro:
@@ -3235,10 +3291,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ================= order 14 — Animaux de compagnie ================== */
+  /* ================= order 15 — Animaux de compagnie ================== */
   {
     id: "lesson-52",
-    order: 14,
+    order: 15,
     title: "Zwierzęta domowe — les animaux de compagnie",
     theme: "animaux domestiques",
     mascotIntro:
@@ -3306,10 +3362,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ==================== order 24 — Animaux de la ferme ================= */
+  /* ==================== order 25 — Animaux de la ferme ================= */
   {
     id: "lesson-53",
-    order: 24,
+    order: 25,
     title: "Na wsi — les animaux de la ferme",
     theme: "ferme",
     mascotIntro:
@@ -3376,10 +3432,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ==================== order 44 — Animaux du monde =================== */
+  /* ==================== order 45 — Animaux du monde =================== */
   {
     id: "lesson-54",
-    order: 44,
+    order: 45,
     title: "Zwierzęta świata — les animaux du monde",
     theme: "monde animal",
     mascotIntro:
@@ -3446,10 +3502,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* =================== order 47 — Animaux de la forêt ================= */
+  /* =================== order 48 — Animaux de la forêt ================= */
   {
     id: "lesson-55",
-    order: 47,
+    order: 48,
     title: "W lesie — les animaux de la forêt",
     theme: "forêt",
     mascotIntro:
@@ -3516,10 +3572,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ============= order 56 — Voyages et imprévus (nouveau sentier) ====== */
+  /* ============= order 57 — Voyages et imprévus (nouveau sentier) ====== */
   {
     id: "lesson-56",
-    order: 56,
+    order: 57,
     title: "Podróże i awarie — Les transports et les imprévus de voyage",
     theme: "voyage avancé",
     mascotIntro:
@@ -3570,10 +3626,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ============================ order 57 — L'entretien d'embauche ====== */
+  /* ============================ order 58 — L'entretien d'embauche ====== */
   {
     id: "lesson-57",
-    order: 57,
+    order: 58,
     title: "Rozmowa o pracę — L'entretien d'embauche et le projet professionnel",
     theme: "entretien d'embauche",
     mascotIntro:
@@ -3622,10 +3678,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* =================== order 58 — Mode de vie sain et objectifs ======== */
+  /* =================== order 59 — Mode de vie sain et objectifs ======== */
   {
     id: "lesson-58",
-    order: 58,
+    order: 59,
     title: "Zdrowy styl życia i cele — Mode de vie sain et formulation de buts",
     theme: "bien-être",
     mascotIntro:
@@ -3674,10 +3730,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ==================== order 59 — Culture et critique de film ========= */
+  /* ==================== order 60 — Culture et critique de film ========= */
   {
     id: "lesson-59",
-    order: 59,
+    order: 60,
     title: "Kultura i recenzja filmu — Critique de film et argumentation",
     theme: "critique de film",
     mascotIntro:
@@ -3726,10 +3782,10 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ========== order 60 — Écologie (capstone du sentier du monde) ======= */
+  /* ========== order 61 — Écologie (capstone du sentier du monde) ======= */
   {
     id: "lesson-60",
-    order: 60,
+    order: 61,
     title: "Ekologia i wyzwania — L'écologie et les enjeux de société",
     theme: "écologie",
     mascotIntro:

@@ -37,22 +37,22 @@ const mots = (s) => Speech.normalize(s).split(/\s+/).filter(Boolean);
 
 /* ------------------------------ structure ---------------------------- */
 describe("structure", () => {
-  it("60 leçons, ids uniques", () => {
-    expect(POLISH_LESSONS).toHaveLength(60);
-    expect(new Set(POLISH_LESSONS.map((l) => l.id)).size).toBe(60);
+  it("61 leçons, ids uniques", () => {
+    expect(POLISH_LESSONS).toHaveLength(61);
+    expect(new Set(POLISH_LESSONS.map((l) => l.id)).size).toBe(61);
   });
 
-  it("947 item-ids au total, tous uniques", () => {
-    expect(vocab).toHaveLength(682);
-    expect(sentences).toHaveLength(240);
+  it("960 item-ids au total, tous uniques", () => {
+    expect(vocab).toHaveLength(691);
+    expect(sentences).toHaveLength(244);
     expect(dialogues).toHaveLength(25);
-    expect(tousLesIds).toHaveLength(947);
-    expect(new Set(tousLesIds).size).toBe(947);
+    expect(tousLesIds).toHaveLength(960);
+    expect(new Set(tousLesIds).size).toBe(960);
   });
 
-  it("order est exactement [1..60]", () => {
+  it("order est exactement [1..61]", () => {
     const ordres = POLISH_LESSONS.map((l) => l.order).sort((a, b) => a - b);
-    expect(ordres).toEqual(Array.from({ length: 60 }, (_, i) => i + 1));
+    expect(ordres).toEqual(Array.from({ length: 61 }, (_, i) => i + 1));
   });
 
   it("chaque leçon a 4 phrases et 2 notes de grammaire", () => {
@@ -60,8 +60,8 @@ describe("structure", () => {
       expect(l.sentences, l.id).toHaveLength(4);
       expect(l.grammarNotes, l.id).toHaveLength(2);
     }
-    expect(sentences).toHaveLength(240);
-    expect(grammarNotes).toHaveLength(120);
+    expect(sentences).toHaveLength(244);
+    expect(grammarNotes).toHaveLength(122);
   });
 
   it("les champs obligatoires sont présents partout", () => {
@@ -117,7 +117,7 @@ describe("dialogues", () => {
 
 /* ------------------------------- wordBank ---------------------------- */
 describe("wordBank", () => {
-  // 265 exercices « build » : 240 phrases + 25 répliques cibles.
+  // 269 exercices « build » : 244 phrases + 25 répliques cibles.
   const casBuild = [
     ...sentences.map((s) => ({ id: s.id, pl: s.pl, bank: s.wordBank })),
     ...dialogues.map((d) => {
@@ -126,8 +126,8 @@ describe("wordBank", () => {
     })
   ];
 
-  it("couvre tous les mots normalisés de pl (265 cas) — sinon l'exercice est insoluble", () => {
-    expect(casBuild).toHaveLength(265);
+  it("couvre tous les mots normalisés de pl (269 cas) — sinon l'exercice est insoluble", () => {
+    expect(casBuild).toHaveLength(269);
     for (const c of casBuild) {
       const banque = c.bank.map((w) => Speech.normalize(w));
       for (const m of mots(c.pl))
@@ -158,7 +158,7 @@ describe("grammaire", () => {
         n++;
       }
     }
-    expect(n).toBe(240);
+    expect(n).toBe(244);
   });
 
   it("toutes les notes de grammaire sont référencées (réciproque)", () => {

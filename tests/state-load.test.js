@@ -124,8 +124,11 @@ describe("chargement de la fixture réaliste", () => {
     // 24 suivent chacune une leçon déjà terminée, elles s'ouvrent donc aussitôt.
     // Celles des orders 44 et 47 suivent une leçon verrouillée → locked. Les
     // leçons 56-60 (nouveau sentier) suivent lesson-50 (order 55), lui-même
-    // `locked` dans cette fixture → elles aussi `locked`.
-    expect(parStatut).toEqual({ completed: 29, available: 8, locked: 23 });
+    // `locked` dans cette fixture → elles aussi `locked`. `lesson-61` (pronoms,
+    // order 3) suit lesson-02, `completed` → elle s'ouvre aussitôt ; ce qui
+    // reverrouille lesson-51 (order 4, son nouveau prédécesseur n'est plus
+    // `completed`), d'où +1 `locked` par rapport à avant son insertion.
+    expect(parStatut).toEqual({ completed: 29, available: 8, locked: 24 });
   });
 
   it("rolloverDay est un no-op : todayDate vaut déjà l'ancre", () => {
@@ -164,15 +167,15 @@ describe("premier lancement (localStorage vide)", () => {
 /* ==================== la chaîne de déverrouillage ======================= */
 describe("ensureLessonStatuses", () => {
   // LE cas discriminant, choisi pour que le tri par `order` soit la seule
-  // implémentation qui passe. `lesson-05` a order 8 ; son successeur par ORDER
-  // est `lesson-24` (order 9, position physique 23), alors que son successeur
-  // PHYSIQUE est `lesson-06` (order 10). Un déverrouillage fondé sur la position
+  // implémentation qui passe. `lesson-05` a order 9 ; son successeur par ORDER
+  // est `lesson-24` (order 10, position physique 23), alors que son successeur
+  // PHYSIQUE est `lesson-06` (order 11). Un déverrouillage fondé sur la position
   // ouvrirait donc lesson-06 — vérifié par mutation : retirer le `.sort()` de
   // ensureLessonStatuses fait bien rougir ce test.
   it("déverrouille par ORDER et non par position dans le tableau", () => {
     const parOrder = [...POLISH_LESSONS].sort((a, b) => a.order - b.order);
     const idx = parOrder.findIndex((l) => l.id === "lesson-05");
-    expect(parOrder[idx].order).toBe(8);
+    expect(parOrder[idx].order).toBe(9);
     expect(parOrder[idx + 1].id).toBe("lesson-24"); // successeur par order
     expect(POLISH_LESSONS[POLISH_LESSONS.findIndex((l) => l.id === "lesson-05") + 1].id)
       .toBe("lesson-06"); // successeur physique, à NE PAS ouvrir

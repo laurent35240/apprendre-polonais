@@ -28,18 +28,19 @@ var clear = UI.clear;
 
 // Regroupement des leçons en « sentiers » de 5 (purement visuel).
 var TRAILS = [
-  { name: "Le sentier des débuts", icon: "🌱" },     // 1–5   salutations, présentation, pays/nationalités, famille, nombres
-  { name: "Le sentier du quotidien", icon: "🏡" },   // 6–10  nombres, restaurant, shopping, verbes du quotidien
-  { name: "Le sentier du foyer", icon: "🐾" },       // 11–15 modaux, loisirs, maison/locatif, ANIMAUX DE COMPAGNIE, routine
-  { name: "Le sentier du calendrier", icon: "⏰" },   // 16–20 heure, calendrier, dates, génitif, cuisine
-  { name: "Le sentier de la ferme", icon: "🐄" },    // 21–25 aspect/futur, couleurs/adjectif, pluriel, ANIMAUX DE LA FERME, adjectif au pluriel
-  { name: "Le sentier du miroir", icon: "🪞" },      // 26–30 adjectif tous cas, sentiments, passé, aspect approfondi, routine/się
-  { name: "Le sentier de la ville", icon: "🏙️" },    // 31–35 corps, apparence, impératif, ville, transports
-  { name: "Le sentier des rencontres", icon: "🌍" }, // 36–40 voyage, téléphone/internet, datif, fêtes, vocatif
-  { name: "Le sentier des grands horizons", icon: "🌄" }, // 41–45 pronoms déclinés (x2), comparatif, ANIMAUX DU MONDE, météo
-  { name: "Le sentier de la forêt", icon: "🌲" },    // 46–50 nature, ANIMAUX DE LA FORÊT, conditionnel poli, relatives, opinion
-  { name: "Le sentier du récit", icon: "📖" },       // 51–55 cause/but, concession, discours indirect, récit, compréhension (capstone)
-  { name: "Le sentier du monde", icon: "🌐" }        // 56–60 voyage avancé, entretien d'embauche, bien-être, critique de film, écologie (génitif pluriel)
+  { name: "Le sentier des débuts", icon: "🌱" },     // 1–5   salutations, présentation, PRONOMS (nominatif), pays/nationalités, famille
+  { name: "Le sentier du quotidien", icon: "🏡" },   // 6–10  nombres (x3), restaurant, shopping
+  { name: "Le sentier du foyer", icon: "🐾" },       // 11–15 verbes du quotidien, modaux, loisirs, maison/locatif, ANIMAUX DE COMPAGNIE
+  { name: "Le sentier du calendrier", icon: "⏰" },   // 16–20 temps/routine, heure, calendrier, dates, génitif
+  { name: "Le sentier de la ferme", icon: "🐄" },    // 21–25 cuisine, futur, couleurs/adjectif, pluriel, ANIMAUX DE LA FERME
+  { name: "Le sentier du miroir", icon: "🪞" },      // 26–30 adjectif décliné (x2), sentiments, passé, aspect approfondi
+  { name: "Le sentier de la ville", icon: "🏙️" },    // 31–35 routine/się, santé, apparence, impératif, ville
+  { name: "Le sentier des rencontres", icon: "🌍" }, // 36–40 instrumental, voyage, téléphone/internet, datif, fêtes
+  { name: "Le sentier des grands horizons", icon: "🌄" }, // 41–45 vocatif, pronoms déclinés (x2), comparatif, ANIMAUX DU MONDE
+  { name: "Le sentier de la forêt", icon: "🌲" },    // 46–50 météo, nature, ANIMAUX DE LA FORÊT, conditionnel poli, relatives
+  { name: "Le sentier du récit", icon: "📖" },       // 51–55 opinion, cause/but, concession, discours indirect, récit
+  { name: "Le sentier du monde", icon: "🌐" },       // 56–60 compréhension de texte, voyage avancé, entretien d'embauche, bien-être, critique de film
+  { name: "Le sentier de l'écologie", icon: "🌿" }   // 61    écologie et enjeux de société (capstone, sentier d'une seule leçon)
 ];
 var TRAIL_SIZE = 5;
 // Ouverture forcée par l'utilisateur (en mémoire, non persistée) : index -> bool

@@ -57,11 +57,10 @@ importe dans les deux sens.
 **Assets** : `public/assets/img/` est copié verbatim par Vite (pas de hachage),
 parce que `js/ui.js` construit ses chemins d'images par concaténation — donc
 invisibles à l'analyse statique. Ils sont préfixés par `import.meta.env.BASE_URL`
-pour rester absolus. ⚠️ Chaque `<img>` a un **repli emoji** sur l'événement
-`error` : un chemin cassé n'émet aucune erreur en console, on voit juste 🦬 au
-lieu du bison. C'est `tests/assets-paths.test.js` qui rend cette régression
-détectable. `assets/gen/` (15 Mo de sources brutes, gitignoré, un nom par image
-finale) reste volontairement hors de `public/`.
+pour rester absolus. `tests/assets-paths.test.js` vérifie que chaque chemin
+produit correspond à un fichier réel sur disque. `assets/gen/` (15 Mo de
+sources brutes, gitignoré, un nom par image finale) reste volontairement hors
+de `public/`.
 
 Les images sont des stickers kawaii générés (Gemini, plugin `google-image-gen`)
 sur fond vert chroma, puis détourés en PNG transparents par **`tools/detourer.py`**
@@ -407,8 +406,7 @@ de style. Ajouter un personnage se fait dans cette table, et nulle part ailleurs
 `UI.el` ignore les enfants `null`, il donne au narrateur sa ligne pleine largeur
 **sans qu'aucun renderer ait à tester `"N"`**. `tests/assets-paths.test.js` et
 `tests/stories.test.js` verrouillent les deux moitiés de l'invariant (tout
-locuteur ≠ `"N"` a une image, et `"N"` n'en a pas) — nécessaire parce que le
-repli emoji du handler `error` avale silencieusement un chemin cassé.
+locuteur ≠ `"N"` a une image, et `"N"` n'en a pas).
 
 Dans le rendu, l'avatar est **hors** de la bulle, façon messagerie : un wrapper
 `.story-row` porte le placement (`align-self`) et la largeur utile, la bulle ne

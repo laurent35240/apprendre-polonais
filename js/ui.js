@@ -78,8 +78,6 @@ function required(id) {
 }
 
 /* ------------------------------ mascotte ---------------------------- */
-var MASCOT = "🦬";
-
 var CHEERS = [
   "Świetnie ! (Génial !)",
   "Brawo ! Żubr est fier de toi.",
@@ -118,11 +116,10 @@ function console_() {
 // hachées ni réécrites. BASE_URL (remplacé à la compilation, slash de tête ET de
 // queue garantis) rend le chemin ABSOLU, donc indépendant de l'URL du document.
 // Indispensable et non cosmétique : un chemin relatif casserait sur une URL sans
-// slash final, et l'échec serait INVISIBLE — chaque <img> a un repli emoji sur
-// l'événement `error`, donc aucune erreur ne remonterait en console.
+// slash final.
 var IMG_BASE = import.meta.env.BASE_URL + "assets/img/";
 
-// <img> de la mascotte, avec repli sur l'emoji si l'image manque.
+// <img> de la mascotte.
 // pose: base | happy | sad | celebrate | levelup ; cls: classe(s) de taille.
 /**
  * @param {"base"|"happy"|"sad"|"celebrate"|"levelup"|"head"} pose
@@ -130,32 +127,27 @@ var IMG_BASE = import.meta.env.BASE_URL + "assets/img/";
  * @returns {HTMLImageElement}
  */
 function mascotImg(pose, cls) {
-  var img = el("img", {
+  return el("img", {
     class: "mascot-img " + (cls || ""),
     src: IMG_BASE + "zubr-" + pose + ".png",
     alt: "Żubr",
     draggable: "false"
   });
-  img.addEventListener("error", function () {
-    var span = el("span", { class: "emoji-fallback " + (cls || ""), text: MASCOT });
-    if (img.parentNode) img.parentNode.replaceChild(span, img);
-  });
-  return img;
 }
 
-// Personnages des histoires bonus (data/stories.js) : `who` -> fichier + emoji
-// de repli. Table locale et non paramètre d'appel : qui existe est un fait du
-// contenu, pas une décision du site d'appel.
+// Personnages des histoires bonus (data/stories.js) : `who` -> fichier. Table
+// locale et non paramètre d'appel : qui existe est un fait du contenu, pas une
+// décision du site d'appel.
 // Convention de nommage : <personnage>-head.png dans public/assets/img/.
 // Żubr réutilise l'image qui sert déjà d'icône PWA — même style, rien à ajouter.
 // `| undefined` volontaire : `who` vient des données de contenu, non validé par
 // le typeur. C'est ce qui donne son sens à la garde de characterImg — sans ça
 // elle serait typée comme du code mort.
-/** @type {Record<string, {file: string, emoji: string, alt: string}|undefined>} */
+/** @type {Record<string, {file: string, alt: string}|undefined>} */
 var CHARACTERS = {
-  "Ż": { file: "zubr-head", emoji: MASCOT, alt: "Żubr" },
-  B: { file: "bocian-head", emoji: "🪿", alt: "Bocian" },
-  O: { file: "orzel-head", emoji: "🦅", alt: "Orzeł" }
+  "Ż": { file: "zubr-head", alt: "Żubr" },
+  B: { file: "bocian-head", alt: "Bocian" },
+  O: { file: "orzel-head", alt: "Orzeł" }
 };
 
 // <img> de la tête d'un personnage, ou NULL si `who` n'en désigne pas un.
@@ -171,56 +163,42 @@ var CHARACTERS = {
 function characterImg(who, cls) {
   var perso = CHARACTERS[who];
   if (!perso) return null;
-  // Emoji capturé AVANT la closure : le narrowing de `perso` (un `var`) n'y
-  // survivrait pas — même piège que renderLessonIntro dans app.js.
-  var repli = perso.emoji;
-  var img = el("img", {
+  return el("img", {
     class: "mascot-img " + (cls || ""),
     src: IMG_BASE + perso.file + ".png",
     alt: perso.alt,
     draggable: "false"
   });
-  img.addEventListener("error", function () {
-    var span = el("span", { class: "emoji-fallback " + (cls || ""), text: repli });
-    if (img.parentNode) img.parentNode.replaceChild(span, img);
-  });
-  return img;
 }
 
-// <img> d'un badge (déduit du id), repli sur son emoji.
+// <img> d'un badge (déduit du id).
 /**
  * @param {string} badgeId
- * @param {string} [emoji]
  * @param {string} [cls]
  * @returns {HTMLImageElement}
  */
-function badgeImg(badgeId, emoji, cls) {
-  var img = el("img", {
+function badgeImg(badgeId, cls) {
+  return el("img", {
     class: "badge-img " + (cls || ""),
     src: IMG_BASE + "badge-" + badgeId + ".png",
     alt: "",
     draggable: "false"
   });
-  img.addEventListener("error", function () {
-    var span = el("span", { class: "emoji-fallback " + (cls || ""), text: emoji || "🏅" });
-    if (img.parentNode) img.parentNode.replaceChild(span, img);
-  });
-  return img;
 }
 
 // Décor forestier (sapins, feuille) : purement cosmétique, aucune sémantique
 // de personnage ou de badge — d'où une table et une fonction séparées de
 // CHARACTERS/badgeImg plutôt qu'un détournement de l'une d'elles.
-/** @type {Record<string, {file: string, emoji: string}>} */
+/** @type {Record<string, {file: string}>} */
 var DECOR = {
-  "sapin-1": { file: "sapin-1", emoji: "🌲" },
-  "sapin-2": { file: "sapin-2", emoji: "🌲" },
-  feuille: { file: "feuille", emoji: "🍂" },
-  "foret-bandeau": { file: "foret-bandeau", emoji: "🌳" }
+  "sapin-1": { file: "sapin-1" },
+  "sapin-2": { file: "sapin-2" },
+  feuille: { file: "feuille" },
+  "foret-bandeau": { file: "foret-bandeau" }
 };
 
-// <img> de décor forestier, repli sur son emoji. `aria-hidden` : purement
-// cosmétique, rien à annoncer à un lecteur d'écran.
+// <img> de décor forestier. `aria-hidden` : purement cosmétique, rien à
+// annoncer à un lecteur d'écran.
 /**
  * @param {"sapin-1"|"sapin-2"|"feuille"|"foret-bandeau"} name
  * @param {string} [cls]
@@ -228,22 +206,13 @@ var DECOR = {
  */
 function decorImg(name, cls) {
   var deco = DECOR[name];
-  var img = el("img", {
+  return el("img", {
     class: "decor-img " + (cls || ""),
     src: IMG_BASE + deco.file + ".png",
     alt: "",
     "aria-hidden": "true",
     draggable: "false"
   });
-  img.addEventListener("error", function () {
-    var span = el("span", {
-      class: "emoji-fallback " + (cls || ""),
-      "aria-hidden": "true",
-      text: deco.emoji
-    });
-    if (img.parentNode) img.parentNode.replaceChild(span, img);
-  });
-  return img;
 }
 
 /* ------------------------------ toasts ------------------------------ */
@@ -277,7 +246,7 @@ function badgeToast(badge) {
   var host = document.getElementById("toast-host");
   if (!host) return;
   var t = el("div", { class: "toast badge-toast show" }, [
-    badgeImg(badge.id, badge.emoji, "badge-emoji"),
+    badgeImg(badge.id, "badge-emoji"),
     el("div", {}, [
       el("strong", { text: "Badge débloqué !" }),
       el("div", { class: "small", text: badge.title })
@@ -444,7 +413,6 @@ export const UI = {
   el: el,
   clear: clear,
   required: required,
-  MASCOT: MASCOT,
   mascotImg: mascotImg,
   characterImg: characterImg,
   badgeImg: badgeImg,

@@ -1310,8 +1310,7 @@ img.decor-img {
 }
 /* Coin bas-droit de la bannière d'accueil ; .hero est déjà `overflow: hidden`,
    ce qui le clippe proprement sans ajouter de scroll horizontal. */
-img.hero-decor,
-.emoji-fallback.hero-decor {
+img.hero-decor {
   position: absolute;
   right: -14px;
   bottom: -18px;
@@ -1325,8 +1324,7 @@ img.hero-decor,
    négatives le fait déborder de `.app` (max-width: 680px) jusqu'aux bords du
    viewport ; `overflow-x: hidden` sur body (cf. plus haut) absorbe l'écart de
    quelques pixels que `vw` inclut parfois pour la barre de scroll. */
-img.forest-banner,
-.emoji-fallback.forest-banner {
+img.forest-banner {
   display: block;
   width: 100vw;
   margin-left: calc(50% - 50vw);
@@ -1344,16 +1342,6 @@ img.forest-banner,
      page, sans laisser de bande vide. */
   margin-bottom: calc(-1 * (var(--app-pad-bottom) + var(--body-pad-bottom)));
 }
-.emoji-fallback.forest-banner { text-align: center; }
-
-/* Repli emoji si une image manque */
-.emoji-fallback { display: inline-block; line-height: 1; font-size: 2.2rem; }
-.emoji-fallback.brand-emoji { font-size: 26px; }
-.emoji-fallback.hero-mascot { font-size: 56px; }
-.emoji-fallback.summary-emoji { font-size: 64px; }
-.emoji-fallback.feedback-mascot { font-size: 24px; }
-.emoji-fallback.hero-decor { font-size: 64px; }
-.emoji-fallback.forest-banner { font-size: 72px; }
 
 /* ---- Bandeau de lecture seule ---- */
 /* Affiché dans la topbar quand la sauvegarde vient d'une version future :
@@ -1448,15 +1436,11 @@ img.forest-banner,
   align-self: auto;
 }
 /* `.mascot-img` n'a aucune dimension propre : sans cette règle l'avatar
-   s'afficherait en 512 px. Son pendant `.emoji-fallback` est indispensable —
-   à défaut le repli retomberait sur 2.2rem et sauterait à l'œil. */
+   s'afficherait en 512 px. */
 img.story-avatar {
   width: 40px;
   height: 40px;
   flex-shrink: 0;
-}
-.emoji-fallback.story-avatar {
-  font-size: 30px;
 }
 .dialogue-line.story-narrator {
   max-width: 100%;

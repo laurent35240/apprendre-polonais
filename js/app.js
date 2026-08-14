@@ -935,7 +935,7 @@ function renderBadges(s) {
         },
         [
           earned
-            ? UI.badgeImg(b.id, b.emoji, "badge-chip-emoji")
+            ? UI.badgeImg(b.id, "badge-chip-emoji")
             : el("div", { class: "badge-chip-emoji locked-lock", text: "🔒" }),
           el("div", { class: "badge-chip-title", text: b.title })
         ]
@@ -1165,7 +1165,7 @@ function renderSummary(pct, correct, total, lessonDone, newBadges, xpGagne, stor
     newBadges.forEach(function (b) {
       bwrap.appendChild(
         el("div", { class: "newbadge-row" }, [
-          UI.badgeImg(b.id, b.emoji, "badge-chip-emoji"),
+          UI.badgeImg(b.id, "badge-chip-emoji"),
           el("div", {}, [
             el("strong", { text: b.title }),
             el("div", { class: "small", text: b.desc })

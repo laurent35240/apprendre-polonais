@@ -1,10 +1,9 @@
 /* =====================================================================
-   CHEMINS D'IMAGES — indispensable à cause du repli emoji.
+   CHEMINS D'IMAGES
    ---------------------------------------------------------------------
-   Chaque <img> de ui.js a un handler `error` qui le remplace par un emoji.
-   Un chemin cassé n'émet donc AUCUNE erreur en console : la régression est
-   invisible en production (on voit 🦬 au lieu du bison). Ce fichier la rend
-   détectable en CI, en 5 ms.
+   Les chemins sont construits par concaténation (cf. js/ui.js IMG_BASE),
+   donc invisibles à l'analyse statique de Vite. Ce fichier vérifie que
+   chaque chemin produit correspond à un fichier réel sur disque.
    ===================================================================== */
 import { describe, it, expect } from "vitest";
 import { existsSync } from "node:fs";
@@ -66,8 +65,8 @@ describe("chemins produits par UI", () => {
   it("characterImg rend null pour un `who` sans visage", () => {
     // C'EST le mécanisme d'absence d'avatar du narrateur : appendSceneContext ne
     // teste jamais "N", il se contente de ce null. S'il devenait une <img>, le
-    // narrateur récupérerait un avatar (ou un repli emoji) sans rien casser
-    // d'autre — donc en silence.
+    // narrateur récupérerait un avatar sans rien casser d'autre — donc en
+    // silence.
     expect(UI.characterImg("N")).toBeNull();
     expect(UI.characterImg("A")).toBeNull();
     expect(UI.characterImg("")).toBeNull();
@@ -75,7 +74,7 @@ describe("chemins produits par UI", () => {
 
   it("badgeImg préfixe par le base pour les 11 badges", () => {
     for (const b of POLISH_BADGES)
-      expect(UI.badgeImg(b.id, b.emoji).getAttribute("src")).toBe(
+      expect(UI.badgeImg(b.id).getAttribute("src")).toBe(
         `${BASE}badge-${b.id}.png`
       );
   });
@@ -89,7 +88,7 @@ describe("chemins produits par UI", () => {
     const srcs = [
       ...POSES.map((p) => UI.mascotImg(p).getAttribute("src")),
       ...PERSOS.map((p) => UI.characterImg(p.who).getAttribute("src")),
-      ...POLISH_BADGES.map((b) => UI.badgeImg(b.id, b.emoji).getAttribute("src")),
+      ...POLISH_BADGES.map((b) => UI.badgeImg(b.id).getAttribute("src")),
       ...DECORS.map((name) => UI.decorImg(name).getAttribute("src"))
     ];
     for (const s of srcs) expect(s.startsWith("/")).toBe(true);
@@ -99,7 +98,7 @@ describe("chemins produits par UI", () => {
     const srcs = [
       ...POSES.map((p) => UI.mascotImg(p).getAttribute("src")),
       ...PERSOS.map((p) => UI.characterImg(p.who).getAttribute("src")),
-      ...POLISH_BADGES.map((b) => UI.badgeImg(b.id, b.emoji).getAttribute("src")),
+      ...POLISH_BADGES.map((b) => UI.badgeImg(b.id).getAttribute("src")),
       ...DECORS.map((name) => UI.decorImg(name).getAttribute("src")),
       `${BASE}favicon.png`
     ];

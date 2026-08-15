@@ -3782,10 +3782,221 @@ export const POLISH_LESSONS = [
     ]
   },
 
-  /* ========== order 61 — Écologie (capstone du sentier du monde) ======= */
+  /* ========== order 61 — Géographie de la Pologne ======= */
+  {
+    id: "lesson-62",
+    order: 61,
+    title: "Geografia Polski — Géographie de la Pologne",
+    theme: "géographie",
+    mascotIntro:
+      "En route pour un tour de Pologne ! Découvre ses fleuves, ses montagnes et ses régions. 🗺️",
+    grammarNotes: [
+      {
+        id: "g-62-1",
+        title: "Points cardinaux et frontières : na północy/południu/wschodzie/zachodzie, graniczyć z",
+        explanationFr:
+          "Pour situer un lieu, on utilise na + locatif avec les points cardinaux : na północy (au nord), na południu (au sud), na wschodzie (à l'est), na zachodzie (à l'ouest). Pour dire qu'un pays est frontalier d'un autre, on retrouve graniczyć z + instrumental, déjà vu pour « avec » (36).",
+        examples: [
+          { pl: "Kraków leży na południu Polski.", fr: "Cracovie se trouve dans le sud de la Pologne." },
+          { pl: "Polska graniczy z Niemcami na zachodzie.", fr: "La Pologne est frontalière de l'Allemagne à l'ouest." }
+        ]
+      },
+      {
+        id: "g-62-2",
+        title: "Superlatif appliqué à la géographie : najdłuższy, najwyższy, największy",
+        explanationFr:
+          "Rappel du superlatif (naj- + comparatif, déjà vu au point 44) : najdłuższa rzeka (le plus long fleuve), najwyższa góra (la plus haute montagne), największe miasto (la plus grande ville). L'adjectif s'accorde toujours avec le nom qu'il décrit.",
+        examples: [
+          { pl: "Wisła jest najdłuższą rzeką w Polsce.", fr: "La Vistule est le plus long fleuve de Pologne." },
+          { pl: "Warszawa jest największym miastem w kraju.", fr: "Varsovie est la plus grande ville du pays." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-62-granica", pl: "granica", fr: "la frontière", category: "géographie" },
+      { id: "v-62-rzeka", pl: "rzeka", fr: "le fleuve, la rivière", category: "géographie" },
+      { id: "v-62-gora", pl: "góra", fr: "la montagne", category: "géographie" },
+      { id: "v-62-wybrzeze", pl: "wybrzeże", fr: "le littoral, la côte", category: "géographie" },
+      { id: "v-62-stolica", pl: "stolica", fr: "la capitale", category: "géographie" },
+      { id: "v-62-region", pl: "region", fr: "la région", category: "géographie" },
+      { id: "v-62-nizina", pl: "nizina", fr: "la plaine", category: "géographie" },
+      { id: "v-62-pojezierze", pl: "pojezierze", fr: "la région des lacs", category: "géographie" },
+      { id: "v-62-gesto-zaludniony", pl: "gęsto zaludniony", fr: "densément peuplé", category: "description" }
+    ],
+    sentences: [
+      { id: "s-62-1", pl: "Wisła jest najdłuższą rzeką w Polsce.", fr: "La Vistule est le plus long fleuve de Pologne.", grammarFocus: "g-62-2",
+        wordBank: ["Wisła", "jest", "najdłuższą", "rzeką", "w", "Polsce"] },
+      { id: "s-62-2", pl: "Polska graniczy z Niemcami na zachodzie.", fr: "La Pologne est frontalière de l'Allemagne à l'ouest.", grammarFocus: "g-62-1",
+        wordBank: ["Polska", "graniczy", "z", "Niemcami", "na", "zachodzie"] },
+      { id: "s-62-3", pl: "Tatry są najwyższymi górami w Polsce.", fr: "Les Tatras sont les montagnes les plus hautes de Pologne.", grammarFocus: "g-62-2",
+        wordBank: ["Tatry", "są", "najwyższymi", "górami", "w", "Polsce"] },
+      { id: "s-62-4", pl: "Na północy kraju leży wybrzeże Bałtyku.", fr: "Dans le nord du pays se trouve le littoral de la Baltique.", grammarFocus: "g-62-1",
+        wordBank: ["Na", "północy", "kraju", "leży", "wybrzeże", "Bałtyku"] }
+    ]
+  },
+
+  /* ========== order 62 — Histoire de la Pologne ======= */
+  {
+    id: "lesson-63",
+    order: 62,
+    title: "Krótka historia Polski — Petite histoire de la Pologne",
+    theme: "histoire",
+    mascotIntro:
+      "Remontons le temps : quelques grandes dates de l'histoire polonaise, racontées simplement. 📜",
+    grammarNotes: [
+      {
+        id: "g-63-1",
+        title: "Connecteurs chronologiques d'un récit historique : najpierw, potem, w końcu",
+        explanationFr:
+          "Rappel des connecteurs de récit déjà vus (55-56) : najpierw (d'abord), potem (ensuite), w końcu (finalement). Ils structurent une chronologie sans avoir besoin de dates précises déclinées.",
+        examples: [
+          { pl: "Najpierw Polska była podzielona między trzy mocarstwa.", fr: "D'abord, la Pologne a été partagée entre trois puissances." },
+          { pl: "Potem, po pierwszej wojnie światowej, kraj odzyskał niepodległość.", fr: "Ensuite, après la Première Guerre mondiale, le pays a recouvré son indépendance." }
+        ]
+      },
+      {
+        id: "g-63-2",
+        title: "Prépositions de temps historique : podczas + génitif, po + génitif",
+        explanationFr:
+          "podczas (pendant) et po (après) gouvernent le génitif, comme dla ou u déjà connus. Elles permettent de situer un événement dans une période historique.",
+        examples: [
+          { pl: "Podczas drugiej wojny światowej Polska bardzo ucierpiała.", fr: "Pendant la Seconde Guerre mondiale, la Pologne a beaucoup souffert." },
+          { pl: "Po wojnie kraj musiał się odbudować.", fr: "Après la guerre, le pays a dû se reconstruire." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-63-wiek", pl: "wiek", fr: "le siècle", category: "histoire" },
+      { id: "v-63-powstanie", pl: "powstanie", fr: "le soulèvement, l'insurrection", category: "histoire" },
+      { id: "v-63-niepodleglosc", pl: "niepodległość", fr: "l'indépendance", category: "histoire" },
+      { id: "v-63-wojna", pl: "wojna", fr: "la guerre", category: "histoire" },
+      { id: "v-63-mocarstwo", pl: "mocarstwo", fr: "la puissance (état)", category: "histoire" },
+      { id: "v-63-podzielony", pl: "podzielony", fr: "partagé, divisé", category: "description" },
+      { id: "v-63-odzyskac", pl: "odzyskać", fr: "recouvrer, récupérer", category: "histoire" },
+      { id: "v-63-upadek", pl: "upadek", fr: "la chute", category: "histoire" },
+      { id: "v-63-wstapic-do", pl: "wstąpić do", fr: "adhérer à", category: "histoire" }
+    ],
+    sentences: [
+      { id: "s-63-1", pl: "Najpierw Polska była podzielona między trzy mocarstwa.", fr: "D'abord, la Pologne a été partagée entre trois puissances.", grammarFocus: "g-63-1",
+        wordBank: ["Najpierw", "Polska", "była", "podzielona", "między", "trzy", "mocarstwa"] },
+      { id: "s-63-2", pl: "Potem, po pierwszej wojnie światowej, kraj odzyskał niepodległość.", fr: "Ensuite, après la Première Guerre mondiale, le pays a recouvré son indépendance.", grammarFocus: "g-63-1",
+        wordBank: ["Potem", "po", "pierwszej", "wojnie", "światowej", "kraj", "odzyskał", "niepodległość"] },
+      { id: "s-63-3", pl: "Podczas drugiej wojny światowej Polska bardzo ucierpiała.", fr: "Pendant la Seconde Guerre mondiale, la Pologne a beaucoup souffert.", grammarFocus: "g-63-2",
+        wordBank: ["Podczas", "drugiej", "wojny", "światowej", "Polska", "bardzo", "ucierpiała"] },
+      { id: "s-63-4", pl: "W końcu, po upadku komunizmu, kraj wstąpił do Unii Europejskiej.", fr: "Finalement, après la chute du communisme, le pays a rejoint l'Union européenne.", grammarFocus: "g-63-2",
+        wordBank: ["W", "końcu", "po", "upadku", "komunizmu", "kraj", "wstąpił", "do", "Unii", "Europejskiej"] }
+    ]
+  },
+
+  /* ========== order 63 — Politique et institutions ======= */
+  {
+    id: "lesson-64",
+    order: 63,
+    title: "Polityka i instytucje — Politique et institutions",
+    theme: "politique",
+    mascotIntro:
+      "Comment fonctionne la Pologne ? Président, Sejm, élections : le vocabulaire de la vie civique. 🏛️",
+    grammarNotes: [
+      {
+        id: "g-64-1",
+        title: "Exprimer une opinion civique : uważam, że / moim zdaniem",
+        explanationFr:
+          "Rappel des complétives en że et de l'opinion nuancée (51) : uważam, że... (je pense que...), moim zdaniem... (selon moi...). Utile pour parler d'institutions sans prendre parti.",
+        examples: [
+          { pl: "Uważam, że każdy obywatel powinien głosować.", fr: "Je pense que chaque citoyen devrait voter." },
+          { pl: "Moim zdaniem wybory są bardzo ważne dla demokracji.", fr: "Selon moi, les élections sont très importantes pour la démocratie." }
+        ]
+      },
+      {
+        id: "g-64-2",
+        title: "Cause et but appliqués à la vie civique : ponieważ, żeby",
+        explanationFr:
+          "Rappel de la cause (ponieważ, 52) et du but (żeby) pour expliquer une démarche citoyenne, de façon factuelle et neutre.",
+        examples: [
+          { pl: "Wielu ludzi głosuje, ponieważ chce mieć wpływ na przyszłość kraju.", fr: "Beaucoup de gens votent parce qu'ils veulent avoir une influence sur l'avenir du pays." },
+          { pl: "Rząd wprowadza nowe prawo, żeby pomóc obywatelom.", fr: "Le gouvernement introduit une nouvelle loi pour aider les citoyens." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-64-prezydent", pl: "prezydent", fr: "le président", category: "politique" },
+      { id: "v-64-premier", pl: "premier", fr: "le premier ministre", category: "politique" },
+      { id: "v-64-sejm", pl: "Sejm", fr: "la chambre basse du parlement polonais", category: "politique" },
+      { id: "v-64-wybory", pl: "wybory", fr: "les élections", category: "politique" },
+      { id: "v-64-glosowac", pl: "głosować", fr: "voter", category: "politique" },
+      { id: "v-64-obywatel", pl: "obywatel", fr: "le citoyen", category: "politique" },
+      { id: "v-64-partia", pl: "partia", fr: "le parti (politique)", category: "politique" },
+      { id: "v-64-demokracja", pl: "demokracja", fr: "la démocratie", category: "politique" },
+      { id: "v-64-rzad", pl: "rząd", fr: "le gouvernement", category: "politique" }
+    ],
+    sentences: [
+      { id: "s-64-1", pl: "Uważam, że każdy obywatel powinien głosować.", fr: "Je pense que chaque citoyen devrait voter.", grammarFocus: "g-64-1",
+        wordBank: ["Uważam", "że", "każdy", "obywatel", "powinien", "głosować"] },
+      { id: "s-64-2", pl: "Moim zdaniem wybory są bardzo ważne dla demokracji.", fr: "Selon moi, les élections sont très importantes pour la démocratie.", grammarFocus: "g-64-1",
+        wordBank: ["Moim", "zdaniem", "wybory", "są", "bardzo", "ważne", "dla", "demokracji"] },
+      { id: "s-64-3", pl: "Wielu ludzi głosuje, ponieważ chce mieć wpływ na przyszłość kraju.", fr: "Beaucoup de gens votent parce qu'ils veulent avoir une influence sur l'avenir du pays.", grammarFocus: "g-64-2",
+        wordBank: ["Wielu", "ludzi", "głosuje", "ponieważ", "chce", "mieć", "wpływ", "na", "przyszłość", "kraju"] },
+      { id: "s-64-4", pl: "Rząd wprowadza nowe prawo, żeby pomóc obywatelom.", fr: "Le gouvernement introduit une nouvelle loi pour aider les citoyens.", grammarFocus: "g-64-2",
+        wordBank: ["Rząd", "wprowadza", "nowe", "prawo", "żeby", "pomóc", "obywatelom"] }
+    ]
+  },
+
+  /* ========== order 64 — Fêtes et traditions religieuses ======= */
+  {
+    id: "lesson-65",
+    order: 64,
+    title: "Święta i tradycje religijne — Fêtes et traditions religieuses",
+    theme: "religion",
+    mascotIntro:
+      "Wigilia, Wielkanoc et bien d'autres traditions : découvre les fêtes qui rythment l'année polonaise. 🕯️",
+    grammarNotes: [
+      {
+        id: "g-65-1",
+        title: "Fêtes et souhaits : obchodzić + accusatif, życzyć + datif/génitif",
+        explanationFr:
+          "obchodzić (célébrer une fête) prend un complément à l'accusatif (obchodzić Wigilię). Rappel de życzyć + datif + génitif (40) pour les souhaits : życzymy sobie wesołych świąt.",
+        examples: [
+          { pl: "Polacy obchodzą Wigilię dwudziestego czwartego grudnia.", fr: "Les Polonais célèbrent le réveillon de Noël le 24 décembre." },
+          { pl: "Życzymy sobie wesołych świąt i zdrowia.", fr: "Nous nous souhaitons un joyeux Noël et la santé." }
+        ]
+      },
+      {
+        id: "g-65-2",
+        title: "Respecter la diversité des croyances : mimo że, niezależnie od + génitif",
+        explanationFr:
+          "Rappel de la concession (mimo że, 53) et de od + génitif (déjà vu dans le comparatif, 44) pour évoquer respectueusement la diversité religieuse, sans jugement.",
+        examples: [
+          { pl: "Mimo że nie wszyscy są wierzący, wielu obchodzi te święta jako tradycję rodzinną.", fr: "Bien que tout le monde ne soit pas croyant, beaucoup célèbrent ces fêtes comme une tradition familiale." },
+          { pl: "Niezależnie od wiary, Wigilia jest ważna dla wielu polskich rodzin.", fr: "Indépendamment de la croyance, le réveillon de Noël est important pour de nombreuses familles polonaises." }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-65-wigilia", pl: "Wigilia", fr: "le réveillon de Noël", category: "religion" },
+      { id: "v-65-wielkanoc", pl: "Wielkanoc", fr: "Pâques", category: "religion" },
+      { id: "v-65-boze-narodzenie", pl: "Boże Narodzenie", fr: "Noël", category: "religion" },
+      { id: "v-65-kosciol", pl: "kościół", fr: "l'église", category: "religion" },
+      { id: "v-65-tradycja", pl: "tradycja", fr: "la tradition", category: "religion" },
+      { id: "v-65-oplatek", pl: "opłatek", fr: "le pain azyme partagé à Noël", category: "religion" },
+      { id: "v-65-wierzacy", pl: "wierzący", fr: "croyant", category: "description" },
+      { id: "v-65-obchodzic", pl: "obchodzić", fr: "célébrer (une fête)", category: "religion" }
+    ],
+    sentences: [
+      { id: "s-65-1", pl: "Polacy obchodzą Wigilię dwudziestego czwartego grudnia.", fr: "Les Polonais célèbrent le réveillon de Noël le 24 décembre.", grammarFocus: "g-65-1",
+        wordBank: ["Polacy", "obchodzą", "Wigilię", "dwudziestego", "czwartego", "grudnia"] },
+      { id: "s-65-2", pl: "Życzymy sobie wesołych świąt i zdrowia.", fr: "Nous nous souhaitons un joyeux Noël et la santé.", grammarFocus: "g-65-1",
+        wordBank: ["Życzymy", "sobie", "wesołych", "świąt", "i", "zdrowia"] },
+      { id: "s-65-3", pl: "Mimo że nie wszyscy są wierzący, wielu obchodzi te święta jako tradycję rodzinną.", fr: "Bien que tout le monde ne soit pas croyant, beaucoup célèbrent ces fêtes comme une tradition familiale.", grammarFocus: "g-65-2",
+        wordBank: ["Mimo", "że", "nie", "wszyscy", "są", "wierzący", "wielu", "obchodzi", "te", "święta", "jako", "tradycję", "rodzinną"] },
+      { id: "s-65-4", pl: "Niezależnie od wiary, Wigilia jest ważna dla wielu polskich rodzin.", fr: "Indépendamment de la croyance, le réveillon de Noël est important pour de nombreuses familles polonaises.", grammarFocus: "g-65-2",
+        wordBank: ["Niezależnie", "od", "wiary", "Wigilia", "jest", "ważna", "dla", "wielu", "polskich", "rodzin"] }
+    ]
+  },
+
+  /* ========== order 65 — Écologie (capstone du sentier du pays) ======= */
   {
     id: "lesson-60",
-    order: 61,
+    order: 65,
     title: "Ekologia i wyzwania — L'écologie et les enjeux de société",
     theme: "écologie",
     mascotIntro:

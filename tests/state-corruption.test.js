@@ -156,10 +156,10 @@ describe("l'état reste utilisable après corruption", () => {
     expect(() => Gamification.checkBadges()).not.toThrow();
   });
 
-  it("lessons corrompu : le chargement reconstruit les 61 leçons", () => {
+  it("lessons corrompu : le chargement reconstruit les 65 leçons", () => {
     poser({ ...REALISTIC, lessons: 42 });
     const s = State.load();
-    expect(Object.keys(s.lessons)).toHaveLength(61);
+    expect(Object.keys(s.lessons)).toHaveLength(65);
   });
 });
 
@@ -181,7 +181,7 @@ describe("items n'est JAMAIS persisté comme un tableau", () => {
     State.save();
     const relu = JSON.parse(/** @type {string} */ (localStorage.getItem(KEY)));
     expect(Array.isArray(relu.lessons)).toBe(false);
-    expect(Object.keys(relu.lessons)).toHaveLength(61);
+    expect(Object.keys(relu.lessons)).toHaveLength(65);
   });
 });
 

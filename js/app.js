@@ -40,7 +40,7 @@ var TRAILS = [
   { name: "Le sentier de la forêt", icon: "🌲" },    // 46–50 météo, nature, ANIMAUX DE LA FORÊT, conditionnel poli, relatives
   { name: "Le sentier du récit", icon: "📖" },       // 51–55 opinion, cause/but, concession, discours indirect, récit
   { name: "Le sentier du monde", icon: "🌐" },       // 56–60 compréhension de texte, voyage avancé, entretien d'embauche, bien-être, critique de film
-  { name: "Le sentier de l'écologie", icon: "🌿" }   // 61    écologie et enjeux de société (capstone, sentier d'une seule leçon)
+  { name: "Le sentier du pays", icon: "🗺️" }         // 61–65 géographie, histoire, politique, institutions religieuses/traditions, écologie (capstone)
 ];
 var TRAIL_SIZE = 5;
 // Ouverture forcée par l'utilisateur (en mémoire, non persistée) : index -> bool

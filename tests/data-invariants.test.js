@@ -37,22 +37,22 @@ const mots = (s) => Speech.normalize(s).split(/\s+/).filter(Boolean);
 
 /* ------------------------------ structure ---------------------------- */
 describe("structure", () => {
-  it("61 leçons, ids uniques", () => {
-    expect(POLISH_LESSONS).toHaveLength(61);
-    expect(new Set(POLISH_LESSONS.map((l) => l.id)).size).toBe(61);
+  it("65 leçons, ids uniques", () => {
+    expect(POLISH_LESSONS).toHaveLength(65);
+    expect(new Set(POLISH_LESSONS.map((l) => l.id)).size).toBe(65);
   });
 
-  it("960 item-ids au total, tous uniques", () => {
-    expect(vocab).toHaveLength(691);
-    expect(sentences).toHaveLength(244);
+  it("1011 item-ids au total, tous uniques", () => {
+    expect(vocab).toHaveLength(726);
+    expect(sentences).toHaveLength(260);
     expect(dialogues).toHaveLength(25);
-    expect(tousLesIds).toHaveLength(960);
-    expect(new Set(tousLesIds).size).toBe(960);
+    expect(tousLesIds).toHaveLength(1011);
+    expect(new Set(tousLesIds).size).toBe(1011);
   });
 
-  it("order est exactement [1..61]", () => {
+  it("order est exactement [1..65]", () => {
     const ordres = POLISH_LESSONS.map((l) => l.order).sort((a, b) => a - b);
-    expect(ordres).toEqual(Array.from({ length: 61 }, (_, i) => i + 1));
+    expect(ordres).toEqual(Array.from({ length: 65 }, (_, i) => i + 1));
   });
 
   it("chaque leçon a 4 phrases et 2 notes de grammaire", () => {
@@ -60,8 +60,8 @@ describe("structure", () => {
       expect(l.sentences, l.id).toHaveLength(4);
       expect(l.grammarNotes, l.id).toHaveLength(2);
     }
-    expect(sentences).toHaveLength(244);
-    expect(grammarNotes).toHaveLength(122);
+    expect(sentences).toHaveLength(260);
+    expect(grammarNotes).toHaveLength(130);
   });
 
   it("les champs obligatoires sont présents partout", () => {
@@ -126,8 +126,8 @@ describe("wordBank", () => {
     })
   ];
 
-  it("couvre tous les mots normalisés de pl (269 cas) — sinon l'exercice est insoluble", () => {
-    expect(casBuild).toHaveLength(269);
+  it("couvre tous les mots normalisés de pl (285 cas) — sinon l'exercice est insoluble", () => {
+    expect(casBuild).toHaveLength(285);
     for (const c of casBuild) {
       const banque = c.bank.map((w) => Speech.normalize(w));
       for (const m of mots(c.pl))
@@ -158,7 +158,7 @@ describe("grammaire", () => {
         n++;
       }
     }
-    expect(n).toBe(244);
+    expect(n).toBe(260);
   });
 
   it("toutes les notes de grammaire sont référencées (réciproque)", () => {

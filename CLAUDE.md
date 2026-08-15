@@ -78,14 +78,14 @@ vert d'anti-aliasing, encore visible sur `zubr-head.png`).
 `State.todayStr()` utilise l'heure locale et la CI tourne en UTC.
 
 `tests/data-invariants.test.js` vérifie ce que TypeScript ne peut pas exprimer
-(unicité des 947 ids, « exactement une ligne `target` » par dialogue,
+(unicité des 1011 ids, « exactement une ligne `target` » par dialogue,
 `wordBank ⊇ mots(pl)`, clés étrangères `grammarFocus`…). Ses **10 `it.skip`**
 documentent des invariants qui échouent aujourd'hui : c'est de la dette
 assumée, avec le chiffre exact et la raison en commentaire. Ne pas les
 « réparer » sans décision produit — notamment `[VOULU] le tableau est trié par
 order`, qui doit rester rouge.
 
-`tests/fixtures/item-ids.json` fige les 947 ids. Ce sont les **clés SRS en
+`tests/fixtures/item-ids.json` fige les 1011 ids. Ce sont les **clés SRS en
 localStorage** : renommer un id efface la progression de l'utilisateur sur ce
 mot, et ce fichier rend l'accident visible en revue.
 
@@ -347,8 +347,8 @@ existantes l'imposent — ne pas essayer de les contourner :
 1. `js/app.js` découpe les leçons triées en paquets **rigides de 5**
    (`TRAIL_SIZE`) : une leçon insérée décale tous les sentiers suivants et
    désynchronise les libellés du tableau `TRAILS`.
-2. `tests/data-invariants.test.js` verrouille « 60 leçons », « `order` est
-   exactement [1..60] » et « 947 item-ids, aucun renommé ».
+2. `tests/data-invariants.test.js` verrouille « 65 leçons », « `order` est
+   exactement [1..65] » et « 1011 item-ids, aucun renommé ».
 3. `State.ensureLessonStatuses()` est une chaîne de déverrouillage **linéaire** :
    une histoire dedans bloquerait le sentier suivant.
 
@@ -420,7 +420,7 @@ d'écran annonce ainsi « qui parle » avant « ce qu'il dit ».
 
 Invariants de contenu dans `tests/stories.test.js` : `answers ⊆ options`,
 `wordBank ⊇ mots(pl)`, `answer ∈ options` + marqueur `_____`, ids **disjoints**
-des 947 item-ids (ils cohabitent dans la même map `localStorage`), et un test de
+des 1011 item-ids (ils cohabitent dans la même map `localStorage`), et un test de
 bout en bout qui vérifie que la bonne réponse de chaque épreuve est bien acceptée
 par `Exercises.check`.
 
@@ -440,7 +440,7 @@ générique, chaque badge a un sticker dédié (`public/assets/img/badge-<id>.pn
 même pipeline de génération que les personnages, cf. § plus haut) et sa propre
 condition. Les seuils `words-tier*`/`master-tier*` (mots rencontrés / mots en
 boîte 5) sont des **nombres choisis à la main**, pas un pourcentage dynamique
-du total réel d'items (884 aujourd'hui) : le calculer exigerait d'importer
+du total réel d'items (986 aujourd'hui) : le calculer exigerait d'importer
 `js/exercises.js` (`buildIndex`) dans `data/badges.js`, ce qui casserait le DAG
 (`badges` est en amont d'`exercises`). À l'inverse, `halfway`/`graduate`
 (moitié / totalité des leçons) et `all-stories` (toutes les histoires bonus)

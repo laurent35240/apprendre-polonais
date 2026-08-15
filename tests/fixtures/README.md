@@ -7,9 +7,9 @@ serait abandonnée par `State.validate()` (qui copie par liste blanche) tout en
 faisant échouer le test d'égalité octet. Ce fichier est donc le seul endroit où
 documenter les fixtures.
 
-## `item-ids.json` — 884 ids
+## `item-ids.json` — 1011 ids
 
-Instantané des ids de `data/lessons.js` (639 vocabulaire + 220 phrases + 25
+Instantané des ids de `data/lessons.js` (726 vocabulaire + 260 phrases + 25
 dialogues), dans l'ordre de déclaration et groupés par leçon. **Ce sont les clés
 de progression en localStorage** : renommer un id efface silencieusement
 l'historique SRS de ce mot chez l'utilisateur. Le test

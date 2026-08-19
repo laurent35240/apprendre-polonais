@@ -4044,5 +4044,595 @@ export const POLISH_LESSONS = [
       { id: "s-60-4", pl: "Większość mieszkańców popiera ochronę środowiska.", fr: "La majorité des habitants soutient la protection de l'environnement.", grammarFocus: "g-60-2",
         wordBank: ["Większość", "mieszkańców", "popiera", "ochronę", "środowiska"] }
     ]
+  },
+
+  /* ================ order 66 — Cuisine polonaise ====================== */
+  /* Sentier 14 « Le sentier de la culture ». Première leçon écrite avec les
+     quatre champs que le bloc B1/B2 précédent n'utilisait pas : `example` sur
+     le vocabulaire, un `dialogue`, une `reading` longue à questions polonaises,
+     et des `productions`. Les `wordBank` portent 3 à 4 distracteurs
+     grammaticaux (mauvais cas, mauvais aspect, mauvais accord). */
+  {
+    id: "lesson-66",
+    order: 66,
+    title: "Kuchnia polska — la cuisine et les recettes",
+    theme: "cuisine polonaise",
+    mascotIntro:
+      "Żubr noue son tablier : aujourd'hui on lit une vraie recette, et le polonais y transforme les verbes en noms. 🍲",
+    grammarNotes: [
+      {
+        id: "g-66-1",
+        title: "Les noms verbaux : gotować → gotowanie",
+        explanationFr:
+          "Le polonais transforme volontiers un verbe en nom neutre, en -anie / -enie / -cie : gotować → gotowanie, siekać → siekanie, dodać → dodanie, podać → podanie. C'est la tournure NORMALE là où le français emploie un verbe : « po dodaniu » (après avoir ajouté, po + locatif), « przed podaniem » (avant de servir, przed + instrumental), « do smażenia » (pour la friture). Le nom verbal se décline comme n'importe quel nom neutre.",
+        examples: [
+          { pl: "Po dodaniu śmietany zupa staje się gęstsza.", fr: "Après avoir ajouté la crème, la soupe devient plus épaisse.", note: "dodać → dodanie, au locatif après « po »" },
+          { pl: "Przed podaniem trzeba doprawić danie solą.", fr: "Avant de servir, il faut assaisonner le plat avec du sel.", note: "podać → podanie, à l'instrumental après « przed »" }
+        ]
+      },
+      {
+        id: "g-66-2",
+        title: "Les préverbes de la recette : pokroić, wymieszać, zagotować",
+        explanationFr:
+          "Une recette s'écrit au perfectif : chaque étape est une action menée à son terme. Le préverbe ne change pas que l'aspect, il précise le geste — po- : en morceaux ou un peu (kroić → pokroić) ; wy- : complètement (mieszać → wymieszać) ; za- : jusqu'au point de bascule (gotować → zagotować, porter à ébullition) ; pod- : légèrement (smażyć → podsmażyć, faire revenir) ; w- : vers l'intérieur (lać → wlać).",
+        examples: [
+          { pl: "Najpierw pokrój kapustę, a potem wymieszaj ją z mięsem.", fr: "D'abord coupe le chou, puis mélange-le complètement avec la viande.", note: "po- = en morceaux, wy- = à fond" },
+          { pl: "Zagotuj wodę i podsmaż cebulę na małym ogniu.", fr: "Porte l'eau à ébullition et fais revenir l'oignon à petit feu.", note: "za- = jusqu'à l'ébullition, pod- = légèrement" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-66-bigos", pl: "bigos", fr: "le bigos (chou braisé à la viande)", category: "plat",
+        example: { pl: "Bigos trzeba gotować kilka godzin.", fr: "Le bigos doit cuire plusieurs heures." } },
+      { id: "v-66-zurek", pl: "żurek", fr: "le żurek (soupe de seigle fermenté)", category: "plat",
+        example: { pl: "Żurek jest kwaśny i bardzo sycący.", fr: "Le żurek est acide et très nourrissant." } },
+      { id: "v-66-pierogi", pl: "pierogi", fr: "les pierogi (raviolis polonais)", category: "plat",
+        example: { pl: "Lepimy pierogi całą rodziną.", fr: "Nous façonnons les pierogi en famille." } },
+      { id: "v-66-kapusta", pl: "kapusta kwaszona", fr: "la choucroute", category: "ingrédient",
+        example: { pl: "Kapusta kwaszona daje bigosowi kwaśny smak.", fr: "La choucroute donne au bigos son goût acide." } },
+      { id: "v-66-skladnik", pl: "składnik", fr: "l'ingrédient", category: "objet",
+        example: { pl: "Najważniejszym składnikiem jest kapusta.", fr: "L'ingrédient le plus important est le chou." } },
+      { id: "v-66-przyprawa", pl: "przyprawa", fr: "l'épice / l'assaisonnement", category: "objet",
+        example: { pl: "Bez przypraw danie jest nudne.", fr: "Sans épices, le plat est fade." } },
+      { id: "v-66-nadzienie", pl: "nadzienie", fr: "la farce", category: "objet",
+        example: { pl: "Nadzienie robimy z twarogu i ziemniaków.", fr: "On fait la farce avec du fromage blanc et des pommes de terre." } },
+      { id: "v-66-doprawic", pl: "doprawić", fr: "assaisonner", category: "verbe",
+        example: { pl: "Doprawiłem zupę pieprzem.", fr: "J'ai assaisonné la soupe avec du poivre." } },
+      { id: "v-66-obierac", pl: "obierać", fr: "éplucher", category: "verbe",
+        example: { pl: "Nie lubię obierać ziemniaków.", fr: "Je n'aime pas éplucher les pommes de terre." } },
+      { id: "v-66-gotowanie", pl: "gotowanie", fr: "la cuisson / le fait de cuisiner", category: "nom verbal",
+        example: { pl: "Gotowanie bigosu wymaga cierpliwości.", fr: "La cuisson du bigos exige de la patience." } }
+    ],
+    sentences: [
+      { id: "s-66-1", pl: "Po ugotowaniu kapusty dodaj grzyby i gotuj jeszcze pół godziny.", fr: "Après avoir fait cuire le chou, ajoute les champignons et fais cuire encore une demi-heure.", grammarFocus: "g-66-1",
+        wordBank: ["Po", "ugotowaniu", "kapusty", "dodaj", "grzyby", "i", "gotuj", "jeszcze", "pół", "godziny", "ugotowaniem", "gotowaniu", "dodanie", "kapustę"] },
+      { id: "s-66-2", pl: "Przed podaniem żurku warto dodać jajko i białą kiełbasę.", fr: "Avant de servir le żurek, il vaut la peine d'ajouter un œuf et de la saucisse blanche.", grammarFocus: "g-66-1",
+        wordBank: ["Przed", "podaniem", "żurku", "warto", "dodać", "jajko", "i", "białą", "kiełbasę", "podaniu", "podać", "biała", "kiełbasa"] },
+      { id: "s-66-3", pl: "Pokrój cebulę w kostkę i podsmaż ją na maśle przez chwilę.", fr: "Coupe l'oignon en dés et fais-le revenir un instant dans le beurre.", grammarFocus: "g-66-2",
+        wordBank: ["Pokrój", "cebulę", "w", "kostkę", "i", "podsmaż", "ją", "na", "maśle", "przez", "chwilę", "krój", "smaż", "masło", "cebula"] },
+      { id: "s-66-4", pl: "Zagotuj wodę, a potem wymieszaj mąkę z zimną wodą.", fr: "Porte l'eau à ébullition, puis mélange la farine avec de l'eau froide.", grammarFocus: "g-66-2",
+        wordBank: ["Zagotuj", "wodę", "a", "potem", "wymieszaj", "mąkę", "z", "zimną", "wodą", "ugotuj", "mieszaj", "zimna", "mąka"] }
+    ],
+    dialogues: [
+      {
+        id: "d-66-1",
+        title: "Dans la cuisine de mamie",
+        lines: [
+          { who: "A", pl: "Babciu, jak zrobić prawdziwy bigos?", fr: "Mamie, comment fait-on un vrai bigos ?" },
+          { who: "B", pl: "Najpierw trzeba pokroić kapustę i podsmażyć mięso.", fr: "D'abord il faut couper le chou et faire revenir la viande." },
+          { who: "A", pl: "A kiedy dodać grzyby i suszone śliwki?", fr: "Et quand ajouter les champignons et les pruneaux ?" },
+          { who: "B", pl: "Po podsmażeniu mięsa, nigdy wcześniej.", fr: "Après avoir fait revenir la viande, jamais avant." },
+          { who: "A", pl: "Ile czasu to wszystko trwa?", fr: "Combien de temps tout cela prend-il ?" },
+          { who: "B", pl: "Dobry bigos wymaga długiego gotowania i cierpliwości.", fr: "Un bon bigos exige une longue cuisson et de la patience.",
+            target: true, wordBank: ["Dobry", "bigos", "wymaga", "długiego", "gotowania", "i", "cierpliwości", "długie", "gotowanie", "cierpliwość"] }
+        ]
+      }
+    ],
+    readings: [
+      {
+        id: "r-66-1",
+        title: "Bigos i żurek — dwa smaki Polski",
+        questionLang: "pl",
+        paragraphs: [
+          "Bigos to jedno z najbardziej znanych polskich dań, ale jego historia jest dłuższa, niż mogłoby się wydawać. Pierwsze przepisy pojawiły się już w XVI wieku, choć wtedy nie było w nim ani kapusty, ani kiszonych warzyw.",
+          "Dawny bigos składał się głównie z mięsa, octu i przypraw, które w tamtych czasach były bardzo drogie. Dopiero później, po dodaniu kapusty kwaszonej, danie stało się tańsze i trafiło na stoły zwykłych ludzi.",
+          "Dzisiaj każdy region ma własną wersję bigosu. Na Mazurach dodaje się suszone śliwki, na Śląsku znacznie więcej mięsa, a niektórzy kucharze wlewają do garnka kieliszek czerwonego wina. Spór o jedyny prawdziwy przepis nigdy się nie kończy.",
+          "Przygotowanie bigosu wymaga jednak przede wszystkim cierpliwości. Najpierw trzeba pokroić kapustę i podsmażyć mięso, a potem gotować wszystko razem przez kilka godzin na małym ogniu. Kto się spieszy, ten nigdy nie zrobi dobrego bigosu.",
+          "Polacy powtarzają, że bigos smakuje najlepiej trzeciego dnia. Po każdym odgrzewaniu smaki łączą się mocniej, dlatego nikt nie gotuje go tylko na jeden obiad.",
+          "Zupełnie inaczej wygląda żurek, kwaśna zupa z zakwasu żytniego. Przed podaniem wkłada się do niej jajko i białą kiełbasę, a w Wielkanoc wiele rodzin podaje ją w wydrążonym chlebie. Turyści często mówią, że to najdziwniejsza polska zupa, ale po pierwszej łyżce zmieniają zdanie."
+        ],
+        questions: [
+          { id: "rq-66-1", question: "Czego nie było w pierwszych przepisach na bigos?",
+            options: ["Kapusty i kiszonych warzyw", "Mięsa i octu", "Przypraw i soli"], answer: "Kapusty i kiszonych warzyw" },
+          { id: "rq-66-2", question: "Dlaczego bigos stał się tańszy?",
+            options: ["Ponieważ dodano do niego kapustę kwaszoną", "Ponieważ przyprawy potaniały", "Ponieważ zaczęto go gotować krócej"], answer: "Ponieważ dodano do niego kapustę kwaszoną" },
+          { id: "rq-66-3", question: "Co dodaje się do bigosu na Mazurach?",
+            options: ["Suszone śliwki", "Czerwone wino", "Znacznie więcej mięsa"], answer: "Suszone śliwki" },
+          { id: "rq-66-4", question: "Dlaczego bigos smakuje najlepiej trzeciego dnia?",
+            options: ["Bo po każdym odgrzewaniu smaki łączą się mocniej", "Bo kapusta staje się bardziej kwaśna", "Bo mięso jest wtedy bardziej miękkie"], answer: "Bo po każdym odgrzewaniu smaki łączą się mocniej" },
+          { id: "rq-66-5", question: "Jak wiele rodzin podaje żurek w Wielkanoc?",
+            options: ["W wydrążonym chlebie", "Z suszonymi śliwkami", "Bez jajka i kiełbasy"], answer: "W wydrążonym chlebie" }
+        ]
+      }
+    ],
+    productions: [
+      { id: "p-66-1", prompt: "Traduis avec un nom verbal après « po » : « Après avoir coupé le chou, ajoute la viande. »",
+        answers: ["Po pokrojeniu kapusty dodaj mięso.", "Po pokrojeniu kapusty dodajemy mięso.", "Po pokrojeniu kapusty należy dodać mięso."],
+        grammarFocus: "g-66-1", hint: "po + locatif du nom verbal (pokroić → pokrojenie)" },
+      { id: "p-66-2", prompt: "Traduis : « Avant de servir, assaisonne la soupe avec du sel. »",
+        answers: ["Przed podaniem dopraw zupę solą.", "Przed podaniem doprawiamy zupę solą.", "Przed podaniem należy doprawić zupę solą."],
+        grammarFocus: "g-66-1", hint: "przed + instrumental du nom verbal ; doprawić + accusatif + instrumental" },
+      { id: "p-66-3", prompt: "Traduis en trois ordres perfectifs : « Coupe l'oignon, fais revenir la viande et porte l'eau à ébullition. »",
+        answers: ["Pokrój cebulę, podsmaż mięso i zagotuj wodę.", "Pokrój cebulę, podsmaż mięso, zagotuj wodę."],
+        grammarFocus: "g-66-2", hint: "trois préverbes, trois gestes : po- / pod- / za-" }
+    ]
+  },
+
+  /* ================ order 67 — Littérature et Nobel =================== */
+  {
+    id: "lesson-67",
+    order: 67,
+    title: "Literatura i Nobel — la littérature polonaise",
+    theme: "littérature",
+    mascotIntro:
+      "Cinq Nobel de littérature pour un seul pays : Żubr t'emmène en bibliothèque, où tout est « écrit par » quelqu'un. 📚",
+    grammarNotes: [
+      {
+        id: "g-67-1",
+        title: "Le passif : został napisany przez…",
+        explanationFr:
+          "Le passif se construit avec zostać (perfectif : une action achevée) ou być (imperfectif : un état, un processus) + le participe passif. L'agent passe à « przez » + ACCUSATIF. « Pan Tadeusz został napisany przez Mickiewicza » = a été écrit par ; « Ta powieść jest czytana w szkołach » = est lu. Le participe s'accorde en genre et en nombre avec le sujet, comme un adjectif.",
+        examples: [
+          { pl: "Pan Tadeusz został napisany przez Mickiewicza.", fr: "Pan Tadeusz a été écrit par Mickiewicz.", note: "zostać + participe : action achevée, agent à « przez » + accusatif" },
+          { pl: "Ta powieść jest czytana w każdej szkole.", fr: "Ce roman est lu dans chaque école.", note: "być + participe : état ou processus" }
+        ]
+      },
+      {
+        id: "g-67-2",
+        title: "Le participe passif employé comme adjectif",
+        explanationFr:
+          "Le participe passif se forme en -ny / -ony / -ty : napisać → napisany, przetłumaczyć → przetłumaczony, nagrodzić → nagrodzony, otworzyć → otwarty. Il s'emploie exactement comme un adjectif : il se décline et s'accorde. « przetłumaczona powieść », « książkę napisaną przez… ». Piège du pluriel : des personnes masculines donnent « nagrodzeni pisarze », des choses donnent « nagrodzone książki ».",
+        examples: [
+          { pl: "Czytam powieść przetłumaczoną z francuskiego.", fr: "Je lis un roman traduit du français.", note: "powieść est féminin et à l'accusatif : przetłumaczoną" },
+          { pl: "Nagrodzeni pisarze przyjechali do Sztokholmu.", fr: "Les écrivains primés sont venus à Stockholm.", note: "pluriel masculin personnel : nagrodzeni, pas nagrodzone" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-67-powiesc", pl: "powieść", fr: "le roman", category: "objet",
+        example: { pl: "To najlepsza powieść tego roku.", fr: "C'est le meilleur roman de l'année." } },
+      { id: "v-67-wiersz", pl: "wiersz", fr: "le poème", category: "objet",
+        example: { pl: "Znam ten wiersz na pamięć.", fr: "Je connais ce poème par cœur." } },
+      { id: "v-67-poeta", pl: "poeta", fr: "le poète", category: "personne",
+        example: { pl: "Ten poeta pisze bardzo krótko.", fr: "Ce poète écrit très court." } },
+      { id: "v-67-pisarz", pl: "pisarz", fr: "l'écrivain", category: "personne",
+        example: { pl: "Pisarz podpisywał książki dwie godziny.", fr: "L'écrivain a dédicacé des livres pendant deux heures." } },
+      { id: "v-67-laureat", pl: "laureat", fr: "le lauréat", category: "personne",
+        example: { pl: "Laureat nie przyjechał na uroczystość.", fr: "Le lauréat n'est pas venu à la cérémonie." } },
+      { id: "v-67-nagroda", pl: "nagroda", fr: "le prix (récompense)", category: "objet",
+        example: { pl: "Ta nagroda zmieniła jej życie.", fr: "Ce prix a changé sa vie." } },
+      { id: "v-67-tlumaczenie", pl: "tłumaczenie", fr: "la traduction", category: "nom verbal",
+        example: { pl: "Tłumaczenie wiersza jest trudniejsze niż prozy.", fr: "Traduire un poème est plus difficile que de la prose." } },
+      { id: "v-67-wydawnictwo", pl: "wydawnictwo", fr: "la maison d'édition", category: "objet",
+        example: { pl: "Małe wydawnictwo odkryło tego autora.", fr: "Une petite maison d'édition a découvert cet auteur." } },
+      { id: "v-67-tworczosc", pl: "twórczość", fr: "l'œuvre (l'ensemble de la production)", category: "objet",
+        example: { pl: "Cała jego twórczość mieści się w jednym tomie.", fr: "Toute son œuvre tient dans un seul volume." } },
+      { id: "v-67-bohater", pl: "bohater", fr: "le héros / le personnage", category: "personne",
+        example: { pl: "Bohater tej książki nie ma imienia.", fr: "Le personnage de ce livre n'a pas de prénom." } }
+    ],
+    sentences: [
+      { id: "s-67-1", pl: "Ta nagroda została przyznana polskiej pisarce w dwa tysiące osiemnastym roku.", fr: "Ce prix a été décerné à une écrivaine polonaise en 2018.", grammarFocus: "g-67-1",
+        wordBank: ["Ta", "nagroda", "została", "przyznana", "polskiej", "pisarce", "w", "dwa", "tysiące", "osiemnastym", "roku", "przyznany", "przyznane", "pisarka", "osiemnasty"] },
+      { id: "s-67-2", pl: "Wiersze Szymborskiej są tłumaczone na wiele języków świata.", fr: "Les poèmes de Szymborska sont traduits dans de nombreuses langues du monde.", grammarFocus: "g-67-1",
+        wordBank: ["Wiersze", "Szymborskiej", "są", "tłumaczone", "na", "wiele", "języków", "świata", "zostały", "tłumaczeni", "języki", "jest"] },
+      { id: "s-67-3", pl: "Nagrodzona powieść została wydana przez małe krakowskie wydawnictwo.", fr: "Le roman primé a été publié par une petite maison d'édition de Cracovie.", grammarFocus: "g-67-2",
+        wordBank: ["Nagrodzona", "powieść", "została", "wydana", "przez", "małe", "krakowskie", "wydawnictwo", "nagrodzone", "wydany", "mały", "wydawnictwa"] },
+      { id: "s-67-4", pl: "Czytam teraz książkę napisaną przez polskiego laureata Nagrody Nobla.", fr: "Je lis en ce moment un livre écrit par un lauréat polonais du prix Nobel.", grammarFocus: "g-67-2",
+        wordBank: ["Czytam", "teraz", "książkę", "napisaną", "przez", "polskiego", "laureata", "Nagrody", "Nobla", "napisana", "napisany", "polski", "laureat"] }
+    ],
+    dialogues: [
+      {
+        id: "d-67-1",
+        title: "Que lire pour commencer ?",
+        lines: [
+          { who: "A", pl: "Kto z Polaków dostał Nobla za literaturę?", fr: "Qui, parmi les Polonais, a reçu le Nobel de littérature ?" },
+          { who: "B", pl: "Aż pięć osób, ostatnio Olga Tokarczuk.", fr: "Cinq personnes en tout, la dernière étant Olga Tokarczuk." },
+          { who: "A", pl: "Czy jej książki zostały przetłumaczone na francuski?", fr: "Ses livres ont-ils été traduits en français ?" },
+          { who: "B", pl: "Tak, prawie wszystkie są dostępne we Francji.", fr: "Oui, presque tous sont disponibles en France." },
+          { who: "A", pl: "A który tytuł polecasz na początek?", fr: "Et quel titre recommandes-tu pour commencer ?" },
+          { who: "B", pl: "Bieguni, powieść nagrodzona Bookerem i uwielbiana przez czytelników.", fr: "Les Pérégrins, un roman primé par le Booker et adoré des lecteurs.",
+            target: true, wordBank: ["Bieguni", "powieść", "nagrodzona", "Bookerem", "i", "uwielbiana", "przez", "czytelników", "nagrodzony", "uwielbiany", "Booker", "czytelnicy"] }
+        ]
+      }
+    ],
+    readings: [
+      {
+        id: "r-67-1",
+        title: "Pięć razy Nobel",
+        questionLang: "pl",
+        paragraphs: [
+          "Polska literatura została nagrodzona Noblem aż pięć razy, choć niewielu Polaków potrafi wymienić wszystkich laureatów. Pierwszym z nich był Henryk Sienkiewicz, uhonorowany w tysiąc dziewięćset piątym roku za całą swoją twórczość, a nie za jedną konkretną książkę.",
+          "Dziewiętnaście lat później nagrodę otrzymał Władysław Reymont za « Chłopów », wielką powieść o życiu polskiej wsi. Książka jest do dziś czytana w szkołach, choć uczniowie narzekają na jej długość.",
+          "Po długiej przerwie, w tysiąc dziewięćset osiemdziesiątym roku, Nobla dostał Czesław Miłosz. Poeta mieszkał wtedy w Stanach Zjednoczonych, a jego wiersze były w Polsce zakazane przez cenzurę.",
+          "Szesnaście lat później uhonorowano Wisławę Szymborską, autorkę krótkich, ironicznych wierszy. Poetka nie lubiła sławy i mówiła, że nagroda zniszczyła jej spokój. Mimo to jej tomiki zostały przetłumaczone na kilkadziesiąt języków.",
+          "Nagrodę za rok dwa tysiące osiemnasty otrzymała Olga Tokarczuk, choć ogłoszono ją dopiero rok później. Pisarka jest znana z powieści « Bieguni », nagrodzonej także brytyjską Nagrodą Bookera.",
+          "Ciekawe jest to, że tylko dwóch z pięciu laureatów pisało przede wszystkim wiersze, a pozostali prozę. Jeszcze ciekawsze, że aż dwie nagrody trafiły do kobiet, co w historii tej dziedziny nie jest częste. Polacy są z tego dumni, ale przyznają, że mało kto czyta dzisiaj Sienkiewicza dla przyjemności."
+        ],
+        questions: [
+          { id: "rq-67-1", question: "Za co Sienkiewicz dostał Nobla?",
+            options: ["Za całą swoją twórczość", "Za jedną konkretną powieść", "Za wiersze o polskiej wsi"], answer: "Za całą swoją twórczość" },
+          { id: "rq-67-2", question: "Dlaczego wiersze Miłosza nie były w Polsce dostępne?",
+            options: ["Bo zakazała ich cenzura", "Bo nie zostały przetłumaczone", "Bo poeta zabronił ich wydawać"], answer: "Bo zakazała ich cenzura" },
+          { id: "rq-67-3", question: "Co Szymborska mówiła o nagrodzie?",
+            options: ["Że zniszczyła jej spokój", "Że była jej największą radością", "Że powinna trafić do kogoś innego"], answer: "Że zniszczyła jej spokój" },
+          { id: "rq-67-4", question: "Kiedy ogłoszono nagrodę dla Olgi Tokarczuk?",
+            options: ["Rok po roku, za który ją przyznano", "W tym samym roku", "Dwa lata później"], answer: "Rok po roku, za który ją przyznano" },
+          { id: "rq-67-5", question: "Ilu laureatów pisało przede wszystkim wiersze?",
+            options: ["Dwóch", "Trzech", "Czterech"], answer: "Dwóch" }
+        ]
+      }
+    ],
+    productions: [
+      { id: "p-67-1", prompt: "Mets au passif avec « zostać » : « Mickiewicz napisał Pana Tadeusza. » → « Pan Tadeusz… »",
+        answers: ["Pan Tadeusz został napisany przez Mickiewicza."],
+        grammarFocus: "g-67-1", hint: "zostać + participe passif, agent à « przez » + accusatif" },
+      { id: "p-67-2", prompt: "Traduis : « Ces poèmes sont traduits dans de nombreuses langues. »",
+        answers: ["Te wiersze są tłumaczone na wiele języków.", "Te wiersze są przetłumaczone na wiele języków."],
+        grammarFocus: "g-67-1", hint: "być + participe passif, pluriel non-masculin-personnel" },
+      { id: "p-67-3", prompt: "Traduis : « Je lis un roman primé, traduit du polonais. »",
+        answers: ["Czytam nagrodzoną powieść przetłumaczoną z polskiego.", "Czytam nagrodzoną, przetłumaczoną z polskiego powieść."],
+        grammarFocus: "g-67-2", hint: "deux participes, accordés avec powieść à l'accusatif" }
+    ]
+  },
+
+  /* ================ order 68 — Chopin et la musique =================== */
+  {
+    id: "lesson-68",
+    order: 68,
+    title: "Chopin i muzyka — dates, siècles et participes",
+    theme: "musique",
+    mascotIntro:
+      "Une biographie, c'est des dates : Żubr apprend à les dire en toutes lettres, et à enchaîner deux actions d'un seul souffle. 🎹",
+    grammarNotes: [
+      {
+        id: "g-68-1",
+        title: "Les dates et les siècles : w tysiąc osiemset dziesiątym roku",
+        explanationFr:
+          "Une année se dit en toutes lettres et seul le DERNIER élément se décline, comme un adjectif ordinal : « w tysiąc osiemset dziesiątym roku » (en 1810, locatif après « w »). Le siècle s'écrit en chiffres romains mais se lit en ordinal : « w XIX wieku » = w dziewiętnastym wieku. Avec « od » (depuis) et « do » (jusqu'à), on passe au génitif : « od tysiąc osiemset trzydziestego pierwszego roku ».",
+        examples: [
+          { pl: "Chopin urodził się w tysiąc osiemset dziesiątym roku.", fr: "Chopin est né en 1810.", note: "seul « dziesiątym » se décline, au locatif" },
+          { pl: "Mieszkał w Paryżu od tysiąc osiemset trzydziestego pierwszego roku.", fr: "Il a vécu à Paris à partir de 1831.", note: "« od » + génitif : trzydziestego pierwszego" }
+        ]
+      },
+      {
+        id: "g-68-2",
+        title: "Les participes adverbiaux : grając, usłyszawszy",
+        explanationFr:
+          "Deux formes, INVARIABLES toutes les deux, dont le sujet est celui du verbe principal. Le simultané en -ąc (grać → grając, słuchać → słuchając, mieć → mając) dit « en faisant », pour deux actions en même temps. L'antérieur en -wszy / -łszy (usłyszeć → usłyszawszy, skomponować → skomponowawszy) dit « après avoir fait » : registre écrit, mais partout dans les biographies et les récits. On ne les conjugue jamais.",
+        examples: [
+          { pl: "Słuchając mazurka, wszyscy myśleli o Polsce.", fr: "En écoutant la mazurka, tous pensaient à la Pologne.", note: "-ąc : simultané, même sujet pour les deux verbes" },
+          { pl: "Skomponowawszy etiudę, wyjechał z Warszawy.", fr: "Après avoir composé l'étude, il quitta Varsovie.", note: "-wszy : antérieur, jamais conjugué" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-68-kompozytor", pl: "kompozytor", fr: "le compositeur", category: "personne",
+        example: { pl: "Ten kompozytor pisał tylko na fortepian.", fr: "Ce compositeur n'a écrit que pour le piano." } },
+      { id: "v-68-utwor", pl: "utwór", fr: "le morceau / l'œuvre musicale", category: "objet",
+        example: { pl: "Ten utwór trwa tylko dwie minuty.", fr: "Ce morceau ne dure que deux minutes." } },
+      { id: "v-68-koncert", pl: "koncert", fr: "le concert / le concerto", category: "objet",
+        example: { pl: "Koncert zaczyna się o dziewiętnastej.", fr: "Le concert commence à dix-neuf heures." } },
+      { id: "v-68-fortepian", pl: "fortepian", fr: "le piano (à queue)", category: "objet",
+        example: { pl: "Fortepian stoi w salonie od stu lat.", fr: "Le piano est dans le salon depuis cent ans." } },
+      { id: "v-68-orkiestra", pl: "orkiestra", fr: "l'orchestre", category: "objet",
+        example: { pl: "Orkiestra grała bez dyrygenta.", fr: "L'orchestre a joué sans chef." } },
+      { id: "v-68-mazurek", pl: "mazurek", fr: "la mazurka", category: "objet",
+        example: { pl: "Mazurek to taniec, ale też forma muzyczna.", fr: "La mazurka est une danse, mais aussi une forme musicale." } },
+      { id: "v-68-nagranie", pl: "nagranie", fr: "l'enregistrement", category: "nom verbal",
+        example: { pl: "To nagranie ma ponad sto lat.", fr: "Cet enregistrement a plus de cent ans." } },
+      { id: "v-68-publicznosc", pl: "publiczność", fr: "le public", category: "objet",
+        example: { pl: "Publiczność wstała i długo klaskała.", fr: "Le public s'est levé et a applaudi longtemps." } },
+      { id: "v-68-wykonanie", pl: "wykonanie", fr: "l'interprétation / l'exécution", category: "nom verbal",
+        example: { pl: "To wykonanie było zbyt szybkie.", fr: "Cette interprétation était trop rapide." } },
+      { id: "v-68-tesknota", pl: "tęsknota", fr: "la nostalgie / le mal du pays", category: "sentiment",
+        example: { pl: "W jego muzyce słychać tęsknotę.", fr: "On entend la nostalgie dans sa musique." } }
+    ],
+    sentences: [
+      { id: "s-68-1", pl: "Chopin dał swój pierwszy koncert w tysiąc osiemset osiemnastym roku.", fr: "Chopin a donné son premier concert en 1818.", grammarFocus: "g-68-1",
+        wordBank: ["Chopin", "dał", "swój", "pierwszy", "koncert", "w", "tysiąc", "osiemset", "osiemnastym", "roku", "osiemnasty", "osiemnastego", "pierwszego", "rok"] },
+      { id: "s-68-2", pl: "W dziewiętnastym wieku fortepian stał się najważniejszym instrumentem salonów.", fr: "Au XIXe siècle, le piano devint l'instrument le plus important des salons.", grammarFocus: "g-68-1",
+        wordBank: ["W", "dziewiętnastym", "wieku", "fortepian", "stał", "się", "najważniejszym", "instrumentem", "salonów", "dziewiętnasty", "wiek", "najważniejszy", "instrument"] },
+      { id: "s-68-3", pl: "Grając nocą, Chopin zapominał o swojej tęsknocie za krajem.", fr: "En jouant la nuit, Chopin oubliait sa nostalgie de son pays.", grammarFocus: "g-68-2",
+        wordBank: ["Grając", "nocą", "Chopin", "zapominał", "o", "swojej", "tęsknocie", "za", "krajem", "grał", "graniu", "tęsknota", "kraj"] },
+      { id: "s-68-4", pl: "Usłyszawszy pierwsze takty mazurka, publiczność natychmiast przestała rozmawiać.", fr: "Après avoir entendu les premières mesures de la mazurka, le public cessa immédiatement de parler.", grammarFocus: "g-68-2",
+        wordBank: ["Usłyszawszy", "pierwsze", "takty", "mazurka", "publiczność", "natychmiast", "przestała", "rozmawiać", "usłyszał", "słuchając", "mazurek", "publiczności"] }
+    ],
+    dialogues: [
+      {
+        id: "d-68-1",
+        title: "Le concert du parc Łazienki",
+        lines: [
+          { who: "A", pl: "Byłeś wczoraj na koncercie w Łazienkach?", fr: "Étais-tu au concert du parc Łazienki hier ?" },
+          { who: "B", pl: "Byłem i słuchając Chopina pod pomnikiem, prawie płakałem.", fr: "J'y étais, et en écoutant Chopin sous le monument, j'ai presque pleuré." },
+          { who: "A", pl: "Kto grał, znany pianista czy student?", fr: "Qui jouait, un pianiste connu ou un étudiant ?" },
+          { who: "B", pl: "Młoda Japonka, laureatka konkursu chopinowskiego.", fr: "Une jeune Japonaise, lauréate du concours Chopin." },
+          { who: "A", pl: "Podobno takie koncerty odbywają się tam od lat.", fr: "Il paraît que de tels concerts ont lieu là-bas depuis des années." },
+          { who: "B", pl: "Tak, w każdą niedzielę od tysiąc dziewięćset pięćdziesiątego dziewiątego roku.", fr: "Oui, chaque dimanche depuis 1959.",
+            target: true, wordBank: ["Tak", "w", "każdą", "niedzielę", "od", "tysiąc", "dziewięćset", "pięćdziesiątego", "dziewiątego", "roku", "pięćdziesiąty", "dziewiąty", "rok", "każdy"] }
+        ]
+      }
+    ],
+    readings: [
+      {
+        id: "r-68-1",
+        title: "Chopin — dziecko dwóch ojczyzn",
+        questionLang: "pl",
+        paragraphs: [
+          "Fryderyk Chopin urodził się w tysiąc osiemset dziesiątym roku w Żelazowej Woli, niedaleko Warszawy. Jego ojciec był Francuzem, a matka Polką, więc od dziecka słyszał w domu dwa języki.",
+          "Talent chłopca zauważono bardzo szybko. Mając osiem lat, zagrał swój pierwszy publiczny koncert, a warszawskie gazety pisały o nim jak o drugim Mozarcie.",
+          "W listopadzie tysiąc osiemset trzydziestego roku wyjechał z Polski, żeby pokazać się w Europie. Kilka tygodni później wybuchło powstanie listopadowe, a Chopin, słysząc o klęsce, nigdy już nie wrócił do kraju.",
+          "Osiadł w Paryżu, gdzie uczył bogatych uczniów i komponował. Nie napisał żadnej opery ani symfonii — całe życie pisał przede wszystkim na fortepian, instrument, który znał najlepiej. Krytycy zarzucali mu, że jego muzyka jest zbyt cicha dla wielkich sal.",
+          "Zmarł w tysiąc osiemset czterdziestym dziewiątym roku, mając zaledwie trzydzieści dziewięć lat. Jego ciało zostało pochowane w Paryżu, ale serce, zgodnie z jego wolą, przywieziono do Warszawy.",
+          "Dzisiaj jego nazwisko nosi lotnisko, konkurs pianistyczny i setki szkół muzycznych. W Łazienkach, w każdą letnią niedzielę, ktoś gra jego utwory pod pomnikiem, a publiczność siedzi na trawie i słucha w ciszy. Turyści pytają czasem, czy Chopin był Polakiem, czy Francuzem, a Polacy odpowiadają wtedy, że jego serce leży w Warszawie."
+        ],
+        questions: [
+          { id: "rq-68-1", question: "Dlaczego Chopin od dziecka słyszał w domu dwa języki?",
+            options: ["Bo jego ojciec był Francuzem, a matka Polką", "Bo rodzina często podróżowała po Europie", "Bo uczył się francuskiego w szkole"], answer: "Bo jego ojciec był Francuzem, a matka Polką" },
+          { id: "rq-68-2", question: "Ile lat miał Chopin, gdy zagrał pierwszy publiczny koncert?",
+            options: ["Osiem", "Dziesięć", "Dziewiętnaście"], answer: "Osiem" },
+          { id: "rq-68-3", question: "Co się stało kilka tygodni po jego wyjeździe z Polski?",
+            options: ["Wybuchło powstanie listopadowe", "Zmarła jego matka", "Zamknięto warszawskie teatry"], answer: "Wybuchło powstanie listopadowe" },
+          { id: "rq-68-4", question: "Czego Chopin nigdy nie napisał?",
+            options: ["Opery ani symfonii", "Mazurków ani polonezów", "Utworów na fortepian"], answer: "Opery ani symfonii" },
+          { id: "rq-68-5", question: "Co przywieziono do Warszawy zgodnie z wolą Chopina?",
+            options: ["Jego serce", "Jego ciało", "Jego fortepian"], answer: "Jego serce" }
+        ]
+      }
+    ],
+    productions: [
+      { id: "p-68-1", prompt: "Écris les années EN TOUTES LETTRES : « Il est né en 1810 et il est mort en 1849. »",
+        answers: ["Urodził się w tysiąc osiemset dziesiątym roku i zmarł w tysiąc osiemset czterdziestym dziewiątym roku.", "Urodził się w tysiąc osiemset dziesiątym roku, a zmarł w tysiąc osiemset czterdziestym dziewiątym roku."],
+        grammarFocus: "g-68-1", hint: "seul le dernier élément de l'année se décline, au locatif après « w »" },
+      { id: "p-68-2", prompt: "Traduis avec un participe en -ąc : « En écoutant cette mazurka, je pense à la Pologne. »",
+        answers: ["Słuchając tego mazurka, myślę o Polsce."],
+        grammarFocus: "g-68-2", hint: "-ąc : le sujet des deux actions est le même" },
+      { id: "p-68-3", prompt: "Traduis avec un participe antérieur en -wszy : « Après avoir entendu le concert, le public s'est levé. »",
+        answers: ["Usłyszawszy koncert, publiczność wstała.", "Usłyszawszy koncert, publiczność podniosła się."],
+        grammarFocus: "g-68-2", hint: "usłyszeć → usłyszawszy, forme invariable" }
+    ]
+  },
+
+  /* ================ order 69 — Le sport polonais ====================== */
+  {
+    id: "lesson-69",
+    order: 69,
+    title: "Sport po polsku — compter les gens et comparer",
+    theme: "sport",
+    mascotIntro:
+      "Trois sauteurs sur le podium, cinq supporters dans le froid : compter des personnes en polonais, c'est une grammaire à part. 🎿",
+    grammarNotes: [
+      {
+        id: "g-69-1",
+        title: "Compter des personnes : dwóch, trzech, pięciu",
+        explanationFr:
+          "Compter des hommes (ou un groupe mixte) impose une forme spéciale du numéral : dwóch / trzech / czterech / pięciu, avec le nom au GÉNITIF et le verbe au NEUTRE SINGULIER au passé — « Pięciu graczy wyszło z boiska. » La variante dwaj / trzej gracze wyszli existe et se conjugue normalement. Pour des femmes ou des choses, 2 à 4 se comportent normalement (« dwie zawodniczki wygrały »), mais à partir de 5 le nom repasse au génitif et le verbe au neutre : « pięć zawodniczek wygrało ».",
+        examples: [
+          { pl: "Dwóch zawodników opuściło boisko przed końcem meczu.", fr: "Deux joueurs ont quitté le terrain avant la fin du match.", note: "dwóch + génitif, verbe au neutre singulier" },
+          { pl: "Pięć zawodniczek zdobyło medale na mistrzostwach.", fr: "Cinq joueuses ont remporté des médailles au championnat.", note: "à partir de 5 : génitif + verbe neutre, même pour des femmes" }
+        ]
+      },
+      {
+        id: "g-69-2",
+        title: "Comparer plus finement : coraz… et im… tym…",
+        explanationFr:
+          "« coraz » + comparatif = de plus en plus : coraz lepiej, coraz szybciej, coraz mniej kibiców. La corrélation « plus…, plus… » se dit « im… tym… », avec un comparatif dans CHACUN des deux membres : « Im więcej trenuje, tym lepiej gra. » Deux tournures utiles à côté : « jak najlepiej » (le mieux possible) et le « niż » de la comparaison ordinaire.",
+        examples: [
+          { pl: "Ona gra coraz lepiej i coraz spokojniej.", fr: "Elle joue de mieux en mieux et de plus en plus calmement.", note: "coraz + comparatif de l'adverbe" },
+          { pl: "Im więcej trenuje, tym lepiej gra.", fr: "Plus il s'entraîne, mieux il joue.", note: "im… tym… : un comparatif de chaque côté" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-69-zawodnik", pl: "zawodnik", fr: "le sportif / le joueur", category: "sport",
+        example: { pl: "Ten zawodnik trenuje sześć dni w tygodniu.", fr: "Ce sportif s'entraîne six jours par semaine." } },
+      { id: "v-69-mecz", pl: "mecz", fr: "le match", category: "sport",
+        example: { pl: "Mecz został przerwany przez deszcz.", fr: "Le match a été interrompu par la pluie." } },
+      { id: "v-69-druzyna", pl: "drużyna", fr: "l'équipe", category: "sport",
+        example: { pl: "Cała drużyna przyjechała jednym autobusem.", fr: "Toute l'équipe est venue dans un seul bus." } },
+      { id: "v-69-mistrzostwa", pl: "mistrzostwa", fr: "le championnat", category: "sport",
+        example: { pl: "Mistrzostwa odbędą się w Krakowie.", fr: "Le championnat aura lieu à Cracovie." } },
+      { id: "v-69-zwyciestwo", pl: "zwycięstwo", fr: "la victoire", category: "sport",
+        example: { pl: "To zwycięstwo było zupełnie nieoczekiwane.", fr: "Cette victoire était totalement inattendue." } },
+      { id: "v-69-porazka", pl: "porażka", fr: "la défaite", category: "sport",
+        example: { pl: "Po tej porażce trener stracił pracę.", fr: "Après cette défaite, l'entraîneur a perdu son poste." } },
+      { id: "v-69-trener", pl: "trener", fr: "l'entraîneur", category: "personne",
+        example: { pl: "Trener nie rozmawia z dziennikarzami.", fr: "L'entraîneur ne parle pas aux journalistes." } },
+      { id: "v-69-kibic", pl: "kibic", fr: "le supporter", category: "personne",
+        example: { pl: "Kibice śpiewali przez cały mecz.", fr: "Les supporters ont chanté pendant tout le match." } },
+      { id: "v-69-rekord", pl: "rekord", fr: "le record", category: "sport",
+        example: { pl: "Ten rekord stoi od dwudziestu lat.", fr: "Ce record tient depuis vingt ans." } },
+      { id: "v-69-skocznia", pl: "skocznia", fr: "le tremplin (saut à ski)", category: "sport",
+        example: { pl: "Skocznia w Zakopanem jest najbardziej znana.", fr: "Le tremplin de Zakopane est le plus connu." } }
+    ],
+    sentences: [
+      { id: "s-69-1", pl: "Trzech polskich skoczków stanęło na podium w Zakopanem.", fr: "Trois sauteurs polonais sont montés sur le podium à Zakopane.", grammarFocus: "g-69-1",
+        wordBank: ["Trzech", "polskich", "skoczków", "stanęło", "na", "podium", "w", "Zakopanem", "trzej", "stanęli", "skoczkowie", "polscy"] },
+      { id: "s-69-2", pl: "Pięciu kibiców czekało pod stadionem od szóstej rano.", fr: "Cinq supporters attendaient devant le stade depuis six heures du matin.", grammarFocus: "g-69-1",
+        wordBank: ["Pięciu", "kibiców", "czekało", "pod", "stadionem", "od", "szóstej", "rano", "pięć", "czekali", "kibice", "szósta"] },
+      { id: "s-69-3", pl: "Nasza drużyna gra coraz lepiej, ale kibiców jest coraz mniej.", fr: "Notre équipe joue de mieux en mieux, mais il y a de moins en moins de supporters.", grammarFocus: "g-69-2",
+        wordBank: ["Nasza", "drużyna", "gra", "coraz", "lepiej", "ale", "kibiców", "jest", "coraz", "mniej", "lepszy", "mniejszy", "kibice", "dobrze"] },
+      { id: "s-69-4", pl: "Im dłużej trenujesz, tym łatwiej znosisz porażki i krytykę.", fr: "Plus tu t'entraînes longtemps, plus facilement tu supportes les défaites et la critique.", grammarFocus: "g-69-2",
+        wordBank: ["Im", "dłużej", "trenujesz", "tym", "łatwiej", "znosisz", "porażki", "i", "krytykę", "dłuższy", "łatwy", "porażka", "krytyka"] }
+    ],
+    dialogues: [
+      {
+        id: "d-69-1",
+        title: "Après la finale",
+        lines: [
+          { who: "A", pl: "Widziałeś finał mistrzostw w siatkówce?", fr: "As-tu vu la finale du championnat de volley ?" },
+          { who: "B", pl: "Oczywiście, dwóch naszych zawodników zdobyło ponad dwadzieścia punktów.", fr: "Bien sûr, deux de nos joueurs ont marqué plus de vingt points." },
+          { who: "A", pl: "Podobno trener odchodzi po tym sezonie.", fr: "Il paraît que l'entraîneur s'en va après cette saison." },
+          { who: "B", pl: "Szkoda, bo drużyna gra coraz spokojniej.", fr: "Dommage, car l'équipe joue de plus en plus calmement." },
+          { who: "A", pl: "Myślisz, że nowy trener będzie lepszy?", fr: "Tu penses que le nouvel entraîneur sera meilleur ?" },
+          { who: "B", pl: "Im więcej zmian, tym trudniej zbudować dobrą drużynę.", fr: "Plus il y a de changements, plus il est difficile de construire une bonne équipe.",
+            target: true, wordBank: ["Im", "więcej", "zmian", "tym", "trudniej", "zbudować", "dobrą", "drużynę", "trudny", "zmiany", "dobra", "drużyna"] }
+        ]
+      }
+    ],
+    readings: [
+      {
+        id: "r-69-1",
+        title: "Sport, który łączy Polaków",
+        questionLang: "pl",
+        paragraphs: [
+          "Polacy mówią, że ich narodowym sportem jest piłka nożna, ale wyniki bywają rozczarowujące. Znacznie częściej cieszą się z sukcesów w skokach narciarskich, siatkówce i tenisie.",
+          "Zimą całe rodziny siadają przed telewizorem, żeby obejrzeć konkurs skoków. Kiedy skacze Polak, ulice pustoszeją, a w oknach widać flagi. Najpierw bohaterem był Adam Małysz, potem Kamil Stoch, który zdobył trzy złote medale olimpijskie.",
+          "Siatkarze wygrali mistrzostwa świata dwa razy, w dwa tysiące czternastym i dwa tysiące osiemnastym roku. To sport zespołowy, w którym Polska od lat należy do najlepszych. Mecze siatkówki wypełniają hale, a bilety znikają w kilka minut.",
+          "Największą gwiazdą ostatnich lat jest jednak Iga Świątek, tenisistka, która kilka razy wygrała Rolanda Garrosa i długo była pierwsza na świecie. Im więcej wygrywa, tym więcej dziewczynek zapisuje się do klubów tenisowych.",
+          "W piłce nożnej wszystko kręci się wokół Roberta Lewandowskiego, najlepszego strzelca w historii kadry. Kibice powtarzają jednak, że jeden zawodnik nie zrobi z drużyny mistrza, i mają rację.",
+          "Ciekawe jest to, że Polacy najbardziej kochają sporty indywidualne, w których pojedynczy człowiek walczy sam. Może dlatego skoki i tenis budzą większe emocje niż mecze ligowe. Trener kadry siatkarzy powiedział kiedyś, że im mniej mówi się o drużynie, tym lepiej ona gra."
+        ],
+        questions: [
+          { id: "rq-69-1", question: "Z jakich sportów Polacy cieszą się częściej niż z piłki nożnej?",
+            options: ["Ze skoków, siatkówki i tenisa", "Z koszykówki i lekkoatletyki", "Z hokeja i pływania"], answer: "Ze skoków, siatkówki i tenisa" },
+          { id: "rq-69-2", question: "Ile złotych medali olimpijskich zdobył Kamil Stoch?",
+            options: ["Trzy", "Dwa", "Cztery"], answer: "Trzy" },
+          { id: "rq-69-3", question: "Kiedy siatkarze wygrali mistrzostwa świata?",
+            options: ["W dwa tysiące czternastym i osiemnastym roku", "W dwa tysiące dziesiątym i czternastym roku", "Tylko raz, w dwa tysiące osiemnastym roku"], answer: "W dwa tysiące czternastym i osiemnastym roku" },
+          { id: "rq-69-4", question: "Co się dzieje, im więcej wygrywa Iga Świątek?",
+            options: ["Więcej dziewczynek zapisuje się do klubów tenisowych", "Więcej ludzi kupuje bilety na mecze piłki nożnej", "Mniej Polaków interesuje się skokami"], answer: "Więcej dziewczynek zapisuje się do klubów tenisowych" },
+          { id: "rq-69-5", question: "Jakie sporty Polacy kochają najbardziej, według ostatniego akapitu?",
+            options: ["Sporty indywidualne", "Sporty zespołowe", "Sporty zimowe"], answer: "Sporty indywidualne" }
+        ]
+      }
+    ],
+    productions: [
+      { id: "p-69-1", prompt: "Traduis (il s'agit d'hommes) : « Trois joueurs ont quitté le terrain. »",
+        answers: ["Trzech zawodników opuściło boisko.", "Trzej zawodnicy opuścili boisko."],
+        grammarFocus: "g-69-1", hint: "trzech + génitif + verbe au neutre, ou la variante trzej + nominatif" },
+      { id: "p-69-2", prompt: "Traduis : « Cinq supporters attendaient devant le stade. »",
+        answers: ["Pięciu kibiców czekało pod stadionem."],
+        grammarFocus: "g-69-1", hint: "à partir de 5 : génitif et verbe au neutre singulier" },
+      { id: "p-69-3", prompt: "Traduis avec « im… tym… » : « Plus il s'entraîne longtemps, mieux il supporte la pression. »",
+        answers: ["Im dłużej trenuje, tym lepiej znosi presję."],
+        grammarFocus: "g-69-2", hint: "un comparatif dans chacun des deux membres" }
+    ]
+  },
+
+  /* ================ order 70 — Idiomes et humour (capstone) ============ */
+  {
+    id: "lesson-70",
+    order: 70,
+    title: "Powiedzenia i humor — diminutifs, idiomes et langue parlée",
+    theme: "idiomes",
+    mascotIntro:
+      "Dernière étape du sentier : Żubr t'offre une kawka et t'explique pourquoi son cirque n'est pas ton cirque. 🐒",
+    grammarNotes: [
+      {
+        id: "g-70-1",
+        title: "Les diminutifs : kawa → kawka → kaweczka",
+        explanationFr:
+          "Le polonais diminue tout, et pas pour parler de taille : -ek / -ka / -ko, renforcés en -eczek / -eczka (kawa → kawka → kaweczka, chwila → chwilka, piwo → piwko, książka → książeczka). Le diminutif marque l'AFFECTION ou la simple politesse : « Wpadnij na kawkę » n'annonce pas un petit café, mais une invitation amicale. Le genre du mot de base est conservé : kawka (féminin), chlebek (masculin), piwko (neutre). Piège social : la « mała prośba » du patron est rarement petite.",
+        examples: [
+          { pl: "Wpadnij na kawkę, mam chwilkę czasu.", fr: "Passe boire un petit café, j'ai un instant.", note: "kawka et chwilka : de l'affection, pas une taille" },
+          { pl: "Kup chlebek i małe piwko na wieczór.", fr: "Achète du pain et une petite bière pour ce soir.", note: "-ek au masculin, -ko au neutre" }
+        ]
+      },
+      {
+        id: "g-70-2",
+        title: "Idiomes, proverbes et langue parlée",
+        explanationFr:
+          "Un idiome ne se traduit jamais mot à mot : « bułka z masłem » (un petit pain beurré) = les doigts dans le nez ; « rzucać grochem o ścianę » (jeter des pois contre un mur) = parler dans le vide ; « nie mój cyrk, nie moje małpy » = ce n'est pas mon problème ; « czuć się jak ryba w wodzie » = être comme un poisson dans l'eau. À côté, le registre parlé a ses raccourcis, absents des manuels : spoko (tranquille), nara (salut), ogarnąć (gérer), dawać sobie radę (s'en sortir).",
+        examples: [
+          { pl: "Ten egzamin to była bułka z masłem.", fr: "Cet examen, c'était les doigts dans le nez.", note: "expression figée : ni le pain ni le beurre au sens propre" },
+          { pl: "Spokojnie, jakoś to ogarniemy.", fr: "Tranquille, on va gérer ça d'une manière ou d'une autre.", note: "ogarnąć : partout à l'oral, nulle part dans les manuels" }
+        ]
+      }
+    ],
+    vocabulary: [
+      { id: "v-70-bulka", pl: "bułka z masłem", fr: "les doigts dans le nez (litt. un petit pain beurré)", category: "idiome",
+        example: { pl: "Dla niej ten test to bułka z masłem.", fr: "Pour elle, ce test, c'est les doigts dans le nez." } },
+      { id: "v-70-groch", pl: "rzucać grochem o ścianę", fr: "parler dans le vide", category: "idiome",
+        example: { pl: "Rozmowa z nim to rzucanie grochem o ścianę.", fr: "Parler avec lui, c'est parler dans le vide." } },
+      { id: "v-70-cyrk", pl: "nie mój cyrk, nie moje małpy", fr: "ce n'est pas mon problème", category: "idiome",
+        example: { pl: "Niech sami decydują, nie mój cyrk, nie moje małpy.", fr: "Qu'ils décident eux-mêmes, ce n'est pas mon problème." } },
+      { id: "v-70-ryba", pl: "czuć się jak ryba w wodzie", fr: "être comme un poisson dans l'eau", category: "idiome",
+        example: { pl: "W Krakowie czuję się jak ryba w wodzie.", fr: "À Cracovie, je suis comme un poisson dans l'eau." } },
+      { id: "v-70-ogarnac", pl: "ogarnąć", fr: "gérer / s'occuper de (familier)", category: "familier",
+        example: { pl: "Nie martw się, ogarnę to do wieczora.", fr: "Ne t'inquiète pas, je gère ça avant ce soir." } },
+      { id: "v-70-spoko", pl: "spoko", fr: "tranquille / pas de souci (familier)", category: "familier",
+        example: { pl: "Spoko, nie musisz się spieszyć.", fr: "Tranquille, tu n'as pas besoin de te presser." } },
+      { id: "v-70-rada", pl: "dawać sobie radę", fr: "s'en sortir / se débrouiller", category: "familier",
+        example: { pl: "Sama daje sobie radę od lat.", fr: "Elle se débrouille seule depuis des années." } },
+      { id: "v-70-kawka", pl: "kawka", fr: "un petit café (affectueux)", category: "diminutif",
+        example: { pl: "Idziemy na kawkę po pracy?", fr: "On va boire un petit café après le travail ?" } },
+      { id: "v-70-chwilka", pl: "chwilka", fr: "un petit instant", category: "diminutif",
+        example: { pl: "Poczekaj chwilkę, zaraz wracam.", fr: "Attends un petit instant, je reviens tout de suite." } },
+      { id: "v-70-zdrobnienie", pl: "zdrobnienie", fr: "le diminutif", category: "grammaire",
+        example: { pl: "Polski kocha zdrobnienia.", fr: "Le polonais adore les diminutifs." } }
+    ],
+    sentences: [
+      { id: "s-70-1", pl: "Wpadnij wieczorem na kawkę, mam dla ciebie małą książeczkę.", fr: "Passe ce soir boire un petit café, j'ai un petit livre pour toi.", grammarFocus: "g-70-1",
+        wordBank: ["Wpadnij", "wieczorem", "na", "kawkę", "mam", "dla", "ciebie", "małą", "książeczkę", "kawa", "książka", "mały", "tobie"] },
+      { id: "s-70-2", pl: "Daj mi chwilkę, zrobię ci herbatkę i kanapeczkę.", fr: "Donne-moi un petit instant, je te fais un petit thé et un petit sandwich.", grammarFocus: "g-70-1",
+        wordBank: ["Daj", "mi", "chwilkę", "zrobię", "ci", "herbatkę", "i", "kanapeczkę", "chwila", "herbata", "kanapka", "tobie"] },
+      { id: "s-70-3", pl: "Ten egzamin to była bułka z masłem, spoko.", fr: "Cet examen, c'était les doigts dans le nez, tranquille.", grammarFocus: "g-70-2",
+        wordBank: ["Ten", "egzamin", "to", "była", "bułka", "z", "masłem", "spoko", "masło", "bułeczka", "był", "spokojnie"] },
+      { id: "s-70-4", pl: "Tłumaczenie mu tego to rzucanie grochem o ścianę.", fr: "Lui expliquer ça, c'est parler dans le vide.", grammarFocus: "g-70-2",
+        wordBank: ["Tłumaczenie", "mu", "tego", "to", "rzucanie", "grochem", "o", "ścianę", "groch", "ściana", "rzucać", "jemu"] }
+    ],
+    dialogues: [
+      {
+        id: "d-70-1",
+        title: "Ce n'est pas mon cirque",
+        lines: [
+          { who: "A", pl: "Jak ci poszedł ten trudny egzamin?", fr: "Comment s'est passé cet examen difficile ?" },
+          { who: "B", pl: "Spoko, bułka z masłem, naprawdę.", fr: "Tranquille, les doigts dans le nez, vraiment." },
+          { who: "A", pl: "A mówiłeś Markowi, żeby się uczył?", fr: "Et as-tu dit à Marek de réviser ?" },
+          { who: "B", pl: "Mówiłem, ale to było rzucanie grochem o ścianę.", fr: "Je le lui ai dit, mais c'était parler dans le vide." },
+          { who: "A", pl: "I co teraz z nim będzie?", fr: "Et qu'est-ce qui va lui arriver maintenant ?" },
+          { who: "B", pl: "Nie mój cyrk, nie moje małpy, jakoś sobie poradzi.", fr: "Ce n'est pas mon problème, il s'en sortira bien.",
+            target: true, wordBank: ["Nie", "mój", "cyrk", "nie", "moje", "małpy", "jakoś", "sobie", "poradzi", "moja", "małpa", "poradzę", "cyrku"] }
+        ]
+      }
+    ],
+    readings: [
+      {
+        id: "r-70-1",
+        title: "Dlaczego Polacy mówią zdrobnieniami?",
+        questionLang: "pl",
+        paragraphs: [
+          "Obcokrajowcy, którzy uczą się polskiego, szybko zauważają dziwną rzecz: Polacy zdrabniają prawie wszystko. Kawa staje się kawką, chwila chwilką, a piwo piwkiem, choć nikt nie ma na myśli mniejszej porcji.",
+          "Zdrobnienie nie mówi o rozmiarze, ale o nastawieniu mówiącego. « Wpadnij na kawkę » to zaproszenie do rozmowy, nie do wypicia małej kawy. Kelner, który pyta « herbatkę? », jest po prostu uprzejmy.",
+          "Bywa to jednak podstępne. Kiedy szef mówi, że ma « małą prośbę », często chodzi o pracę na całą sobotę. Im mniejsze zdrobnienie, tym większe zadanie, żartują pracownicy.",
+          "Druga pułapka to idiomy, których nie wolno tłumaczyć słowo w słowo. « Bułka z masłem » oznacza, że coś było bardzo łatwe, a « rzucać grochem o ścianę » znaczy, że mówimy do kogoś bez żadnego efektu.",
+          "Najbardziej lubiane jest chyba powiedzenie « nie mój cyrk, nie moje małpy », czyli « to nie moja sprawa ». Zrobiło ono karierę także za granicą, bo obcokrajowcy uważają je za wyjątkowo obrazowe.",
+          "Do tego dochodzi język potoczny, którego nie ma w podręcznikach. Spoko znaczy « w porządku », nara to « do zobaczenia », a ogarnąć znaczy « jakoś sobie z czymś poradzić ». Kto zrozumie zdanie « Spoko, ogarnę to na spokojnie », ten naprawdę zaczyna czuć się w polskim jak ryba w wodzie."
+        ],
+        questions: [
+          { id: "rq-70-1", question: "O czym mówi zdrobnienie w polskim?",
+            options: ["O nastawieniu mówiącego, nie o rozmiarze", "Zawsze o mniejszej porcji", "O tym, że mówimy do dziecka"], answer: "O nastawieniu mówiącego, nie o rozmiarze" },
+          { id: "rq-70-2", question: "Co często znaczy « mała prośba » szefa?",
+            options: ["Pracę na całą sobotę", "Krótkie zadanie na pięć minut", "Zaproszenie na kawę"], answer: "Pracę na całą sobotę" },
+          { id: "rq-70-3", question: "Co znaczy « rzucać grochem o ścianę »?",
+            options: ["Mówić do kogoś bez żadnego efektu", "Że coś jest bardzo łatwe", "Że ktoś się złości i krzyczy"], answer: "Mówić do kogoś bez żadnego efektu" },
+          { id: "rq-70-4", question: "Dlaczego powiedzenie o cyrku i małpach zrobiło karierę za granicą?",
+            options: ["Bo obcokrajowcy uważają je za obrazowe", "Bo pochodzi z angielskiego", "Bo używają go tylko młodzi ludzie"], answer: "Bo obcokrajowcy uważają je za obrazowe" },
+          { id: "rq-70-5", question: "Co znaczy « ogarnąć » w języku potocznym?",
+            options: ["Jakoś sobie z czymś poradzić", "Do zobaczenia", "W porządku"], answer: "Jakoś sobie z czymś poradzić" }
+        ]
+      }
+    ],
+    productions: [
+      { id: "p-70-1", prompt: "Traduis avec des diminutifs : « Passe boire un petit café, j'ai un petit instant. »",
+        answers: ["Wpadnij na kawkę, mam chwilkę.", "Wpadnij na kawkę, mam chwilkę czasu."],
+        grammarFocus: "g-70-1", hint: "kawa → kawka, chwila → chwilka" },
+      { id: "p-70-2", prompt: "Traduis en utilisant un idiome : « Cet examen, c'était les doigts dans le nez. »",
+        answers: ["Ten egzamin to była bułka z masłem.", "Ten egzamin był bułką z masłem."],
+        grammarFocus: "g-70-2", hint: "bułka z masłem, expression figée" },
+      { id: "p-70-3", prompt: "Traduis en registre familier : « Tranquille, je vais gérer ça. »",
+        answers: ["Spoko, ogarnę to.", "Spoko, jakoś to ogarnę."],
+        grammarFocus: "g-70-2", hint: "spoko + ogarnąć au futur perfectif" }
+    ]
   }
 ];

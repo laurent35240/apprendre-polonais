@@ -26,6 +26,15 @@ const lignesDialogue = dialogues.flatMap((d) =>
 const grammarNotes = POLISH_LESSONS.flatMap((l) =>
   (l.grammarNotes || []).map((g) => ({ ...g, _lesson: l.id }))
 );
+const readings = POLISH_LESSONS.flatMap((l) =>
+  (l.readings || []).map((r) => ({ ...r, _lesson: l.id }))
+);
+const questionsLecture = readings.flatMap((r) =>
+  r.questions.map((q) => ({ ...q, _reading: r.id }))
+);
+const productions = POLISH_LESSONS.flatMap((l) =>
+  (l.productions || []).map((pr) => ({ ...pr, _lesson: l.id }))
+);
 const tousLesIds = [
   ...vocab.map((v) => v.id),
   ...sentences.map((s) => s.id),
@@ -37,22 +46,22 @@ const mots = (s) => Speech.normalize(s).split(/\s+/).filter(Boolean);
 
 /* ------------------------------ structure ---------------------------- */
 describe("structure", () => {
-  it("65 leçons, ids uniques", () => {
-    expect(POLISH_LESSONS).toHaveLength(65);
-    expect(new Set(POLISH_LESSONS.map((l) => l.id)).size).toBe(65);
+  it("70 leçons, ids uniques", () => {
+    expect(POLISH_LESSONS).toHaveLength(70);
+    expect(new Set(POLISH_LESSONS.map((l) => l.id)).size).toBe(70);
   });
 
-  it("1011 item-ids au total, tous uniques", () => {
-    expect(vocab).toHaveLength(726);
-    expect(sentences).toHaveLength(260);
-    expect(dialogues).toHaveLength(25);
-    expect(tousLesIds).toHaveLength(1011);
-    expect(new Set(tousLesIds).size).toBe(1011);
+  it("1086 item-ids au total, tous uniques", () => {
+    expect(vocab).toHaveLength(776);
+    expect(sentences).toHaveLength(280);
+    expect(dialogues).toHaveLength(30);
+    expect(tousLesIds).toHaveLength(1086);
+    expect(new Set(tousLesIds).size).toBe(1086);
   });
 
-  it("order est exactement [1..65]", () => {
+  it("order est exactement [1..70]", () => {
     const ordres = POLISH_LESSONS.map((l) => l.order).sort((a, b) => a - b);
-    expect(ordres).toEqual(Array.from({ length: 65 }, (_, i) => i + 1));
+    expect(ordres).toEqual(Array.from({ length: 70 }, (_, i) => i + 1));
   });
 
   it("chaque leçon a 4 phrases et 2 notes de grammaire", () => {
@@ -60,8 +69,8 @@ describe("structure", () => {
       expect(l.sentences, l.id).toHaveLength(4);
       expect(l.grammarNotes, l.id).toHaveLength(2);
     }
-    expect(sentences).toHaveLength(260);
-    expect(grammarNotes).toHaveLength(130);
+    expect(sentences).toHaveLength(280);
+    expect(grammarNotes).toHaveLength(140);
   });
 
   it("les champs obligatoires sont présents partout", () => {
@@ -95,7 +104,7 @@ describe("dialogues", () => {
       expect(cibles[0].wordBank, d.id).toBeTruthy();
     }
     // makeDialogue retourne null sans cible, et session.js l'ignore en silence.
-    expect(dialogues).toHaveLength(25);
+    expect(dialogues).toHaveLength(30);
   });
 
   it("la cible est la dernière ligne, et c'est B qui parle", () => {
@@ -117,7 +126,7 @@ describe("dialogues", () => {
 
 /* ------------------------------- wordBank ---------------------------- */
 describe("wordBank", () => {
-  // 269 exercices « build » : 244 phrases + 25 répliques cibles.
+  // 310 exercices « build » : 280 phrases + 30 répliques cibles.
   const casBuild = [
     ...sentences.map((s) => ({ id: s.id, pl: s.pl, bank: s.wordBank })),
     ...dialogues.map((d) => {
@@ -126,8 +135,8 @@ describe("wordBank", () => {
     })
   ];
 
-  it("couvre tous les mots normalisés de pl (285 cas) — sinon l'exercice est insoluble", () => {
-    expect(casBuild).toHaveLength(285);
+  it("couvre tous les mots normalisés de pl (310 cas) — sinon l'exercice est insoluble", () => {
+    expect(casBuild).toHaveLength(310);
     for (const c of casBuild) {
       const banque = c.bank.map((w) => Speech.normalize(w));
       for (const m of mots(c.pl))
@@ -158,7 +167,7 @@ describe("grammaire", () => {
         n++;
       }
     }
-    expect(n).toBe(260);
+    expect(n).toBe(280);
   });
 
   it("toutes les notes de grammaire sont référencées (réciproque)", () => {
@@ -196,6 +205,139 @@ describe("hygiène textuelle", () => {
   it("les phrases et répliques finissent par une ponctuation", () => {
     for (const s of sentences) expect(s.pl, s.id).toMatch(/[.!?]$/);
     for (const li of lignesDialogue) expect(li.pl, li._dialogue).toMatch(/[.!?]$/);
+  });
+});
+
+/* ------------- le standard de difficulté du sentier 14 --------------- */
+/* Invariant VOLONTAIREMENT limité aux leçons d'order >= 66. Les 36 phrases des
+   orders 57 à 65 n'ont aucun distracteur — leur `build` n'est qu'une remise en
+   ordre — et les corriger rétroactivement changerait un contenu déjà appris.
+   La borne fixe donc le standard pour tout ce qui s'écrit désormais, sans
+   réécrire le passé. Le jour où les orders 57-65 sont enrichis, il suffit de
+   descendre la borne. */
+describe("difficulté des leçons B1/B2 (order >= 66)", () => {
+  const DEPUIS = 66;
+  const casRecents = POLISH_LESSONS.filter((l) => l.order >= DEPUIS).flatMap((l) => [
+    ...l.sentences.map((sn) => ({ id: sn.id, pl: sn.pl, bank: sn.wordBank })),
+    ...(l.dialogues || []).map((d) => {
+      const t = d.lines.find((li) => li.target);
+      return { id: d.id, pl: t.pl, bank: t.wordBank };
+    })
+  ]);
+
+  it("au moins 3 distracteurs par exercice à tuiles", () => {
+    expect(casRecents.length).toBeGreaterThan(0);
+    for (const c of casRecents)
+      expect(
+        c.bank.length - mots(c.pl).length,
+        `${c.id} : ${c.bank.length} tuiles pour ${mots(c.pl).length} mots`
+      ).toBeGreaterThanOrEqual(3);
+  });
+
+  it("chaque leçon porte un dialogue, une lecture longue et des productions", () => {
+    for (const l of POLISH_LESSONS.filter((x) => x.order >= DEPUIS)) {
+      expect(l.dialogues, l.id).toHaveLength(1);
+      expect(l.readings, l.id).toHaveLength(1);
+      expect(l.productions.length, l.id).toBeGreaterThanOrEqual(3);
+      expect(l.readings[0].questions.length, l.id).toBeGreaterThanOrEqual(5);
+      // Un « texte long » au sens du niveau visé, pas un paragraphe de 45 mots
+      // comme les 3 lectures historiques.
+      const nbMots = l.readings[0].paragraphs.join(" ").split(/\s+/).length;
+      expect(nbMots, `${l.readings[0].id} : ${nbMots} mots`).toBeGreaterThanOrEqual(180);
+      for (const v of l.vocabulary) expect(v.example, v.id).toBeTruthy();
+    }
+  });
+});
+
+/* ------------------- lectures et productions libres ------------------ */
+/* Ces deux champs sont optionnels sur une leçon et n'étaient couverts par
+   AUCUN test : c'est précisément pourquoi ils avaient été oubliés en écrivant
+   le premier bloc B1/B2. Leurs ids cohabitent avec les item-ids dans la même
+   map `localStorage`, d'où le test de disjonction — le même raisonnement que
+   pour les ids d'épreuve d'histoire. */
+describe("lectures (readings)", () => {
+  it("8 lectures, 35 questions, ids uniques", () => {
+    expect(readings).toHaveLength(8);
+    expect(questionsLecture).toHaveLength(35);
+    expect(new Set(readings.map((r) => r.id)).size).toBe(readings.length);
+    expect(new Set(questionsLecture.map((q) => q.id)).size).toBe(questionsLecture.length);
+  });
+
+  it("chaque lecture a un titre et des paragraphes non vides", () => {
+    for (const r of readings) {
+      expect(r.title, r.id).toBeTruthy();
+      expect(r.paragraphs.length, r.id).toBeGreaterThan(0);
+      expect(r.questions.length, r.id).toBeGreaterThan(0);
+      for (const par of r.paragraphs) {
+        expect(par, r.id).toBeTruthy();
+        expect(par, r.id).toBe(par.trim());
+        expect(par, `${r.id} : « ${par} »`).toMatch(/[.!?]$/);
+      }
+    }
+  });
+
+  it("questionLang, s'il est présent, vaut pl ou fr", () => {
+    for (const r of readings)
+      if (r.questionLang !== undefined)
+        expect(["pl", "fr"], r.id).toContain(r.questionLang);
+  });
+
+  it("answer ∈ options, et les options sont distinctes", () => {
+    // Sans ça la question est insoluble : makeReading passe `answer` à check(),
+    // qui le compare à l'option cliquée.
+    for (const q of questionsLecture) {
+      expect(q.question, q.id).toBeTruthy();
+      expect(q.options.length, q.id).toBeGreaterThanOrEqual(2);
+      expect(new Set(q.options.map((o) => Speech.normalize(o))).size, q.id).toBe(
+        q.options.length
+      );
+      expect(q.options, `${q.id} : answer hors options`).toContain(q.answer);
+    }
+  });
+});
+
+describe("productions libres (write)", () => {
+  it("28 productions, ids uniques", () => {
+    expect(productions).toHaveLength(28);
+    expect(new Set(productions.map((pr) => pr.id)).size).toBe(productions.length);
+  });
+
+  it("prompt non vide et au moins une réponse acceptée", () => {
+    for (const pr of productions) {
+      expect(pr.prompt, pr.id).toBeTruthy();
+      expect(pr.answers.length, pr.id).toBeGreaterThan(0);
+      for (const a of pr.answers) {
+        expect(a, pr.id).toBeTruthy();
+        expect(a, pr.id).toBe(a.trim());
+      }
+      // Deux réponses qui se normalisent pareil sont un doublon inutile : la
+      // ponctuation et la casse sont déjà retirées par normalize().
+      expect(new Set(pr.answers.map((a) => Speech.normalize(a))).size, pr.id).toBe(
+        pr.answers.length
+      );
+    }
+  });
+
+  it("grammarFocus résout vers une note de la MÊME leçon", () => {
+    for (const l of POLISH_LESSONS) {
+      const ids = new Set((l.grammarNotes || []).map((g) => g.id));
+      for (const pr of l.productions || [])
+        expect(ids, `${pr.id} → ${pr.grammarFocus}`).toContain(pr.grammarFocus);
+    }
+  });
+});
+
+describe("ids hors-SRS", () => {
+  it("les ids de lecture et de production sont disjoints des item-ids", () => {
+    // Ils vivent dans la même map `localStorage` que les clés SRS : une
+    // collision écraserait la progression sur un mot.
+    const srs = new Set(tousLesIds);
+    for (const id of [
+      ...readings.map((r) => r.id),
+      ...questionsLecture.map((q) => q.id),
+      ...productions.map((pr) => pr.id)
+    ])
+      expect(srs.has(id), `${id} collisionne avec un item-id`).toBe(false);
   });
 });
 

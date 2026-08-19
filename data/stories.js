@@ -392,5 +392,125 @@ export const POLISH_STORIES = [
         }
       }
     ]
+  },
+
+  /* ==================== Sentier 14 — la culture ======================= */
+  /* Capstone du sentier 14. Elle rejoue volontairement ce que les leçons
+     66-70 viennent d'enseigner : participes adverbiaux (słuchając,
+     usłyszawszy), numéraux personnels (trzech krytyków), diminutifs (kawka,
+     ciastka), corrélation im… tym…, et deux tournures familières (spoko,
+     dawać sobie radę). Les répliques sont plus longues que dans les deux
+     premières histoires : le niveau visé est B1/B2, pas A2. */
+  {
+    id: "story-4-filharmonia",
+    trailIndex: 13,
+    icon: "🎻",
+    title: "Wieczór w filharmonii",
+    titleFr: "Une soirée à la philharmonie",
+    mascotIntro:
+      "Bocian a des billets, Żubr préférerait un match : suis-les jusqu'au dernier mazurek. 🎻",
+    scenes: [
+      {
+        lines: [
+          { who: "N", pl: "W piątkowy wieczór Żubr dostał od Bociana dwa bilety na koncert chopinowski.", fr: "Un vendredi soir, Żubr reçut de Bocian deux billets pour un concert Chopin." },
+          { who: "Ż", pl: "Skąd masz te bilety? Podobno wszystkie zniknęły w kilka minut.", fr: "D'où sors-tu ces billets ? Il paraît qu'ils ont tous disparu en quelques minutes." },
+          { who: "B", pl: "Kupiłem je w listopadzie, mając wtedy więcej cierpliwości niż teraz.", fr: "Je les ai achetés en novembre, ayant alors plus de patience que maintenant." },
+          { who: "Ż", pl: "Czyli od pół roku wiedziałeś i nic mi nie powiedziałeś?", fr: "Donc tu savais depuis six mois et tu ne m'as rien dit ?" },
+          { who: "B", pl: "Chciałem zrobić ci niespodziankę, a ty i tak zawsze narzekasz.", fr: "Je voulais te faire une surprise, et de toute façon tu te plains toujours." }
+        ],
+        step: {
+          kind: "quiz",
+          id: "st-4-quiz1",
+          question: "Co jest prawdą o biletach? Wybierz dwie odpowiedzi.",
+          questionFr: "Qu'est-ce qui est vrai à propos des billets ? Choisis deux réponses.",
+          options: [
+            "Bocian kupił je w listopadzie",
+            "Bocian wiedział o koncercie od pół roku",
+            "Żubr kupił bilety sam",
+            "Bilety były darmowe"
+          ],
+          answers: ["Bocian kupił je w listopadzie", "Bocian wiedział o koncercie od pół roku"]
+        }
+      },
+      {
+        lines: [
+          { who: "N", pl: "Przed wejściem do filharmonii stała długa kolejka, a wszyscy byli elegancko ubrani.", fr: "Devant l'entrée de la philharmonie, il y avait une longue file, et tous étaient élégamment habillés." },
+          { who: "O", pl: "Cześć! Nie wiedziałem, że interesujecie się muzyką klasyczną.", fr: "Salut ! Je ne savais pas que vous vous intéressiez à la musique classique." },
+          { who: "Ż", pl: "Bocian mnie zmusił. Ja wolałbym dzisiaj mecz siatkówki.", fr: "Bocian m'a forcé. Moi, j'aurais préféré un match de volley aujourd'hui." },
+          { who: "O", pl: "Szkoda, bo dziś gra laureatka konkursu chopinowskiego z Japonii.", fr: "Dommage, car aujourd'hui joue la lauréate japonaise du concours Chopin." },
+          { who: "B", pl: "Trzech krytyków napisało, że jej mazurki są najlepsze od lat.", fr: "Trois critiques ont écrit que ses mazurkas sont les meilleures depuis des années." },
+          { who: "Ż", pl: "Dobrze, dobrze, przekonaliście mnie. Wchodzimy do środka.", fr: "Bon, bon, vous m'avez convaincu. Nous entrons." }
+        ],
+        step: {
+          kind: "build",
+          id: "st-4-b1",
+          who: "Ż",
+          pl: "Kupię jeszcze program i małą kawkę w bufecie.",
+          fr: "Je vais encore acheter un programme et un petit café au buffet.",
+          wordBank: ["Kupię", "jeszcze", "program", "i", "małą", "kawkę", "w", "bufecie", "kawa", "mały", "bufet", "kupiłem"]
+        }
+      },
+      {
+        lines: [
+          { who: "N", pl: "Światła zgasły i na scenę weszła młoda pianistka w czarnej sukni.", fr: "Les lumières s'éteignirent et une jeune pianiste en robe noire entra sur scène." },
+          { who: "B", pl: "Cisza! Zaczyna się. Wyłącz wreszcie ten telefon.", fr: "Silence ! Ça commence. Éteins enfin ce téléphone." },
+          { who: "Ż", pl: "Już wyłączam. Nie krzycz na mnie przy wszystkich.", fr: "Je l'éteins déjà. Ne me crie pas dessus devant tout le monde." },
+          { who: "O", pl: "Słuchając pierwszych taktów, zapomniałem o całym tygodniu.", fr: "En écoutant les premières mesures, j'ai oublié toute la semaine." },
+          { who: "N", pl: "Publiczność siedziała bez ruchu przez ponad czterdzieści minut.", fr: "Le public resta immobile pendant plus de quarante minutes." }
+        ],
+        step: {
+          kind: "gap",
+          id: "st-4-gap1",
+          who: "Ż",
+          sentence: "_____ tego mazurka, myślałem o mojej babci.",
+          fr: "_____ cette mazurka, je pensais à ma grand-mère.",
+          answer: "Słuchając",
+          options: ["Słuchając", "Słuchałem", "Słuchać"]
+        }
+      },
+      {
+        lines: [
+          { who: "N", pl: "W przerwie wszyscy wyszli do bufetu, gdzie kolejka była jeszcze dłuższa.", fr: "À l'entracte, tous sortirent au buffet, où la file était encore plus longue." },
+          { who: "Ż", pl: "Bułka z masłem, mówiłeś? Ta kolejka nigdy się nie skończy.", fr: "Les doigts dans le nez, disais-tu ? Cette file ne finira jamais." },
+          { who: "B", pl: "Spoko, mam już dwie kawki i trzy ciastka. Ogarnąłem to wcześniej.", fr: "Tranquille, j'ai déjà deux petits cafés et trois gâteaux. J'ai géré ça avant." },
+          { who: "O", pl: "Bocian, jesteś niemożliwy. Skąd wiedziałeś, że będzie taki tłum?", fr: "Bocian, tu es impossible. Comment savais-tu qu'il y aurait une telle foule ?" },
+          { who: "B", pl: "Im ładniejszy program, tym więcej ludzi. To prosta zasada.", fr: "Plus le programme est beau, plus il y a de monde. C'est une règle simple." },
+          { who: "Ż", pl: "Przyznaję, dzisiaj naprawdę dałeś sobie radę.", fr: "Je l'admets, aujourd'hui tu t'es vraiment bien débrouillé." }
+        ],
+        step: {
+          kind: "quiz",
+          id: "st-4-quiz2",
+          question: "Dlaczego Bocian nie musiał stać w kolejce?",
+          questionFr: "Pourquoi Bocian n'a-t-il pas eu à faire la queue ?",
+          options: [
+            "Bo kupił kawy i ciastka wcześniej",
+            "Bo bufet był już zamknięty",
+            "Bo nie chciał niczego jeść",
+            "Bo Orzeł wszystko mu przyniósł"
+          ],
+          answers: ["Bo kupił kawy i ciastka wcześniej"]
+        }
+      },
+      {
+        lines: [
+          { who: "N", pl: "Po koncercie publiczność wstała i klaskała przez kilka minut.", fr: "Après le concert, le public se leva et applaudit pendant plusieurs minutes." },
+          { who: "O", pl: "Usłyszawszy ostatni mazurek, prawie zapomniałem, gdzie jestem.", fr: "Après avoir entendu la dernière mazurka, j'ai presque oublié où j'étais." },
+          { who: "Ż", pl: "Nie powiem tego głośno, ale było lepiej niż na meczu.", fr: "Je ne le dirai pas à voix haute, mais c'était mieux qu'au match." },
+          { who: "B", pl: "Zapisałem to sobie. Powtórzę ci te słowa w sobotę.", fr: "Je l'ai noté. Je te répéterai ces mots samedi." },
+          { who: "Ż", pl: "Dobrze, dobrze. Następny raz bilety kupuję ja.", fr: "Bon, bon. La prochaine fois, c'est moi qui achète les billets." }
+        ],
+        step: {
+          kind: "match",
+          id: "st-4-match1",
+          pairs: [
+            { pl: "publiczność", fr: "le public" },
+            { pl: "wykonanie", fr: "l'interprétation" },
+            { pl: "kolejka", fr: "la file d'attente" },
+            { pl: "spoko", fr: "tranquille (familier)" },
+            { pl: "dawać sobie radę", fr: "s'en sortir" }
+          ]
+        }
+      }
+    ]
   }
 ];

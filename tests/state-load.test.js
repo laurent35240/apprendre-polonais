@@ -131,7 +131,7 @@ describe("chargement de la fixture réaliste", () => {
     // lesson-62..65 (géographie/histoire/politique/religion, orders 61-64)
     // suivent lesson-59 (order 60), `locked` dans cette fixture → elles aussi
     // `locked`, d'où +4 par rapport à avant leur insertion.
-    expect(parStatut).toEqual({ completed: 29, available: 8, locked: 28 });
+    expect(parStatut).toEqual({ completed: 29, available: 8, locked: 33 });
   });
 
   it("rolloverDay est un no-op : todayDate vaut déjà l'ancre", () => {

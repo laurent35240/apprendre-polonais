@@ -7,9 +7,9 @@ serait abandonnée par `State.validate()` (qui copie par liste blanche) tout en
 faisant échouer le test d'égalité octet. Ce fichier est donc le seul endroit où
 documenter les fixtures.
 
-## `item-ids.json` — 1011 ids
+## `item-ids.json` — 1086 ids
 
-Instantané des ids de `data/lessons.js` (726 vocabulaire + 260 phrases + 25
+Instantané des ids de `data/lessons.js` (776 vocabulaire + 280 phrases + 30
 dialogues), dans l'ordre de déclaration et groupés par leçon. **Ce sont les clés
 de progression en localStorage** : renommer un id efface silencieusement
 l'historique SRS de ce mot chez l'utilisateur. Le test
@@ -69,7 +69,7 @@ au chargement. Les tests de rollover avancent l'horloge eux-mêmes.
 | `items[].box` | verbatim | Préserve `{1:32, 2:114, 3:217, 4:93, 5:7}`, d'où découlent les badges |
 | `items[].dueDate`, `lastSeen` | **− 149 j** | Étalement conservé : 285 des 463 items sont dus à l'ancre |
 | `items[].seenCount`, `correctCount` | verbatim | Champs morts, mais la forme persistée ne change pas |
-| `lessons` (51 entrées) | verbatim | 29 `completed`, 6 `available`, 16 `locked`, `bestScore` inclus. `lesson-19` est `locked` (son prédécesseur par `order` courant, `lesson-44`, ne l'est pas) — c'est délibéré : la fixture doit rester cohérente avec `order`, sinon `ensureLessonStatuses()` la corrige au chargement et casse le test d'égalité octet |
+| `lessons` (70 entrées) | verbatim, complétée à chaque ajout de leçon | 29 `completed`, 8 `available`, 33 `locked`, `bestScore` inclus. `lesson-19` est `locked` (son prédécesseur par `order` courant, `lesson-44`, ne l'est pas) — c'est délibéré : la fixture doit rester cohérente avec `order`, sinon `ensureLessonStatuses()` la corrige au chargement et casse le test d'égalité octet |
 | `profile.totalXP`, `level` | verbatim (10750, 22) | |
 | `profile.createdAt` | normalisé | Un horodatage à la milliseconde trahit une habitude |
 | `streak`, `dailyGoal`, `badges`, `flags`, `settings` | verbatim, dates décalées | |
@@ -80,7 +80,7 @@ au chargement. Les tests de rollover avancent l'horloge eux-mêmes.
 - **Les 6 badges sont exactement ceux que les 17 `check()` accordent.** Les
   non accordés le sont pour de bonnes raisons : `master-tier1` exige 50 items
   en boîte 5 et il y en a **7** ; `halfway`/`graduate` exigent respectivement
-  la moitié et la totalité des leçons (60), et il y en a 29 de `completed` ;
+  la moitié et la totalité des leçons (70), et il y en a 29 de `completed` ;
   `streak-7`/`streak-30`/`streak-100` exigent plus que 5 ;
   `first-story`/`all-stories` exigent une histoire bonus terminée, absente de
   la fixture. Ce test prouve la cohérence de la fixture *et* couvre les 17
@@ -90,7 +90,7 @@ au chargement. Les tests de rollover avancent l'horloge eux-mêmes.
 
 ## `state-v1-fresh.json` — état précoce, taillé pour la chaîne de déverrouillage
 
-3 items, 5 entrées `lessons` seulement (les 35 autres doivent être créées au
+3 items, 9 entrées `lessons` seulement (les 61 autres doivent être créées au
 chargement), `lesson-01` à `lesson-04` terminées.
 
 **Le cas discriminant** : `lesson-04` a `order` 4. `ensureLessonStatuses()` doit

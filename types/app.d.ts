@@ -104,6 +104,13 @@ interface Reading {
   id: string;
   title: string;
   paragraphs: string[];
+  /**
+   * Langue de `question` et de `options` — le passage, lui, est toujours en
+   * polonais. Absent = `"fr"`, la forme des 3 premières lectures : on teste la
+   * compréhension sans ajouter de difficulté de lecture. `"pl"` est le régime
+   * B1/B2, où la question fait elle aussi partie de l'épreuve.
+   */
+  questionLang?: "pl" | "fr";
   questions: ReadingQuestion[];
 }
 

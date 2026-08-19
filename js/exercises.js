@@ -315,18 +315,21 @@ function makeCloze(entry) {
  * @returns {ReadingExercise}
  */
 function makeReading(reading, question, autoPlay) {
-  // Le texte est en polonais (avec écoute) ; la question et les options sont
-  // en français, pour évaluer la compréhension du texte plutôt que la
-  // traduction — comme une épreuve de compréhension écrite classique.
+  // Le passage est toujours en polonais (avec écoute). La langue de la question
+  // et des options, elle, appartient à la donnée : `questionLang: "fr"` (le
+  // défaut) évalue la compréhension du texte sans y ajouter une difficulté de
+  // lecture, façon épreuve de compréhension écrite classique ; `"pl"` fait de la
+  // question une partie de l'épreuve, ce qu'exige le niveau B1/B2.
+  var qLang = reading.questionLang || "fr";
   /** @type {ReadingExercise} */
   var ex = {
     type: "reading",
     itemId: question.id,
     passage: reading.paragraphs,
     promptText: question.question,
-    promptLang: "fr",
+    promptLang: qLang,
     answer: question.answer,
-    answerLang: "fr",
+    answerLang: qLang,
     audioText: reading.paragraphs.join(" "),
     options: shuffle(question.options),
     instruction: reading.title

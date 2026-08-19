@@ -39,8 +39,8 @@ const mots = (s) => Speech.normalize(s).split(/\s+/).filter(Boolean);
 
 /* ------------------------------ structure ---------------------------- */
 describe("structure des histoires", () => {
-  it("2 histoires, ids uniques", () => {
-    expect(POLISH_STORIES).toHaveLength(2);
+  it("3 histoires, ids uniques", () => {
+    expect(POLISH_STORIES).toHaveLength(3);
     expect(new Set(POLISH_STORIES.map((s) => s.id)).size).toBe(POLISH_STORIES.length);
   });
 

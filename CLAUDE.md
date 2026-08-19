@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 npm install
 npm run dev        # http://localhost:5173/apprendre-polonais/  (PAS la racine /)
-npm test           # 353 tests (+ 10 it.skip volontaires), ~1,8 s
+npm test           # 375 tests, aucun ignoré, ~1,5 s
 npm run typecheck  # tsc --noEmit, DOIT valoir 0
 npm run build      # dist/
 npm run preview    # http://localhost:4173/apprendre-polonais/
@@ -78,14 +78,18 @@ vert d'anti-aliasing, encore visible sur `zubr-head.png`).
 `State.todayStr()` utilise l'heure locale et la CI tourne en UTC.
 
 `tests/data-invariants.test.js` vérifie ce que TypeScript ne peut pas exprimer
-(unicité des 1011 ids, « exactement une ligne `target` » par dialogue,
-`wordBank ⊇ mots(pl)`, clés étrangères `grammarFocus`…). Ses **10 `it.skip`**
-documentent des invariants qui échouent aujourd'hui : c'est de la dette
-assumée, avec le chiffre exact et la raison en commentaire. Ne pas les
-« réparer » sans décision produit — notamment `[VOULU] le tableau est trié par
-order`, qui doit rester rouge.
+(unicité des 1086 ids, « exactement une ligne `target` » par dialogue,
+`wordBank ⊇ mots(pl)`, clés étrangères `grammarFocus`, `answer ∈ options` des
+lectures…). Il n'y a **aucun `it.skip`** : tout ce qui est écrit doit passer.
 
-`tests/fixtures/item-ids.json` fige les 1011 ids. Ce sont les **clés SRS en
+Un seul de ses invariants est **volontairement borné à `order >= 66`** — « au
+moins 3 distracteurs par exercice à tuiles » et « dialogue + lecture longue +
+3 productions par leçon ». Les 36 phrases des orders 57 à 65 n'ont aucun
+distracteur, et les corriger rétroactivement changerait un contenu déjà appris :
+la borne fixe le standard pour la suite sans réécrire le passé. La descendre est
+la bonne manœuvre le jour où ce bloc est enrichi.
+
+`tests/fixtures/item-ids.json` fige les 1086 ids. Ce sont les **clés SRS en
 localStorage** : renommer un id efface la progression de l'utilisateur sur ce
 mot, et ce fichier rend l'accident visible en revue.
 
@@ -347,8 +351,8 @@ existantes l'imposent — ne pas essayer de les contourner :
 1. `js/app.js` découpe les leçons triées en paquets **rigides de 5**
    (`TRAIL_SIZE`) : une leçon insérée décale tous les sentiers suivants et
    désynchronise les libellés du tableau `TRAILS`.
-2. `tests/data-invariants.test.js` verrouille « 65 leçons », « `order` est
-   exactement [1..65] » et « 1011 item-ids, aucun renommé ».
+2. `tests/data-invariants.test.js` verrouille « 70 leçons », « `order` est
+   exactement [1..70] » et « 1086 item-ids, aucun renommé ».
 3. `State.ensureLessonStatuses()` est une chaîne de déverrouillage **linéaire** :
    une histoire dedans bloquerait le sentier suivant.
 
@@ -420,7 +424,7 @@ d'écran annonce ainsi « qui parle » avant « ce qu'il dit ».
 
 Invariants de contenu dans `tests/stories.test.js` : `answers ⊆ options`,
 `wordBank ⊇ mots(pl)`, `answer ∈ options` + marqueur `_____`, ids **disjoints**
-des 1011 item-ids (ils cohabitent dans la même map `localStorage`), et un test de
+des 1086 item-ids (ils cohabitent dans la même map `localStorage`), et un test de
 bout en bout qui vérifie que la bonne réponse de chaque épreuve est bien acceptée
 par `Exercises.check`.
 
@@ -428,9 +432,64 @@ par `Exercises.check`.
 
 All pedagogical content lives in `data/lessons.js`. To add or fix vocabulary/grammar, edit only that file. Item `id` values (e.g. `v-11-...`) must remain stable — they are the SRS keys in localStorage.
 
-**`wordBank` field on sentences:** used by the `build` exercise (reconstruct the sentence from tiles). It should contain the real sentence words **plus optional distractors** (wrong but plausible alternatives). The `cloze` exercise (fill-in-the-blank) always derives its words from `sentence.pl` directly — distractors in `wordBank` are ignored there.
+**`wordBank` field on sentences:** used by the `build` exercise (reconstruct the sentence from tiles). It should contain the real sentence words **plus distractors** (wrong but plausible alternatives). The `cloze` exercise (fill-in-the-blank) always derives its words from `sentence.pl` directly — distractors in `wordBank` are ignored there.
+
+Les distracteurs sont le seul levier de difficulté de cet exercice : sans eux, le
+`build` n'est qu'une remise en ordre. Depuis l'`order` 66 le standard est de **3
+à 4 pièges grammaticaux** par phrase (mauvais cas, mauvais aspect, accord de
+genre ou de nombre, forme verbale concurrente, préposition concurrente), et un
+test le vérifie. Quatre contraintes à respecter, toutes verrouillées :
+
+- `wordBank ⊇` mots normalisés de `pl`, et au moins autant de jetons que de mots
+  — sinon l'exercice est **insoluble**, sans erreur en production.
+- Aucun jeton ponctué : la virgule de `pl` ne se retrouve pas dans la tuile.
+- ⚠️ Un jeton normalisé ne peut apparaître **plus souvent que dans la phrase**.
+  `Speech.normalize` passe en **minuscules** : un distracteur `w` est donc
+  interdit si la phrase commence par `W`. À l'inverse les diacritiques sont
+  **conservés**, donc `którą` vs `która` est un couple légitime — et c'est
+  précisément le genre de piège recherché.
+- Si la phrase contient deux fois le même mot (`coraz … coraz`), la banque doit
+  le contenir deux fois, sinon la reconstitution est impossible.
+
+Il n'y a **aucun plafond** de tuiles : `appendWordBankPicker` rend tout ce qu'on
+met dans la banque. Mesuré à 15 tuiles, le repli sur 3 lignes reste propre.
 
 **`dialogues` field on a lesson (optional):** powers the `dialogue` exercise (reconstruct one reply of a mini-dialogue in context). Shape: `{ id, title, lines: [{ who: "A"|"B", pl, fr, target?, wordBank? }] }`. Exactly **one** line must have `target: true` — that's the reply the learner rebuilds from a tile bank (`wordBank` follows the same real-words-plus-distractors rule as `build`; the correct tiles in order must equal the target `pl` after `normalize`). The other lines are shown as context bubbles with audio. Reuses the `build` answer-checking path (`js/exercises.js` `check`). Rendered by `renderDialogue` (`js/app.js`), styled `.dialogue*` (`css/styles.css`).
+
+**`readings` field on a lesson (optional):** powers the `reading` exercise
+(compréhension écrite). Shape: `{ id, title, paragraphs: string[], questionLang?:
+"pl"|"fr", questions: [{ id, question, options, answer }] }`. `js/session.js`
+génère **un exercice par question**, si bien que le passage reste affiché d'une
+question à l'autre — c'est voulu, on doit pouvoir y revenir. `answer` doit être
+strictement l'une des `options` (verrouillé par `data-invariants`).
+
+- `questionLang` gouverne la langue de la **question et des options** (le passage
+  est toujours en polonais). Absent = `"fr"`, la forme des 3 lectures
+  historiques ; `"pl"` est le régime B1/B2 du sentier 14, où la question fait
+  elle aussi partie de l'épreuve. Il alimente `promptLang`/`answerLang` dans
+  `makeReading`, donc les classes CSS `.prompt-text.pl` / `.option.pl`.
+- ⚠️ L'**auto-lecture** est réservée aux passages courts
+  (`AUTOPLAY_MAX_WORDS` = 80, `js/session.js`) : sur un texte de ~220 mots elle
+  lancerait ~90 s de TTS qu'on ne peut pas couper. Le bouton d'écoute reste là.
+
+**`productions` field on a lesson (optional):** powers the `write` exercise —
+saisie libre au clavier, l'exercice le plus dur du jeu. Shape :
+`{ id, prompt, answers: string[], grammarFocus, hint? }`. `answers` doit lister
+**toutes** les variantes acceptables (ordre des mots, pronom explicite ou non,
+synonyme) : `check()` teste `acceptedAnswers.some(...)` après `normalize`, qui
+retire la ponctuation et la casse mais **garde les diacritiques**. Deux réponses
+qui se normalisent pareil sont donc un doublon inutile, et le test le refuse. Si
+une variante légitime est refusée en jouant, enrichir `answers` — jamais
+assouplir le contrôle.
+
+⚠️ **Les ids `rq-*` (questions de lecture) et `p-*` (productions) ne sont PAS des
+clés SRS**, comme les ids d'épreuve d'histoire : `Exercises.buildIndex()` ne
+parcourt que `vocabulary` et `sentences`. `js/exercise-renderers.js` les route
+donc vers `Progress.storyAnswerRecorded` (XP seul). Le garde vit là et pas dans
+`progress.js`, qui est **en amont** d'`exercises.js` dans le DAG et ne peut pas
+interroger l'index. Sans lui, `buildReviewSession` — qui tronque à 15 **avant**
+de filtrer les ids irrésolubles — verrait ces ids voler des places de révision.
+Une sauvegarde d'avant le correctif peut encore en contenir : ils sont inertes.
 
 **Speech recognition and numbers:** `js/speech.js` `normalize()` converts Arabic digits to Polish words before scoring (e.g. "18" → "osiemnaście"), because the Web Speech API often returns digits for spoken numbers.
 
@@ -461,10 +520,21 @@ manœuvre est mécanique mais touche plusieurs fichiers — c'est la
 `POLISH_LESSONS` restant dans son désordre physique (la nouvelle leçon va en
 fin de tableau).
 
+**Le cas facile, à préférer quand la pédagogie le permet** : ajouter **5 leçons
+en fin de parcours** avec des `order` neufs. Rien à renuméroter, aucune leçon
+reverrouillée, et le total reste un multiple de 5 — c'est ainsi que le sentier 14
+(orders 66-70) a été ajouté. Les étapes 2 et 4 ci-dessous tombent alors, et
+l'étape 5 se limite à ajouter les nouvelles clés.
+
 1. **Écrire le bloc** : `order` cible, **exactement 4** `sentences` et **2**
    `grammarNotes` (les deux référencées par un `grammarFocus`), vocabulaire avec
    `category` non vide. Vérifier que le point de grammaire employé est **déjà
    enseigné** à cet `order` — c'est la seule chose qu'aucun test ne détecte.
+   Au-delà de l'`order` 65, la leçon doit en plus porter `example` sur chaque
+   entrée de vocabulaire, **1 `dialogues`**, **1 `readings`** (texte long,
+   ≥ 180 mots, 5 questions, `questionLang: "pl"`), **3 `productions`** et
+   **3 à 4 distracteurs** par `wordBank` : c'est le standard testé du sentier 14,
+   et ce qui distingue une leçon B1/B2 d'une leçon A2 rallongée.
 2. **Renuméroter** l'`order` des leçons suivantes (+1 par leçon insérée avant
    elles). Ne pas toucher aux `id`.
 3. **Préférer un total multiple de 5** : `TRAIL_SIZE` découpe en paquets rigides,
@@ -480,9 +550,11 @@ fin de tableau).
    est `completed`, sinon `locked`) — sinon le test d'égalité **octet pour
    octet** rougit, `load()` ajoutant la clé manquante.
 6. **Mettre à jour les compteurs codés en dur** : `data-invariants.test.js`
-   (leçons, vocab, phrases, dialogues, ids, notes, cas `build`),
-   `exercises.test.js`, `state-corruption.test.js`, et la répartition des
-   statuts dans `state-load.test.js`.
+   (leçons, vocab, phrases, dialogues, ids, notes, cas `build`, lectures,
+   questions de lecture, productions), `exercises.test.js` (dialogues, cas
+   `build`, questions de lecture, productions), `state-corruption.test.js`, et la
+   répartition des statuts dans `state-load.test.js`. Le plus simple est de
+   lancer `npm test` : chaque compteur faux nomme sa valeur attendue.
 
 ⚠️ Insérer une leçon **reverrouille** la leçon `available` non commencée qui la
 suit désormais (`ensureLessonStatuses` recalcule sur l'`order` courant). C'est

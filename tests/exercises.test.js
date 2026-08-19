@@ -1,6 +1,7 @@
 /* =====================================================================
    EXERCISES — génération et correction. Le test le plus précieux du fichier
-   est le dernier : il vérifie que les 245 exercices « build » du corpus sont
+   sont ceux de « résolubilité du corpus » : ils vérifient que les 310 exercices
+   « build », les 35 questions de lecture et les 28 productions du corpus sont
    RÉSOLUBLES, à travers le vrai code de correction — donc immunisé contre une
    divergence entre la logique du test et celle de la prod.
    ===================================================================== */
@@ -84,9 +85,9 @@ describe("dialogue", () => {
     ).toBeNull();
   });
 
-  it("sur les 25 dialogues réels : answer = pl de la cible, bank non vide", () => {
+  it("sur les 30 dialogues réels : answer = pl de la cible, bank non vide", () => {
     const dialogues = POLISH_LESSONS.flatMap((l) => l.dialogues || []);
-    expect(dialogues).toHaveLength(25);
+    expect(dialogues).toHaveLength(30);
     for (const d of dialogues) {
       const ex = Exercises.makeDialogue(d);
       const cible = d.lines.find((li) => li.target);
@@ -137,7 +138,7 @@ describe("résolubilité du corpus", () => {
   // reconstituer la phrase dans l'ordre depuis wordBank doit être accepté par
   // le vrai check(). Un wordBank incomplet rendrait l'exercice impossible à
   // valider, sans qu'aucune erreur ne soit levée en production.
-  it("les 285 exercices build/dialogue sont tous résolubles", () => {
+  it("les 310 exercices build/dialogue sont tous résolubles", () => {
     const cas = [
       ...sentences.map((s) => ({ id: s.id, type: "build", pl: s.pl, bank: s.wordBank })),
       ...POLISH_LESSONS.flatMap((l) => l.dialogues || []).map((d) => {
@@ -145,7 +146,7 @@ describe("résolubilité du corpus", () => {
         return { id: d.id, type: "dialogue", pl: t.pl, bank: t.wordBank };
       })
     ];
-    expect(cas).toHaveLength(285);
+    expect(cas).toHaveLength(310);
 
     const insolubles = [];
     for (const c of cas) {
@@ -162,6 +163,40 @@ describe("résolubilité du corpus", () => {
       if (!Exercises.check({ type: c.type, answer: c.pl }, clique))
         insolubles.push(c.id);
     }
+    expect(insolubles).toEqual([]);
+  });
+
+  it("les 35 questions de lecture sont toutes résolubles", () => {
+    // Même principe : la bonne réponse déclarée doit être acceptée par le vrai
+    // check(), à travers makeReading — qui mélange les options et, depuis
+    // `questionLang`, peut les servir en polonais.
+    const insolubles = [];
+    let n = 0;
+    for (const l of POLISH_LESSONS)
+      for (const r of l.readings || [])
+        for (const q of r.questions) {
+          n++;
+          const ex = Exercises.makeReading(r, q);
+          if (!Exercises.check(ex, q.answer)) insolubles.push(q.id);
+          // La langue déclarée doit se propager jusqu'à l'exercice, sinon la
+          // question polonaise s'afficherait avec la typographie française.
+          if (ex.promptLang !== (r.questionLang || "fr")) insolubles.push(q.id + "/lang");
+        }
+    expect(n).toBe(35);
+    expect(insolubles).toEqual([]);
+  });
+
+  it("les 28 productions libres sont toutes résolubles, sur chaque variante", () => {
+    const insolubles = [];
+    let n = 0;
+    for (const l of POLISH_LESSONS)
+      for (const pr of l.productions || []) {
+        n++;
+        const ex = Exercises.makeWrite(pr);
+        for (const a of pr.answers)
+          if (!Exercises.check(ex, a)) insolubles.push(pr.id + " ← " + a);
+      }
+    expect(n).toBe(28);
     expect(insolubles).toEqual([]);
   });
 });

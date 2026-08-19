@@ -73,6 +73,11 @@ function earlierSeenIds(currentOrder) {
   return ids;
 }
 
+// Seuil d'auto-lecture d'un passage de compréhension, en mots. Les 3 premières
+// lectures du corpus font 45 à 55 mots : elles restent auto-lues. Les textes
+// B1/B2 (~220 mots) passent au-dessus et attendent un clic.
+var AUTOPLAY_MAX_WORDS = 80;
+
 // Construit une session pour une leçon.
 /**
  * @param {string} lessonId
@@ -112,10 +117,17 @@ function buildLessonSession(lessonId) {
     if (ex) out.push(ex);
   });
 
-  // 2c) Compréhension de texte : une question par lecture
+  // 2c) Compréhension de texte : une question par lecture — le passage reste
+  // donc affiché d'une question à l'autre, ce qui est exactement ce qu'il faut
+  // pour y revenir.
+  // L'auto-lecture ne vaut que pour un passage COURT : sur les textes B1/B2 de
+  // ~220 mots, elle lancerait ~90 s de TTS à l'ouverture de l'exercice, qu'on
+  // ne peut pas couper autrement qu'en répondant. Le bouton d'écoute reste
+  // évidemment disponible dans tous les cas.
   (lesson.readings || []).forEach(function (r) {
+    var court = r.paragraphs.join(" ").split(/\s+/).length <= AUTOPLAY_MAX_WORDS;
     (r.questions || []).forEach(function (q, i) {
-      out.push(E.makeReading(r, q, i === 0));
+      out.push(E.makeReading(r, q, i === 0 && court));
     });
   });
 

@@ -1151,12 +1151,21 @@ function recordAndFeedback(ex, correct, _score, customMsg) {
   // Une transaction unique. `session.xp` reste ici : c'est un compteur en
   // mémoire, non persisté — le sortir dans progress.js mélangerait les
   // responsabilités.
-  // Les épreuves d'histoire passent par une intention distincte : leurs ids ne
-  // sont pas des clés SRS (cf. Progress.storyAnswerRecorded).
-  var res =
-    session.meta.kind === "story"
-      ? Progress.storyAnswerRecorded(correct)
-      : Progress.answerRecorded(ex.itemId, correct);
+  // Certaines réponses ne sont PAS des clés SRS et passent par l'intention
+  // XP-seule : les épreuves d'histoire (ids `st-*`), mais aussi les questions
+  // de compréhension (`rq-*`) et les productions libres (`p-*`). Aucun de ces
+  // ids n'existe dans l'index d'exercices (`Exercises.buildIndex` ne parcourt
+  // que `vocabulary` et `sentences`), donc les enregistrer créerait du poids
+  // mort dans localStorage et dans Firestore — et pire : `buildReviewSession`
+  // tronque à 15 AVANT de filtrer les ids irrésolubles, si bien qu'ils
+  // mangeraient des places de révision.
+  // Le garde vit ici et pas dans progress.js, qui est en AMONT d'exercises.js
+  // dans le DAG et ne peut donc pas interroger l'index.
+  var horsSrs =
+    session.meta.kind === "story" || ex.type === "reading" || ex.type === "write";
+  var res = horsSrs
+    ? Progress.storyAnswerRecorded(correct)
+    : Progress.answerRecorded(ex.itemId, correct);
   if (correct) {
     session.xp += res.xpGained;
     UI.soundCorrect();

@@ -417,6 +417,34 @@ describe("cloudMerged", () => {
   });
 });
 
+/* ====== le routage des réponses hors-SRS, verrouillé mécaniquement ====== */
+describe("exercise-renderers.js n'enregistre pas d'item SRS irrésoluble", () => {
+  // Le tri par type ne peut pas vivre dans progress.js (en amont d'exercises.js
+  // dans le DAG, donc sans accès à l'index) : il vit dans le renderer. Faute de
+  // pouvoir l'exécuter sans piloter tout le DOM d'une session, on verrouille la
+  // forme du code, comme pour app.js ci-dessous. Les ids `rq-*` (questions de
+  // compréhension) et `p-*` (productions) n'existent pas dans l'index : un
+  // SRS.record ici volerait des places de révision, buildReviewSession
+  // tronquant à 15 avant de filtrer les ids irrésolubles.
+  const src = readFileSync(
+    resolve(import.meta.dirname, "../js/exercise-renderers.js"),
+    "utf8"
+  );
+
+  it("reading et write sont routés vers l'intention XP-seule", () => {
+    const bloc = src.slice(src.indexOf("var horsSrs"), src.indexOf("if (correct)"));
+    expect(bloc).toMatch(/ex\.type === "reading"/);
+    expect(bloc).toMatch(/ex\.type === "write"/);
+    expect(bloc).toMatch(/Progress\.storyAnswerRecorded\(correct\)/);
+  });
+
+  it("answerRecorded n'est appelé qu'une fois, dans la branche gardée", () => {
+    const appels = src.match(/Progress\.answerRecorded\(/g) || [];
+    expect(appels).toHaveLength(1);
+    expect(src).toMatch(/horsSrs\s*\?[\s\S]{0,120}Progress\.answerRecorded\(ex\.itemId, correct\)/);
+  });
+});
+
 /* ============ l'invariant, verrouillé mécaniquement ===================== */
 describe("app.js n'écrit plus dans l'état", () => {
   const src = readFileSync(resolve(import.meta.dirname, "../js/app.js"), "utf8");

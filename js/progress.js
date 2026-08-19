@@ -104,15 +104,19 @@ function sessionFinished(lessonId, pct) {
 /* --------------------- histoires bonus (data/stories.js) --------------- */
 
 /**
- * Une réponse dans une histoire bonus. Crédite l'XP, et RIEN d'autre.
+ * Une réponse qui n'est pas une clé SRS. Crédite l'XP, et RIEN d'autre.
  *
- * Pas de `SRS.record` ni de `State.touch("items.…")`, contrairement à
- * `answerRecorded` : les ids d'épreuve n'existent pas dans l'index d'exercices
- * (`Exercises.buildIndex` ne parcourt que POLISH_LESSONS), donc
- * `buildReviewSession` les ignorerait silencieusement pour toujours. Les
- * enregistrer ne créerait que du poids mort — dans localStorage ET dans le
- * document Firestore. C'est `tests/progress.test.js` qui verrouille l'absence
- * d'`items` dans l'ensemble d'écriture.
+ * Née pour les épreuves d'histoire, cette intention sert à toute réponse dont
+ * l'`itemId` n'existe pas dans l'index d'exercices : épreuves d'histoire
+ * (`st-*`), questions de compréhension (`rq-*`) et productions libres (`p-*`).
+ * `Exercises.buildIndex` ne parcourt que `vocabulary` et `sentences`, donc
+ * `buildReviewSession` ne pourrait jamais résoudre ces ids : les enregistrer ne
+ * créerait que du poids mort — dans localStorage ET dans le document Firestore —
+ * tout en volant des places de révision, puisque la troncature à 15 a lieu
+ * AVANT le filtrage des ids irrésolubles. Le tri par type se fait dans
+ * `exercise-renderers.js` : ce module est en amont d'`exercises.js` dans le DAG
+ * et ne peut pas interroger l'index. C'est `tests/progress.test.js` qui
+ * verrouille l'absence d'`items` dans l'ensemble d'écriture.
  * @param {boolean} correct
  * @returns {{xpGained: number, leveledUp: boolean, level: number}}
  */
